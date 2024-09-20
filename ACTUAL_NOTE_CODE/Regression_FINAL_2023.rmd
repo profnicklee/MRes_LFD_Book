@@ -1,0 +1,483 @@
+---
+title: 'Learning from Data: Regression'
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Baseline Set Up
+
+This code chunk installs the packages that I typically have as a baseline for all my analysis. Things like reading in Excel files, plots, data management etc.
+
+You don't need to run this every time, but it's useful to have this here in case your own version of R does not have the same packages I have installed over time. The code is hashed out so it doesn't run automatically. Remove the hash symbols at the start of the relevant line if you need the package(s) installed.
+
+```{r}
+# install.packages("readxl")
+# install.packages("ggplot2")
+# install.packages("tidyverse")
+```
+
+# Regression Set Up
+
+Set up for doing the exercises in the Regression lesson
+
+Install required packages specific to this lesson if needed. Note, these are hashed out in this code chunk so they don't install every time I recompile this code. Remove the hash from whatever package you need.
+
+```{r}
+# install.packages("ggpubr")
+# install.packages("psych")
+```
+
+Load data
+
+If you do not have them already, you'll need to download the following 3 data sets from my OSF repository
+
+<https://osf.io/z4mw5/files/osfstorage>
+
+HappyGDP.xlsx
+
+heart.data.xlsx
+
+heights.xlsx
+
+Place them in a location of your choice, so you can point R to them. I do this for the HappyGDP.xlsx file as an example below (hashed out).
+
+```{r}
+#Happy<-read_excel("D:/Dropbox/R_Files/Data/HappyGDP.xlsx", sheet = "2020")
+
+```
+
+## Understanding correlation, association, regression, using R
+
+First, load in the packages needed for this lesson (note the need for readxl and ggplot2 from the baseline packages, so you will need that installed if you do not have them already)
+
+If you get an error message, it is because you didn't have one (or more) of the packages installed, so go back to the setup code above and install what you need.
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(psych)
+library(ggpubr)
+
+```
+
+### Correlations and Associations
+
+First, let's look at the basic concepts of correlation, using some more data from the World Happiness Report, and GDP from the World Bank, all put together by Our World in Data.
+
+Remember, you will need to point the program to where the files are on YOUR computer.
+
+```{r}
+Happy<-read_excel("D:/Dropbox/R_Files/Data/HappyGDP.xlsx", sheet = "2020")
+
+```
+
+Just double check the data by describing it. We've got 249 countries, with population, GDP per capita, and Happiness. There's a fair bit of missing data, but that's ok, as long as we are aware of it.
+
+```{r}
+describe(Happy)
+```
+
+Let's run a basic scatterplot and see what happens.
+
+```{r}
+plot(Happy$Happiness, Happy$GDPpc)
+```
+
+Interpretation, there's seemingly an association here. As one variable increases, the other does too.
+
+Interestingly, I have chosen to put Happiness on the x-axis, which *implies* that the driver of GDP is happiness, whereas if you look at the media articles that are regularly written on this kind of topic, it is usually done the other way round, *implying* that the driver of happiness is GDP.
+
+Nevertheless, while that's an interesting little aside which might be worth thinking about some more, it's important that you do **NOT** draw any causal conclusion from this very basic scatterplot, since there are many other things which could be going on. For example, there could be a spurious relationship - what could cause *both* happiness and GDPpc to increase?
+
+Ideas? could it simply be 'economic development of the country', or 'political stability'? Or something else?
+
+Either way, let's flip this around to more closely resemble figures that often appear using this (and similar) data in the media:
+
+```{r}
+plot(Happy$GDPpc, Happy$Happiness)
+```
+
+There we go, looks very like the figure on the slide from the Economist.
+
+But this association also looks kind of *nonlinear* to me. There are multiple ways to look at this:
+
+1.  there may be two groups of country, low and high income, and different linear associations within those groups.
+2.  It could be a nonlinear relationship? In fact, you could check this out by *transforming* GDPpc. Here, I might judge that a log transform might work...let's have a go..
+
+```{r}
+Happy$GDPpc_log <- log(Happy$GDPpc)
+```
+
+Check it worked...
+
+```{r}
+describe(Happy)
+```
+
+Let's rerun the plot...
+
+```{r}
+y <- Happy$Happiness
+x <- Happy$GDPpc_log
+plot(x, y)
+```
+
+That's kind of cool.
+
+Now, what we could do is look at the *correlations* for a slightly different way of interpreting the information.
+
+Let's pop back to the slide deck...
+
+...
+
+With that in mind, let's take a quick look at the correlations for these variables.
+
+```{r}
+Assoc1 <- cor.test(Happy$Happiness, Happy$GDPpc, 
+                    method = "pearson")
+
+Assoc2 <- cor.test(Happy$Happiness, Happy$GDPpc_log, 
+                    method = "pearson")
+Assoc1
+Assoc2
+
+```
+
+We can see that the association is stronger (the correlation is higher) for the log GDPpc variable, although to be honest, it is not a very big difference in this data, compared to other data sets discussed in the media. Interesting in itself (note we are using 2020 data, so maybe the pandemic has something to do with it?)
+
+### Regression
+
+We can add a regression line to this scatterplot, for some extra information over the correlation
+
+```{r}
+y <- Happy$Happiness
+x <- Happy$GDPpc
+# Plot with main and axis titles
+# Change point shape (pch = 19) and remove frame.
+plot(x, y, main = "Main title",
+     xlab = "X axis title", ylab = "Y axis title",
+     pch = 19, frame = FALSE)
+# Add regression line
+plot(x, y, main = "Main title",
+     xlab = "X axis title", ylab = "Y axis title",
+     pch = 19, frame = FALSE)
+abline(lm(y ~ x, data = Happy), col = "blue")
+ 
+```
+
+```{r}
+ggscatter(Happy, x = "GDPpc", y = "Happiness", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "GDP per capita", ylab = "Happiness")
+```
+
+I might also decide to do this with the log GDPpc to see what happens.
+
+```{r}
+y <- Happy$Happiness
+x <- Happy$GDPpc_log
+# Plot with main and axis titles
+# Change point shape (pch = 19) and remove frame.
+plot(x, y, main = "Main title",
+     xlab = "X axis title", ylab = "Y axis title",
+     pch = 19, frame = FALSE)
+# Add regression line
+plot(x, y, main = "Main title",
+     xlab = "X axis title", ylab = "Y axis title",
+     pch = 19, frame = FALSE)
+abline(lm(y ~ x, data = Happy), col = "blue")
+ 
+
+```
+
+```{r}
+Happy_log<-Happy
+ggscatter(Happy_log, x="GDPpc_log", y="Happiness" ,
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "log GDP per capita", ylab = "Happiness")
+```
+
+So, this is an improvement, but not by that much in my view. That said, it's clear that the line is a bit more accurate (the errors are lower which can be seen by the narrower shaded regions)
+
+Either way, the regression line adds a layer of information on to the correlation, which allows us to predict y from x.
+
+How so? Well, let's add the regression equation to the chart to see:
+
+```{r}
+Happy_log<-Happy
+ggscatter(Happy_log, x="GDPpc_log", y="Happiness" ,
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "log GDP per capita", ylab = "Happiness")+
+#add regression line code from https://rpkgs.datanovia.com/ggpubr/reference/stat_regline_equation.html
+  
+  stat_regline_equation(
+  mapping = NULL,
+  data = NULL,
+  formula = y ~ x,
+  label.x.npc = "center", #put in center not left (my own change)
+  label.y.npc = "top",
+  label.x = NULL,
+  label.y = NULL,
+  output.type = "expression",
+  geom = "text",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
+
+```
+
+This adds an *intercept*, and with that plus the coefficient we have all we need to plot a straight line, which we can *extrapolate* to higher values of GDPpc (although remember this is the logged GDP variable) and predict what the happiness scores would be.
+
+This is obviously viable to the extent we can justify the relationship, and also within the parameters of our variables, and how confident we are that the relationship is consistent at all levels of the variables.
+
+Let's pop back to the slide deck again for a second.....
+
+We can also use Spiegelhalter's code to replicate his Figure 5.1 for our slide deck, and spend some time talking about it
+
+```{r}
+#Code taken from Spiegelhalters github, with some small changes to reflect how I work
+#this code is data prep for the figure.
+
+#Data from 1991-1995 are contained in [05-1-galton-x.csv](05-1-galton-x.csv),
+#Although the book says the data is from [HistData: Data Sets from the History of #Statistics and Data Visualization, #2018](https://cran.r-project.org/web/packages/HistData/index.html), I have #actually used this version of  [Galton's Height #Data](http://www.randomservices.org/random/data/Galton.html)
+
+
+galton<-read_excel("D:/Dropbox/R_Files/Data/Heights.xlsx") 
+
+# read excel file into dataframe galton - data copied from Spiegelhalter's csv into an excel sheet for ease of translation to my working methods.
+
+attach(galton) #uncomment if/while necessary
+summary(galton)
+
+# summary statistics
+# need means for unique fathers and mothers - identify first mention of each family
+Unique.Fathers=numeric()
+Unique.Mothers=numeric()
+nunique=1 # number of unique families 
+Unique.Fathers[1] = Father[1]
+Unique.Mothers[1] = Mother[1]  
+ for(i in 2:length(Family))
+{   
+    if(Family[i] != Family[i-1]){
+      nunique=nunique+1
+    Unique.Fathers[nunique]=Father[i]
+    Unique.Mothers[nunique]=Mother[i]
+    }
+  }
+  
+length(Unique.Fathers)
+summary(Unique.Fathers)
+sd(Unique.Fathers)
+length(Unique.Mothers)
+summary(Unique.Mothers)
+sd(Unique.Mothers)
+ 
+Son = Height[Gender=="M"] 
+length(Son)
+summary(Son)
+sd(Son)
+Daughter = Height[Gender=="F"]
+length(Daughter)
+summary(Daughter)
+sd(Daughter)
+```
+
+### Figure 5.1 (page 124) Linear regression of sons' on fathers' heights
+
+```{r}
+#basic figure
+# Heights of fathers of sons
+FatherS = Father[Gender=="M"]
+fit <- lm(Son ~ FatherS) # linear regression data in fit
+Predicted <- predict(fit)   # Get the predicted values
+summary(fit)
+FatherS.j <- jitter(FatherS, factor=5) 
+Son.j <- jitter(Son, factor=5)
+xlims=ylims=c(55,80)
+par(mfrow=c(1,1), mar=c(4,4,2,0), pty="s")  # square plot
+plot(FatherS.j, Son.j, xlim=xlims,ylim=ylims,cex=0.7,
+     xlab="father's height (inches)",ylab="son's height (inches)" , col="gray68")
+lines(c(xlims[1],xlims[2]),c(xlims[1],xlims[2]),lty=2 )
+lines(Predicted~FatherS,lwd=2)
+```
+
+```{r}
+#correlations
+Assoc <- cor.test(FatherS, Son, 
+                    method = "pearson")
+Assoc
+
+```
+
+```{r}
+#NICK added code to display regression equation 30/10/2022
+# create new data frame with exact and jittered, and predcted values
+Males = cbind.data.frame(FatherS,FatherS.j,Son,Son.j,Predicted)
+p <- ggplot(Males, aes(x=FatherS, y=Son)) # initial plot object
+p <- p + geom_point(x=FatherS.j,y=Son.j,shape= 1) # defines scatter type plot
+p <- p + labs(x="Father's height (inches)", y= "Son's height (inches)") # adds x and y axis labels
+p <- p + theme(legend.position="none")#, legend.box = "horizontal") # removes the legend
+p <- p + expand_limits(x = c(55,80),y = c(55,80)) # expand the axis limits
+p <- p + geom_line(aes(FatherS,Predicted),size=1.5) # add previously fitted linear regression line  
+p <- p + geom_abline(slope=1, linetype="dashed") # line to represent equality between son and father height
+#code for regression equation added by Nick 30/10/2022
+p<- p + stat_regline_equation(
+  mapping = NULL,
+  data = NULL,
+  formula = y ~ x,
+  label.x.npc = "left", #put in center not left (my own change)
+  label.y.npc = "top",
+  label.x = NULL,
+  label.y = NULL,
+  output.type = "expression",
+  geom = "text",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+) #end Nick's addition
+# select single data points by CSV datarow numbers
+pointA=c(137)  
+pointB=c(28)
+# plot residual line and end points for selectedpointA
+p <- p + geom_point(aes(x=FatherS.j[pointA], y = Predicted[pointA]), shape = 1)
+p <- p + geom_point(aes(x=FatherS.j[pointA], y = Son.j[pointA]), shape = 1)
+p <- p + geom_segment(linetype="dashed", size=1, colour="purple",aes(x=FatherS.j[pointA],y=Son.j[pointA],xend = FatherS.j[pointA], yend = Predicted[pointA])) #p <- p + p
+# plot residual line and end points for pointB
+p <- p + geom_point(aes(x=FatherS.j[pointB], y = Predicted[pointB]), shape = 1)
+p <- p + geom_point(aes(x=FatherS.j[pointB], y = Son.j[pointB]), shape = 1)
+p <- p + geom_segment(linetype="dashed", size=1, colour="purple",aes(x=FatherS.j[pointB],y=Son.j[pointB],xend = FatherS.j[pointB], yend = Predicted[pointB]))
+p #displays the result
+```
+
+Figure 5.1 Scatter of heights of 465 fathers and sons from Galton's data (many fathers are repeated since they have multiple sons). A jitter has been added to separate the points, and the diagonal dashed line represents exact equality between son and father's heights. The solid line is the standard 'best-fit' line. Each point gives rise to a 'residual' (dashed line), which is the size of the error were we to use the line to predict a son's height from his father's.
+
+## Multiple Regression
+
+Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: <https://www.scribbr.com/statistics/linear-regression-in-r/>
+
+```{r}
+Heart<-read_excel("D:/Dropbox/R_Files/Data/heart.data.xlsx")
+
+```
+
+```{r}
+describe(Heart)
+```
+
+```{r}
+ggscatter(Heart, x = "smoking", y = "heart.disease", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Smoking", ylab = "Heart Disease")
+```
+
+```{r}
+ggscatter(Heart, x = "biking", y = "heart.disease", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Biking", ylab = "Heart Disease")
+```
+
+```{r}
+ggscatter(Heart, x = "smoking", y = "biking", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Smoking", ylab = "Biking")
+```
+
+OK, so these are *simple* regression lines, with bivariate scatterplots. What I mean, is the effect of biking on heart disease does not take account of the effect of smoking on heart disease. What we need to do is run a model which takes account of *both* the predictors.
+
+Let's pop back to the slides for a second...
+
+Now we can run the Multiple Regression Model
+
+```{r}
+heart.disease.lm<-lm(heart.disease ~ biking + smoking, data = Heart)
+
+summary(heart.disease.lm)
+```
+
+We can interpret these results just as we did the earlier simple regression results.
+
+A 1 unit increase in biking will on average lead to a 0.2 unit decrease in heart disease A 1 unit increase in smoking will on average lead to a 0.17 unit increase in heart disease.
+
+Of course, what these 'units' refer to depends on what you have measured them with of course. But, the unarguable interpretation is that the effect is strong.
+
+However, because the scales of the variables are different, its not really possible to compare the sizes of the effects. So to some extent we don't know which of the two variables has the 'bigger' effect here, relatively at least.
+
+To do that, we need to standardize the coeffiecients, and to do that in R, we need to create a new set of standardized data, and run the model on that, as follows:
+
+```{r}
+std_Heart = data.frame(scale(Heart))
+```
+
+```{r}
+describe(std_Heart)
+```
+
+```{r}
+std.heart.disease.lm<-lm(heart.disease ~ biking + smoking, data = std_Heart)
+
+summary(std.heart.disease.lm)
+```
+
+You can see the things that have changes are the 'Estimates', which are now standardized.
+
+In decimal, they are -0.94 for biking and 0.32 for Smoking.
+
+The correct interpretation of these standardized effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heard disease.
+
+So, we can see that actually smoking has a much higher relative effect on heart disease than smoking (although in the opposite direction). However, this assumes that both the two IVs have similar standard deviations, and distributions. Which, we didn't check.
+
+### Visualizing Multiple Regression
+
+There are loads of different ways to visualize multiple regression. It's not trivial, because we have more than two variables, so we can't use the techniques we used already.
+
+Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much payoff (if any).
+
+In this case, we can use a pretty simple visualization, where we could plot the relationship of biking to heart disease at different levels of smoking.
+
+This would be a quite typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn't really work that way, but it's a cool visualization regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <https://www.scribbr.com/statistics/linear-regression-in-r/>
+
+```{r}
+viz.data<-expand.grid(
+  biking = seq(min(Heart$biking), max(Heart$biking), length.out=30),
+    smoking=c(min(Heart$smoking), mean(Heart$smoking), max(Heart$smoking)))
+
+viz.data$predicted.y <- predict.lm(heart.disease.lm, newdata=viz.data)
+
+viz.data$smoking <- round(viz.data$smoking, digits = 2)
+
+viz.data$smoking <- as.factor(viz.data$smoking)
+
+heart.plot <- ggplot(Heart, aes(x=biking, y=heart.disease)) +
+  geom_point()
+
+heart.plot
+
+heart.plot <- heart.plot +
+  geom_line(data=viz.data, aes(x=biking, y=predicted.y, color=smoking), size=1.25)
+
+heart.plot
+```
+
+Here, we can see that the effect of smoking is really just to raise the likelihood of heart disease, however much biking you do.
+
+So, for a given person who bikes a given amount, if they smoke more they will have a higher risk than a person who bikes the same amount but smokes less.
+
+But, for a given smoker, the more they bike, the lower their risk of heart disease, to the extent that if a heavy smoker bikes enough, their actual risk of heart disease could even be lower than a non-smoker who does not bike at all.
+
+Don't forget, this is not real data, but the point stands.

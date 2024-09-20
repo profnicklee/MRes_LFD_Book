@@ -1,0 +1,42 @@
+---
+title: "Factor Analysis Setup"
+output: html_document
+date: "2022-10-26"
+---
+
+
+# Factor Analysis in R: Introduction
+
+Set up for doing factor analysis
+
+first install and load required packages
+
+```{r}
+install.packages("psych")
+install.packages("psychTools")
+install.packages("GPArotation")
+install.packages("semTools")
+```
+
+
+```{r}
+library(psych)
+library(psychTools)
+library(readxl)
+library(GPArotation)
+library(semTools)
+```
+
+Load data
+
+You'll need to download the 'EXCERCISE_1_OC.xlsx' file from the OSF repository, and place it in a location of your choice, so you can point R to it, as I do below.
+
+Remember, you'll need your code to point to the file location on your computer not mine! I keep all my data files in a single directory on my D drive. You need to work our your own setup.
+
+```{r}
+OC<-read_excel("D:/Dropbox/R_Files/Data/EXCERCISE_1_OC.xlsx")
+```
+
+On Friday, we will download the rest of this script, and you can follow along with it if you want to.
+
+

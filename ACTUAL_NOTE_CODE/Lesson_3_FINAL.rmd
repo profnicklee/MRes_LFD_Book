@@ -1,0 +1,246 @@
+---
+title: "Lesson 3 Final"
+output:
+  html_document:
+    df_print: paged
+date: "25 October 2023"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# The Normal Distribution in R - Introduction and Demonstration
+
+First make sure you have installed the required packages 
+
+Below is the code to install the only package you need for this one, but I have hashed it out in case you already have installed it. If you need to install it, you will need to delete the # symbol at the start of the line.
+
+
+```{r}
+#install.packages("moments")
+
+```
+
+Next, run the package
+
+
+```{r}
+library(moments)
+```
+
+First, let's consider the 'empirical distribution', which is the pattern your data set makes.
+
+Let's consider UK births in 2020 for our example, since they're a subject close to my heart.
+
+Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g 'bins'.
+
+Source: https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data
+
+We can use these numbers to create a chart
+
+(please note, the code in this lesson is are mostly modified from David Spiegelhalter's originals, available on his Github page, with some of my own bits and bobs and new data...)
+
+Spiegelhalter's Github can be found here: https://github.com/dspiegel29/ArtofStatistics
+
+
+```{r}
+weights=c(1500, 2000, 2500, 3000, 3500, 4000, 4500,5000,5500) #modified categories from 2020 UK Data
+mids=weights-250 # Note the DS original is +250, but this does not work for UK data as the numbered is the UPPER bound of the weight category in the ONS stats. So the babies in the '2000' bin weigh 1500-1999, so the midpoint is 1750, not 2250
+n=c(5015, 7103, 27554, 99220, 218442, 179088, 53530,6952,635) # numbers in each bin, UK2020
+N=sum(n)  # total number of babies
+area=N*500  # number * binwidth = total area of histogram
+
+#I think lbw should be sum of groups 1-3 not 1-2 as in the book code. Using 1-3 gives a result for the UK of 6.6% which tallies with the official stat given that I remove the 'no recorded weight' and 'implausible' categories'. I imagine that the DS book data has categories which may be the lower bound not the upper as in the UK data table.
+
+lbw   = sum(n[1:3])   # number with low birth weight (less than 2500)
+lbw.percent=100*lbw/N  # % low birth weight
+# 6.6% which tallies with Nuffield stat for 2020.
+
+```
+
+Note, the above just sets up the numbers required to recreate the distribution chart.
+
+Next, I want to summarize the empirical distribution and a few important numbers regarding Low Birthweight that we will need to use for our later discussion:
+
+```{r}
+print(N)
+print(lbw)
+print(lbw.percent)
+```
+
+Next, calculate the mean and standard deviation of the empirical distribution:
+
+```{r}
+#calculate mean and sd of population
+# could use sheppard's correction
+
+birth.mean=sum(n*mids/N)
+birth.sd=sqrt( sum(n*(mids-birth.mean)^2)/N)
+```
+
+```{r}
+print(birth.mean) # note as a sense check this mean tallies broadly with that reported in the media around that time which is around 7lb 8oz - 3401g. Slight neg skew expected here I guess due to the mids calculation.
+print(birth.sd)
+```
+
+```{r}
+# just for my own info
+skewness(weights)
+kurtosis(weights)
+```
+
+Next, calculate the estimated proportion of low birthweight babies using a normal distribution approximation, and see if it tallies OK with the empirical distribution figure of 6.6%
+
+Calculate the middle birthweight proportion as a sense check - should be very close to 50%!
+
+```{r}
+
+# per cent less than 2500 from normal approximation
+lbw.est = 100 * pnorm(2500,birth.mean, birth.sd)
+# 7.2%, not a bad approximation for UK figure which is about 6.6% from nuffield
+
+mbw.est = 100 * pnorm(3345, birth.mean, birth.sd)
+
+```
+
+```{r}
+print(lbw.est)
+print(mbw.est)
+```
+
+For my own reference, the 25th, 50th, 75th percentiles
+
+```{r}
+
+#25th, 50th and 75th percentiles of population
+qnorm(0.25, birth.mean,birth.sd)
+qnorm(0.50, birth.mean,birth.sd)
+qnorm(0.75, birth.mean, birth.sd)
+```
+
+Next, calculate the percentile of Monty
+
+```{r}
+# percentile of baby weighing MONTY
+xw = 3912
+pnorm(xw, birth.mean,birth.sd)
+#83rd percentile. Fairly large. Tallies with the numbers on record.
+```
+
+Now, at last, we can do some plots!
+
+First let's set up the histogram and overlay a normal distribution on to it.
+
+The weight of Monty is overlaid as a red line. We can see if this is 'unusual' or not.
+
+But, what actually is a normal distribution?
+
+```{r}
+par(mfrow=c(2,2))
+# setup plot ranges noting max of normal density is at mean
+xrange <- c(1500,6000)
+yrange <- range( c(n, area*dnorm(birth.mean, birth.mean, birth.sd), 0))
+scale=0.6
+par(mar=c(5,0,1,0)+0.1)
+
+# (a) empirical distribution and fitted normal
+plot(xrange, yrange, type = "n", xlab = "", ylab = "",
+     bty="n",axes=F,main="(a) Distribution of birthweights", cex=scale)
+axis(1,cex=scale) 
+# draw bars using rect and density using curve
+rect(weights, 0, weights - 500, n, col = "lightblue")
+curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE, 
+      lwd=3, col="blue")
+lines(c(xw,xw),yrange,col="red",lwd=2)
+```
+
+Below, we chart the normal distribution with Standard Deviations.
+
+Mathematically, around 95% of the area under the chart is between -2 and +2 SDs, and 99.8% between -3 and +3 SDs
+
+Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occuring. So, you could say that it is 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
+
+We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594
+
+So, it is 95% probable that a random baby born in the UK in 2020 will weigh between 2189.745 and 4500.781g
+
+```{r}
+# (b)   plot with sds  
+plot(xrange, yrange, type = "n", xlab = "", ylab = "",
+     bty="n",axes=F,,main="(b) Mean +/- 1, 2, 3 SDs" )
+axis(1)
+curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE, lwd=3, col="blue")
+I=-3:3
+x1=birth.mean+I*birth.sd
+y1=area*dnorm(x1,birth.mean, birth.sd)
+label=c("-3 SDs", "-2 SDs", "-1 SD", "mean", "+1 SD","+2 SDs", "+3 SDs")
+bit=10000
+xx=250
+shift=c(-xx,-xx,-xx,0,xx,xx,xx)
+for(i in 1:7){
+  lines(c(x1[i],x1[i]), c(0,y1[i]),lwd=2)
+  text(x1[i]+shift[i],y1[i]+bit,label[i],cex=0.75)
+}
+lines(c(xw,xw),yrange,col="red",lwd=2)
+```
+
+We can calculate how many SDs Monty's weight was above the mean by calculating the z-score for his weight of 3912g.
+
+SEE SLIDE DECK
+
+Next, we can overlay percentiles in 5% increments on the chart, which are also useful ways to describe a distribution like the Normal.
+
+50th is of course the median, and the 25th and 75th percentilies are the quartiles.
+
+Here, the same things we have previously discussed in relation to samples are applied to populations
+
+We can also see that Monty lies on the 83rd percentile, that is 83% of babies born in 2020 weighed less. This tallies with what we were told at the time, and then things are monitored quite closely from that time on in terms of percentiles.
+
+```{r}
+plot(xrange, yrange, type = "n", xlab = "Birthweight (gms)", ylab = "",
+     bty="n",axes=F,,main="(c) Percentiles" )
+axis(1)
+curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE,
+      lwd=3, col="blue")
+I=c(1,5,25,50,75,95,99)
+x1=qnorm(I/100, birth.mean,birth.sd)
+y1=area*dnorm(x1,birth.mean, birth.sd)
+label=c("1%", "5%", "25%", "50%","75%","95%","99%")
+bit=5000
+for(i in 1:7){
+  lines(c(x1[i],x1[i]), c(0,y1[i]),lwd=2,lty=2)
+  text(x1[i],-bit,label[i],cex=0.6)
+}
+lines(c(xw,xw),yrange,col="red",lwd=2)
+
+```
+
+Moving to a discussion of low birthweight. It is medically defined as low if below 2500g. Nuffield reports that 6.6% of babies in 2020 were born at low birthweight, which is fairly good.
+
+This tallies fairly well with the predicted proportion from the normal distribution of 7.2%
+
+What we gain from the grey shaded area is the proportion of the population which is expected to be born at low birthweight, but also an indication of the probability that a randomly-chosen baby born in 2020 would be of low weight.
+
+This concept can easily be transferred to other weights in this population (and by extension to other variables and populations distributed like this)
+
+```{r}
+# (d)  Low birth weight  
+plot(xrange, yrange, type = "n", xlab = "Birthweight (gms)", ylab = "",
+     bty="n",axes=F,,main="(d) Low birth weight" )
+axis(1)
+curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE,
+      lwd=3, col="blue")
+x1=seq(1500,2500,10)
+y1=area*dnorm(x1,birth.mean, birth.sd)
+polygon(c(x1,x1[101:1]),c(rep(0,101), y1[101:1]),col="lightblue")
+
+lines(c(xw,xw),yrange,col="red",lwd=2)
+x1=seq(1500,xw,10)
+nx=length(x1)
+y1=area*dnorm(x1,birth.mean, birth.sd)
+polygon(c(x1,x1[nx:1]),c(rep(0,nx), y1[nx:1]),col="red",density=10)
+
+text(2000,70000,"Proportion\n below\n 2500 gms\n = 7.2%",cex=0.75)
+text(3400,70000,"Proportion\n below\n 3912 gms\n = 83.6%",cex=0.75)
+```

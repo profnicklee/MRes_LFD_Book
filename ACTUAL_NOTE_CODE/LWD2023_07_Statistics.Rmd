@@ -1,0 +1,523 @@
+---
+title: "WBS MRes 2023: Quant Methods Lesson 8 and 9 Probability and Statistics"
+output: html_document
+date: "2023-11-22"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Baseline Set Up
+
+This code chunk installs the packages that I typically have as a baseline for all my analysis. Things like reading in Excel files, plots, data management etc.
+
+You don't need to run this every time, but it's useful to have this here in case your own version of R does not have the same packages I have installed over time. The code is hashed out so it doesn't run automatically. Remove the hash symbols at the start of the relevant line if you need the package(s) installed.
+
+```{r}
+# install.packages("readxl")
+# install.packages("ggplot2")
+# install.packages("tidyverse")
+```
+
+## Probability and Statistics Set Up
+
+Set up for doing the exercises in the Probability and Statistics lesson
+
+Install required packages specific to this lesson if needed. Note, these are hashed out in this code chunk so they don't install every time I recompile this code. Remove the hash from whatever package you need.
+
+```{r}
+#note: some of these aren't used for the code that I run, but for other parts I have hashed out.
+#install.packages("combinat")
+#install.packages("gtools")
+#install.packages("ggpubr")
+#install.packages("mosaic")
+
+#install.packages("dplyr")
+#install.packages("gganimate")
+#install.packages("gifski")
+#install.packages("png")
+#install.packages("installr")
+```
+
+Load data
+
+If you do not have them already, you'll need to download the following 4 data sets from my OSF repository
+
+<https://osf.io/z4mw5/files/osfstorage>
+
+CLT.xlsx
+
+EPL21-22.xlsx
+
+EPLGOALS.xlsx
+
+EPLGOALSZ.xlsx
+
+Place them in a location of your choice, so you can point R to them. I do this for the CLT.xlsx file as an example below (hashed out).
+
+```{r}
+#Happy<-read_excel("D:/Dropbox/R_Files/Data/CLT.xlsx)
+
+```
+
+## Introduction to Probability
+
+In this lesson, we will learn about the classical theory of probability, through a set of worked examples in R.
+
+First, we load the required packages.
+
+```{r cars}
+#note: some of these aren't used for the code that I run, but for other parts I have hashed out.
+library(tidyverse)
+library(combinat)
+library(gtools)
+library(readxl)
+library(ggplot2)
+library(ggpubr)
+library(mosaic)
+
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(png)
+library(installr)
+```
+
+## Simulating Coin Flips
+
+The first thing we'll do is simulate some fair coin flips (we'll come back to this later as well)
+
+Note: This is virtually copied verbatim from: <https://rpubs.com/pgrosse/545948>
+
+Remember, this is another random process, so results will differ each time slightly
+
+```{r}
+#simulate 5000 flips of a fair coin
+#create data frame for trial number and outcome of an individual coin flip
+flips <- sample(c(0, 1), 5000, replace = TRUE)
+flips <- matrix(flips, ncol = 1)
+flips <- as.data.frame(flips)
+Trial <- seq(1, 5000, 1)
+Trial <- as.data.frame(Trial)
+flipsim <- cbind(flips, Trial)
+colnames(flipsim) <- c("Heads", "Trial")
+```
+
+```{r}
+#calculate cumulative heads at the end of each trial
+flipsim[,"Cum_Heads"] <- cumsum(flipsim$Heads)
+flipsim <- flipsim %>% mutate(Pct_Heads = Cum_Heads/Trial)
+head(flipsim)
+```
+
+Below, we'll plot the results of this simulation for ease of interpretation
+
+```{r}
+#create plot
+fair_plot <- flipsim %>% ggplot(aes(y = Pct_Heads, x = Trial)) + ggtitle("Percentage of Heads \n Fair Coin") + geom_line() 
+
+#note the below code creates the animation, but it does not look quite correct to me when it animates so I do not use it here. If you want to use this, copy the code after the hashtag (starting with a +) to the line above, just after the geom_line() 
+
+#+ geom_segment(aes(xend = 5000, yend = Pct_Heads), linetype = 2,color = "red") + geom_point(size = 2) + transition_reveal(Trial) + ylim(0,1) + coord_cartesian(clip = "off") + theme(plot.title = element_text(hjust = 0.5)) 
+
+fair_plot
+```
+
+## Premier League Goals and the Poisson Distribution
+
+Note, much of the idea and code for this section comes from: <https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html>
+
+The data comes from: <https://www.football-data.co.uk/englandm.php> and is the EPL results for 21-22 Season
+
+However, I admit that for the sake of time, I created in Excel a new table of Total Goals (TOTG) rather than here in R.
+
+```{r}
+EPL<-read_excel("D:/Dropbox/R_Files/Data/EPL21-22.xlsx")
+head(EPL)
+```
+
+```{r}
+summary(EPL$HomeTeam)
+```
+
+The above is a quick way of calculating / checking the total number of games if you don't know already.
+
+```{r}
+summary(EPL$TOTG)
+```
+
+```{r}
+sum(EPL$TOTG)
+```
+
+First, let's plot the distribution of goals.
+
+If you've ever seen a Poisson distribution, you'll recognise this!
+
+```{r}
+ggplot(EPL, aes(x = TOTG)) +
+  geom_histogram(color = "darkgreen", fill = "lightgreen", bins = 10) +
+  scale_x_continuous(breaks= 0:9)
+```
+
+So, this looks fairly Poisson-y, but it's always a good idea to check this in a bit more depth. In fact, there is a formal test of this, but we don't need to go to that depth here.
+
+First, let's create a table of all the matches with different numbers of goals.
+
+```{r}
+GoalsTable <- 
+  EPL %>% 
+  group_by(TOTG) %>% 
+  summarise(ActualMatches = n())
+GoalsTable 
+```
+
+Let's pull some stats of the Total Goals variable.
+
+```{r}
+fav_stats(EPL$TOTG)
+```
+
+Below is some code which will help us to create the distributions and also check them.
+
+```{r}
+MeanGoals <- fav_stats(EPL$TOTG)[[6]]
+numMatches <- fav_stats(EPL$TOTG)[[8]]
+StDevGoals <- fav_stats(EPL$TOTG)[[7]]
+VarianceGoals <- StDevGoals ^ 2
+```
+
+Importantly, because the Poisson distribution is described only by its mean, the first and most basic check we can do is whether the mean and the variance of the variable are the same (or at least very close)
+
+```{r}
+MeanGoals
+```
+
+```{r}
+VarianceGoals
+```
+
+This is not exactly the same, but good enough to be going on with.
+
+So, we are happy that we can try to use the Poisson distribution to describe the number of total goals scored in a premier league game.
+
+The first thing I am going to do is build a figure which compares the actual numbers of goals scored in games with the predicted numbers which would be scored if the goals scored were a perfect Poisson distribution.
+
+This is really just for illustration purposes, not to actually answer our core question, which we will come to...
+
+Ideally, we would build the Poisson probabilities for 0-9 goals (which is our maximum number scored in 21-22). However, if you do this, you will find that the two tables (actual and predicted goals) will have different numbers of rows. This is because there were no games with 8 goals scored in 21-22, but one with 9.
+
+This is a bit annoying, but not a big issue. What we do is build a Poisson probability distribution for 0-8 goals, and treat the final probability as that for '8 or more' goals, for the purposes of drawing our figure. This isn't strictly correct, because we have not collected up our actual goal data into that category, but we could do that if we wanted to.
+
+Anyway, later, we'll break this down properly to answer the question of whether we should predict a game with 10 goals in the 22-23 season, but for our showy graph we don't really need to do it.
+
+```{r}
+PoisProb <- dpois(c(0:8), MeanGoals)
+POIS <-data.frame(PoisProb)
+POIS
+```
+
+So, this allows us to make some predictions of what we could expect.
+
+Remembering again that there are 380 games in a season, we can see that there is a 0.16% chance of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.
+
+We can check this out by creating a new table comparing actual with predicted values...
+
+```{r}
+NewGoalsTable <- cbind(GoalsTable, PoisProb) 
+NewGoalsTable <- mutate(GoalsTable, 
+                        ExpectedMatches = round(numMatches * PoisProb))
+NewGoalsTable
+```
+
+Remember, as you can see above, the row for '8' is missing, and it goes straight to 9. So, to repeat, just take (for simplicity's sake here) the final row of Expected Matches as meaning '2 games with 8 or more goals'
+
+Anyway, it's pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).
+
+Let's plot this for the payoff:
+
+```{r}
+NewGoalsTable %>% 
+  gather(ActualMatches, ExpectedMatches, 
+         key = "Type", value = "numMatches") %>% 
+  ggplot(aes(x = TOTG, y = numMatches, fill = Type)) +
+  geom_bar(stat = "identity", position = "dodge")
+```
+
+So, the above was a bit of show, but what we want is the 'go'. In other words, should we place a bet that there will be a game in the 22-23 season with 10 goals?
+
+Remember, there were 380 games in 21-22, none of which contained 10 goals. So, for ease of thinking about this, let's make the assumption that the PL started in 2021, and there were no games before to count (in reality, we would go back to the last time 10 goals were scored and count from there, but let's go with this in the first instance, and we'll expand later on, promise).
+
+So, first, we need to calculate a new set of probabilities out to 10 goals.
+
+```{r}
+PoisProb <- dpois(c(0:11), MeanGoals)
+POIS <-data.frame(PoisProb)
+POIS
+```
+
+So, the number we want is the second-last probability: 0.00052.
+
+This is because the table starts from the probability of 0 goals.
+
+This means we can expect a game with 10 goals to happen every 1923 games
+
+Calculate this by dividing 1 by the probability.
+
+So, given there are 380 games per season, you would expect a game with 10 goals to happen once every 5 seasons.
+
+So, if I started counting from the 21-22 season, the answer is NO, I would not bet on there being a game with 10 goals in the 22-23 Premier League season.
+
+But, let's add some further context, as of November 2022, there have been 5 games in the history of the Premier League where 10 goals have been scored (and 1 with 11).
+
+The Premier League has been going since 1992, and so far in Nov 22 there have been...30 seasons. So, we are probably due one.
+
+AND, the last game with 10 goals was in 2013 (Man Utd 5, West Brom 5)
+
+So, I reckon we are definitely-maybe-probably due one.
+
+I might have a flutter after all...
+
+By the way, as of the start of the 22-23 season, there had been 21 matches with 9 goals. We would expect given our Poisson distribution that a game with 9 goals should happen every 1.4 seasons, meaning over 30 seasons we would expect.... 21.
+
+**2023 Update** 
+So, the above example is *totally unchanged* from when I originally coded it in 2022. The million dollar question: *was there a game with 10 goals in the 22-23 season...?*
+The answer is no, there wasn't. But there were two with 9! Luckily I am not a betting man. I do think we are due one, so this season is probably a good bet... Unless of course you think something has fundamentally changed about the premier league in recent years, changing the probability of goals (and thus suggesting recent seasons are drawn from a *Poission distribution with different characteristics* than past ones), which is in fact an interesting question...
+
+# Statistics
+
+Now, we begin to apply our probability concepts to statistics.
+
+## The Law of Large Numbers
+
+Demonstration by repeating the coin-flip simulation
+
+Remember, this is another random process, so results will differ each time slightly
+
+```{r}
+#This is virtually copied verbatim from: https://rpubs.com/pgrosse/545948
+#extended it to 10000 flips
+#simulate 10000 flips of a fair coin
+#create data frame for trial number and outcome of an individual coin flip
+flips <- sample(c(0, 1), 10000, replace = TRUE)
+flips <- matrix(flips, ncol = 1)
+flips <- as.data.frame(flips)
+Trial <- seq(1, 10000, 1)
+Trial <- as.data.frame(Trial)
+flipsim <- cbind(flips, Trial)
+colnames(flipsim) <- c("Heads", "Trial")
+```
+
+```{r}
+#calculate cumulative heads at the end of each trial
+flipsim[,"Cum_Heads"] <- cumsum(flipsim$Heads)
+flipsim <- flipsim %>% mutate(Pct_Heads = Cum_Heads/Trial)
+head(flipsim)
+```
+
+```{r}
+#create plot
+fair_plot <- flipsim %>% ggplot(aes(y = Pct_Heads, x = Trial)) + ggtitle("Percentage of Heads \n Fair Coin") + geom_line() 
+
+#note the below code creates the animation, but it does not look correct to me when it animates so I do not use it here. If you want to include it, move the + up to the end of the 
+#last line above.
+#+ geom_segment(aes(xend = 5000, yend = Pct_Heads), linetype = 2,color = "red") + geom_point(size = 2) + transition_reveal(Trial) + ylim(0,1) + coord_cartesian(clip = "off") + theme(plot.title = element_text(hjust = 0.5)) 
+fair_plot
+```
+
+## The Distribution of Sample Means, and the Central Limit Theorem
+
+First, let's read in the data set.
+
+```{r}
+CLT<-read_excel("D:/Dropbox/R_Files/Data/CLT.xlsx")
+head(CLT)
+```
+
+```{r}
+summary(CLT$Income)
+```
+
+Let's plot the distribution, and if we do so we will find that it is essentially uniform - every value occurs once in the population.
+
+```{r}
+ggplot(CLT, aes(x=Income))+geom_histogram(binwidth=400, colour="black", fill="white")
+```
+
+Now, what I am going to do is take a sample of 2 from that population, and take the mean
+
+I do this using a 'combination' operation
+
+```{r}
+##code modified from: https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/
+vec <- CLT$Income
+  
+# generating 1 random combination of 2 of the 
+# Income values 
+print ("One Random Combination of 2 of the 20 Income Values")
+res1<- combinations(n= 2, r = 2, v = vec)
+print (res1)
+
+
+```
+
+Let's take the mean of that:
+
+```{r}
+data1<-data.frame(res1)
+
+head(data1)
+```
+
+```{r}
+data1$MDIST <- rowMeans(data1)
+
+head(data1)
+```
+
+So, the mean is 5800 (yes, I know there must have been a more efficient way to do that. Answers on a postcard).
+
+So, let's do that for every possible combination of 2 values from this population.
+
+Given there are n=20 values in the population, there are k=190 possible combinations of two values.
+
+Note: This is not the same as bootstrapping - we are *not sampling with replacement* here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.
+
+Remember the ping-pong balls!
+
+Let's do it:
+
+```{r}
+##code modified from: https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/
+vec <- CLT$Income
+  
+# generating combinations of the 
+# Income values taking 2 at a time
+print ("Every Possible Combination of the 20 Income Values")
+res<- combinations(n= 20, r = 2, v = vec)
+print (res)
+  
+print ("Number of combinations without repetition")
+print (nrow(res))
+
+
+```
+
+```{r}
+data<-data.frame(res)
+
+head(data)
+```
+
+Let's create the means again
+
+```{r}
+data$MDIST <- rowMeans(data)
+
+head(data)
+```
+
+OK, so here is the kicker. Let's plot a histogram of these means:
+
+```{r}
+ggplot(data, aes(x=MDIST))+geom_histogram(bins=13, colour="black", fill="white")
+
+```
+
+Well well well!
+
+Even though the original population was a completely uniform distribution with a mean of 9400, the distribution of all of the sample means looks quite a lot like a gaussian / normal distribution!
+
+Let's overlay one on it as well to make the point...
+
+```{r}
+ggplot(data, aes(x=MDIST))+geom_histogram(bins = 13, aes (y=..density..), colour="black", fill="white")+
+ geom_density(alpha=.2, fill="#FF6666")
+```
+
+Further, let's take the mean of those means...
+
+```{r}
+summary(data$MDIST)
+```
+
+Hello! It turns out, the mean of those means is the population mean!!!
+
+This, in a demonstration, is *the central limit theorem.*
+
+## Rate of Change in Football Goals per Season
+
+Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+
+I hand-entered this into a spreadsheet, and calculated the additional stuff.
+
+```{r}
+EPLGOALS<-read_excel("D:/Dropbox/R_Files/Data/EPLGOALS.xlsx")
+head(EPLGOALS)
+```
+
+You can see here I have calculated the standard errors from the yearly goal totals (which represent that year's underlying rate of goal occurrence), then used that to calculate the 95% Confidence Interval limits
+
+We can use these to create a nifty chart with the error bars...drawing from the code used by Spiegelhalter in his book for Figure 9.4 available on his github (linked in the code).
+
+```{r}
+#modified from Spiegelhalter's Figure 9.4 available at:
+#https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd
+
+#note, the hashed-out code is not relevant to my example
+#but left in in case someone else wants to use it
+
+df<-EPLGOALS # read data to dataframe df
+p <- ggplot(df, aes(x=Season, y=Goals)) # initial plot
+p <- p + geom_bar(stat="identity", fill="red") # assign bar chart type
+
+#yearLabels <- c("Apr  97-\nMar  98","Apr  00-\nMar  01","Apr  03-\nMar  #04","Apr  06-\nMar  07","Apr 09-\nMar  10","Apr  12-\nMar  13","Apr  #15-\nMar  16") # assign labels for x-axis
+
+p <- p + geom_errorbar(aes(ymin=Lower95CI, ymax=Upper95CI), width=.1) # 95% intervals
+
+#p <- p + scale_x_continuous(breaks=seq(1997, 2015, 3), labels =yearLabels) # attach labels and their break points
+
+p <- p + scale_y_continuous(breaks=seq(0, 1100, 100)) # define break points for y-axis
+p <- p + labs(y="Total Goals") # add y-axis label and caption
+p
+
+```
+
+From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic.
+
+The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.
+
+This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which *directly tests the hypothesis* that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
+
+See: <https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides>
+
+The z-test is simply explained in the linked article from the BMJ: <https://www.bmj.com/content/332/7552/1256>
+
+It links us nicely to the next lesson, because it is aiming to test a *specific hypothesis* that the difference is zero...
+
+If you open the data file below, you can see I have calculated the z-test results for the difference between each season, year-on-year.
+
+```{r}
+EPLZ<-read_excel("D:/Dropbox/R_Files/Data/EPLGOALSZ.xlsx")
+head(EPLZ)
+```
+
+The 'Z' column is what we are interested in, and we are looking for a z-value greater than + or - 1.96 for a 95% test (analogous to the 95% intervals we've been dealing with so far).
+
+A simple way to visualize this is to plot the z-values for each season, and include 'control lines' which represent the + or -1.96 z value, beyond which we consider there to be a significant difference
+
+```{r}
+#visualize the z values simply with control lines
+U <- 1.96
+L <- -1.96
+p <- ggplot(EPLZ, aes(x=Season, y=Z)) + geom_point() 
+p <- p+ geom_hline(aes(yintercept=U))
+p <- p+ geom_hline(aes(yintercept=L))
+p
+
+```
+
+So, we can see that the 1999-2000 season, and the 2009-10 seasons exceed our z values, making them significantly different from the seasons before.
+
+Of course, we could do z-tests for any combination of two seasons, if we had a good reason. You can see on the ONS website they do this for different years' murder rates to make a point.

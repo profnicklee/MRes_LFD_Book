@@ -1,0 +1,73 @@
+---
+title: "WBS MRes Learning from Data: Descriptive Setup"
+output: html_notebook
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+During the class, we will be running a number of examples of basic data descriptives and charts using R. 
+
+If you wish, you can follow along, using the code I will provide.
+
+All code and data files are available on my Open Science Foundation repository, along with html versions of the code so you can follow along even if you don't want to run the code on R
+
+link: https://osf.io/z4mw5/
+
+However, beforehand, you will need to set your software up in R with the required packages, so they can be used during class.
+
+You will need RStudio, which requires R - you can download both from the WBS Software Environment, or instead download R and Rstudio from the link: https://posit.co/download/rstudio-desktop/
+
+Once you have set up Rstudio, you can set it up by following along below. However, remember this is not an R introduction class, and if you want to gain additional understanding, you might want to view a few introductory online resources - there are many that will teach you basic R coding and an understanding of the environment.
+
+If you are ready, read on...
+
+You first need to ensure your version of R has the required 'packages' for the models I am using in each lesson. You can do so by running the R code chunk below.
+
+Note, there is no need for you to use RStudio specifically. There are other environments. But, if you want to use anything else, that is up to you. R is very flexible, but with this flexibility comes the possibilities that we are all doing different stuff in different ways. All I can guarantee is if you follow my way of doing things, they should work.
+
+If you execute the code below, it should install the required packages for doing what is required in this lesson.
+
+You can run the chunk by clicking the *Run* button within the chunk (the little green arrow, top right) or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+install.packages("readxl") #this package allows you to read excel files
+install.packages("ggplot2") #this package allows many options for charting your results
+install.packages("tidyverse") #this package is a collection of many others which keep things neat and tidy
+install.packages("hrbrthemes") #this is a selection of colours and presentation themes
+install.packages("viridis") #another selection of colours and themes for charts
+install.packages("ggridges") #a neat package to do ridge charts
+install.packages("summarytools") #a basic descriptive analysis package
+
+```
+
+You will also need to download the relevant data files and put them somewhere that you can easily point R towards them. So, for example, below is the code I use to read the 2 data files that we will use in the session:
+
+NOTE: Don't run this code, this is just an example. What you need is the data files COVID.xlsx and 2020GDP.xlsx in the right place (see below) for you to run the code later on
+
+```{r}
+COVID <- read_excel("D:/Dropbox/R_Files/Data/COVID.xlsx",sheet = "Top 20")
+GDP <- read_excel("D:/Dropbox/R_Files/Data/2020GDP.xls",sheet = "Data")
+
+```
+
+You will need to put the 'COVID.xlsx' file in a folder on your computer, and type that path in to the above.
+
+In other words, you replace ("D:/Dropbox/R_Files/Data/COVID.xlsx" , sheet = "Top 20")
+
+with
+
+("your_file_location/COVID.xlsx", sheet = "Top 20")
+
+And the same with the '2020GDP.xlxs' file.
+
+THEN, the code can find the files.
+
+Remember though, this is not a course on how to run R, or even how to actually do the analysis. It is more about how to understand it. However, understanding can be enhanced by running some models, as we do here.
+
+
+

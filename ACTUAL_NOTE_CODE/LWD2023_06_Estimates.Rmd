@@ -1,0 +1,592 @@
+---
+title: "WBS MRes 2023: Learning From Data Lesson 6 Estimates"
+output: html_document
+date: "2023-15-11"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Baseline Set Up
+
+This code chunk installs the packages that I typically have as a baseline for all my analysis. Things like reading in Excel files, plots, data management etc.
+
+You don't need to run this every time, but it's useful to have this here in case your own version of R does not have the same packages I have installed over time. The code is hashed out so it doesn't run automatically. Remove the hash symbols at the start of the relevant line if you need the package(s) installed.
+
+```{r}
+# install.packages("readxl")
+# install.packages("ggplot2")
+# install.packages("tidyverse")
+```
+
+## Estimates and Bootstrap Set Up
+
+Set up for doing the exercises in the Estimates and Bootstrap lesson
+
+Install required packages specific to this lesson if needed. Note, these are hashed out in this code chunk so they don't install every time I recompile this code. Remove the hash from whatever package you need.
+
+```{r}
+#install.packages("boot")
+#install.packages("rstatix")
+#install.packages("skimr")
+#install.packages("infer")
+#install.packages("ggpubr")
+#install.packages("dplyr")
+```
+
+Load data
+
+If you do not have them already, you'll need to download the following 3 data sets from my OSF repository
+
+<https://osf.io/z4mw5/files/osfstorage>
+
+HappyGDP.xlsx
+
+heart.data.xlsx
+
+SHEERAN_T.xlsx
+
+Place them in a location of your choice, so you can point R to them. I do this for the HappyGDP.xlsx file as an example below (hashed out).
+
+```{r}
+#Happy<-read_excel("D:/Dropbox/R_Files/Data/HappyGDP.xlsx", sheet = "2020")
+
+```
+
+# Estimation and Bootstrapping
+
+First, load the required libraries (install them if you don't have them of course)
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(boot)
+library(rstatix)
+library(skimr)
+library (infer)
+library(ggpubr)
+library(dplyr)
+
+```
+
+First, let's grab some data.Here, we will again use the simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: <https://www.scribbr.com/statistics/linear-regression-in-r/>
+
+```{r}
+Heart<-read_excel("D:/Dropbox/R_Files/Data/heart.data.xlsx")
+
+```
+
+```{r}
+head(Heart)
+```
+
+A slightly different way to look at the data can be done using the Skimr package...
+
+```{r}
+skim(Heart)
+```
+
+Let's calculate some simple summary statistics from this data set to build on. For example, what is the mean and median for 'smoking'?
+
+```{r}
+summary(Heart$smoking)
+```
+
+There we go. Let's start to build a table using these values, in the slide deck...
+
+## Back to slides...
+
+Now, we know this is simulated data, but let's imagine that it was actually obtained by an organization like Gallup, or the Office for National Statistics in the UK, using a survey. We can presume the study was done well, and thus it is based on a true random sampling method, and that we assume the study population matches whatever target population we have in mind (remember the 'inference gaps').
+
+What we really want to know is, how close are these statistics (i.e. the mean and median) to the true population values that we would have found if we could survey the entire target population?
+
+Let's demonstrate this using an example. First, let's assume that this sample of 498 people actually now *is* the population we are interested in. So, we can actually *sample from this population* and see what happens.
+
+First, let's present the distribution for the entire 'population' of 498.
+
+```{r}
+ggplot(Heart, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+Now, let's actually take a *sample* of 10 random cases from that population of 498, and look at the relevant statistics and distribution::
+
+```{r}
+sub.10 <- Heart[sample(nrow(Heart), size = 10, replace = FALSE), ]
+sub.10
+```
+
+```{r}
+median(sub.10$smoking)
+mean(sub.10$smoking)
+```
+
+```{r}
+ggplot(sub.10, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+We can do the same for successively larger samples, say 50, and 200:
+
+```{r}
+sub.50 <- Heart[sample(nrow(Heart), size = 50, replace = FALSE), ]
+sub.50
+median(sub.50$smoking)
+mean(sub.50$smoking)
+ggplot(sub.50, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+```{r}
+sub.200 <- Heart[sample(nrow(Heart), size = 200, replace = FALSE), ]
+sub.200
+median(sub.200$smoking)
+median(sub.200$smoking)
+ggplot(sub.200, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitve to individual data points. As the sample gets larger, it starts to look more like the population right?
+
+We can build a table now in the slides of the sample statistics (mean and median) showing that in general, as we get closer to the population size, the statistics get closer too.
+
+## Back to slides...
+
+# Bootstrapping Basics
+
+First, we will demonstrate the basic principle. Let's use our last sample of 50 from the above example, first we will remind ourselves of its properties and distribution:
+
+```{r}
+median(sub.50$smoking)
+mean(sub.50$smoking)
+ggplot(sub.50, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+```
+
+Ok lovely. Now, what we do is draw *another random sample of 50* from this 50, but each time we draw a data point, we *replace* it back, so we are always drawing our sample from the full 50. This is called *sampling with replacement*.
+
+In this way, the new sample can only contain values which were in the original sample, but will contain different numbers of those values, so the distribution will be different, and the statistics may also be different. Let's do this, and take the mean and median of the sample:
+
+```{r}
+Boot.1 <- sub.50[sample(nrow(sub.50), size = 50, replace = TRUE), ]
+Boot.1
+median(Boot.1$smoking)
+mean(Boot.1$smoking)
+ggplot(Boot.1, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+Marvellous! Now, let's do this twice more...
+
+```{r}
+Boot.2 <- sub.50[sample(nrow(sub.50), size = 50, replace = TRUE), ]
+Boot.2
+median(Boot.2$smoking)
+mean(Boot.2$smoking)
+ggplot(Boot.2, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+```{r}
+Boot.3 <- sub.50[sample(nrow(sub.50), size = 50, replace = TRUE), ]
+Boot.3
+median(Boot.3$smoking)
+mean(Boot.3$smoking)
+ggplot(Boot.3, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+We can build a table in the slides of these mean and median values
+
+So, this is the basic principle of bootstrapping. We sample with replacement from our original sample, many many times. We did 3 here manually, but we generally use a routine to do this thousands of times.
+
+## Back to slide deck
+
+## Bootstrapping our Previous Samples
+
+So, what we can do now, is run 1000 bootstrap replications of each of our varying-sized subsamples of the smoking data, to see what might happen:
+
+First, the 10:
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=sub.10, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+```
+
+Let's do it for the other two subsamples of n=50, and n=200
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=sub.50, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+```
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=sub.200, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+
+```
+
+And, finally, let's bootstrap our original full sample of 498:
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=Heart, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+```
+
+This is a very nice set of results, which can tell us many interesting things...
+
+## so let's go back to the slides.....
+
+# Bootstrapping Other Stuff...
+
+We have so far only bootstrapped the mean. However, the basic principle can be applied to virtually any statistical estimate. So, we can revisit some of our prior models, and use the bootstrap to quantify the uncertainty in the estimates we previously accepted without really questioning them. And, we can introduce a new analysis tool to explore the difference between groups, and use the bootstrap with that too.
+
+## Correlations
+
+First, let's revisit our recent correlation analysis of Happiness and GDP per capita.
+
+```{r}
+Happy<-read_excel("D:/Dropbox/R_Files/Data/HappyGDP.xlsx", sheet = "2020")
+
+head(Happy)
+
+```
+
+```{r}
+skim(Happy)
+```
+
+If we run the same analysis as last time, we'll get the same results: Correlation R = 0.75
+
+```{r}
+ggscatter(Happy, x = "GDPpc", y = "Happiness", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "GDP per capita", ylab = "Happiness")
+
+```
+
+Now, let's take uncertainty into account, by bootstrapping that correlation and creating some confidence intervals, using a cool package called *Infer*, which makes this almost frighteningly easy:
+
+```{r}
+#Using Infer to bootstrap statistics. See link below for info
+#https://cran.r-project.org/web/packages/infer/vignettes/observed_stat_examples.html
+
+#calculate correlation
+corr_hat <- Happy %>% 
+  specify(Happiness ~ GDPpc) %>%
+  calculate(stat = "correlation")
+
+#generate the bootstrap distribution
+#make sure to set the seed for replicability
+set.seed(1)
+boot_dist <- Happy %>%
+   specify(Happiness ~ GDPpc) %>% 
+   generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "correlation")
+
+#use bootstrap to find confidence interval
+percentile_ci <- get_ci(boot_dist)
+
+#visualize this - so cool!
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = percentile_ci)
+
+#report the actual numbers for info
+percentile_ci
+corr_hat
+
+```
+
+So, you can see the correlation is 0.75 with a 95% confidence interval of 0.69 - 0.81
+
+Now, let's extend this to the multiple regression case we have previously used, examining the relationships between smoking, biking, and heart disease.
+
+Lets load up the data if needed
+
+```{r}
+Heart<-read_excel("D:/Dropbox/R_Files/Data/heart.data.xlsx")
+
+head(Heart)
+```
+
+```{r}
+skim(Heart)
+```
+
+Here, we need to calculate multiple intervals as we have multiple estimates, so it's a bit more complicated, but still fairly intuitive using Infer:
+
+```{r}
+#Using Infer to bootstrap statistics. See link below for info
+#https://cran.r-project.org/web/packages/infer/vignettes/observed_stat_examples.html
+#note, used bootstrap here not permutation as in the original code
+
+#calculate the regression model fit
+obs_fit <- Heart %>%
+  specify(heart.disease ~ smoking + biking) %>%
+  fit()
+
+#create bootstrap distribution
+#make sure to set the seed for replicability
+set.seed(1)
+null_dist <- Heart %>%
+  specify(heart.disease ~ smoking + biking) %>%
+  generate(reps = 1000, type = "bootstrap") %>%
+  fit()
+
+#find confidence intervals
+conf_ints <- 
+  get_confidence_interval(
+    null_dist, 
+    level = .95, 
+    point_estimate = obs_fit
+  )
+
+#visualize the results
+visualize(null_dist) +
+  shade_confidence_interval(endpoints = conf_ints)
+
+#report actual numbers
+obs_fit
+conf_ints
+
+```
+
+## Back to the slides...
+
+# T-Tests for Means
+
+We can also use bootstrapping as an entry point to a new analysis situation, where we are comparing two groups. This could be for example in a classic experimental context; treatment and control.
+
+So, let's load up our Ed Sheeran study data:
+
+```{r}
+ED_IND<-read_excel("D:/Dropbox/R_Files/Data/SHEERAN_T.xlsx", sheet = "IND")
+```
+
+```{r}
+head(ED_IND)
+```
+
+```{r}
+skim(ED_IND)
+```
+
+We need to tell R that GROUP is a factor variable not a numeric one:
+
+```{r}
+ED_IND$GROUP <- factor(ED_IND$GROUP)
+```
+
+Check it worked:
+
+```{r}
+skim(ED_IND)
+```
+
+Let's run an independent samples T-Test with bootstrapped confidence interval using Infer.
+
+We use an independent samples test, as the theory is these two groups are sampled from independent populations (those who listened to Ed Sheeran, and those who did not) and what we are doing is trying to work out whether there is any difference in anger between them...
+
+```{r}
+
+#First, some code to display the group means using dplyr
+ED_IND %>%   # Specify data frame
+group_by(GROUP) %>% # Specify group indicator
+summarise_at(vars(ANGER), # Specify column
+list(name = mean))    # Specify function
+
+#use infer to bootstrap the t-value
+#https://infer.netlify.app/articles/observed_stat_examples
+
+t_hat <- ED_IND %>%
+  specify(ANGER ~ GROUP) %>%
+  calculate(stat = "t", order = c("1", "2"))
+
+boot_dist <- ED_IND %>%
+   specify(ANGER ~ GROUP) %>%
+   generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "t", order = c("1", "2"))
+
+percentile_ci <- get_ci(boot_dist)
+
+
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = percentile_ci)
+
+#display the t and CI
+t_hat
+percentile_ci
+
+```
+
+Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran
+
+Cool so it seems that Group 2 displayed more anger. The Confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. It is quite wide though - because of our small sample size.
+
+OK, so let's use a different design, using a paired samples t-test.
+
+## Back to the slides...
+
+The same basic process is needed, but with some modifications because of the type of comparison we are doing.
+
+First, we read the data in as normal, and make sure it is treated as a data frame.
+
+```{r}
+ED_PAIR<-read_excel("D:/Dropbox/R_Files/Data/SHEERAN_T.xlsx", sheet = "PAIR")
+ED_PAIR <- data.frame(ED_PAIR)
+```
+
+```{r}
+head(ED_PAIR)
+
+```
+
+Now, for this bootstrap purpose we actually need to to create a new column which is the difference between the two measurements (here, T1 and T2).
+
+Then, we bootstrap a one-sample t-test with this new column
+
+Let us do this:
+
+Create new difference column:
+
+```{r}
+ED_PAIR$DIF <- ED_PAIR$ANG_T2-ED_PAIR$ANG_T1
+```
+
+```{r}
+head(ED_PAIR)
+
+
+```
+
+Method 1: we use Infer to bootstrap a CI for the mean of the difference variable, to see whether it includes zero:
+
+```{r}
+#modified from https://infer.netlify.app/articles/observed_stat_examples.html
+
+
+x_bar <- ED_PAIR %>% 
+  specify(response = DIF) %>%
+  calculate(stat = "mean")
+
+boot_dist <- ED_PAIR %>%
+   specify(response = DIF) %>%
+     generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "mean")
+
+percentile_ci <- get_ci(boot_dist)
+
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = percentile_ci)
+
+#report the results
+x_bar
+percentile_ci
+mean(ED_PAIR$ANG_T1)
+mean(ED_PAIR$ANG_T2)
+
+
+```
+
+Method 2: We use a variant of this code to run a 1-sample t-test on the difference variable, testing whether it is different from zero. To do this we need to add some code specifying a comparison with zero:
+
+```{r}
+#modified from https://cran.r-project.org/web/packages/infer/vignettes/observed_stat_examples.html
+x_bar <- ED_PAIR %>% 
+  specify(response = DIF) %>%
+  calculate(stat = "mean")
+
+null_dist <- ED_PAIR %>%
+   specify(response = DIF) %>%
+  hypothesize(null="point", mu=0)%>% #this is the additional bit
+   generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "mean")
+
+percentile_ci <- get_ci(boot_dist)
+
+visualize(null_dist) +
+    shade_p_value(obs_stat = x_bar, direction = "two-sided")
+
+null_dist %>%
+  get_p_value(obs_stat = x_bar, direction = "two-sided")
+
+x_bar
+
+mean(ED_PAIR$ANG_T1)
+mean(ED_PAIR$ANG_T2)
+
+
+```
+
+Marvelous. We can see that, with both ways of looking at this test, the results suggest that after listening to Ed Sheeran, our sample on average reported more anger
+
+1: Because the 95% confidence interval does not include 0, I am confident in saying that there is some effect going on here.
+
+2: Because the bootstrapped probability (as expressed by the p-value) of observing the mean difference in anger between T1 and T2 of 1.33 is very low (0 in our results, but the true value will not be exactly zero), I am confident in saying there is an effect here.
+
+Not surprised...
