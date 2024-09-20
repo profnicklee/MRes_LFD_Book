@@ -1,5 +1,5 @@
 ---
-title: "WBS DBA: Introduction to Quantitative Analysis"
+title: "WBS MRes: Learning From Data"
 author: "Professor Nick Lee"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -9,14 +9,12 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: rstudio/bookdown-demo
-description: "This book contains the examples and notes for the WBS DBA Quant Methods Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook."
+description: "This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook."
 ---
 
 # Introduction and Orientation
 
-This is an online course book, designed for students on the Warwick Business School DBA Programme, who are taking the module 'Introduction to Quantitative Methods', taught by Professor Nick Lee.
-
-The module is more accurately titled 'Learning from Data (and) Science', and consists of a set of in-person lectures, linked with these examples and additional expositions.
+This is an online course book, designed for students on the Warwick Business School MRes Programme, who are taking the module 'Learning from Data (and) Science'. The module consists of a set of in-person lectures, linked with these examples and additional expositions.
 
 You can see to the left a list of the contents of the book. However, please note that these 'chapter numbers' do not refer to the specific lectures. Not all of the lectures use quantitative examples.
 
@@ -25,7 +23,7 @@ This book is written in **Markdown**, using R and the **bookdown** package, and 
 
 This book is essentially a 'live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runnings.
 
-The current year is 2024, and the book is currently *final for 2024.*
+The current year is 2024, and the book is currently *in progress for 2024.*
 
 Please enjoy the book, and learn from it. 
 
