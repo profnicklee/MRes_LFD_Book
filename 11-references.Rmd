@@ -1,0 +1,10 @@
+`r if (knitr:::is_html_output()) '
+# References {-}
+'`
+When creating this book, I have used data from numerous publicly-available sources. I have also sometimes used code from publicly-available repositories and websites.
+
+All sources are cited at the place they are used at this point, but in the future will be compiled here
+
+Further, a number of open-access academic papers and other reports are cited or referred to in Chapters.
+
+Weblinks are provided for all sources mentioned above where possible. However, any direct queries can be emailed to me, in case I have missed something, or perhaps a URL no longer works (all checked as of January 2024.)

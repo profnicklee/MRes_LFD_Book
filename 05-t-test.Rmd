@@ -1,0 +1,148 @@
+# T-Tests for Means {#t-test}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(boot)
+library(rstatix)
+library(skimr)
+library (infer)
+library(ggpubr)
+library(dplyr)
+
+```
+
+This Chapter supplements the material in the second part of Lecture 7.
+
+In this chapter, I will introduce the t-test, a classic analysis technique that is used to compare two groups together.
+
+## Independent Sample T-Tests
+
+We can also use bootstrapping as an entry point to a new analysis situation, where we are comparing two groups. This could be for example in a classic experimental context; treatment and control.
+
+Remember, t-tests can be done in any analysis setting, and it does not require bootstrapping at all. It just so happens that they are nicely explainable at this point.
+
+So, we are going to analyze a set of data from my infamous Ed Sheeran Study^1^ - which would certainly win an Ignobel Prize if I were ever to do it in reality rather than in my fondest imaginings.
+
+The design was discussed in the lecture slides, but in brief we have a two-group 'treatment and control' experiment, the classic 'randomized control trial' style study.
+
+The first thing to do is read in the data and describe it.
+
+```{r}
+ED_IND<-read_excel("Data/SHEERAN_T.xlsx", sheet = "IND")
+```
+
+```{r}
+head(ED_IND)
+describe(ED_IND)
+ED_IND$GROUP <- factor(ED_IND$GROUP)
+skim(ED_IND)
+```
+
+We can see that we have one FACTOR variable, which we need to indicate the group each subject was in (CONTROL being GROUP 1, and ED being GROUP 2).
+
+So, let's run an *independent samples T-Test* with bootstrapped confidence interval.
+
+We use an independent samples test, as the *theory* is these two groups - after participating in the experiment - are no longer the 'same'. There is something 'different' about the population of people who listen to Ed Sheeran, compared to those who do not. What we are trying to do is assess whether this difference is in *anger.*
+
+```{r}
+
+#First, some code to display the group means using dplyr
+ED_IND %>%   # Specify data frame
+group_by(GROUP) %>% # Specify group indicator
+summarise_at(vars(ANGER), # Specify column
+list(name = mean))    # Specify function
+
+#use infer to bootstrap the t-value
+#https://infer.netlify.app/articles/observed_stat_examples
+
+t_hat <- ED_IND %>%
+  specify(ANGER ~ GROUP) %>%
+  calculate(stat = "t", order = c("1", "2"))
+
+boot_dist <- ED_IND %>%
+   specify(ANGER ~ GROUP) %>%
+   generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "t", order = c("1", "2"))
+
+percentile_ci <- get_ci(boot_dist)
+
+
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = percentile_ci)
+
+#display the t and CI
+t_hat
+percentile_ci
+
+```
+
+Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran.
+
+Cool, so it seems that Group 2 displayed more anger. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we'll return to this issue of what confidence intervals actually mean.
+
+## Paired-Sample T-tests
+
+OK, so let's use a different design, using a paired samples t-test. Let me go *back to the slides...* to explain this difference.
+
+The same basic process is needed, but with some modifications because of the type of comparison we are doing. And, as such, we have some new data.
+
+```{r}
+ED_PAIR<-read_excel("Data/SHEERAN_T.xlsx", sheet = "PAIR")
+ED_PAIR <- data.frame(ED_PAIR)
+head(ED_PAIR)
+describe(ED_PAIR)
+```
+
+Now, for this bootstrap purpose we actually need to to calculate the **difference between the two measurements** (here, T1 and T2).
+
+Then, we bootstrap a one-sample t-test with this difference variable. This essentially tests whether the difference is different from zero. If it is, that indicates some effect of the treatment.
+
+Let us first calculate the new variable:
+
+```{r}
+ED_PAIR$DIF <- ED_PAIR$ANG_T2-ED_PAIR$ANG_T1
+head(ED_PAIR)
+describe(ED_PAIR)
+```
+
+We can see there is a new 'DIF' variable here.
+
+Next, we bootstrap a confidence interval for the *mean of the difference variable*, to see whether it includes zero:
+
+```{r}
+#modified from https://infer.netlify.app/articles/observed_stat_examples.html
+
+
+x_bar <- ED_PAIR %>% 
+  specify(response = DIF) %>%
+  calculate(stat = "mean")
+
+boot_dist <- ED_PAIR %>%
+   specify(response = DIF) %>%
+     generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "mean")
+
+percentile_ci <- get_ci(boot_dist)
+
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = percentile_ci)
+
+#report the results
+x_bar
+percentile_ci
+mean(ED_PAIR$ANG_T1)
+mean(ED_PAIR$ANG_T2)
+
+
+```
+
+Marvelous. We can see that the results suggest that after listening to Ed Sheeran, our sample on average reported more anger. This is because the 95% confidence interval does not include 0, and therefore I am confident in saying that there is probably some effect going on here.
+
+Not surprised...
+
+^1^If you are a friend or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study.

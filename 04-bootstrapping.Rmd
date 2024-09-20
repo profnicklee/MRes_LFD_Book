@@ -1,0 +1,304 @@
+# Introduction to Bootstrapping {#bootstrap}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(boot)
+library(rstatix)
+library(skimr)
+library (infer)
+library(ggpubr)
+library(dplyr)
+
+```
+
+This Chapter supplements the material in the first part of Lecture 7.
+
+In this chapter, we will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.
+
+The basic process is fairly simple, once you have your original sample, and has the following characteristics:
+
+1.  A bootstrap sample has an equal probability of randomly drawing any of the original sample elements (data points).
+2.  Each element can be selected more than once - because the sample is done **with replacement**.
+3.  Each resampled data set (the new sample) is the same size as the original one.
+
+First, I will demonstrate the basic principle.
+
+Recall from the last chapter that there was a simulated data set of 498 people, with variables representing smoking, biking, and heart disease.
+
+We treated this as **the population** and then sampled from it to demonstrate uncertainty at different sample sizes.
+
+So, let's take the sample of 50 that we drew from that 'population' of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.
+
+First we will remind ourselves of the properties and distribution of our sample, the median, mean, and distribution:
+
+```{r}
+median(sub.50$smoking)
+mean(sub.50$smoking)
+ggplot(sub.50, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+```
+
+Ok, there we go. Remember, this sample is our 'data set' for analysis.
+
+We know the median and mean, but we have no real indication of the uncertainty in those estimates. In order to get that information, we will eventually use the bootstrap method. For now, we are just going to demonstrate the basic idea.
+
+So, what we do now is draw *another random sample of 50* from this 50, but each time we draw a data point, we *replace* it back, so we are always drawing our sample from the full 50. This is called *sampling with replacement*.
+
+In this way, the new sample can **only contain values which were in the original sample**, but can contain different frequencies of those values. Or in other words, each value can occur many different times, and that number of times may be different to the original sample. So the *distribution of values* in this new sample will be different to the original sample, and the statistics will therefore also be different.
+
+Let's draw this new sample, take the median and mean of the sample, and plot it:
+
+```{r}
+Boot.1 <- sub.50[sample(nrow(sub.50), size = 50, replace = TRUE), ]
+Boot.1
+median(Boot.1$smoking)
+mean(Boot.1$smoking)
+ggplot(Boot.1, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+Marvelous! Now, for the purpose of example, let's draw two more of these resamples from the original 50, take their median and mean, and plot the distributions...
+
+```{r}
+Boot.2 <- sub.50[sample(nrow(sub.50), size = 50, replace = TRUE), ]
+Boot.2
+median(Boot.2$smoking)
+mean(Boot.2$smoking)
+ggplot(Boot.2, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+```{r}
+Boot.3 <- sub.50[sample(nrow(sub.50), size = 50, replace = TRUE), ]
+Boot.3
+median(Boot.3$smoking)
+mean(Boot.3$smoking)
+ggplot(Boot.3, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
+
+```
+
+Now, if we **return to the slides**, we can build a table using these mean and median values. Of course, the slide deck will have slightly different values, since it's based on a different run of the resampling process, but the principle is the same.
+
+So, this is the basic idea of bootstrapping. We sample with replacement from our original sample, many many times. We did 3 here manually, but we generally use a program to do this many more times, such as a thousand or more.
+
+## Bootstrapping in the Context of Previous Examples
+
+To further reinforce the point, let's now place ourselves in the position of three different researchers, each of varying levels of enthusiasm, and all three are researching the **same population of 498 people** that we have already explored in the last few examples.
+
+Researcher 1 is a little like me as a Ph.D. student, and maybe more interested in 'experiencing life'. So, he has little time to actually collect data, and not much more enthusiasm for it. In the end, he manages to take a sample of 10 people from the population of 498.
+
+Researcher 2 is a bit more enthusiastic, and gets a sample of 50.
+
+Researcher 3 is fairly conscientious, and takes a sample of 200 from the population of 498.
+
+Now, what we can do, is run 1000 bootstrap replications of each of these varying-sized subsamples of the population, to see what might happen:
+
+First, the 10:
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=sub.10, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+```
+
+Now let's do it for the other two subsamples of n=50, and n=200
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=sub.50, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+```
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=sub.200, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+
+```
+
+We'll now build a table with these values *back in the slide deck. I*Again, remember the values in the slide deck will differ from these due to the randomness of the process.
+
+Now, let's shift our minds a bit, and consider that the data set of 498 actually represents **a sample of a larger population** (remember from the last chapter, it's simulated, but meant to represent a sample from the population).
+
+So, let's bring in Researcher 4, the most conscientious of all. She is the one who manages to take a sample of 498 people from the population. And, *finally*, we can bootstrap the original full sample of 498:
+
+```{r}
+
+f1 <- function(data, i){
+  d2<-data[i,]
+  return(mean(d2$smoking))
+}
+
+# bootstrapping with 1000 replications
+set.seed(1234)
+results <- boot(data=Heart, f1,
+   R=1000)
+
+# view results
+results
+plot(results)
+
+# get 95% confidence interval
+boot.ci(results, type="norm")
+
+```
+
+This is a very nice set of results, which can tell us many interesting things. *So let's go back to the slides.....*
+
+## Bootstrapping Other Stuff...
+
+We have so far only bootstrapped the mean. However, the basic principle can be applied to virtually any statistical estimate. So, we can revisit some of our prior analyses, and use the bootstrap method to quantify the uncertainty in the estimates that we previously accepted without really thinking too hard about them.
+
+### Correlations
+
+First, let's revisit our recent correlation analysis of Happiness and GDP per capita.
+
+```{r}
+Happy<-read_excel("Data/HappyGDP.xlsx", sheet = "2020")
+
+head(Happy)
+describe(Happy)
+
+```
+
+If we run the same analysis as in Chapter 2, we'll get the same results: Correlation R = 0.75
+
+```{r}
+ggscatter(Happy, x = "GDPpc", y = "Happiness", 
+          add = "reg.line", conf.int = TRUE, 
+          cor.coef = TRUE, cor.method = "pearson",
+          xlab = "GDP per capita", ylab = "Happiness")
+
+```
+
+Now, let's take uncertainty into account, by bootstrapping that correlation and creating some confidence intervals.
+
+```{r}
+#Using Infer to bootstrap statistics. See link below for info
+#https://cran.r-project.org/web/packages/infer/vignettes/observed_stat_examples.html
+
+#calculate correlation
+corr_hat <- Happy %>% 
+  specify(Happiness ~ GDPpc) %>%
+  calculate(stat = "correlation")
+
+#generate the bootstrap distribution
+#make sure to set the seed for replicability
+set.seed(1)
+boot_dist <- Happy %>%
+   specify(Happiness ~ GDPpc) %>% 
+   generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "correlation")
+
+#use bootstrap to find confidence interval
+percentile_ci <- get_ci(boot_dist)
+
+#visualize this - so cool!
+visualize(boot_dist) +
+  shade_confidence_interval(endpoints = percentile_ci)
+
+#report the actual numbers for info
+percentile_ci
+corr_hat
+
+```
+
+So, you can see the correlation is 0.75 with a 95% confidence interval of 0.69 - 0.81
+
+Now, let's extend this to the multiple regression case we have previously used, examining the relationships between smoking, biking, and heart disease.
+
+```{r}
+Heart<-read_excel("Data/heart.data.xlsx")
+
+head(Heart)
+describe(Heart)
+```
+
+Here, we need to calculate multiple confidence intervals as we have multiple estimates.
+
+```{r}
+#Using Infer to bootstrap statistics. See link below for info
+#https://cran.r-project.org/web/packages/infer/vignettes/observed_stat_examples.html
+#note, used bootstrap here not permutation as in the original code
+
+#calculate the regression model fit
+obs_fit <- Heart %>%
+  specify(heart.disease ~ smoking + biking) %>%
+  fit()
+
+#create bootstrap distribution
+#make sure to set the seed for replicability
+set.seed(1)
+null_dist <- Heart %>%
+  specify(heart.disease ~ smoking + biking) %>%
+  generate(reps = 1000, type = "bootstrap") %>%
+  fit()
+
+#find confidence intervals
+conf_ints <- 
+  get_confidence_interval(
+    null_dist, 
+    level = .95, 
+    point_estimate = obs_fit
+  )
+
+#visualize the results
+visualize(null_dist) +
+  shade_confidence_interval(endpoints = conf_ints)
+
+#report actual numbers
+obs_fit
+conf_ints
+
+```
+
+It's worth reflecting on exactly what these conflidence intervals mean, and to do so, we can move **back to the slides...**

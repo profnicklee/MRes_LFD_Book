@@ -1,0 +1,245 @@
+# Issues with Significance Testing {#Issues}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+#note: some of these aren't used for the code that I run, but for other parts I have hashed out.
+library(tidyverse)
+library(combinat)
+library(gtools)
+library(readxl)
+library(ggplot2)
+library(ggpubr)
+library(mosaic)
+
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(png)
+library(installr)
+library(skimr)
+library(rstatix)
+library(pwr)
+
+library(waffle)
+```
+
+This chapter provides examples and analysis for the second part of Lecture 11.
+
+In this chapter, I'll explore examples of two common 'issues' or 'debates' regarding statistical significance testing, applied to two of our prior examples.
+
+But first, let's unpack more about the Ed Sheeran Study, and the multiple comparisons problem.
+
+## More on the Multiple Comparisons Problem
+
+In this section, I'll provide some visualizations which can help us to understand the problem with multiple comparisons.
+
+However, it's worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.
+
+First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.
+
+```{r}
+x <- c(Hypotheses=100)
+waffle::waffle(x, colors=c("lightgrey"))
+#waffle::waffle(c(40, 60), colors=c("blue", "lightgrey")) + guides(fill=FALSE)
+```
+
+Now, remember, **even if all null hypotheses are true**, our significance level, or *p* = 0.05, so we have to expect that *on average* we would expect **5** of these hypotheses tests to return *p*-values \< 0.05, and thus we would reject the null. This is known as a **false positive**.
+
+You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required *p* to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept *all* null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really *was* true in the population in every single case, you would be inevitably missing out on making some discoveries.
+
+Moving on, let's visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.
+
+```{r}
+x <- c(False_Pos.=5, True_Neg.=95)
+#waffle::waffle(x, colors=c("lightgrey"))
+waffle(x, colors=c("red", "lightgrey")) #+ guides(fill=FALSE)
+```
+
+Now, that is just the *expected* level for every 100 tests. If you remember from the discussion in Section \@ref(conf), it may not be you get *exactly* 5 false positives in 100 tests, just that you would expect the long run average number of false positives to be 5%, in an all-null world.
+
+So, we can look at it through a different lens. What is the probability that you would get **at least one false positive** in any given batch of multiple tests.
+
+That is known as the *familywise error rate*, and it applies whenever you can define a cluster or 'family' of tests.
+
+It's the same principle as rolling a 6-sided die, and needing to score a '6'. Think of the '6' as the 'false positive' here.
+
+In a single die role, the probability of getting a '6' is $\frac{1}{6}$, and of course the equivalent probability of *not* getting a '6' is $1-\frac{1}{6}=\frac{5}{6}$.
+
+*But*, what if you get to roll the die 3 times? It's fairly easy to intuit that, even though the probability of getting a '6' on any single roll stays the same, the probability of getting a single '6' in 3 rolls is higher. In fact, we can calculate it.
+
+To do so, we use the probability of *not* getting a 6, as follows:
+
+*P*(no 6)=$(\frac{5}{6})^{3} = 0.579$
+
+Recalling the laws of probability then...
+
+*P*(at least one 6) = 1 - *P*(no 6) = 1 - .579 = .421
+
+So, *now* we have a 42% probability of at least one 6 in 3 rolls, even though the probability of getting a 6 in any single roll is unchanged.
+
+We can calculate the familywise error rate for any set of multiple comparisons in exactly the same way.
+
+One of the key advantages of ANOVA is that it is a single test, and thus does not fall prey to the multiple comparisons problem. However, in the case of *post-hoc* testing for the Ed Sheeran study, we are doing 3 pairwise comparisons (i.e. 3 tests) across the 3 groups, with a stated significance level of 0.05.
+
+For 1 test, the false positive rate is $1 - 0.95 = .05$
+
+But, for 3 tests, the false positive rate is $1-0.95^{3}=0.14$
+
+We are 'rolling the dice' multiple times.
+
+In fact, below is a nice little calculator that demonstrates how the familywise error rate changes, based on the number of tests, and the chosen significance level. It was created by Dr Daniel Roelfs, during his time at the Norwegian Centre for Mental Disorders Research (NORMENT) in Oslo, and he kindly allowed me to use it here. Check out his website: <https://danielroelfs.com/about/>
+
+What you could do is adjust the sliders to check the above calculations - what is the familywise error rate for 3 comparisons and a 0.05 significance level?
+
+```{r}
+knitr::include_app("https://danielroelfs.shinyapps.io/FWER_simple/",
+  height = "700px")
+```
+
+```{r}
+#<iframe src="https://danielroelfs.shinyapps.io/FWER_simple" width="100%" height="400px" #frameBorder="0"></iframe>
+```
+
+When you adjust the slides, it feels kind of scary right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.
+
+For example, in the Ed Sheeran post-hoc tests above, we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the *Bonferoni Correction*, which is generally the most well-known of them.
+
+## The Bonferroni Correction: Rate of Change in Football Goals per Season
+
+Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+
+I hand-entered this into a spreadsheet, and calculated the additional numbers myself.
+
+```{r}
+EPLGOALS<-read_excel("Data/EPLGOALS.xlsx")
+head(EPLGOALS)
+```
+
+You can see here I have calculated the standard errors from the yearly goal totals (which represent that year's underlying rate of goal occurrence), then used that to calculate the 95% confidence Interval limits
+
+We can use these to create a nifty chart with error bars, drawing from the code used by Spiegelhalter for Figure 9.4 in his book, available on his github:
+
+<https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd>
+
+```{r}
+#modified from Spiegelhalter's Figure 9.4 available at:
+#https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd
+
+#note, the hashed-out code is not relevant to my example
+#but left in in case someone else wants to use it
+
+df<-EPLGOALS # read data to dataframe df
+p <- ggplot(df, aes(x=Season, y=Goals)) # initial plot
+p <- p + geom_bar(stat="identity", fill="red") +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Season") # assign bar chart type, and x axis labels, rotated
+#P <- p + theme(axis.text.x = element_text(angle = 90)) #rotate lables x axis
+
+#p +geom_bar(stat="identity")+theme(axis.text.x = element_text(angle = #90))+scale_x_discrete(name="Country")+scale_y_continuous(name = "Survival Rate")
+
+#yearLabels <- c("Apr  97-\nMar  98","Apr  00-\nMar  01","Apr  03-\nMar  #04","Apr  06-\nMar  07","Apr 09-\nMar  10","Apr  12-\nMar  13","Apr  #15-\nMar  16") # assign labels for x-axis
+
+p <- p + geom_errorbar(aes(ymin=Lower95CI, ymax=Upper95CI), width=.1) # 95% intervals
+
+#p <- p + scale_x_continuous(breaks=seq(1997, 2015, 3), labels =yearLabels) # attach labels and their break points
+
+p <- p + scale_y_continuous(breaks=seq(0, 1100, 100)) # define break points for y-axis
+p <- p + labs(y="Total Goals") # add y-axis label and caption
+p
+
+```
+
+From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic, despite what many football 'experts' said.
+
+We can look at this in some more depth though. First, it's worth knowing that the UK Office for National Statistics uses this basic technique to estimate the probability of homicides, which also seem to be usefully approximated by the Poisson distribution.
+
+Interestingly, the ONS suggest that it is over-stringent to rely on error bar overlap, and that we can also use z-tests to directly test the assumption that the change is zero.
+
+See: <https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides>
+
+So using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
+
+```{r}
+EPLP<-read_excel("Data/EPLGOALSP.xlsx")
+summary(EPLP)
+head(EPLP)
+```
+
+Here, we can plot the p-values (2-tailed), and again we see that two seasons seem to have significant differences. In other words, the p-values are less than 0.05 for the test as to whether the number of goals scored differs from the season before
+
+```{r}
+#visualize the z values simply with control lines
+U <- 0.05
+#L <- -1.96
+p <- ggplot(EPLP, aes(x=Season, y=p2)) + geom_point() +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Country")
+p <- p+ geom_hline(aes(yintercept=U))
+#p <- p+ geom_hline(aes(yintercept=L))
+p
+
+```
+
+We can see that the 1999-2000 season, and the 2009-10 seasons have p values less than 0.05
+
+The question is **are we suffering from the multiple comparisons problem**? Should we correct for it?
+
+It's hard to say actually. Of course, we are indeed running multiple tests, 26 in fact. So, the chance of a false positive is high. The Bonferroni correction would immediately reduce the false positive chances, but at what cost?
+
+Let's see how this would work. In order to calculate a Bonferroni correction, you can either adjust the p-value directly that you calculate for each test, or instead simply adjust the 'cutoff' value for p, known as the *critical p*, to lower it from 0.05 and make the significance test 'harder' to pass. The formula to adjust the cutoff value is simply:
+
+$\alpha_b = (\frac{\alpha}{n})$
+
+Where
+
+$\alpha_b$ = Bonferroni-adjusted critical p value
+
+$\alpha$ = original critical p value (here this is 0.05)
+
+*n* = number of comparisons (here this is 26)
+
+So, the formula gives us a new Bonferroni-adjusted critical p value of 0.0019
+
+Let's see what happens with this new critical p value:
+
+```{r}
+#visualize the z values simply with control lines
+U <- 0.0019
+#L <- -1.96
+p <- ggplot(EPLP, aes(x=Season, y=p2)) + geom_point() +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Country")
+p <- p+ geom_hline(aes(yintercept=U))
+#p <- p+ geom_hline(aes(yintercept=L))
+p
+
+```
+
+We can see that none of our tests now rejects the null. The Bonferroni correction is known as a highly conservative test. That is, it is based on the idea that the *null hypothesis is true* in each case in the population. We can thus consider it as the most stringent and conservative way to correct for the chance of false positives when doing multiple comparisons.
+
+But, as I suggested above, that might not always be the best idea. Indeed, if you want to totally avoid any chance of a false positive, why not simply make the required alpha 0? Then, you would never get a false positive. Of course, you would never detect a **true positive** either.
+
+What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be *no false positives*. Therefore, in such a situation you would be *increasing the chances of a false negative* by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?
+
+For example, Thomas Perneger's 1998 paper in the BMJ is scathing about the Bonferroni adjustment. Take a look at <https://www.bmj.com/content/316/7139/1236.full>
+
+Mind you, I am not saying that's the final word, just that there are multiple perspectives on the issues!
+
+It's never as simple as it seems when making statistical decisions, is it?
+
+## Statistical Power: Brief Demonstration
+
+Different types of analysis and research design require different types of power calculation, so it is hard to give a uniform example. But, for simplicity's sake, let's calculate the required sample size for the Ed Sheeran study we conducted earlier.
+
+Remember, really, we should have done this **before collecting data**.
+
+To calculate power, all we need the parameters of the experiment and analysis design. As such, it is easily possible to do this before collecting data, and to design your studies around it. Really, we should do this a lot more in business and management - it's routine in fields like medicine.
+
+So, we had 3 groups, and used ANOVA
+
+Let's set a significance of 0.05, a required power of 0.8, and assume the effect size is moderate (say 0.25)
+
+```{r}
+pwr.anova.test(k=3,f=.25,sig.level=.05,power=.8)
+```
+
+So, we really wanted to have around 50 in each group to have an 80% chance of detecting a moderate effect presuming the null was true.
+
+You can see that my study (with only 15 in each group) was rather underpowered. However, if I had increased the effect size in the calculation to 0.5 (close to what the experiment suggested) this would have given me a result for n closer to what I actually used. However, you'd have to be VERY confident in the size of your likely effect to actually do that I think.
