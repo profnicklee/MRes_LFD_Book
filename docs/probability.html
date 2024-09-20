@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Introduction to Probability | WBS MRes: Learning From Data</title>
+  <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Introduction to Probability | WBS MRes: Learning From Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Introduction to Probability | WBS MRes: Learning From Data" />
+  
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Professor Nick Lee" />
+
+
+<meta name="date" content="2024-09-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="t-test.html"/>
+<link rel="next" href="statistics.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WBS DBA Quantitative Methods</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>3.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="3.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>3.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="3.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>3.3</b> Regression</a></li>
+<li class="chapter" data-level="3.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="3.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>3.5</b> Visualizing Multiple Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>4</b> Beginning to Understand Uncertainty</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>4.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>5</b> Introduction to Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>5.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>5.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>5.2.1</b> Correlations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>6</b> T-Tests for Means</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>6.1</b> Independent Sample T-Tests</a></li>
+<li class="chapter" data-level="6.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>6.2</b> Paired-Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>7</b> Introduction to Probability</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>7.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="7.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>7.2</b> Premier League Goals and the Poisson Distribution</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>7.2.1</b> 2023 Update</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>7.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>8</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>8.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="8.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>8.2</b> Demonstrating Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>9</b> Classical Statistical Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>9.1</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>9.2</b> Regression Significance Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>10</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>10.1</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>11</b> Issues with Significance Testing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>11.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="11.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>11.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="11.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>11.3</b> Statistical Power: Brief Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WBS MRes: Learning From Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="probability" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Introduction to Probability<a href="probability.html#probability" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This Chapter provides examples and additional content for Lesson 8.</p>
+<p>In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainy of our estimates, and from there we can begin to draw inferences from the sample to the population.</p>
+<div id="simulating-coin-flips" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Simulating Coin Flips<a href="probability.html#simulating-coin-flips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The first thing we’ll do is simulate 5000 fair coin flips.</p>
+<p>Remember, this is another random process, so results will differ each time slightly</p>
+<pre><code>##   Heads Trial Cum_Heads Pct_Heads
+## 1     1     1         1 1.0000000
+## 2     0     2         1 0.5000000
+## 3     0     3         1 0.3333333
+## 4     1     4         2 0.5000000
+## 5     1     5         3 0.6000000
+## 6     0     6         3 0.5000000</code></pre>
+<p>Below, we’ll plot the results of this simulation for ease of interpretation</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p>The thing to notice (in combination with the table of results above the plot) is that eventually the proportion of heads versus tails approaches 50%, <em>but it does not start out that way</em>.</p>
+<p>In other words, for a fair coin toss sequence, the trials (tosses) are <em>independent</em>, which means that for any given toss of the coin, the chance of a head or tail is 50%. But, that’s not the same as saying that you’ll get equal numbers of heads or tails for every (or any) particular sequence of multiple tosses - it’s not ‘self-correcting’ in any other way than sheer weight of numbers. So, <strong>eventually</strong> over enough trials, the sequence should start to look like 50/50 heads and tails. But, that is not the tosses ‘self-correcting’, simply that you are tossing a lot of coins. This is at the root of a number of fallacies about predicting random events, such as the Gambler’s fallacy.</p>
+</div>
+<div id="premier-league-goals-and-the-poisson-distribution" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Premier League Goals and the Poisson Distribution<a href="probability.html#premier-league-goals-and-the-poisson-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Note, much of the inspiration and code for this section comes from: <a href="https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html" class="uri">https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html</a></p>
+<p>The data comes from: <a href="https://www.football-data.co.uk/englandm.php" class="uri">https://www.football-data.co.uk/englandm.php</a> and is the EPL results for 21-22 Season</p>
+<pre><code>## # A tibble: 6 × 107
+##   Div   Date                Time                HomeTeam   AwayTeam   FTHG  FTAG
+##   &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1 E0    2021-08-13 00:00:00 1899-12-31 20:00:00 Brentford  Arsenal       2     0
+## 2 E0    2021-08-14 00:00:00 1899-12-31 12:30:00 Man United Leeds         5     1
+## 3 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Burnley    Brighton      1     2
+## 4 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Chelsea    Crystal …     3     0
+## 5 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Everton    Southamp…     3     1
+## 6 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Leicester  Wolves        1     0
+## # ℹ 100 more variables: TOTG &lt;dbl&gt;, FTR &lt;chr&gt;, HTHG &lt;dbl&gt;, HTAG &lt;dbl&gt;,
+## #   HTR &lt;chr&gt;, Referee &lt;chr&gt;, HS &lt;dbl&gt;, AS &lt;dbl&gt;, HST &lt;dbl&gt;, AST &lt;dbl&gt;,
+## #   HF &lt;dbl&gt;, AF &lt;dbl&gt;, HC &lt;dbl&gt;, AC &lt;dbl&gt;, HY &lt;dbl&gt;, AY &lt;dbl&gt;, HR &lt;dbl&gt;,
+## #   AR &lt;dbl&gt;, B365H &lt;dbl&gt;, B365D &lt;dbl&gt;, B365A &lt;dbl&gt;, BWH &lt;dbl&gt;, BWD &lt;dbl&gt;,
+## #   BWA &lt;dbl&gt;, IWH &lt;dbl&gt;, IWD &lt;dbl&gt;, IWA &lt;dbl&gt;, PSH &lt;dbl&gt;, PSD &lt;dbl&gt;,
+## #   PSA &lt;dbl&gt;, WHH &lt;dbl&gt;, WHD &lt;dbl&gt;, WHA &lt;dbl&gt;, VCH &lt;dbl&gt;, VCD &lt;dbl&gt;,
+## #   VCA &lt;dbl&gt;, MaxH &lt;dbl&gt;, MaxD &lt;dbl&gt;, MaxA &lt;dbl&gt;, AvgH &lt;dbl&gt;, AvgD &lt;dbl&gt;, …</code></pre>
+<p>Next, let’s see a few important bits of descriptive data. First, let’s calculate the total number of games in a season:</p>
+<pre><code>##    Length     Class      Mode 
+##       380 character character</code></pre>
+<p>Next, how many goals in the season were there?</p>
+<pre><code>## [1] 1071</code></pre>
+<p>And, what was the mean number of goals per game?</p>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   2.000   3.000   2.818   4.000   9.000</code></pre>
+<p>OK, so now we have some idea of the goals per game, let’s plot the distribution of goals.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p>If you’ve ever seen a Poisson distribution, you’ll recognise this!</p>
+<p>Let’s check this out. First, let’s create a table of all the matches with different numbers of goals.</p>
+<pre><code>## # A tibble: 9 × 2
+##    TOTG ActualMatches
+##   &lt;dbl&gt;         &lt;int&gt;
+## 1     0            22
+## 2     1            65
+## 3     2            88
+## 4     3            81
+## 5     4            60
+## 6     5            43
+## 7     6            17
+## 8     7             3
+## 9     9             1</code></pre>
+<p>Let’s pull some stats of the Total Goals variable which well help us in a second.</p>
+<pre><code>##  min Q1 median Q3 max     mean       sd   n missing
+##    0  2      3  4   9 2.818421 1.626359 380       0</code></pre>
+<p>Importantly, because the Poisson distribution is described only by its mean, the first and most basic check we can do is whether the mean and the variance of the variable are the same (or at least very close). We already have the mean above (2.82), but what is the variance?</p>
+<pre><code>## [1] 2.645042</code></pre>
+<p>This is not exactly the same, but good enough to be going on with.</p>
+<p>So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurance of a given number of total goals scored in a premier league game, for this season at least.</p>
+<p>The first thing I am going to do with that information is build a figure which compares the <em>actual</em> numbers of goals scored in games with the <em>predicted</em> numbers which would be scored if the goals scored were a perfect Poisson distribution.</p>
+<p>Ideally, we would build the Poisson probabilities for 0-9 goals (which is the maximum number scored in 21-22). However, if you do this, you will find that the two tables (actual and predicted goals) will have different numbers of rows. This is because there were no games with 8 goals scored in 21-22, but one with 9.</p>
+<p>This is a bit annoying, but not a big issue. What we do is build a Poisson probability distribution for 0-8 goals, and treat the final probability as that for ‘8 or more’ goals, for the purposes of drawing our figure. This isn’t strictly correct, because we have not collected up our actual goal data into that category, but we could do that if we wanted to.</p>
+<p>Later, we’ll break this down properly, but for our showy graph here we don’t really need to do it.</p>
+<pre><code>##      PoisProb
+## 1 0.059700132
+## 2 0.168260108
+## 3 0.237113915
+## 4 0.222762284
+## 5 0.156959477
+## 6 0.088475579
+## 7 0.041560239
+## 8 0.016733465
+## 9 0.005895244</code></pre>
+<p>So, this table of probabilities, based on the Poisson distribution, allows us to make some predictions of what we could expect.</p>
+<p>Remembering again that there are 380 games in a season, we can see that there is a 0.16% chance of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.</p>
+<p>We can check this out by creating a new table comparing <strong>actual</strong> with <strong>predicted</strong> values…</p>
+<pre><code>## # A tibble: 9 × 3
+##    TOTG ActualMatches ExpectedMatches
+##   &lt;dbl&gt;         &lt;int&gt;           &lt;dbl&gt;
+## 1     0            22              23
+## 2     1            65              64
+## 3     2            88              90
+## 4     3            81              85
+## 5     4            60              60
+## 6     5            43              34
+## 7     6            17              16
+## 8     7             3               6
+## 9     9             1               2</code></pre>
+<p>Remember, as you can see above, the row for ‘8’ is missing, and it goes straight to 9. So, to repeat, just take (for simplicity’s sake here) the final row of Expected Matches as meaning ‘2 games with 8 or more goals’</p>
+<p>Anyway, it’s pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).</p>
+<p>Let’s plot this for the big payoff:</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p>Wow, that is pretty accurate! Remember, the ‘expected’ figures are purely drawn from the <em>entirely theoretical</em> Poisson distribution with a mean of 2.82. They very closely match the actual data.</p>
+<p>To be fair though, that graph is really just a bit of show, but what we want is the ‘go’. In other words, what could we do with this information?</p>
+<p>Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that <strong>there will be a game in the 22-23 season with 10 goals?</strong> - assuming that this is being written before the 22-23 season (which is true).</p>
+<p>Remember, there were 380 games in 21-22, none of which contained 10 goals. So, for ease of thinking about this, let’s make the assumption that the PL started in 2021, and there were no games before to count (in reality, we would go back to the last time 10 goals were scored and count from there, but let’s go with this in the first instance, and we’ll expand later on, promise).</p>
+<p>So, first, we need to calculate a new set of probabilities out to 10 goals.</p>
+<pre><code>##        PoisProb
+## 1  0.0597001317
+## 2  0.1682601080
+## 3  0.2371139154
+## 4  0.2227622837
+## 5  0.1569594775
+## 6  0.0884755792
+## 7  0.0415602392
+## 8  0.0167334647
+## 9  0.0058952437
+## 10 0.0018461421
+## 11 0.0005203206
+## 12 0.0001333166</code></pre>
+<p>So, the number we want is the second-last probability: 0.00052.</p>
+<p>This is because the table starts from the probability of 0 goals.</p>
+<p>This means we can expect a game with 10 goals to happen every 1923 games</p>
+<p>Calculate this by dividing 1 by the probability.</p>
+<p>So, given there are 380 games per season, you would expect a game with 10 goals to happen once every 5 seasons.</p>
+<p>So, if I started counting from the 21-22 season, the answer is NO, I would not bet on there being a game with 10 goals in the 22-23 Premier League season.</p>
+<p>But, let’s add some (pretty obvious) further context, as of November 2022, there have been 5 games in the history of the Premier League where 10 goals have been scored (and 1 with 11).</p>
+<p>The Premier League has been going since 1992, and so far in Nov 22 there have been…30 seasons. So, we are probably due one.</p>
+<p>AND, the last game with 10 goals was in 2013 (Man Utd 5, West Brom 5)</p>
+<p>So, I reckon we are <em>definitely-maybe-probably</em> due one.</p>
+<p>By the way, as of the start of the 22-23 season, there had been 21 matches with 9 goals. We would expect given our Poisson distribution that a game with 9 goals should happen every 1.4 seasons, meaning over 30 seasons we would expect…. 21.</p>
+<div id="update" class="section level3 hasAnchor" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> 2023 Update<a href="probability.html#update" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>So, the above example is <em>totally unchanged</em> (other than some typo corrections and nicer wording) from when I originally coded it in 2022. The million dollar question: <em>was there a game with 10 goals in the 22-23 season…?</em></p>
+<p>The answer is no, there wasn’t. But there were two with 9! Luckily I am not a betting man. I do think we are due one, so this season (2024) is probably a good bet, but as of January 20th 2024, we still haven’t had one… Unless of course you think something has fundamentally changed about the premier league in recent years, changing the probability of goals (and thus suggesting recent seasons are drawn from a <em>Poisson distribution with different characteristics</em> than past ones), which is in fact an interesting question in its own right…</p>
+</div>
+</div>
+<div id="birth-weight-and-the-normal-distribution-brief-example" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Birth Weight and the Normal Distribution: Brief Example<a href="probability.html#birth-weight-and-the-normal-distribution-brief-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s consider UK births in 2020, since they’re a subject close to my heart, as my son was born that year.</p>
+<p>Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g ‘bins’.</p>
+<p>Source: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data</a></p>
+<p>We can use these numbers to create a chart, and see what it looks like, inspired by David Spiegelhalter’s originals, which are available on his Github page.</p>
+<p>Spiegelhalter’s Github can be found here: <a href="https://github.com/dspiegel29/ArtofStatistics" class="uri">https://github.com/dspiegel29/ArtofStatistics</a></p>
+<pre><code>## [1] 3345.263</code></pre>
+<pre><code>## [1] 577.7594</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p>The first number is the mean, the second is the standard deviation.</p>
+<p>What you can see here is, just using the real data from 2020 UK birthweights, it looks very much like what is called a ‘normal distribution’, or what you might have heard called a ‘bell curve’. We can almost certainly treat any given child’s birthweight as if it was a random variable drawn from a normal distribution, with a mean and standard deviation that is given by the empirical data here (3345.263 and 577.7594 respectively).</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="t-test.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-probability.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["LFD.pdf", "LFD.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

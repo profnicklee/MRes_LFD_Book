@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Beginning to Understand Uncertainty | WBS MRes: Learning From Data</title>
+  <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Beginning to Understand Uncertainty | WBS MRes: Learning From Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Beginning to Understand Uncertainty | WBS MRes: Learning From Data" />
+  
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Professor Nick Lee" />
+
+
+<meta name="date" content="2024-09-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="assoc_rel.html"/>
+<link rel="next" href="bootstrap.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WBS DBA Quantitative Methods</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>3.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="3.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>3.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="3.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>3.3</b> Regression</a></li>
+<li class="chapter" data-level="3.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="3.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>3.5</b> Visualizing Multiple Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>4</b> Beginning to Understand Uncertainty</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>4.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>5</b> Introduction to Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>5.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>5.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>5.2.1</b> Correlations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>6</b> T-Tests for Means</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>6.1</b> Independent Sample T-Tests</a></li>
+<li class="chapter" data-level="6.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>6.2</b> Paired-Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>7</b> Introduction to Probability</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>7.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="7.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>7.2</b> Premier League Goals and the Poisson Distribution</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>7.2.1</b> 2023 Update</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>7.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>8</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>8.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="8.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>8.2</b> Demonstrating Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>9</b> Classical Statistical Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>9.1</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>9.2</b> Regression Significance Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>10</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>10.1</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>11</b> Issues with Significance Testing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>11.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="11.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>11.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="11.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>11.3</b> Statistical Power: Brief Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WBS MRes: Learning From Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="uncertainty" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Beginning to Understand Uncertainty<a href="uncertainty.html#uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This Chapter relates to lecture 6.</p>
+<p>In this chapter I’ll introduce core concepts around <strong>uncertainty</strong> in our results. Understanding that the results of our analysis always contain some level of uncertainty is probably the most critical concept to get our heads around as quantitative social scientists. Most of our job is not really coming up with the actual <em>statistics</em>, such as the correlation coefficient, or regression beta, but is more about understanding how to interpret and use those results - i.e. <strong>what they mean</strong>. And, fundamental to that is understanding their uncertainty.</p>
+<p>Again, to reiterate the message I sent in class, many of the examples in this Chapter, and later ones, involve <strong>randomness</strong>. This means that the results here may be slightly different numerically to the results in the slides. And, if you were to run these examples yourself, you would also get slightly different results. This is nothing to worry about, because the meaning of the results does not change.</p>
+<p>So, to start the journey, let’s grab some data.</p>
+<p>Here, we will again use the simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence.</p>
+<pre><code>## # A tibble: 6 × 4
+##    ...1 biking smoking heart.disease
+##   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1     1  30.8    10.9          11.8 
+## 2     2  65.1     2.22          2.85
+## 3     3   1.96   17.6          17.2 
+## 4     4  44.8     2.80          6.82
+## 5     5  69.4    16.0           4.06
+## 6     6  54.4    29.3           9.55</code></pre>
+<p>Rather than do the full ‘describe’ as I did in the last chapter, I have simply above looked at what is called the ‘head’ of the data set or the first few rows. This is because all I want to do here is double check that I have the data, and what variables are there.</p>
+<p>Let’s calculate some simple summary statistics from this data set to build on. For example, what is the mean and median for ‘smoking’?</p>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.5259  8.2798 15.8146 15.4350 22.5689 29.9467</code></pre>
+<p>Now, we know this is <strong>really</strong> simulated data, but let’s <strong>imagine</strong> for now that it was actually obtained by an organization like the Office for National Statistics in the UK, using a survey. We can presume the study was done well, and thus it is based on a true random sampling method, and we assume that the study population matches whatever target population we have in mind (remember the ‘inference gaps’ discussed in class).</p>
+<p>What we really want to know is, how close are these statistics (i.e. the mean and median) to the <em>true population values</em> that we would have found if we could survey the entire target population?</p>
+<p>Let’s begin to think about this by starting to build a table using these statistics, <strong>by going back to the slide deck…</strong></p>
+<div id="demonstration-sampling-from-a-known-population" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Demonstration: Sampling from a ‘Known’ Population<a href="uncertainty.html#demonstration-sampling-from-a-known-population" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now, let’s go back <strong>one more step</strong>, and demonstrate the uncertainty inherent to sample statistics by way of example.</p>
+<p>Let’s <em>now</em> assume that this sample of 498 people actually <em>is</em> the population we are interested in.</p>
+<p>What <strong>this</strong> means is, we can actually <em>draw a sample from this population of 498</em> and see what happens.</p>
+<p>First, let’s present the distribution for the entire ‘population’ of 498.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>Now, let’s literally take a <em>sample</em> of 10 random cases from that population of 498. Here, we are <strong>sampling without replacement</strong>, and are thus essentially doing exactly what a hypothetical ‘researcher’ would do if they drew a random sample of 10 people to complete their survey, from the population of 498.</p>
+<pre><code>## # A tibble: 10 × 4
+##     ...1 biking smoking heart.disease
+##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+##  1   287  36.2   20.9           12.8 
+##  2   151  12.3   26.9           17.8 
+##  3     4  44.8    2.80           6.82
+##  4   371  26.3   26.7           15.1 
+##  5   102  64.3   29.4            7.71
+##  6   428  64.5    5.88           2.98
+##  7   222  22.7   28.7           16.8 
+##  8   120   9.65   8.37          15.6 
+##  9   141  27.0   15.9           12.9 
+## 10   217  23.1    0.907         10.7</code></pre>
+<p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
+<pre><code>## [1] 18.40871</code></pre>
+<pre><code>## [1] 16.65131</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>We can do the same for successively larger samples, say 50, and 200:</p>
+<pre><code>## # A tibble: 50 × 4
+##     ...1 biking smoking heart.disease
+##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+##  1   327   9.82  18.0           16.8 
+##  2   156  54.4   16.3            7.59
+##  3    59  57.2   12.8            5.31
+##  4   398  58.4    0.734          3.23
+##  5   311  33.9   24.4           11.4 
+##  6   110  68.2    2.19           1.97
+##  7   330  39.9   19.7            8.89
+##  8   463  39.3   13.6            8.87
+##  9    35  20.2   10.3           13.4 
+## 10   277  16.1   19.1           14.7 
+## # ℹ 40 more rows</code></pre>
+<pre><code>## [1] 15.42513</code></pre>
+<pre><code>## [1] 15.44318</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<pre><code>## # A tibble: 200 × 4
+##     ...1 biking smoking heart.disease
+##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+##  1   126   4.68   11.0          15.9 
+##  2   379  32.5    25.3          13.2 
+##  3    28  45.2     2.14          6.59
+##  4   101  61.2     4.61          4.36
+##  5    93  41.0    13.0          10.3 
+##  6   172  67.4    28.7           5.81
+##  7    49  28.6    12.5          11.4 
+##  8   390  63.6    12.5           3.45
+##  9     3   1.96   17.6          17.2 
+## 10   483  36.1    13.8           9.73
+## # ℹ 190 more rows</code></pre>
+<pre><code>## [1] 15.16514</code></pre>
+<pre><code>## [1] 15.16514</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
+<p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="assoc_rel.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bootstrap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-estimation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["LFD.pdf", "LFD.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 T-Tests for Means | WBS MRes: Learning From Data</title>
+  <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 T-Tests for Means | WBS MRes: Learning From Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 T-Tests for Means | WBS MRes: Learning From Data" />
+  
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Professor Nick Lee" />
+
+
+<meta name="date" content="2024-09-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bootstrap.html"/>
+<link rel="next" href="probability.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WBS DBA Quantitative Methods</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>3.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="3.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>3.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="3.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>3.3</b> Regression</a></li>
+<li class="chapter" data-level="3.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="3.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>3.5</b> Visualizing Multiple Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>4</b> Beginning to Understand Uncertainty</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>4.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>5</b> Introduction to Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>5.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>5.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>5.2.1</b> Correlations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>6</b> T-Tests for Means</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>6.1</b> Independent Sample T-Tests</a></li>
+<li class="chapter" data-level="6.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>6.2</b> Paired-Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>7</b> Introduction to Probability</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>7.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="7.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>7.2</b> Premier League Goals and the Poisson Distribution</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>7.2.1</b> 2023 Update</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>7.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>8</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>8.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="8.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>8.2</b> Demonstrating Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>9</b> Classical Statistical Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>9.1</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>9.2</b> Regression Significance Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>10</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>10.1</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>11</b> Issues with Significance Testing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>11.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="11.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>11.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="11.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>11.3</b> Statistical Power: Brief Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WBS MRes: Learning From Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="t-test" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> T-Tests for Means<a href="t-test.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This Chapter supplements the material in the second part of Lecture 7.</p>
+<p>In this chapter, I will introduce the t-test, a classic analysis technique that is used to compare two groups together.</p>
+<div id="independent-sample-t-tests" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Independent Sample T-Tests<a href="t-test.html#independent-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can also use bootstrapping as an entry point to a new analysis situation, where we are comparing two groups. This could be for example in a classic experimental context; treatment and control.</p>
+<p>Remember, t-tests can be done in any analysis setting, and it does not require bootstrapping at all. It just so happens that they are nicely explainable at this point.</p>
+<p>So, we are going to analyze a set of data from my infamous Ed Sheeran Study<sup>1</sup> - which would certainly win an Ignobel Prize if I were ever to do it in reality rather than in my fondest imaginings.</p>
+<p>The design was discussed in the lecture slides, but in brief we have a two-group ‘treatment and control’ experiment, the classic ‘randomized control trial’ style study.</p>
+<p>The first thing to do is read in the data and describe it.</p>
+<pre><code>## # A tibble: 6 × 3
+##      ID GROUP ANGER
+##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1     1     1     4
+## 2     2     2     5
+## 3     3     1     2
+## 4     4     2     3
+## 5     5     2     4
+## 6     6     1     2</code></pre>
+<pre><code>##       vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
+## ID       1 30 15.50 8.80   15.5   15.50 11.12   1  30    29 0.00    -1.32 1.61
+## GROUP    2 30  1.50 0.51    1.5    1.50  0.74   1   2     1 0.00    -2.07 0.09
+## ANGER    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4 0.04    -1.30 0.22</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-69">Table 6.1: </span>Data summary</caption>
+<tbody>
+<tr class="odd">
+<td align="left">Name</td>
+<td align="left">ED_IND</td>
+</tr>
+<tr class="even">
+<td align="left">Number of rows</td>
+<td align="left">30</td>
+</tr>
+<tr class="odd">
+<td align="left">Number of columns</td>
+<td align="left">3</td>
+</tr>
+<tr class="even">
+<td align="left">_______________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Column type frequency:</td>
+<td align="left"></td>
+</tr>
+<tr class="even">
+<td align="left">factor</td>
+<td align="left">1</td>
+</tr>
+<tr class="odd">
+<td align="left">numeric</td>
+<td align="left">2</td>
+</tr>
+<tr class="even">
+<td align="left">________________________</td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">Group variables</td>
+<td align="left">None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="14%" />
+<col width="20%" />
+<col width="11%" />
+<col width="13%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="left">ordered</th>
+<th align="right">n_unique</th>
+<th align="left">top_counts</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">GROUP</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="left">FALSE</td>
+<td align="right">2</td>
+<td align="left">1: 15, 2: 15</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col width="17%" />
+<col width="12%" />
+<col width="17%" />
+<col width="7%" />
+<col width="6%" />
+<col width="3%" />
+<col width="6%" />
+<col width="6%" />
+<col width="7%" />
+<col width="6%" />
+<col width="7%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">skim_variable</th>
+<th align="right">n_missing</th>
+<th align="right">complete_rate</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">p0</th>
+<th align="right">p25</th>
+<th align="right">p50</th>
+<th align="right">p75</th>
+<th align="right">p100</th>
+<th align="left">hist</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ID</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">15.50</td>
+<td align="right">8.80</td>
+<td align="right">1</td>
+<td align="right">8.25</td>
+<td align="right">15.5</td>
+<td align="right">22.75</td>
+<td align="right">30</td>
+<td align="left">▇▇▇▇▇</td>
+</tr>
+<tr class="even">
+<td align="left">ANGER</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.33</td>
+<td align="right">1.21</td>
+<td align="right">1</td>
+<td align="right">2.00</td>
+<td align="right">3.0</td>
+<td align="right">4.00</td>
+<td align="right">5</td>
+<td align="left">▁▇▇▆▇</td>
+</tr>
+</tbody>
+</table>
+<p>We can see that we have one FACTOR variable, which we need to indicate the group each subject was in (CONTROL being GROUP 1, and ED being GROUP 2).</p>
+<p>So, let’s run an <em>independent samples T-Test</em> with bootstrapped confidence interval.</p>
+<p>We use an independent samples test, as the <em>theory</em> is these two groups - after participating in the experiment - are no longer the ‘same’. There is something ‘different’ about the population of people who listen to Ed Sheeran, compared to those who do not. What we are trying to do is assess whether this difference is in <em>anger.</em></p>
+<pre><code>## # A tibble: 2 × 2
+##   GROUP  name
+##   &lt;fct&gt; &lt;dbl&gt;
+## 1 1      2.8 
+## 2 2      3.87</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<pre><code>## Response: ANGER (numeric)
+## Explanatory: GROUP (factor)
+## # A tibble: 1 × 1
+##    stat
+##   &lt;dbl&gt;
+## 1 -2.65</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   lower_ci upper_ci
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1    -5.49   -0.575</code></pre>
+<p>Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran.</p>
+<p>Cool, so it seems that Group 2 displayed more anger. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we’ll return to this issue of what confidence intervals actually mean.</p>
+</div>
+<div id="paired-sample-t-tests" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Paired-Sample T-tests<a href="t-test.html#paired-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>OK, so let’s use a different design, using a paired samples t-test. Let me go <em>back to the slides…</em> to explain this difference.</p>
+<p>The same basic process is needed, but with some modifications because of the type of comparison we are doing. And, as such, we have some new data.</p>
+<pre><code>##   ID ANG_T1 ANG_T2
+## 1  1      1      4
+## 2  2      2      5
+## 3  3      3      2
+## 4  4      4      3
+## 5  5      2      4
+## 6  6      1      2</code></pre>
+<pre><code>##        vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
+## ID        1 30 15.50 8.80   15.5   15.50 11.12   1  30    29 0.00    -1.32 1.61
+## ANG_T1    2 30  2.00 1.02    2.0    1.88  1.48   1   4     3 0.76    -0.57 0.19
+## ANG_T2    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4 0.04    -1.30 0.22</code></pre>
+<p>Now, for this bootstrap purpose we actually need to to calculate the <strong>difference between the two measurements</strong> (here, T1 and T2).</p>
+<p>Then, we bootstrap a one-sample t-test with this difference variable. This essentially tests whether the difference is different from zero. If it is, that indicates some effect of the treatment.</p>
+<p>Let us first calculate the new variable:</p>
+<pre><code>##   ID ANG_T1 ANG_T2 DIF
+## 1  1      1      4   3
+## 2  2      2      5   3
+## 3  3      3      2  -1
+## 4  4      4      3  -1
+## 5  5      2      4   2
+## 6  6      1      2   1</code></pre>
+<pre><code>##        vars  n  mean   sd median trimmed   mad min max range  skew kurtosis
+## ID        1 30 15.50 8.80   15.5   15.50 11.12   1  30    29  0.00    -1.32
+## ANG_T1    2 30  2.00 1.02    2.0    1.88  1.48   1   4     3  0.76    -0.57
+## ANG_T2    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4  0.04    -1.30
+## DIF       4 30  1.33 1.27    1.0    1.38  1.48  -1   4     5 -0.13    -0.62
+##          se
+## ID     1.61
+## ANG_T1 0.19
+## ANG_T2 0.22
+## DIF    0.23</code></pre>
+<p>We can see there is a new ‘DIF’ variable here.</p>
+<p>Next, we bootstrap a confidence interval for the <em>mean of the difference variable</em>, to see whether it includes zero:</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<pre><code>## Response: DIF (numeric)
+## # A tibble: 1 × 1
+##    stat
+##   &lt;dbl&gt;
+## 1  1.33</code></pre>
+<pre><code>## # A tibble: 1 × 2
+##   lower_ci upper_ci
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1      0.9     1.73</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre><code>## [1] 3.333333</code></pre>
+<p>Marvelous. We can see that the results suggest that after listening to Ed Sheeran, our sample on average reported more anger. This is because the 95% confidence interval does not include 0, and therefore I am confident in saying that there is probably some effect going on here.</p>
+<p>Not surprised…</p>
+<p><sup>1</sup>If you are a friend or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bootstrap.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="probability.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-t-test.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["LFD.pdf", "LFD.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

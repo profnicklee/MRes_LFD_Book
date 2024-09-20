@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Introduction to Bootstrapping | WBS MRes: Learning From Data</title>
+  <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Introduction to Bootstrapping | WBS MRes: Learning From Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Introduction to Bootstrapping | WBS MRes: Learning From Data" />
+  
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Professor Nick Lee" />
+
+
+<meta name="date" content="2024-09-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="uncertainty.html"/>
+<link rel="next" href="t-test.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WBS DBA Quantitative Methods</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>3.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="3.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>3.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="3.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>3.3</b> Regression</a></li>
+<li class="chapter" data-level="3.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="3.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>3.5</b> Visualizing Multiple Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>4</b> Beginning to Understand Uncertainty</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>4.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>5</b> Introduction to Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>5.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>5.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>5.2.1</b> Correlations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>6</b> T-Tests for Means</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>6.1</b> Independent Sample T-Tests</a></li>
+<li class="chapter" data-level="6.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>6.2</b> Paired-Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>7</b> Introduction to Probability</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>7.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="7.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>7.2</b> Premier League Goals and the Poisson Distribution</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>7.2.1</b> 2023 Update</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>7.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>8</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>8.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="8.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>8.2</b> Demonstrating Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>9</b> Classical Statistical Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>9.1</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>9.2</b> Regression Significance Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>10</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>10.1</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>11</b> Issues with Significance Testing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>11.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="11.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>11.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="11.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>11.3</b> Statistical Power: Brief Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WBS MRes: Learning From Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bootstrap" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Introduction to Bootstrapping<a href="bootstrap.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This Chapter supplements the material in the first part of Lecture 7.</p>
+<p>In this chapter, we will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.</p>
+<p>The basic process is fairly simple, once you have your original sample, and has the following characteristics:</p>
+<ol style="list-style-type: decimal">
+<li>A bootstrap sample has an equal probability of randomly drawing any of the original sample elements (data points).</li>
+<li>Each element can be selected more than once - because the sample is done <strong>with replacement</strong>.</li>
+<li>Each resampled data set (the new sample) is the same size as the original one.</li>
+</ol>
+<p>First, I will demonstrate the basic principle.</p>
+<p>Recall from the last chapter that there was a simulated data set of 498 people, with variables representing smoking, biking, and heart disease.</p>
+<p>We treated this as <strong>the population</strong> and then sampled from it to demonstrate uncertainty at different sample sizes.</p>
+<p>So, let’s take the sample of 50 that we drew from that ‘population’ of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.</p>
+<p>First we will remind ourselves of the properties and distribution of our sample, the median, mean, and distribution:</p>
+<pre><code>## [1] 15.42513</code></pre>
+<pre><code>## [1] 15.44318</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p>Ok, there we go. Remember, this sample is our ‘data set’ for analysis.</p>
+<p>We know the median and mean, but we have no real indication of the uncertainty in those estimates. In order to get that information, we will eventually use the bootstrap method. For now, we are just going to demonstrate the basic idea.</p>
+<p>So, what we do now is draw <em>another random sample of 50</em> from this 50, but each time we draw a data point, we <em>replace</em> it back, so we are always drawing our sample from the full 50. This is called <em>sampling with replacement</em>.</p>
+<p>In this way, the new sample can <strong>only contain values which were in the original sample</strong>, but can contain different frequencies of those values. Or in other words, each value can occur many different times, and that number of times may be different to the original sample. So the <em>distribution of values</em> in this new sample will be different to the original sample, and the statistics will therefore also be different.</p>
+<p>Let’s draw this new sample, take the median and mean of the sample, and plot it:</p>
+<pre><code>## # A tibble: 50 × 4
+##     ...1 biking smoking heart.disease
+##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+##  1   204   63.2   20.5           5.56
+##  2   497   42.3   20.7          10.1 
+##  3   174   60.0   25.5           7.47
+##  4   429   35.7    9.40          9.57
+##  5    41   31.5   22.2          13.2 
+##  6   316   37.3   12.8          10.7 
+##  7    15   10.6    5.99         14.1 
+##  8   168   70.4   20.3           3.90
+##  9   168   70.4   20.3           3.90
+## 10    38   29.9   24.6          13.5 
+## # ℹ 40 more rows</code></pre>
+<pre><code>## [1] 19.69572</code></pre>
+<pre><code>## [1] 16.58742</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p>Marvelous! Now, for the purpose of example, let’s draw two more of these resamples from the original 50, take their median and mean, and plot the distributions…</p>
+<pre><code>## # A tibble: 50 × 4
+##     ...1 biking smoking heart.disease
+##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+##  1   147   38.0  13.9           10.1 
+##  2   174   60.0  25.5            7.47
+##  3   429   35.7   9.40           9.57
+##  4   463   39.3  13.6            8.87
+##  5    38   29.9  24.6           13.5 
+##  6   311   33.9  24.4           11.4 
+##  7    13   48.8  11.0            6.72
+##  8   195   33.8   0.965          6.94
+##  9   195   33.8   0.965          6.94
+## 10   225   59.5  18.8            5.69
+## # ℹ 40 more rows</code></pre>
+<pre><code>## [1] 14.43512</code></pre>
+<pre><code>## [1] 14.84023</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<pre><code>## # A tibble: 50 × 4
+##     ...1 biking smoking heart.disease
+##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+##  1   401   69.7  25.0            5.85
+##  2   139   21.6   2.57          11.4 
+##  3   426   15.4  23.4           14.1 
+##  4   391   40.0  14.5            9.51
+##  5   236   46.7   8.50           7.83
+##  6   398   58.4   0.734          3.23
+##  7   204   63.2  20.5            5.56
+##  8   204   63.2  20.5            5.56
+##  9   105   52.4  19.8            7.82
+## 10   174   60.0  25.5            7.47
+## # ℹ 40 more rows</code></pre>
+<pre><code>## [1] 19.78084</code></pre>
+<pre><code>## [1] 16.51914</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p>Now, if we <strong>return to the slides</strong>, we can build a table using these mean and median values. Of course, the slide deck will have slightly different values, since it’s based on a different run of the resampling process, but the principle is the same.</p>
+<p>So, this is the basic idea of bootstrapping. We sample with replacement from our original sample, many many times. We did 3 here manually, but we generally use a program to do this many more times, such as a thousand or more.</p>
+<div id="bootstrapping-in-the-context-of-previous-examples" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Bootstrapping in the Context of Previous Examples<a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To further reinforce the point, let’s now place ourselves in the position of three different researchers, each of varying levels of enthusiasm, and all three are researching the <strong>same population of 498 people</strong> that we have already explored in the last few examples.</p>
+<p>Researcher 1 is a little like me as a Ph.D. student, and maybe more interested in ‘experiencing life’. So, he has little time to actually collect data, and not much more enthusiasm for it. In the end, he manages to take a sample of 10 people from the population of 498.</p>
+<p>Researcher 2 is a bit more enthusiastic, and gets a sample of 50.</p>
+<p>Researcher 3 is fairly conscientious, and takes a sample of 200 from the population of 498.</p>
+<p>Now, what we can do, is run 1000 bootstrap replications of each of these varying-sized subsamples of the population, to see what might happen:</p>
+<p>First, the 10:</p>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = sub.10, statistic = f1, R = 1000)
+## 
+## 
+## Bootstrap Statistics :
+##     original      bias    std. error
+## t1* 16.65131 -0.08256862    3.304941</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = results, type = &quot;norm&quot;)
+## 
+## Intervals : 
+## Level      Normal        
+## 95%   (10.26, 23.21 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>Now let’s do it for the other two subsamples of n=50, and n=200</p>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = sub.50, statistic = f1, R = 1000)
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1* 15.44318 0.0210007    1.154876</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = results, type = &quot;norm&quot;)
+## 
+## Intervals : 
+## Level      Normal        
+## 95%   (13.16, 17.69 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = sub.200, statistic = f1, R = 1000)
+## 
+## 
+## Bootstrap Statistics :
+##     original      bias    std. error
+## t1* 15.20657 0.009881741   0.5928642</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = results, type = &quot;norm&quot;)
+## 
+## Intervals : 
+## Level      Normal        
+## 95%   (14.03, 16.36 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>We’ll now build a table with these values <em>back in the slide deck. I</em>Again, remember the values in the slide deck will differ from these due to the randomness of the process.</p>
+<p>Now, let’s shift our minds a bit, and consider that the data set of 498 actually represents <strong>a sample of a larger population</strong> (remember from the last chapter, it’s simulated, but meant to represent a sample from the population).</p>
+<p>So, let’s bring in Researcher 4, the most conscientious of all. She is the one who manages to take a sample of 498 people from the population. And, <em>finally</em>, we can bootstrap the original full sample of 498:</p>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = Heart, statistic = f1, R = 1000)
+## 
+## 
+## Bootstrap Statistics :
+##     original      bias    std. error
+## t1* 15.43503 0.001437866    0.359051</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = results, type = &quot;norm&quot;)
+## 
+## Intervals : 
+## Level      Normal        
+## 95%   (14.73, 16.14 )  
+## Calculations and Intervals on Original Scale</code></pre>
+<p>This is a very nice set of results, which can tell us many interesting things. <em>So let’s go back to the slides…..</em></p>
+</div>
+<div id="bootstrapping-other-stuff" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Bootstrapping Other Stuff…<a href="bootstrap.html#bootstrapping-other-stuff" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We have so far only bootstrapped the mean. However, the basic principle can be applied to virtually any statistical estimate. So, we can revisit some of our prior analyses, and use the bootstrap method to quantify the uncertainty in the estimates that we previously accepted without really thinking too hard about them.</p>
+<div id="correlations" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Correlations<a href="bootstrap.html#correlations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>First, let’s revisit our recent correlation analysis of Happiness and GDP per capita.</p>
+<pre><code>## # A tibble: 6 × 4
+##   Country        Happiness GDPpc      Pop
+##   &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Afghanistan         2.4   1971 38972236
+## 2 Albania             5.2  13192  2866850
+## 3 Algeria             5.12 10735 43451668
+## 4 American Samoa     NA       NA    46216
+## 5 Andorra            NA       NA    77723
+## 6 Angola             NA     6110 33428490</code></pre>
+<pre><code>##           vars   n        mean           sd     median     trimmed        mad
+## Country*     1 249      125.00        72.02     125.00      125.00      91.92
+## Happiness    2 153        5.49         1.12       5.53        5.52       1.16
+## GDPpc        3 197    20463.88     20717.34   12655.00    17037.01   13338.95
+## Pop          4 242 59178643.60 331869505.09 5596196.00 12318073.38 8185922.38
+##             min          max        range  skew kurtosis          se
+## Country*    1.0 2.490000e+02 2.480000e+02  0.00    -1.21        4.56
+## Happiness   2.4 7.820000e+00 5.420000e+00 -0.26    -0.38        0.09
+## GDPpc     731.0 1.125570e+05 1.118260e+05  1.58     2.55     1476.05
+## Pop       809.0 4.663087e+09 4.663086e+09 11.65   152.44 21333379.77</code></pre>
+<p>If we run the same analysis as in Chapter 2, we’ll get the same results: Correlation R = 0.75</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p>Now, let’s take uncertainty into account, by bootstrapping that correlation and creating some confidence intervals.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<pre><code>## # A tibble: 1 × 2
+##   lower_ci upper_ci
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1    0.689    0.811</code></pre>
+<pre><code>## Response: Happiness (numeric)
+## Explanatory: GDPpc (numeric)
+## # A tibble: 1 × 1
+##    stat
+##   &lt;dbl&gt;
+## 1 0.745</code></pre>
+<p>So, you can see the correlation is 0.75 with a 95% confidence interval of 0.69 - 0.81</p>
+<p>Now, let’s extend this to the multiple regression case we have previously used, examining the relationships between smoking, biking, and heart disease.</p>
+<pre><code>## # A tibble: 6 × 4
+##    ...1 biking smoking heart.disease
+##   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1     1  30.8    10.9          11.8 
+## 2     2  65.1     2.22          2.85
+## 3     3   1.96   17.6          17.2 
+## 4     4  44.8     2.80          6.82
+## 5     5  69.4    16.0           4.06
+## 6     6  54.4    29.3           9.55</code></pre>
+<pre><code>##               vars   n   mean     sd median trimmed    mad  min    max  range
+## ...1             1 498 249.50 143.90 249.50  249.50 184.58 1.00 498.00 497.00
+## biking           2 498  37.79  21.48  35.82   37.71  27.51 1.12  74.91  73.79
+## smoking          3 498  15.44   8.29  15.81   15.47  10.86 0.53  29.95  29.42
+## heart.disease    4 498  10.17   4.57  10.39   10.18   5.42 0.55  20.45  19.90
+##                skew kurtosis   se
+## ...1           0.00    -1.21 6.45
+## biking         0.07    -1.22 0.96
+## smoking       -0.04    -1.12 0.37
+## heart.disease -0.03    -0.93 0.20</code></pre>
+<p>Here, we need to calculate multiple confidence intervals as we have multiple estimates.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<pre><code>## # A tibble: 3 × 2
+##   term      estimate
+##   &lt;chr&gt;        &lt;dbl&gt;
+## 1 intercept   15.0  
+## 2 smoking      0.178
+## 3 biking      -0.200</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   term      lower_ci upper_ci
+##   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+## 1 biking      -0.203   -0.197
+## 2 intercept   14.8     15.1  
+## 3 smoking      0.171    0.186</code></pre>
+<p>It’s worth reflecting on exactly what these conflidence intervals mean, and to do so, we can move <strong>back to the slides…</strong></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="uncertainty.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="t-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-bootstrapping.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["LFD.pdf", "LFD.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

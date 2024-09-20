@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Associations and Relationships | WBS MRes: Learning From Data</title>
+  <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Associations and Relationships | WBS MRes: Learning From Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Associations and Relationships | WBS MRes: Learning From Data" />
+  
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  
+
+<meta name="author" content="Professor Nick Lee" />
+
+
+<meta name="date" content="2024-09-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="uncertainty.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WBS DBA Quantitative Methods</li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>3.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="3.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>3.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="3.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>3.3</b> Regression</a></li>
+<li class="chapter" data-level="3.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="3.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>3.5</b> Visualizing Multiple Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>4</b> Beginning to Understand Uncertainty</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>4.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>5</b> Introduction to Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>5.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="5.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>5.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>5.2.1</b> Correlations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>6</b> T-Tests for Means</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>6.1</b> Independent Sample T-Tests</a></li>
+<li class="chapter" data-level="6.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>6.2</b> Paired-Sample T-tests</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>7</b> Introduction to Probability</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>7.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="7.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>7.2</b> Premier League Goals and the Poisson Distribution</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>7.2.1</b> 2023 Update</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>7.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>8</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>8.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="8.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>8.2</b> Demonstrating Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>9</b> Classical Statistical Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>9.1</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="9.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>9.2</b> Regression Significance Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>10</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>10.1</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>11</b> Issues with Significance Testing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>11.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="11.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>11.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="11.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>11.3</b> Statistical Power: Brief Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WBS MRes: Learning From Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="assoc_rel" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Associations and Relationships<a href="assoc_rel.html#assoc_rel" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter supplements the content in Lecture 5.</p>
+<div id="correlations-and-associations" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Correlations and Associations<a href="assoc_rel.html#correlations-and-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>First, let’s look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data.</p>
+<p>You can explore their work here: <a href="https://ourworldindata.org/" class="uri">https://ourworldindata.org/</a></p>
+<p>First, I can just double check the data by describing it.</p>
+<pre><code>##           vars   n        mean           sd     median     trimmed        mad
+## Country*     1 249      125.00        72.02     125.00      125.00      91.92
+## Happiness    2 153        5.49         1.12       5.53        5.52       1.16
+## GDPpc        3 197    20463.88     20717.34   12655.00    17037.01   13338.95
+## Pop          4 242 59178643.60 331869505.09 5596196.00 12318073.38 8185922.38
+##             min          max        range  skew kurtosis          se
+## Country*    1.0 2.490000e+02 2.480000e+02  0.00    -1.21        4.56
+## Happiness   2.4 7.820000e+00 5.420000e+00 -0.26    -0.38        0.09
+## GDPpc     731.0 1.125570e+05 1.118260e+05  1.58     2.55     1476.05
+## Pop       809.0 4.663087e+09 4.663086e+09 11.65   152.44 21333379.77</code></pre>
+<p>We’ve got 249 countries, with population, GDP per capita, and Happiness. There’s a fair bit of missing data, which you can see by looking at the numbers in the <em>n</em> column. That’s ok, as long as we are aware of it.</p>
+<p>Let’s plot this data using a very basic scatterplot.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>Interpretation: there’s seemingly an association here. As one variable increases, the other does too.</p>
+<p>It’s worth noting that I have chosen to put GDPpc on the x-axis, which <em>implies</em> that the driver of Happiness is GDP. This replicates the way that most of the media articles that are regularly written on this kind of topic do it.</p>
+<p>Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis, because it’s important that you do <strong>NOT</strong> draw any causal conclusion from this very basic scatterplot. Simple associations are <em>not</em> in any way conclusive evidence of any causality in the relationship, since there are many other things which could be going on that are impossible to tease out simply with a bivariate association seen on a scatterplot. For example, there could be a spurious relationship - what could cause <em>both</em> happiness and GDPpc to increase?</p>
+<p>Ideas? Could it simply be something like ‘political stability’? Or something else?</p>
+<p>Either way, all we have here is a basic data display. While, as I showed previously, simply displaying data can be very powerful, it is still only essentially an ‘eyeball’ analysis, and different people might draw different conclusions here (we’ll discuss that later on).</p>
+<p>What we want to do, is have some sort of objective <strong>metric</strong> for the relationship, and for this, we have the <strong>correlation</strong> statistic.</p>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  Happy$Happiness and Happy$GDPpc
+## t = 13.502, df = 146, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.6636288 0.8092331
+## sample estimates:
+##      cor 
+## 0.745184</code></pre>
+<p>Here, we can see that the correlation is 0.75</p>
+<p>But what does that mean? We can <strong>return to the slides for some explanation</strong>.</p>
+</div>
+<div id="introducing-nonlinear-associations" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Introducing Nonlinear Associations<a href="assoc_rel.html#introducing-nonlinear-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Let’s return to the scatterplot of GDPpc and Happiness</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>As the <em>Economist</em> analysis discussed in the lectures suggests, this association also looks kind of <em>nonlinear</em>.</p>
+<p>However, unlike the <em>Economist</em>, we can also say that there are multiple ways to look at this:</p>
+<p>First, you could take the <em>Economist’s</em> view that this is probably a <strong>nonlinear relationship.</strong> Indeed, we can check this out by <em>transforming</em> GDPpc and comparing the results between transformed and non-transformed data.</p>
+<p>Let’s have a try at that. What we will do is transform the GDPpc variable using a log transform (i.e. multiplying GDPpc by the natural logarithm).</p>
+<pre><code>##           vars   n        mean           sd     median     trimmed        mad
+## Country*     1 249      125.00        72.02     125.00      125.00      91.92
+## Happiness    2 153        5.49         1.12       5.53        5.52       1.16
+## GDPpc        3 197    20463.88     20717.34   12655.00    17037.01   13338.95
+## Pop          4 242 59178643.60 331869505.09 5596196.00 12318073.38 8185922.38
+## GDPpc_log    5 197        9.38         1.14       9.45        9.41       1.33
+##              min          max        range  skew kurtosis          se
+## Country*    1.00 2.490000e+02 2.480000e+02  0.00    -1.21        4.56
+## Happiness   2.40 7.820000e+00 5.420000e+00 -0.26    -0.38        0.09
+## GDPpc     731.00 1.125570e+05 1.118260e+05  1.58     2.55     1476.05
+## Pop       809.00 4.663087e+09 4.663086e+09 11.65   152.44 21333379.77
+## GDPpc_log   6.59 1.163000e+01 5.040000e+00 -0.25    -0.79        0.08</code></pre>
+<p>We can see there is a new variable now, GDPpc_log, which is the log transformed GDPpc variable - basically the original GDPpc variable multiplied by the natural logarithm.</p>
+<p>Of course, there are many other possible transforms, and I’ll touch on that below, for now let’s rerun the plot using GDPpc_log</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>That relationship definitely looks more linear, and if that was my only criteria for deciding what to do with the data, I would definitely now run with this idea, as the <em>Economist</em> did in their article</p>
+<p>With that in mind, let’s take a quick look at the correlations for these variables. First the original GDPpc, and then the log transformed one.</p>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  Happy$Happiness and Happy$GDPpc
+## t = 13.502, df = 146, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.6636288 0.8092331
+## sample estimates:
+##      cor 
+## 0.745184</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  Happy$Happiness and Happy$GDPpc_log
+## t = 15.916, df = 146, p-value &lt; 2.2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.7287785 0.8487456
+## sample estimates:
+##       cor 
+## 0.7964703</code></pre>
+<p>We can see that the association is stronger (the correlation is higher) for the log GDPpc variable, although to be honest, it is not a very big difference here, compared to other data sets that I have seen discussed in the media. That’s interesting in itself (note we are using 2020 data, so maybe the pandemic has something to do with it?)</p>
+<p>However, <strong>transformations</strong> of data are kind of a complicated topic though. In essence, what we are doing is changing the distribution of one (or more) of the variables, in a systematic way, in order to convert a non-linear relationship (which may be unable to be tested with methods like correlation and regression) into a linear one.</p>
+<p>There are many different types of transformations available to you, and the one you choose depends on the form of the nonlinearity. A <strong>log</strong> transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it’s not always obvious what exactly to do, and people often default to transforming <strong>any</strong> nonlinear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It’s not really that simple though, and I think we need to be a bit more logical and theory-driven on <strong>why</strong> we transform variables.</p>
+<p>In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a <strong>lot more</strong> to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could concievably lead to policy changes compared to the prior non-transformed analysis.</p>
+<p><strong>Even so</strong>, I have always had a slightly different possibility on my mind. In fact, it may be that there are <strong>two groups</strong> of country, low and high income, and different <strong>linear</strong> associations within those groups. That’s a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data…</p>
+<p>Maybe I’ll leave that for another day though.</p>
+</div>
+<div id="regression" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Regression<a href="assoc_rel.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can add a <strong>regression line</strong> to this scatterplot, for some extra information over the correlation.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>We can also do this with the log GDPpc to compare.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p>You can see that using the log GDPpc variable does improve things, but not by that much in my view. That said, it’s clear that the line is a bit more ‘precise’ (the errors are lower which can be seen by the narrower shaded regions). So, if we are looking for the ‘best’ model, it’s pretty clear that the log GDPpc model is better than the simple GDPpc model.</p>
+<p>Either way, the regression line adds a layer of information on to the correlation, which allows us to predict <em>y</em> from <em>x</em>.</p>
+<p>How so? Well, let’s add the regression equation to the chart to see:</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>This adds an <em>intercept</em>, and with that plus the coefficient we have all that we need to plot a straight line, which we can <em>extrapolate</em> to higher values of GDPpc (although remember this is the logged GDP variable) and predict what the happiness scores would be.</p>
+<p>This is obviously viable to the extent we can justify the relationship, and also within the parameters of our variables, and how confident we are that the relationship is consistent at all levels of the variables.</p>
+</div>
+<div id="multiple-regression" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Multiple Regression<a href="assoc_rel.html#multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
+<p>Remember, this is <strong>simulated data</strong> not real data.</p>
+<pre><code>##               vars   n   mean     sd median trimmed    mad  min    max  range
+## ...1             1 498 249.50 143.90 249.50  249.50 184.58 1.00 498.00 497.00
+## biking           2 498  37.79  21.48  35.82   37.71  27.51 1.12  74.91  73.79
+## smoking          3 498  15.44   8.29  15.81   15.47  10.86 0.53  29.95  29.42
+## heart.disease    4 498  10.17   4.57  10.39   10.18   5.42 0.55  20.45  19.90
+##                skew kurtosis   se
+## ...1           0.00    -1.21 6.45
+## biking         0.07    -1.22 0.96
+## smoking       -0.04    -1.12 0.37
+## heart.disease -0.03    -0.93 0.20</code></pre>
+<p>Next, let’s run three simple regressions among the three variables</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p>Remember, these are <em>simple</em> regression lines, with bivariate scatterplots. What I mean, is the effect of biking on heart disease does not take account of the effect of smoking on heart disease. What we need to do is run a model which takes account of <em>both</em> the predictors, as <strong>we can explain on the slide-deck…</strong></p>
+<p>Now we can run the Multiple Regression Model</p>
+<pre><code>## 
+## Call:
+## lm(formula = heart.disease ~ biking + smoking, data = Heart)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.1789 -0.4463  0.0362  0.4422  1.9331 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 14.984658   0.080137  186.99   &lt;2e-16 ***
+## biking      -0.200133   0.001366 -146.53   &lt;2e-16 ***
+## smoking      0.178334   0.003539   50.39   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.654 on 495 degrees of freedom
+## Multiple R-squared:  0.9796, Adjusted R-squared:  0.9795 
+## F-statistic: 1.19e+04 on 2 and 495 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>We can interpret these results in the following way:</p>
+<p>A 1 unit increase in biking will on average lead to a 0.2 unit decrease in heart disease A 1 unit increase in smoking will on average lead to a 0.17 unit increase in heart disease.</p>
+<p>Of course, what these ‘units’ refer to depends on what you have measured them with of course. But, the unarguable interpretation is that the effect is strong.</p>
+<p>However, because the <em>scales of the variables</em> are different, its not really possible to compare the sizes of the effects. So to some extent we don’t know which of the two variables has the ‘bigger’ effect here, relatively at least.</p>
+<p>To do that, we need to standardize the coeffiecients, which basically means putting all the variables on the <strong>same scale</strong>. Beforehand, they all were on different scales, which you can see by going back up and looking at the range, mean, and standard deviation of the original variables. You can see for yourself they are all different.</p>
+<p>We can solve this issue by creating a new set of standardized data, and running the model on that, as follows:</p>
+<pre><code>##               vars   n mean sd median trimmed  mad   min  max range  skew
+## ...1             1 498    0  1   0.00       0 1.28 -1.73 1.73  3.45  0.00
+## biking           2 498    0  1  -0.09       0 1.28 -1.71 1.73  3.43  0.07
+## smoking          3 498    0  1   0.05       0 1.31 -1.80 1.75  3.55 -0.04
+## heart.disease    4 498    0  1   0.05       0 1.19 -2.10 2.25  4.35 -0.03
+##               kurtosis   se
+## ...1             -1.21 0.04
+## biking           -1.22 0.04
+## smoking          -1.12 0.04
+## heart.disease    -0.93 0.04</code></pre>
+<p>You know these variables are standardized as they now all have a mean of 0 and a standard deviation of 1. Now, let’s run our model on this standardized data set.</p>
+<pre><code>## 
+## Call:
+## lm(formula = heart.disease ~ biking + smoking, data = std_Heart)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.47658 -0.09762  0.00792  0.09671  0.42283 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -6.119e-17  6.410e-03    0.00        1    
+## biking      -9.403e-01  6.418e-03 -146.53   &lt;2e-16 ***
+## smoking      3.234e-01  6.418e-03   50.39   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1431 on 495 degrees of freedom
+## Multiple R-squared:  0.9796, Adjusted R-squared:  0.9795 
+## F-statistic: 1.19e+04 on 2 and 495 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>You can see the things that have changed are the ‘Estimates’, which are now standardized.</p>
+<p>In decimal, they are -0.94 for biking and 0.32 for Smoking.</p>
+<p>The correct interpretation of these standardized effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.</p>
+<p>So, we can see that actually biking has a much <strong>higher</strong> relative effect on heart disease than smoking (although in the opposite direction). That said, this assumes that both the two IVs have similar standard deviations, and distributions, and we didn’t check that in this example.</p>
+</div>
+<div id="visualizing-multiple-regression" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Visualizing Multiple Regression<a href="assoc_rel.html#visualizing-multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are loads of different ways to visualize multiple regression. It’s not trivial, because we have more than two variables, so we can’t use the techniques we used already.</p>
+<p>Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much payoff (if any).</p>
+<p>In this case, we can use a pretty simple visualization, where we could plot the relationship of biking to heart disease at different levels of smoking.</p>
+<p>This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn’t really work that way, but it’s a cool visualization regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>Here, we can see that the effect of smoking is really just to raise the likelihood of heart disease, however much biking you do.</p>
+<p>So, for a given person who bikes a given amount, if they smoke more they will have a higher risk than a person who bikes the same amount but smokes less.</p>
+<p>But, <em>for a given smoker</em>, the more they bike, the lower their risk of heart disease, to the extent that if a heavy smoker bikes enough, their actual risk of heart disease could even be lower than a non-smoker who does not bike at all.</p>
+<p>Don’t forget, this is not real data, but the point stands. Get on your bike.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="uncertainty.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-assoc_rel.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["LFD.pdf", "LFD.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
