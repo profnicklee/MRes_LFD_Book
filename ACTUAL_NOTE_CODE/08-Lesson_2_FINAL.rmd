@@ -72,7 +72,7 @@ Ironically, there is some logic behind using line charts with this sort of data,
 
 While we're at it, we'll also look at pie charts...
 
-***Back to slide deck...***
+***Quick Transition to MS Excel...***
 
 ## Box Plots
 

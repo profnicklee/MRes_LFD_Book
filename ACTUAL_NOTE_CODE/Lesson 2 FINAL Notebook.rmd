@@ -1,0 +1,268 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+# Lesson 2 R Notebook
+
+Here, we will use R to demonstrate a number of important concepts about data displays and descriptions.
+
+First, we load up the required libraries:
+
+```{r}
+library(readxl)
+library(ggplot2)
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(ggridges)
+library(summarytools)
+```
+
+Next, we load up some data to look at. We'll begin by looking at some COVID data. Here is some data from Johns Hopkins University as at April 26 2022 by country about cases, deaths, and mortality for COVID. I'm going to use the top 20 countries in terms of raw number of cases
+
+```{r}
+COVID <- read_excel("D:/Dropbox/R_Files/Data/COVID.xlsx",sheet = "Top 20")
+```
+
+So, to demonstrate how we can easily change people's views of a data set, let's run some bar charts:
+
+```{r}
+ggplot(COVID,aes(NAME,S_RATE))+geom_bar(stat="identity")
+```
+
+That's ugly. We could change the orientation of the labels, but it's easier to change the orientation of the bars...
+
+```{r}
+ggplot(COVID,aes(NAME,S_RATE))+geom_bar(stat="identity")+coord_flip()
+```
+
+That's nice. The basic conclusion we can draw is everyone is pretty much the same in terms of survival rate, although Mexico is a bit down.
+
+Interestingly, it seems to me that the variation is more pronounced in this presentation where you look 'down' a line of results, than above where you look across.
+
+Anyway, if I wanted to make everyone think that COVID survival rates were really different, there's a simple trick I could use:
+
+```{r}
+ggplot(COVID,aes(NAME,S_RATE))+geom_bar(stat="identity")+coord_flip(ylim=c(90,100))
+```
+
+Wow, how do you like that! What's different?
+
+Changing the scale of the axis is an old trick, and when used to manipulate opinion it's a bad thing. However, there is a case to say we need to know what we want to say, before we decide how to say it. When does 'making sure we see the right message' move into 'outright manipulation / misrepresentation?'.
+
+Here's another common way this type of data is presented in media and non-scientific reports:
+
+```{r}
+ggplot(COVID,aes(NAME,S_RATE, group=1))+geom_line()+geom_point()
+```
+
+or a variant:
+
+```{r}
+ggplot(COVID,aes(NAME,S_RATE, group=1))+geom_step()+geom_point()
+```
+
+Technically, it's wrong to present this data in a line chart, because it is discrete values and does not represent a trend, but it is surprisingly common - probably because it 'looks more sciency'...
+
+Ironically, there is some logic behind using line charts with this sort of data, depending on what you are trying to get across - let's move to excel to demonstrate...
+
+While we're at it, we'll also look at pie charts...
+
+***Back to slide deck...***
+
+## Box Plots
+
+```{r}
+ggplot(COVID, aes( y=CASES))+geom_boxplot()
+```
+
+```{r}
+ggplot(COVID, aes(CASES))+geom_boxplot()
+```
+
+```{r}
+ggplot(COVID,aes(x="", y=CASES))+geom_boxplot()+geom_jitter(color="black", size=0.4, alpha=0.9)
+
+```
+
+```{r}
+ggplot(COVID,aes(x="", y=DEATHS))+geom_boxplot()+geom_jitter(color="black", size=0.4, alpha=0.9)
+
+
+```
+
+Interesting stuff, just from the box plot. But, while box plots are nice, they can also obscure stuff. Adding the jitter helps, but there are other ways to display this type of data.
+
+## Violin Plots
+
+```{r}
+
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+
+# Plot
+data %>%
+  ggplot( aes(x=name, y=value, fill=name)) +
+    geom_boxplot() +
+    scale_fill_viridis(discrete = TRUE, alpha=0.6) 
+    
+
+```
+
+Let's add jitter:
+
+```{r}
+
+
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+
+# Plot
+data %>%
+  ggplot( aes(x=name, y=value, fill=name)) +
+    geom_boxplot() +
+    scale_fill_viridis(discrete = TRUE, alpha=0.6) +
+    geom_jitter(color="black", size=0.4, alpha=0.9) 
+
+```
+
+Well, look at that. B has a bimodal distribution...
+
+Lets look at the violin plot to emphasize this:
+
+```{r}
+
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+
+# Plot
+data %>%
+  ggplot( aes(x=name, y=value, fill=name)) +
+    geom_violin() +
+    scale_fill_viridis(discrete = TRUE, alpha=0.6) 
+    
+
+```
+
+Neat!
+
+Another way to visualize this is with 'ridges', which basically compare the densities of variables together:
+
+```{r}
+
+
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+
+# Plot
+data %>%
+  ggplot( aes(x=value, y=name, fill=name)) +
+    geom_density_ridges()
+    
+
+```
+
+Cool. This brings us to the idea of....
+
+## Describing Variables and Distributions
+
+Let's load up some more data. Here's some GDP per head data from the World Bank:
+
+```{r}
+GDP <- read_excel("D:/Dropbox/R_Files/Data/2020GDP.xls",sheet = "Data")
+```
+
+We have a number of choices as to what to do here, but the first thing we might do is plot a histogram with the data:
+
+```{r}
+ggplot(GDP, aes(x=GDP2020))+geom_histogram()
+```
+
+We can change the 'width' of the bars with the Binwidth operator:
+
+```{r}
+ggplot(GDP, aes(x=GDP2020))+geom_histogram(binwidth=10000)
+```
+
+And, we can overlay a density distribution on it:
+
+```{r}
+ggplot(GDP, aes(x=GDP2020))+geom_histogram(binwidth=10000, aes (y=..density..), colour="black", fill="white")+
+ geom_density(alpha=.2, fill="#FF6666")
+```
+
+So, here we have some idea of the distribution. It's clearly skewed quite heavily, with some outliers at the high end. Let's summarize this with some numbers:
+
+```{r}
+summary(GDP$GDP2020)
+```
+
+```{r}
+descr(GDP,
+  headings = FALSE, # remove headings
+  stats = "common" # most common descriptive statistics
+)
+```
+
+Let's chat about these for a bit...
+
+***Back to slide deck***
+
+## Transformations
+
+```{r}
+ggplot(GDP,aes(x="", y=GDP2020))+geom_boxplot()+geom_jitter(color="black", size=0.4, alpha=0.9)
+
+```
+
+As you can see, the data is heavily skewed, or 'squished' towards the bottom. This makes it hard to see any patterns by eye.
+
+We can make it easier to interpret by *transforming the variable*. Here, using a logarithmic transform.
+
+```{r}
+GDP$GDP2020LOG <-log(GDP$GDP2020)
+```
+
+Let's run the box again:
+
+```{r}
+ggplot(GDP,aes(x="", y=GDP2020LOG))+geom_boxplot()+geom_jitter(color="black", size=0.4, alpha=0.9)
+
+```
+
+Nice, see how the spread is easier to interpret here? Log transforms are essentially 'inverse exponentials', so what they do is bring down extreme high outliers.
+
+Let's see this in some more plots:
+
+```{r}
+ggplot(GDP, aes(x=GDP2020LOG))+geom_histogram(binwidth=0.5, aes (y=..density..), colour="black", fill="white")+
+ geom_density(alpha=.2, fill="#FF6666")
+```
+
+```{r}
+ggplot(GDP,aes(x="", y=GDP2020LOG))+geom_violin()
+```
+
+Compare the violin of the log transformed variable with the original:
+
+```{r}
+ggplot(GDP,aes(x="", y=GDP2020))+geom_violin()
+```
+
+In fact, we can use the log transform to revisit some of our COVID data back in EXCEL...

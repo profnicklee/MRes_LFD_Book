@@ -18,8 +18,9 @@ This is an online course book, designed for students on the Warwick Business Sch
 
 You can see to the left a list of the contents of the book. However, please note that these 'chapter numbers' do not refer to the specific lectures. Not all of the lectures use quantitative examples.
 
+It is important to note that this module is not designed to teach you how to use R. The objective of the module is to help you learn how to use and interpret the results of quantitative social science research, understand the core principles of excellent quantitative social science, and also how to apply key principles of quantitative and scientific thinking into your own life and (where relevant) work.
 
-This book is written in **Markdown**, using R and the **bookdown** package, and published online in HTML format. A full archive of all the R Code and data is available from Professor Lee on request, once the book is completed for the year.
+This book is written in **Markdown**, using R and the **bookdown** package, and published online in HTML format. A full archive of all the R Code and data for the individual chapters from the book is available from Professor Lee on request, once the book is completed for the year.
 
 This book is essentially a 'live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runnings.
 
