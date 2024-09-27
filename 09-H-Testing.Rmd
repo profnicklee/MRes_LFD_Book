@@ -1,0 +1,87 @@
+# Classical Statistical Hypothesis Testing {#H-testing}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+#note: some of these aren't used for the code that I run, but for other parts I have hashed out.
+library(tidyverse)
+library(combinat)
+library(gtools)
+library(readxl)
+library(ggplot2)
+library(ggpubr)
+library(mosaic)
+
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(png)
+library(installr)
+library(skimr)
+library(rstatix)
+library(pwr)
+```
+
+This Chapter relates to Lecture 10, and contains some (re)worked examples from earlier sessions, focusing specifically on the hypothesis testing aspect of them.
+
+## Correlation Significance Tests
+
+Here, we revisit our correlation between GDP per capita, and Happiness metrics, which I pulled from Our Word in Data:
+
+```{r}
+Happy<-read_excel("Data/HappyGDP.xlsx", sheet = "2020")
+
+summary(Happy)
+head(Happy)
+```
+
+Let's not worry about plotting the data, and go straight to the correlation:
+
+```{r}
+Assoc1 <- cor.test(Happy$Happiness, Happy$GDPpc, 
+                    method = "pearson")
+
+Assoc1
+
+```
+
+Here are our results. The estimate is a correlation, and we test that using the **t statistic**. The *t-value* is simply the estimate divided by the standard error (which we can't see in this output), and is interpreted essentially as 'how far from 0 is the estimate, in standard errors'.
+
+The *p*-value for t is very very small, and obviously less than 0.05.
+
+Conclusion - reject null hypothesis, accept alternative hypothesis (as always, pending better evidence).
+
+Importantly, this does not mean that the **true correlation in the population** is 0.745, simply that it is *very unlikely to be zero*.
+
+We can then look at our estimate of 0.745, and - even better - our confidence interval (see Section \@ref(conf) for information on how to interpret confidence intervals), to gain some indication of the likely true correlation in the population.
+
+## Regression Significance Tests
+
+The process to asses the significance of regression estimates is very very similar to that for correlations. Let's revisit the heart disease data set we used earlier.
+
+```{r}
+Heart<-read_excel("Data/heart.data.xlsx")
+
+summary(Heart)
+head(Heart)
+```
+
+Let's go straight the the multiple regression model.
+
+```{r}
+heart.disease.lm<-lm(heart.disease ~ biking + smoking, data = Heart)
+
+summary(heart.disease.lm)
+```
+
+We interpret these just as we did the correlation significance tests.
+
+The t-value is large, and the *p*-value (two-tailed) is small.
+
+Interestingly, here we are given 'stars' for the different levels of significance, so to some extent the software is doing some decision making for you. To be honest, I always caution against relying solely on looking for 'stars' (it's actually a bit of a running joke that I once told an entire class in the 1990s to 'just look at the stars'). That's because the actual significance or not decision is based on the critical value and one- or two-tailed decision. The software often makes an assumption of 0.05 critical value for *p*, two-tailed, and calculates the 'stars' based on that. Sometimes that can conflict with the decision you have made yourself about what should be significant or not. That can trip you up if you didn't know to change these values in the software package.
+
+Further, it also sort of entrenches the idea that things can be 'more' or 'less' statistically significant. Take a look at the results above, you'll see 3 stars represents a significance of '0', and 2 stars represents '0.001', boring old '0.05' only gets a single star, and '0.1' gets a dot. I'm not a fan here because this encourages the analyst to post-hoc make decisions about 'marginally' significant, or 'very' significant. These concepts do not exist. You decide your critical value, and you either pass or fail it.
+
+Am I perfect? No. Specifically, do any of my papers use the language of 'marginal' significance? Sure, I bet you could find it. I am never a fan though, and I can promise you I argued about it at the time!

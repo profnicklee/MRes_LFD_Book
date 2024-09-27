@@ -1,0 +1,286 @@
+# Introduction to Probability {#probability}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+#note: some of these aren't used for the code that I run, but for other parts I have hashed out.
+library(tidyverse)
+library(combinat)
+library(gtools)
+library(readxl)
+library(ggplot2)
+library(ggpubr)
+library(mosaic)
+
+library(dplyr)
+library(gganimate)
+library(gifski)
+library(png)
+library(installr)
+```
+
+This Chapter provides examples and additional content for Lesson 8.
+
+In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainy of our estimates, and from there we can begin to draw inferences from the sample to the population.
+
+## Simulating Coin Flips
+
+The first thing we'll do is simulate 5000 fair coin flips.
+
+Remember, this is another random process, so results will differ each time slightly
+
+```{r}
+#Note: This is virtually copied verbatim from: <https://rpubs.com/pgrosse/545948>
+#simulate 5000 flips of a fair coin
+#create data frame for trial number and outcome of an individual coin flip
+flips <- sample(c(0, 1), 5000, replace = TRUE)
+flips <- matrix(flips, ncol = 1)
+flips <- as.data.frame(flips)
+Trial <- seq(1, 5000, 1)
+Trial <- as.data.frame(Trial)
+flipsim <- cbind(flips, Trial)
+colnames(flipsim) <- c("Heads", "Trial")
+```
+
+```{r}
+#calculate cumulative heads at the end of each trial
+flipsim[,"Cum_Heads"] <- cumsum(flipsim$Heads)
+flipsim <- flipsim %>% mutate(Pct_Heads = Cum_Heads/Trial)
+head(flipsim)
+```
+
+Below, we'll plot the results of this simulation for ease of interpretation
+
+```{r}
+#create plot
+fair_plot <- flipsim %>% ggplot(aes(y = Pct_Heads, x = Trial)) + ggtitle("Percentage of Heads \n Fair Coin") + geom_line() 
+
+#note the below code creates the animation, but it does not look quite correct to me when it animates so I do not use it here. If you want to use this, copy the code after the hashtag (starting with a +) to the line above, just after the geom_line() 
+
+#+ geom_segment(aes(xend = 5000, yend = Pct_Heads), linetype = 2,color = "red") + geom_point(size = 2) + transition_reveal(Trial) + ylim(0,1) + coord_cartesian(clip = "off") + theme(plot.title = element_text(hjust = 0.5)) 
+
+fair_plot
+```
+
+The thing to notice (in combination with the table of results above the plot) is that eventually the proportion of heads versus tails approaches 50%, *but it does not start out that way*.
+
+In other words, for a fair coin toss sequence, the trials (tosses) are *independent*, which means that for any given toss of the coin, the chance of a head or tail is 50%. But, that's not the same as saying that you'll get equal numbers of heads or tails for every (or any) particular sequence of multiple tosses - it's not 'self-correcting' in any other way than sheer weight of numbers. So, **eventually** over enough trials, the sequence should start to look like 50/50 heads and tails. But, that is not the tosses 'self-correcting', simply that you are tossing a lot of coins. This is at the root of a number of fallacies about predicting random events, such as the Gambler's fallacy.
+
+## Premier League Goals and the Poisson Distribution
+
+Note, much of the inspiration and code for this section comes from: <https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html>
+
+The data comes from: <https://www.football-data.co.uk/englandm.php> and is the EPL results for 21-22 Season
+
+```{r}
+EPL<-read_excel("D:/Dropbox/R_Files/Data/EPL21-22.xlsx")
+head(EPL)
+```
+
+Next, let's see a few important bits of descriptive data. First, let's calculate the total number of games in a season:
+
+```{r}
+summary(EPL$HomeTeam)
+
+```
+
+Next, how many goals in the season were there?
+
+```{r}
+sum(EPL$TOTG)
+```
+
+And, what was the mean number of goals per game?
+
+```{r}
+summary(EPL$TOTG)
+```
+
+OK, so now we have some idea of the goals per game, let's plot the distribution of goals.
+
+```{r}
+ggplot(EPL, aes(x = TOTG)) +
+  geom_histogram(color = "darkgreen", fill = "lightgreen", bins = 10) +
+  scale_x_continuous(breaks= 0:9)
+```
+
+If you've ever seen a Poisson distribution, you'll recognise this!
+
+Let's check this out. First, let's create a table of all the matches with different numbers of goals.
+
+```{r}
+GoalsTable <- 
+  EPL %>% 
+  group_by(TOTG) %>% 
+  summarise(ActualMatches = n())
+GoalsTable 
+```
+
+Let's pull some stats of the Total Goals variable which well help us in a second.
+
+```{r}
+fav_stats(EPL$TOTG)
+```
+
+```{r}
+#Below is some code which will help us to create the distributions and also check them.
+MeanGoals <- fav_stats(EPL$TOTG)[[6]]
+numMatches <- fav_stats(EPL$TOTG)[[8]]
+StDevGoals <- fav_stats(EPL$TOTG)[[7]]
+VarianceGoals <- StDevGoals ^ 2
+```
+
+Importantly, because the Poisson distribution is described only by its mean, the first and most basic check we can do is whether the mean and the variance of the variable are the same (or at least very close). We already have the mean above (2.82), but what is the variance?
+
+```{r}
+VarianceGoals
+```
+
+This is not exactly the same, but good enough to be going on with.
+
+So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurance of a given number of total goals scored in a premier league game, for this season at least.
+
+The first thing I am going to do with that information is build a figure which compares the *actual* numbers of goals scored in games with the *predicted* numbers which would be scored if the goals scored were a perfect Poisson distribution.
+
+Ideally, we would build the Poisson probabilities for 0-9 goals (which is the maximum number scored in 21-22). However, if you do this, you will find that the two tables (actual and predicted goals) will have different numbers of rows. This is because there were no games with 8 goals scored in 21-22, but one with 9.
+
+This is a bit annoying, but not a big issue. What we do is build a Poisson probability distribution for 0-8 goals, and treat the final probability as that for '8 or more' goals, for the purposes of drawing our figure. This isn't strictly correct, because we have not collected up our actual goal data into that category, but we could do that if we wanted to.
+
+Later, we'll break this down properly, but for our showy graph here we don't really need to do it.
+
+```{r}
+PoisProb <- dpois(c(0:8), MeanGoals)
+POIS <-data.frame(PoisProb)
+POIS
+```
+
+So, this table of probabilities, based on the Poisson distribution, allows us to make some predictions of what we could expect.
+
+Remembering again that there are 380 games in a season, we can see that there is a 0.16% chance of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.
+
+We can check this out by creating a new table comparing **actual** with **predicted** values...
+
+```{r}
+NewGoalsTable <- cbind(GoalsTable, PoisProb) 
+NewGoalsTable <- mutate(GoalsTable, 
+                        ExpectedMatches = round(numMatches * PoisProb))
+NewGoalsTable
+```
+
+Remember, as you can see above, the row for '8' is missing, and it goes straight to 9. So, to repeat, just take (for simplicity's sake here) the final row of Expected Matches as meaning '2 games with 8 or more goals'
+
+Anyway, it's pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).
+
+Let's plot this for the big payoff:
+
+```{r}
+NewGoalsTable %>% 
+  gather(ActualMatches, ExpectedMatches, 
+         key = "Type", value = "numMatches") %>% 
+  ggplot(aes(x = TOTG, y = numMatches, fill = Type)) +
+  geom_bar(stat = "identity", position = "dodge")
+```
+
+Wow, that is pretty accurate! Remember, the 'expected' figures are purely drawn from the *entirely theoretical* Poisson distribution with a mean of 2.82. They very closely match the actual data.
+
+To be fair though, that graph is really just a bit of show, but what we want is the 'go'. In other words, what could we do with this information?
+
+Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that **there will be a game in the 22-23 season with 10 goals?** - assuming that this is being written before the 22-23 season (which is true).
+
+Remember, there were 380 games in 21-22, none of which contained 10 goals. So, for ease of thinking about this, let's make the assumption that the PL started in 2021, and there were no games before to count (in reality, we would go back to the last time 10 goals were scored and count from there, but let's go with this in the first instance, and we'll expand later on, promise).
+
+So, first, we need to calculate a new set of probabilities out to 10 goals.
+
+```{r}
+PoisProb <- dpois(c(0:11), MeanGoals)
+POIS <-data.frame(PoisProb)
+POIS
+```
+
+So, the number we want is the second-last probability: 0.00052.
+
+This is because the table starts from the probability of 0 goals.
+
+This means we can expect a game with 10 goals to happen every 1923 games
+
+Calculate this by dividing 1 by the probability.
+
+So, given there are 380 games per season, you would expect a game with 10 goals to happen once every 5 seasons.
+
+So, if I started counting from the 21-22 season, the answer is NO, I would not bet on there being a game with 10 goals in the 22-23 Premier League season.
+
+But, let's add some (pretty obvious) further context, as of November 2022, there have been 5 games in the history of the Premier League where 10 goals have been scored (and 1 with 11).
+
+The Premier League has been going since 1992, and so far in Nov 22 there have been...30 seasons. So, we are probably due one.
+
+AND, the last game with 10 goals was in 2013 (Man Utd 5, West Brom 5)
+
+So, I reckon we are *definitely-maybe-probably* due one.
+
+By the way, as of the start of the 22-23 season, there had been 21 matches with 9 goals. We would expect given our Poisson distribution that a game with 9 goals should happen every 1.4 seasons, meaning over 30 seasons we would expect.... 21.
+
+### 2023 Update
+
+So, the above example is *totally unchanged* (other than some typo corrections and nicer wording) from when I originally coded it in 2022. The million dollar question: *was there a game with 10 goals in the 22-23 season...?*
+
+The answer is no, there wasn't. But there were two with 9! Luckily I am not a betting man. I do think we are due one, so this season (2024) is probably a good bet, but as of January 20th 2024, we still haven't had one... Unless of course you think something has fundamentally changed about the premier league in recent years, changing the probability of goals (and thus suggesting recent seasons are drawn from a *Poisson distribution with different characteristics* than past ones), which is in fact an interesting question in its own right...
+
+## Birth Weight and the Normal Distribution: Brief Example
+
+Let's consider UK births in 2020, since they're a subject close to my heart, as my son was born that year.
+
+Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g 'bins'.
+
+Source: <https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data>
+
+We can use these numbers to create a chart, and see what it looks like, inspired by David Spiegelhalter's originals, which are available on his Github page.
+
+Spiegelhalter's Github can be found here: <https://github.com/dspiegel29/ArtofStatistics>
+
+```{r}
+weights=c(1500, 2000, 2500, 3000, 3500, 4000, 4500,5000,5500) #modified categories from 2020 UK Data
+mids=weights-250 # Note the DS original is +250, but this does not work for UK data as the numbered is the UPPER bound of the weight category in the ONS stats. So the babies in the '2000' bin weigh 1500-1999, so the midpoint is 1750, not 2250
+n=c(5015, 7103, 27554, 99220, 218442, 179088, 53530,6952,635) # numbers in each bin, UK2020
+N=sum(n)  # total number of babies
+area=N*500  # number * binwidth = total area of histogram
+
+#I think lbw should be sum of groups 1-3 not 1-2 as in the book code. Using 1-3 gives a result for the UK of 6.6% which tallies with the official stat given that I remove the 'no recorded weight' and 'implausible' categories'. I imagine that the DS book data has categories which may be the lower bound not the upper as in the UK data table.
+
+lbw   = sum(n[1:3])   # number with low birth weight (less than 2500)
+lbw.percent=100*lbw/N  # % low birth weight
+# 6.6% which tallies with Nuffield stat for 2020.
+
+#calculate mean and sd of population
+# could use sheppard's correction
+
+birth.mean=sum(n*mids/N)
+birth.sd=sqrt( sum(n*(mids-birth.mean)^2)/N)
+
+
+
+par(mfrow=c(2,2))
+# setup plot ranges noting max of normal density is at mean
+xrange <- c(1500,6000)
+yrange <- range( c(n, area*dnorm(birth.mean, birth.mean, birth.sd), 0))
+scale=0.6
+par(mar=c(5,0,1,0)+0.1)
+
+# (a) empirical distribution and fitted normal
+plot(xrange, yrange, type = "n", xlab = "", ylab = "",
+     bty="n",axes=F,main="2020 UK Birthweights(g)", cex=scale)
+axis(1,cex=scale) 
+# draw bars using rect and density using curve
+rect(weights, 0, weights - 500, n, col = "lightblue")
+curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE, 
+      lwd=3, col="blue")
+
+print (birth.mean)
+print(birth.sd)
+
+```
+
+The first number is the mean, the second is the standard deviation.
+
+What you can see here is, just using the real data from 2020 UK birthweights, it looks very much like what is called a 'normal distribution', or what you might have heard called a 'bell curve'. We can almost certainly treat any given child's birthweight as if it was a random variable drawn from a normal distribution, with a mean and standard deviation that is given by the empirical data here (3345.263 and 577.7594 respectively).
