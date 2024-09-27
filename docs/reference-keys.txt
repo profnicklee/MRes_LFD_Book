@@ -37,3 +37,6 @@ more-on-the-multiple-comparisons-problem
 the-bonferroni-correction-rate-of-change-in-football-goals-per-season
 statistical-power-brief-demonstration
 transformations
+norm_dist
+a-simple-demonstration-of-the-normal-distribution
+what-actually-is-a-normal-distribution
