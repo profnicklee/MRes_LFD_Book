@@ -31,7 +31,7 @@ First, I can just double check the data by describing it.
 describe(Happy)
 ```
 
-We've got 249 countries, with population, GDP per capita, and Happiness. There's a fair bit of missing data, which you can see by looking at the numbers in the *n* column. That's ok, as long as we are aware of it.
+We've got 249 countries, with population, GDP per capita, and Happiness. There's a fair bit of missing data, which you can see by looking at the numbers in the *n* column. That's ok for now, as long as we are aware of it.
 
 Let's plot this data using a very basic scatterplot.
 
@@ -89,7 +89,7 @@ describe(Happy)
 
 We can see there is a new variable now, GDPpc_log, which is the log transformed GDPpc variable - basically the original GDPpc variable multiplied by the natural logarithm.
 
-Of course, there are many other possible transforms, and I'll touch on that below, for now let's rerun the plot using GDPpc_log
+Of course, there are many other possible transforms. I touched on them earlier, in Chapter 2, and I'll elaborate a little more on it below, for now let's rerun the plot using GDPpc_log
 
 ```{r}
 y <- Happy$Happiness
@@ -124,9 +124,11 @@ In this case, I admit that the logic makes sense, that there is still a relation
 
 Maybe I'll leave that for another day though.
 
+We can **return to the slides** for a bit more discussion.
+
 ## Regression
 
-We can add a **regression line** to this scatterplot, for some extra information over the correlation.
+We can add a **regression line** to the GDPpc / Happiness scatterplot, for some extra information over the correlation.
 
 ```{r}
 ggscatter(Happy, x = "GDPpc", y = "Happiness", 
@@ -181,6 +183,8 @@ This adds an *intercept*, and with that plus the coefficient we have all that we
 
 This is obviously viable to the extent we can justify the relationship, and also within the parameters of our variables, and how confident we are that the relationship is consistent at all levels of the variables.
 
+**return to the slides**
+
 ## Multiple Regression
 
 Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: <https://www.scribbr.com/statistics/linear-regression-in-r/>
@@ -225,7 +229,9 @@ heart.disease.lm<-lm(heart.disease ~ biking + smoking, data = Heart)
 summary(heart.disease.lm)
 ```
 
-We can interpret these results in the following way:
+First, we look at the R2, or more accurately the Adjusted R2, which takes account of the number of variables (they are usually very similar). The R2 essentially measures how much variation in your Dependent Variable is explained by your model (i.e. your regression predictors). It ranges from 0 to 1, and higher means more variance explained. Here we see a very high AdjR2 of 0.98, almost 1. This is simulated data of course, and it is quite rare to see such high R2s in real data. For the most part, you want R2 to be high, but if it gets too high (say above 0.8 but this is not a 'rule') you might start to get worried about whether your IVs and DVs are actually distinct things. Apart from that, standards of what makes an acceptable R2 are highly dependent on the context and field you are working in, and you'll no doubt see lots of different ideas throughout your career on what is acceptable. Of course, that only scratches the surface of this issue, and I'll say more in the lecture slides.
+
+Next, we look at the coefficients, and they can be interpreted as follows:
 
 A 1 unit increase in biking will on average lead to a 0.2 unit decrease in heart disease A 1 unit increase in smoking will on average lead to a 0.17 unit increase in heart disease.
 
