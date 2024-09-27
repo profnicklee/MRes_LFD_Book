@@ -1,9 +1,13 @@
-tab:unnamed-chunk-69
+tab:unnamed-chunk-87
 introduction-and-orientation
 intro
 summarizing-data-with-numbers
 box-plots
 violin-plots-and-ridge-plots
+transformations
+norm_dist
+a-simple-demonstration-of-the-normal-distribution
+what-actually-is-a-normal-distribution
 assoc_rel
 correlations-and-associations
 introducing-nonlinear-associations
@@ -36,7 +40,3 @@ Issues
 more-on-the-multiple-comparisons-problem
 the-bonferroni-correction-rate-of-change-in-football-goals-per-season
 statistical-power-brief-demonstration
-transformations
-norm_dist
-a-simple-demonstration-of-the-normal-distribution
-what-actually-is-a-normal-distribution

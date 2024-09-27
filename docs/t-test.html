@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 T-Tests for Means | WBS MRes: Learning From Data</title>
+  <title>Chapter 7 T-Tests for Means | WBS MRes: Learning From Data</title>
   <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 T-Tests for Means | WBS MRes: Learning From Data" />
+  <meta property="og:title" content="Chapter 7 T-Tests for Means | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 T-Tests for Means | WBS MRes: Learning From Data" />
+  <meta name="twitter:title" content="Chapter 7 T-Tests for Means | WBS MRes: Learning From Data" />
   
   <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-20" />
+<meta name="date" content="2024-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,70 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -82,60 +146,66 @@
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.4</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
+<li class="chapter" data-level="3" data-path="norm_dist.html"><a href="norm_dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>3.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="3.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>3.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="3.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>3.3</b> Regression</a></li>
-<li class="chapter" data-level="3.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="3.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>3.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="3.1" data-path="norm_dist.html"><a href="norm_dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="norm_dist.html"><a href="norm_dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>4</b> Beginning to Understand Uncertainty</a>
+<li class="chapter" data-level="4" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>4.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+<li class="chapter" data-level="4.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="4.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="4.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
+<li class="chapter" data-level="4.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>5</b> Introduction to Bootstrapping</a>
+<li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>5.1</b> Bootstrapping in the Context of Previous Examples</a></li>
-<li class="chapter" data-level="5.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>5.2</b> Bootstrapping Other Stuff…</a>
+<li class="chapter" data-level="5.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>5.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bootstrapping</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>5.2.1</b> Correlations</a></li>
+<li class="chapter" data-level="6.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>6.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="6.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>6.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>6.2.1</b> Correlations</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>6</b> T-Tests for Means</a>
+<li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>6.1</b> Independent Sample T-Tests</a></li>
-<li class="chapter" data-level="6.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>6.2</b> Paired-Sample T-tests</a></li>
+<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>7.1</b> Independent Sample T-Tests</a></li>
+<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>7.2</b> Paired-Sample T-tests</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>7</b> Introduction to Probability</a>
+<li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>7.1</b> Simulating Coin Flips</a></li>
-<li class="chapter" data-level="7.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>7.2</b> Premier League Goals and the Poisson Distribution</a>
+<li class="chapter" data-level="8.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>8.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>7.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>7.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
+<li class="chapter" data-level="8.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>8.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>8</b> Introduction to Statistics</a>
+<li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>8.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
-<li class="chapter" data-level="8.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>8.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>9</b> Classical Statistical Hypothesis Testing</a>
+<li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>9.1</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="9.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>9.2</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Regression Significance Tests</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>10</b> ANOVA</a>
+<li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>10.1</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="11.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>11.1</b> Post-Hoc Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>11</b> Issues with Significance Testing</a>
+<li class="chapter" data-level="12" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>12</b> Issues with Significance Testing</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>11.1</b> More on the Multiple Comparisons Problem</a></li>
-<li class="chapter" data-level="11.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>11.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
-<li class="chapter" data-level="11.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>11.3</b> Statistical Power: Brief Demonstration</a></li>
+<li class="chapter" data-level="12.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>12.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="12.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>12.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="12.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>12.3</b> Statistical Power: Brief Demonstration</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -158,12 +228,12 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="t-test" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Chapter 6</span> T-Tests for Means<a href="t-test.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="t-test" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> T-Tests for Means<a href="t-test.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This Chapter supplements the material in the second part of Lecture 7.</p>
 <p>In this chapter, I will introduce the t-test, a classic analysis technique that is used to compare two groups together.</p>
-<div id="independent-sample-t-tests" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Independent Sample T-Tests<a href="t-test.html#independent-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="independent-sample-t-tests" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Independent Sample T-Tests<a href="t-test.html#independent-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can also use bootstrapping as an entry point to a new analysis situation, where we are comparing two groups. This could be for example in a classic experimental context; treatment and control.</p>
 <p>Remember, t-tests can be done in any analysis setting, and it does not require bootstrapping at all. It just so happens that they are nicely explainable at this point.</p>
 <p>So, we are going to analyze a set of data from my infamous Ed Sheeran Study<sup>1</sup> - which would certainly win an Ignobel Prize if I were ever to do it in reality rather than in my fondest imaginings.</p>
@@ -183,7 +253,7 @@
 ## GROUP    2 30  1.50 0.51    1.5    1.50  0.74   1   2     1 0.00    -2.07 0.09
 ## ANGER    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4 0.04    -1.30 0.22</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-69">Table 6.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-87">Table 7.1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -321,7 +391,7 @@
 ##   &lt;fct&gt; &lt;dbl&gt;
 ## 1 1      2.8 
 ## 2 2      3.87</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
 <pre><code>## Response: ANGER (numeric)
 ## Explanatory: GROUP (factor)
 ## # A tibble: 1 × 1
@@ -335,8 +405,8 @@
 <p>Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran.</p>
 <p>Cool, so it seems that Group 2 displayed more anger. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we’ll return to this issue of what confidence intervals actually mean.</p>
 </div>
-<div id="paired-sample-t-tests" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Paired-Sample T-tests<a href="t-test.html#paired-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="paired-sample-t-tests" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Paired-Sample T-tests<a href="t-test.html#paired-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>OK, so let’s use a different design, using a paired samples t-test. Let me go <em>back to the slides…</em> to explain this difference.</p>
 <p>The same basic process is needed, but with some modifications because of the type of comparison we are doing. And, as such, we have some new data.</p>
 <pre><code>##   ID ANG_T1 ANG_T2
@@ -372,7 +442,7 @@
 ## DIF    0.23</code></pre>
 <p>We can see there is a new ‘DIF’ variable here.</p>
 <p>Next, we bootstrap a confidence interval for the <em>mean of the difference variable</em>, to see whether it includes zero:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
 <pre><code>## Response: DIF (numeric)
 ## # A tibble: 1 × 1
 ##    stat
@@ -427,7 +497,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-t-test.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-t-test.Rmd",
 "text": "Edit"
 },
 "history": {

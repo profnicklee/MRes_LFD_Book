@@ -54,6 +54,70 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -184,7 +248,7 @@
 ## Pop       809.0 4.663087e+09 4.663086e+09 11.65   152.44 21333379.77</code></pre>
 <p>We’ve got 249 countries, with population, GDP per capita, and Happiness. There’s a fair bit of missing data, which you can see by looking at the numbers in the <em>n</em> column. That’s ok for now, as long as we are aware of it.</p>
 <p>Let’s plot this data using a very basic scatterplot.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
 <p>Interpretation: there’s seemingly an association here. As one variable increases, the other does too.</p>
 <p>It’s worth noting that I have chosen to put GDPpc on the x-axis, which <em>implies</em> that the driver of Happiness is GDP. This replicates the way that most of the media articles that are regularly written on this kind of topic do it.</p>
 <p>Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis, because it’s important that you do <strong>NOT</strong> draw any causal conclusion from this very basic scatterplot. Simple associations are <em>not</em> in any way conclusive evidence of any causality in the relationship, since there are many other things which could be going on that are impossible to tease out simply with a bivariate association seen on a scatterplot. For example, there could be a spurious relationship - what could cause <em>both</em> happiness and GDPpc to increase?</p>
@@ -208,7 +272,7 @@
 <div id="introducing-nonlinear-associations" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Introducing Nonlinear Associations<a href="assoc_rel.html#introducing-nonlinear-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s return to the scatterplot of GDPpc and Happiness</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <p>As the <em>Economist</em> analysis discussed in the lectures suggests, this association also looks kind of <em>nonlinear</em>.</p>
 <p>However, unlike the <em>Economist</em>, we can also say that there are multiple ways to look at this:</p>
 <p>First, you could take the <em>Economist’s</em> view that this is probably a <strong>nonlinear relationship.</strong> Indeed, we can check this out by <em>transforming</em> GDPpc and comparing the results between transformed and non-transformed data.</p>
@@ -227,7 +291,7 @@
 ## GDPpc_log   6.59 1.163000e+01 5.040000e+00 -0.25    -0.79        0.08</code></pre>
 <p>We can see there is a new variable now, GDPpc_log, which is the log transformed GDPpc variable - basically the original GDPpc variable multiplied by the natural logarithm.</p>
 <p>Of course, there are many other possible transforms. I touched on them earlier, in Chapter 2, and I’ll elaborate a little more on it below, for now let’s rerun the plot using GDPpc_log</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 <p>That relationship definitely looks more linear, and if that was my only criteria for deciding what to do with the data, I would definitely now run with this idea, as the <em>Economist</em> did in their article</p>
 <p>With that in mind, let’s take a quick look at the correlations for these variables. First the original GDPpc, and then the log transformed one.</p>
 <pre><code>## 
@@ -263,13 +327,13 @@
 <div id="regression" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Regression<a href="assoc_rel.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can add a <strong>regression line</strong> to the GDPpc / Happiness scatterplot, for some extra information over the correlation.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>We can also do this with the log GDPpc to compare.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>You can see that using the log GDPpc variable does improve things, but not by that much in my view. That said, it’s clear that the line is a bit more ‘precise’ (the errors are lower which can be seen by the narrower shaded regions). So, if we are looking for the ‘best’ model, it’s pretty clear that the log GDPpc model is better than the simple GDPpc model.</p>
 <p>Either way, the regression line adds a layer of information on to the correlation, which allows us to predict <em>y</em> from <em>x</em>.</p>
 <p>How so? Well, let’s add the regression equation to the chart to see:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <p>This adds an <em>intercept</em>, and with that plus the coefficient we have all that we need to plot a straight line, which we can <em>extrapolate</em> to higher values of GDPpc (although remember this is the logged GDP variable) and predict what the happiness scores would be.</p>
 <p>This is obviously viable to the extent we can justify the relationship, and also within the parameters of our variables, and how confident we are that the relationship is consistent at all levels of the variables.</p>
 <p><strong>return to the slides</strong></p>
@@ -289,9 +353,9 @@
 ## smoking       -0.04    -1.12 0.37
 ## heart.disease -0.03    -0.93 0.20</code></pre>
 <p>Next, let’s run three simple regressions among the three variables</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>Remember, these are <em>simple</em> regression lines, with bivariate scatterplots. What I mean, is the effect of biking on heart disease does not take account of the effect of smoking on heart disease. What we need to do is run a model which takes account of <em>both</em> the predictors, as <strong>we can explain on the slide-deck…</strong></p>
 <p>Now we can run the Multiple Regression Model</p>
 <pre><code>## 
@@ -361,7 +425,7 @@
 <p>Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much payoff (if any).</p>
 <p>In this case, we can use a pretty simple visualization, where we could plot the relationship of biking to heart disease at different levels of smoking.</p>
 <p>This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn’t really work that way, but it’s a cool visualization regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
 <p>Here, we can see that the effect of smoking is really just to raise the likelihood of heart disease, however much biking you do.</p>
 <p>So, for a given person who bikes a given amount, if they smoke more they will have a higher risk than a person who bikes the same amount but smokes less.</p>
 <p>But, <em>for a given smoker</em>, the more they bike, the lower their risk of heart disease, to the extent that if a heavy smoker bikes enough, their actual risk of heart disease could even be lower than a non-smoker who does not bike at all.</p>
@@ -429,6 +493,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

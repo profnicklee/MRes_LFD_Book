@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Issues with Significance Testing | WBS MRes: Learning From Data</title>
+  <title>Chapter 12 Issues with Significance Testing | WBS MRes: Learning From Data</title>
   <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Issues with Significance Testing | WBS MRes: Learning From Data" />
+  <meta property="og:title" content="Chapter 12 Issues with Significance Testing | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Issues with Significance Testing | WBS MRes: Learning From Data" />
+  <meta name="twitter:title" content="Chapter 12 Issues with Significance Testing | WBS MRes: Learning From Data" />
   
   <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-20" />
+<meta name="date" content="2024-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,6 +54,70 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 <style type="text/css">
   
@@ -82,60 +146,66 @@
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.4</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
+<li class="chapter" data-level="3" data-path="norm_dist.html"><a href="norm_dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>3.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="3.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>3.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="3.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>3.3</b> Regression</a></li>
-<li class="chapter" data-level="3.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>3.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="3.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>3.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="3.1" data-path="norm_dist.html"><a href="norm_dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="norm_dist.html"><a href="norm_dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>4</b> Beginning to Understand Uncertainty</a>
+<li class="chapter" data-level="4" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>4.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+<li class="chapter" data-level="4.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="4.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="4.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
+<li class="chapter" data-level="4.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>5</b> Introduction to Bootstrapping</a>
+<li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>5.1</b> Bootstrapping in the Context of Previous Examples</a></li>
-<li class="chapter" data-level="5.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>5.2</b> Bootstrapping Other Stuff…</a>
+<li class="chapter" data-level="5.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>5.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bootstrapping</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>5.2.1</b> Correlations</a></li>
+<li class="chapter" data-level="6.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>6.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="6.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>6.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>6.2.1</b> Correlations</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>6</b> T-Tests for Means</a>
+<li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>6.1</b> Independent Sample T-Tests</a></li>
-<li class="chapter" data-level="6.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>6.2</b> Paired-Sample T-tests</a></li>
+<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>7.1</b> Independent Sample T-Tests</a></li>
+<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>7.2</b> Paired-Sample T-tests</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>7</b> Introduction to Probability</a>
+<li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>7.1</b> Simulating Coin Flips</a></li>
-<li class="chapter" data-level="7.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>7.2</b> Premier League Goals and the Poisson Distribution</a>
+<li class="chapter" data-level="8.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>8.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>7.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>7.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
+<li class="chapter" data-level="8.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>8.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>8</b> Introduction to Statistics</a>
+<li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>8.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
-<li class="chapter" data-level="8.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>8.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>9</b> Classical Statistical Hypothesis Testing</a>
+<li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>9.1</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="9.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>9.2</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Regression Significance Tests</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>10</b> ANOVA</a>
+<li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>10.1</b> Post-Hoc Testing</a></li>
+<li class="chapter" data-level="11.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>11.1</b> Post-Hoc Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>11</b> Issues with Significance Testing</a>
+<li class="chapter" data-level="12" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>12</b> Issues with Significance Testing</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>11.1</b> More on the Multiple Comparisons Problem</a></li>
-<li class="chapter" data-level="11.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>11.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
-<li class="chapter" data-level="11.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>11.3</b> Statistical Power: Brief Demonstration</a></li>
+<li class="chapter" data-level="12.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>12.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="12.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>12.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="12.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>12.3</b> Statistical Power: Brief Demonstration</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -158,22 +228,22 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="Issues" class="section level1 hasAnchor" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Issues with Significance Testing<a href="Issues.html#Issues" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="Issues" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">Chapter 12</span> Issues with Significance Testing<a href="Issues.html#Issues" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter provides examples and analysis for the second part of Lecture 11.</p>
 <p>In this chapter, I’ll explore examples of two common ‘issues’ or ‘debates’ regarding statistical significance testing, applied to two of our prior examples.</p>
 <p>But first, let’s unpack more about the Ed Sheeran Study, and the multiple comparisons problem.</p>
-<div id="more-on-the-multiple-comparisons-problem" class="section level2 hasAnchor" number="11.1">
-<h2><span class="header-section-number">11.1</span> More on the Multiple Comparisons Problem<a href="Issues.html#more-on-the-multiple-comparisons-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="more-on-the-multiple-comparisons-problem" class="section level2 hasAnchor" number="12.1">
+<h2><span class="header-section-number">12.1</span> More on the Multiple Comparisons Problem<a href="Issues.html#more-on-the-multiple-comparisons-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, I’ll provide some visualizations which can help us to understand the problem with multiple comparisons.</p>
 <p>However, it’s worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.</p>
 <p>First, let’s visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
 <p>Now, remember, <strong>even if all null hypotheses are true</strong>, our significance level, or <em>p</em> = 0.05, so we have to expect that <em>on average</em> we would expect <strong>5</strong> of these hypotheses tests to return <em>p</em>-values &lt; 0.05, and thus we would reject the null. This is known as a <strong>false positive</strong>.</p>
 <p>You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required <em>p</em> to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept <em>all</em> null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really <em>was</em> true in the population in every single case, you would be inevitably missing out on making some discoveries.</p>
 <p>Moving on, let’s visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
-<p>Now, that is just the <em>expected</em> level for every 100 tests. If you remember from the discussion in Section <a href="statistics.html#conf">8.2</a>, it may not be you get <em>exactly</em> 5 false positives in 100 tests, just that you would expect the long run average number of false positives to be 5%, in an all-null world.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
+<p>Now, that is just the <em>expected</em> level for every 100 tests. If you remember from the discussion in Section <a href="statistics.html#conf">9.2</a>, it may not be you get <em>exactly</em> 5 false positives in 100 tests, just that you would expect the long run average number of false positives to be 5%, in an all-null world.</p>
 <p>So, we can look at it through a different lens. What is the probability that you would get <strong>at least one false positive</strong> in any given batch of multiple tests.</p>
 <p>That is known as the <em>familywise error rate</em>, and it applies whenever you can define a cluster or ‘family’ of tests.</p>
 <p>It’s the same principle as rolling a 6-sided die, and needing to score a ‘6’. Think of the ‘6’ as the ‘false positive’ here.</p>
@@ -196,8 +266,8 @@
 <p>When you adjust the slides, it feels kind of scary right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.</p>
 <p>For example, in the Ed Sheeran post-hoc tests above, we used Tukey’s test, which uses a correction for multiple comparisons. Another method dealt with below is the <em>Bonferoni Correction</em>, which is generally the most well-known of them.</p>
 </div>
-<div id="the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="11.2">
-<h2><span class="header-section-number">11.2</span> The Bonferroni Correction: Rate of Change in Football Goals per Season<a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="12.2">
+<h2><span class="header-section-number">12.2</span> The Bonferroni Correction: Rate of Change in Football Goals per Season<a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
 <p>I hand-entered this into a spreadsheet, and calculated the additional numbers myself.</p>
 <pre><code>## # A tibble: 6 × 7
@@ -212,7 +282,7 @@
 <p>You can see here I have calculated the standard errors from the yearly goal totals (which represent that year’s underlying rate of goal occurrence), then used that to calculate the 95% confidence Interval limits</p>
 <p>We can use these to create a nifty chart with error bars, drawing from the code used by Spiegelhalter for Figure 9.4 in his book, available on his github:</p>
 <p><a href="https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd" class="uri">https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd</a></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
 <p>From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic, despite what many football ‘experts’ said.</p>
 <p>We can look at this in some more depth though. First, it’s worth knowing that the UK Office for National Statistics uses this basic technique to estimate the probability of homicides, which also seem to be usefully approximated by the Poisson distribution.</p>
 <p>Interestingly, the ONS suggest that it is over-stringent to rely on error bar overlap, and that we can also use z-tests to directly test the assumption that the change is zero.</p>
@@ -253,7 +323,7 @@
 ## 6 2000-01   380   992  2.61  31.5      930.     1054.    -68 -1.50  -1.50 
 ## # ℹ 1 more variable: p2 &lt;dbl&gt;</code></pre>
 <p>Here, we can plot the p-values (2-tailed), and again we see that two seasons seem to have significant differences. In other words, the p-values are less than 0.05 for the test as to whether the number of goals scored differs from the season before</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 <p>We can see that the 1999-2000 season, and the 2009-10 seasons have p values less than 0.05</p>
 <p>The question is <strong>are we suffering from the multiple comparisons problem</strong>? Should we correct for it?</p>
 <p>It’s hard to say actually. Of course, we are indeed running multiple tests, 26 in fact. So, the chance of a false positive is high. The Bonferroni correction would immediately reduce the false positive chances, but at what cost?</p>
@@ -265,7 +335,7 @@
 <p><em>n</em> = number of comparisons (here this is 26)</p>
 <p>So, the formula gives us a new Bonferroni-adjusted critical p value of 0.0019</p>
 <p>Let’s see what happens with this new critical p value:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
 <p>We can see that none of our tests now rejects the null. The Bonferroni correction is known as a highly conservative test. That is, it is based on the idea that the <em>null hypothesis is true</em> in each case in the population. We can thus consider it as the most stringent and conservative way to correct for the chance of false positives when doing multiple comparisons.</p>
 <p>But, as I suggested above, that might not always be the best idea. Indeed, if you want to totally avoid any chance of a false positive, why not simply make the required alpha 0? Then, you would never get a false positive. Of course, you would never detect a <strong>true positive</strong> either.</p>
 <p>What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be <em>no false positives</em>. Therefore, in such a situation you would be <em>increasing the chances of a false negative</em> by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?</p>
@@ -273,8 +343,8 @@
 <p>Mind you, I am not saying that’s the final word, just that there are multiple perspectives on the issues!</p>
 <p>It’s never as simple as it seems when making statistical decisions, is it?</p>
 </div>
-<div id="statistical-power-brief-demonstration" class="section level2 hasAnchor" number="11.3">
-<h2><span class="header-section-number">11.3</span> Statistical Power: Brief Demonstration<a href="Issues.html#statistical-power-brief-demonstration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="statistical-power-brief-demonstration" class="section level2 hasAnchor" number="12.3">
+<h2><span class="header-section-number">12.3</span> Statistical Power: Brief Demonstration<a href="Issues.html#statistical-power-brief-demonstration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Different types of analysis and research design require different types of power calculation, so it is hard to give a uniform example. But, for simplicity’s sake, let’s calculate the required sample size for the Ed Sheeran study we conducted earlier.</p>
 <p>Remember, really, we should have done this <strong>before collecting data</strong>.</p>
 <p>To calculate power, all we need the parameters of the experiment and analysis design. As such, it is easily possible to do this before collecting data, and to design your studies around it. Really, we should do this a lot more in business and management - it’s routine in fields like medicine.</p>
@@ -332,7 +402,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/10-Issues_w_sig.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/11-Issues_w_sig.Rmd",
 "text": "Edit"
 },
 "history": {
