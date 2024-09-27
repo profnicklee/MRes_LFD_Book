@@ -36,3 +36,4 @@ Issues
 more-on-the-multiple-comparisons-problem
 the-bonferroni-correction-rate-of-change-in-football-goals-per-season
 statistical-power-brief-demonstration
+transformations

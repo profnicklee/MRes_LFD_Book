@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-20" />
+<meta name="date" content="2024-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -82,6 +82,7 @@
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
 <li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.4</b> Transformations</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>3</b> Associations and Relationships</a>
 <ul>
@@ -183,6 +184,9 @@
 <p>or a variant:</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p>Technically, it’s wrong to present this data in a line chart, because it is discrete values and does not represent a trend, but it is surprisingly common - probably because it ‘looks more sciency’…</p>
+<p>Ironically, there is some logic behind using line charts with this sort of data, depending on what you are trying to get across - let’s move to excel to demonstrate…</p>
+<p>While we’re at it, we’ll also look at pie charts…</p>
+<p><strong><em>Quick transition to MS Excel, then back to the slides…</em></strong></p>
 <div id="summarizing-data-with-numbers" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Summarizing Data with Numbers<a href="intro.html#summarizing-data-with-numbers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Above, we simply plotted a single variable of interest, and showed that some very basic changes to how it was displayed had the potential to ‘lead’ the reader to different conclusions. Even that simple tweaking is a powerful way to change opinion, and used in the wrong way can be very misleading.</p>
@@ -249,6 +253,24 @@
 <p>Another way to visualize this is with <strong>ridges</strong>, which basically compare the distributions of variables together:</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>These are really cool in my view. And, if you are asking me, my preference in this type of situation would be to combine jittered box plots, which show the basics, and emphasize the outliers and summary numbers, with ridge plots, which show a really nice visualization of the distributions of each variable. Taken together, these plots allow us to understand a surprisingly large amount of important information about variables.</p>
+<p>OK, let’s move back to the slides to discuss another crucially important concept related to data distributions: <strong>transformations</strong>.</p>
+<p><strong><em>Back to slide deck</em></strong></p>
+</div>
+<div id="transformations" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Transformations<a href="intro.html#transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><img src="LFD_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>As you can see, the data is heavily skewed, or ‘squished’ towards the bottom. This makes it hard to see any patterns by eye.</p>
+<p>We can make it easier to interpret by <em>transforming the variable</em>. Here, using a logarithmic transform.</p>
+<p>Let’s run the box again:</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Nice, see how the spread is easier to interpret here? Log transforms are essentially ‘inverse exponentials’, so what they do is bring down extreme high outliers.</p>
+<p>Let’s see this in some more plots:</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>Compare the violin of the log transformed variable with the original:</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>In fact, we can use the log transform to revisit some of our COVID data back in EXCEL…</p>
+<p><strong><em>Quick transition to MS Excel, then back to slides…</em></strong></p>
 
 </div>
 </div>
@@ -312,20 +334,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>
