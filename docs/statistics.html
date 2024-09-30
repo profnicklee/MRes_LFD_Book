@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-27" />
+<meta name="date" content="2024-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -251,15 +251,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##    5600    7500    9400    9400   11300   13200</code></pre>
 <pre><code>## [1] 2366.432</code></pre>
 <p>Above, you’ll see the important descriptive statistics, including the standard deviation of 2366.432. Let’s plot the frequency distribution, and once we do so we will find that it is essentially uniform - every value occurs once and only once in the population.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 <p>Now, what I am going to do is take a <em>single random sample of 2</em> from that population. This sample is taken ‘without replacement’, if you are wondering, and so it is in essence exactly as if a researcher went into the field and took a sample from this population.</p>
 <pre><code>## [1] &quot;One Random Combination of 2 of the 20 Income Values&quot;</code></pre>
-<pre><code>## [1] 11600  7200</code></pre>
+<pre><code>## [1] 12800 11600</code></pre>
 <p>Let’s take the mean of the sample:</p>
 <pre><code>##    res1
-## 1 11600
-## 2  7200</code></pre>
-<pre><code>## [1] 9400</code></pre>
+## 1 12800
+## 2 11600</code></pre>
+<pre><code>## [1] 12200</code></pre>
 <p>The mean of the random sample of 2 will of course be different each time the sample is taken (e.g. when writing this text, the mean was 10600, but this may not be the same in the version you are reading!)</p>
 <p>Just for reference, the mean of the population (remember, the 20 people) was 9400</p>
 <p>So, let’s now do that for <strong>every possible combination of 2 values</strong> from this population.</p>
@@ -473,11 +473,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>That’s just the first 6 (the head of the data set), but you can rest assured that there are 190 means created here.</p>
 <p>OK, so here is the kicker. Let’s plot a histogram of these 190 means.</p>
 <p>Remember, a histogram is a frequency distribution:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <p>Well well well!</p>
 <p>Even though the original population was a completely uniform distribution with a mean of 9400, the distribution of all of the sample means looks quite a lot like a normal distribution / bell curve!</p>
 <p>Let’s overlay one on it as well to make the point…</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
 <p>Further, let’s take the mean of those means…</p>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    5800    8200    9400    9400   10600   13000</code></pre>
@@ -502,7 +502,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>How confidence intervals get more precise as sample size increases, and</li>
 <li>How to interpret your specific confidence interval as simply one possibility of many.</li>
 </ol>
-<p><img src="LFD_files/figure-html/unnamed-chunk-123-1.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-2.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-3.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-4.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-124-1.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-2.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-3.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-4.png" width="672" /></p>
 <p>So, you can see that the confidence intervals for each of the 100 samples at a given sample size all cluster around the mean, but are wider as sample size is lower. That makes sense intuitively.</p>
 <p>Looking specifically at our example N of 42, we can estimate which one of the 100 that might be, and see how the CI for sample means of about that size does include the real population mean of 165. You can also see there are a number of coloured CIs which do <strong>not</strong> include the sample mean. This shows how to interpret a CI.</p>
 <p>Specifically, <strong>your actual sample</strong> is one of a very large amount of possible samples from the population (here we took 100 but we could have taken many more). The CI calculation essentially creates a CI with the width so that, out of 100 random samples, approximately 95 will actually contain the <em>true population mean</em>.</p>

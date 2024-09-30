@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-27" />
+<meta name="date" content="2024-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -230,8 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="bootstrap" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Introduction to Bootstrapping<a href="bootstrap.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This Chapter supplements the material in the first part of Lecture 7.</p>
-<p>In this chapter, we will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.</p>
+<p>This Chapter relates to the second part of Lecture 6.In this chapter, you will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.</p>
 <p>The basic process is fairly simple, once you have your original sample, and has the following characteristics:</p>
 <ol style="list-style-type: decimal">
 <li>A bootstrap sample has an equal probability of randomly drawing any of the original sample elements (data points).</li>
@@ -241,67 +240,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>First, I will demonstrate the basic principle.</p>
 <p>Recall from the last chapter that there was a simulated data set of 498 people, with variables representing smoking, biking, and heart disease.</p>
 <p>We treated this as <strong>the population</strong> and then sampled from it to demonstrate uncertainty at different sample sizes.</p>
-<p>So, let’s take the sample of 50 that we drew from that ‘population’ of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.</p>
+<p>So, let’s take the sample of <strong>50</strong> that we drew from that ‘population’ of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.</p>
 <p>First we will remind ourselves of the properties and distribution of our sample, the median, mean, and distribution:</p>
-<pre><code>## [1] 16.33627</code></pre>
-<pre><code>## [1] 16.01781</code></pre>
+<pre><code>## [1] 13.17641</code></pre>
+<pre><code>## [1] 12.46891</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
-<p>Ok, there we go. Remember, this sample is our ‘data set’ for analysis.</p>
-<p>We know the median and mean, but we have no real indication of the uncertainty in those estimates. In order to get that information, we will eventually use the bootstrap method. For now, we are just going to demonstrate the basic idea.</p>
-<p>So, what we do now is draw <em>another random sample of 50</em> from this 50, but each time we draw a data point, we <em>replace</em> it back, so we are always drawing our sample from the full 50. This is called <em>sampling with replacement</em>.</p>
+<p>Ok, there we go. Remember, this sample is our ‘data set’ for analysis. Remember, it represents a <strong>sample of 50 cases</strong> from a <strong>population of 498</strong>.</p>
+<p>We know the median and mean, but we have no real indication of the uncertainty in those estimates. What I mean is, without information about the population mean and median (which of course we would not have in a real-life sampling situation), we cannot know how close the sample median and mean are to the population mean and median.</p>
+<p>In order to estimate that information, we will eventually use the bootstrap method. For now, we are just going to demonstrate the basic idea.</p>
+<p>So, what we do now is draw <em>another random sample of 50</em>. However, we don’t draw it from the population, we instad draw the new sample of 50 <strong>from our existing sample of 50</strong>.</p>
+<p>That sounds weird to many people, and at first they often say ‘but how can it be different from your original 50??’. The trick is that each time we draw a data point, we <em>replace</em> it back, so we are always drawing our sample from the full 50. This is called <em>sampling with replacement</em>.</p>
 <p>In this way, the new sample can <strong>only contain values which were in the original sample</strong>, but can contain different frequencies of those values. Or in other words, each value can occur many different times, and that number of times may be different to the original sample. So the <em>distribution of values</em> in this new sample will be different to the original sample, and the statistics will therefore also be different.</p>
 <p>Let’s draw this new sample, take the median and mean of the sample, and plot it:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   290   63.8   29.1           7.62
-##  2    40   45.8    4.72          7.04
-##  3   443   22.5   16.3          13.7 
-##  4   334   13.9   27.3          16.0 
-##  5   286   25.7   23.3          13.6 
-##  6    67   23.3   14.3          13.3 
-##  7   121   65.6   14.1           4.04
-##  8   162   22.3   23.2          15.9 
-##  9   273   24.7    4.60         12.1 
-## 10   113   69.5   23.2           5.75
+##  1   433   3.22    9.18         16.5 
+##  2   355  70.0    20.3           3.69
+##  3   391  40.0    14.5           9.51
+##  4   453  10.5    15.0          15.6 
+##  5   185  10.6    19.3          16.7 
+##  6    56  28.6     1.15         10.1 
+##  7   109  49.7    20.5           8.70
+##  8   218  65.1     1.49          2.19
+##  9   333  74.0    18.9           3.30
+## 10   209   7.83   26.8          17.6 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 14.70505</code></pre>
-<pre><code>## [1] 14.5281</code></pre>
+<pre><code>## [1] 14.09784</code></pre>
+<pre><code>## [1] 13.0297</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 <p>Marvelous! Now, for the purpose of example, let’s draw two more of these resamples from the original 50, take their median and mean, and plot the distributions…</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   423  71.9    19.4           4.11
-##  2   443  22.5    16.3          13.7 
-##  3   113  69.5    23.2           5.75
-##  4   108  22.8     9.82         10.9 
-##  5   192  42.4    11.0           8.83
-##  6   355  70.0    20.3           3.69
-##  7   283  67.8    26.9           6.26
-##  8   444   2.01    1.75         14.0 
-##  9   156  54.4    16.3           7.59
-## 10   334  13.9    27.3          16.0 
+##  1   273  24.7     4.60         12.1 
+##  2   366  19.1    27.1          16.6 
+##  3   354   2.98    3.84         15.2 
+##  4   366  19.1    27.1          16.6 
+##  5    78   8.76    3.90         13.4 
+##  6   354   2.98    3.84         15.2 
+##  7    49  28.6    12.5          11.4 
+##  8   273  24.7     4.60         12.1 
+##  9    95  69.9    26.3           6.07
+## 10    13  48.8    11.0           6.72
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 16.33627</code></pre>
-<pre><code>## [1] 15.61665</code></pre>
+<pre><code>## [1] 15.54499</code></pre>
+<pre><code>## [1] 14.33218</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   426  15.4    23.4          14.1 
-##  2   268  34.2    17.8          11.3 
-##  3   418  62.0    23.9           6.96
-##  4   389  21.5     4.76         10.4 
-##  5   322  61.3    15.4           5.48
-##  6   447  33.2    17.6          12.1 
-##  7    30  25.1     5.84         11.5 
-##  8   423  71.9    19.4           4.11
-##  9   345  50.9    29.8          10.8 
-## 10   444   2.01    1.75         14.0 
+##  1    57   21.5   23.0          15.0 
+##  2   207   67.1    5.82          2.55
+##  3    56   28.6    1.15         10.1 
+##  4   366   19.1   27.1          16.6 
+##  5   456   55.2   15.3           7.02
+##  6   218   65.1    1.49          2.19
+##  7    27   60.5    3.98          3.22
+##  8   185   10.6   19.3          16.7 
+##  9   356   66.0    3.51          2.72
+## 10   106   22.5    7.70         11.7 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 17.5565</code></pre>
-<pre><code>## [1] 17.07838</code></pre>
+<pre><code>## [1] 11.02327</code></pre>
+<pre><code>## [1] 12.67535</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
 <p>Now, if we <strong>return to the slides</strong>, we can build a table using these mean and median values. Of course, the slide deck will have slightly different values, since it’s based on a different run of the resampling process, but the principle is the same.</p>
 <p>So, this is the basic idea of bootstrapping. We sample with replacement from our original sample, many many times. We did 3 here manually, but we generally use a program to do this many more times, such as a thousand or more.</p>
@@ -322,8 +323,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## 
 ## Bootstrap Statistics :
-##     original      bias    std. error
-## t1* 15.43435 -0.01622465    2.979889</code></pre>
+##     original     bias    std. error
+## t1* 14.83728 -0.1453644    2.301503</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 <pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 ## Based on 1000 bootstrap replicates
@@ -333,7 +334,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Intervals : 
 ## Level      Normal        
-## 95%   ( 9.61, 21.29 )  
+## 95%   (10.47, 19.49 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 <p>Now let’s do it for the other two subsamples of n=50, and n=200</p>
 <pre><code>## 
@@ -345,8 +346,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## 
 ## Bootstrap Statistics :
-##     original       bias    std. error
-## t1* 16.01781 -0.005925671    1.082005</code></pre>
+##     original      bias    std. error
+## t1* 12.46891 0.002991322    1.072636</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
 <pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 ## Based on 1000 bootstrap replicates
@@ -356,7 +357,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Intervals : 
 ## Level      Normal        
-## 95%   (13.90, 18.14 )  
+## 95%   (10.36, 14.57 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 <pre><code>## 
 ## ORDINARY NONPARAMETRIC BOOTSTRAP
@@ -367,8 +368,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## 
 ## Bootstrap Statistics :
-##     original      bias    std. error
-## t1*  15.3508 0.007735695   0.5796773</code></pre>
+##     original     bias    std. error
+## t1* 15.85099 0.02856443   0.5888499</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
 <pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 ## Based on 1000 bootstrap replicates
@@ -378,9 +379,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Intervals : 
 ## Level      Normal        
-## 95%   (14.21, 16.48 )  
+## 95%   (14.67, 16.98 )  
 ## Calculations and Intervals on Original Scale</code></pre>
-<p>We’ll now build a table with these values <em>back in the slide deck. I</em>Again, remember the values in the slide deck will differ from these due to the randomness of the process.</p>
+<p>We’ll now build a table with these values <em>back in the slide deck</em>. Again, remember the values in the slide deck will differ from these due to the randomness of the process.</p>
+<p>###Bootstrapping the Original Sample</p>
 <p>Now, let’s shift our minds a bit, and consider that the data set of 498 actually represents <strong>a sample of a larger population</strong> (remember from the last chapter, it’s simulated, but meant to represent a sample from the population).</p>
 <p>So, let’s bring in Researcher 4, the most conscientious of all. She is the one who manages to take a sample of 498 people from the population. And, <em>finally</em>, we can bootstrap the original full sample of 498:</p>
 <pre><code>## 

@@ -13,10 +13,11 @@ library(skimr)
 library (infer)
 library(ggpubr)
 library(dplyr)
+library(psych)
 
 ```
 
-This Chapter supplements the material in the second part of Lecture 7.
+This Chapter supplements the material on t-tests in the second part of Lecture 6.
 
 In this chapter, I will introduce the t-test, a classic analysis technique that is used to compare two groups together.
 
@@ -141,8 +142,42 @@ mean(ED_PAIR$ANG_T2)
 
 ```
 
-Marvelous. We can see that the results suggest that after listening to Ed Sheeran, our sample on average reported more anger. This is because the 95% confidence interval does not include 0, and therefore I am confident in saying that there is probably some effect going on here.
+We can do this in another way, but instead running a 1-sample t-test on the difference variable, testing whether it is different from zero:
+
+```{r}
+#modified from https://cran.r-project.org/web/packages/infer/vignettes/observed_stat_examples.html
+x_bar <- ED_PAIR %>% 
+  specify(response = DIF) %>%
+  calculate(stat = "mean")
+
+null_dist <- ED_PAIR %>%
+   specify(response = DIF) %>%
+  hypothesize(null="point", mu=0)%>% #this is the additional bit
+   generate(reps = 1000, type = "bootstrap") %>%
+   calculate(stat = "mean")
+
+percentile_ci <- get_ci(boot_dist)
+
+visualize(null_dist) +
+    shade_p_value(obs_stat = x_bar, direction = "two-sided")
+
+null_dist %>%
+  get_p_value(obs_stat = x_bar, direction = "two-sided")
+
+x_bar
+
+mean(ED_PAIR$ANG_T1)
+mean(ED_PAIR$ANG_T2)
+
+
+```
+
+Marvelous. We can see that the results from both variants of this test suggest that after listening to Ed Sheeran, our sample on average reported more anger. 
+
+1: Because the 95% confidence interval does not include 0, I am confident in saying that there is some effect going on here.
+
+2: Because the bootstrapped probability (as expressed by the p-value) of observing the mean difference in anger between T1 and T2 of 1.33 is very low (0 in our results, but the true value will not be exactly zero), I am confident in saying there is an effect here.
 
 Not surprised...
 
-^1^If you are a friend or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study.
+^1^If you are a fan, friend, or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study. Furthermore, I am sure Ed Sheeran is a very nice person and I would delight in his company. This is merely a bit of humour. 

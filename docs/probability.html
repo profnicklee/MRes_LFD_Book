@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-27" />
+<meta name="date" content="2024-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -238,13 +238,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Remember, this is another random process, so results will differ each time slightly</p>
 <pre><code>##   Heads Trial Cum_Heads Pct_Heads
 ## 1     1     1         1 1.0000000
-## 2     0     2         1 0.5000000
-## 3     0     3         1 0.3333333
-## 4     1     4         2 0.5000000
+## 2     1     2         2 1.0000000
+## 3     0     3         2 0.6666667
+## 4     0     4         2 0.5000000
 ## 5     1     5         3 0.6000000
 ## 6     0     6         3 0.5000000</code></pre>
 <p>Below, we’ll plot the results of this simulation for ease of interpretation</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
 <p>The thing to notice (in combination with the table of results above the plot) is that eventually the proportion of heads versus tails approaches 50%, <em>but it does not start out that way</em>.</p>
 <p>In other words, for a fair coin toss sequence, the trials (tosses) are <em>independent</em>, which means that for any given toss of the coin, the chance of a head or tail is 50%. But, that’s not the same as saying that you’ll get equal numbers of heads or tails for every (or any) particular sequence of multiple tosses - it’s not ‘self-correcting’ in any other way than sheer weight of numbers. So, <strong>eventually</strong> over enough trials, the sequence should start to look like 50/50 heads and tails. But, that is not the tosses ‘self-correcting’, simply that you are tossing a lot of coins. This is at the root of a number of fallacies about predicting random events, such as the Gambler’s fallacy.</p>
 </div>
@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.000   2.000   3.000   2.818   4.000   9.000</code></pre>
 <p>OK, so now we have some idea of the goals per game, let’s plot the distribution of goals.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-102-1.png" width="672" /></p>
 <p>If you’ve ever seen a Poisson distribution, you’ll recognise this!</p>
 <p>Let’s check this out. First, let’s create a table of all the matches with different numbers of goals.</p>
 <pre><code>## # A tibble: 9 × 2
@@ -331,7 +331,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Remember, as you can see above, the row for ‘8’ is missing, and it goes straight to 9. So, to repeat, just take (for simplicity’s sake here) the final row of Expected Matches as meaning ‘2 games with 8 or more goals’</p>
 <p>Anyway, it’s pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).</p>
 <p>Let’s plot this for the big payoff:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>Wow, that is pretty accurate! Remember, the ‘expected’ figures are purely drawn from the <em>entirely theoretical</em> Poisson distribution with a mean of 2.82. They very closely match the actual data.</p>
 <p>To be fair though, that graph is really just a bit of show, but what we want is the ‘go’. In other words, what could we do with this information?</p>
 <p>Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that <strong>there will be a game in the 22-23 season with 10 goals?</strong> - assuming that this is being written before the 22-23 season (which is true).</p>
@@ -376,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Spiegelhalter’s Github can be found here: <a href="https://github.com/dspiegel29/ArtofStatistics" class="uri">https://github.com/dspiegel29/ArtofStatistics</a></p>
 <pre><code>## [1] 3345.263</code></pre>
 <pre><code>## [1] 577.7594</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 <p>The first number is the mean, the second is the standard deviation.</p>
 <p>What you can see here is, just using the real data from 2020 UK birthweights, it looks very much like what is called a ‘normal distribution’, or what you might have heard called a ‘bell curve’. We can almost certainly treat any given child’s birthweight as if it was a random variable drawn from a normal distribution, with a mean and standard deviation that is given by the empirical data here (3345.263 and 577.7594 respectively).</p>
 

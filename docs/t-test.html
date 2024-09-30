@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-27" />
+<meta name="date" content="2024-09-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -230,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="t-test" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Chapter 7</span> T-Tests for Means<a href="t-test.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This Chapter supplements the material in the second part of Lecture 7.</p>
+<p>This Chapter supplements the material on t-tests in the second part of Lecture 6.</p>
 <p>In this chapter, I will introduce the t-test, a classic analysis technique that is used to compare two groups together.</p>
 <div id="independent-sample-t-tests" class="section level2 hasAnchor" number="7.1">
 <h2><span class="header-section-number">7.1</span> Independent Sample T-Tests<a href="t-test.html#independent-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -454,9 +454,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1      0.9     1.73</code></pre>
 <pre><code>## [1] 2</code></pre>
 <pre><code>## [1] 3.333333</code></pre>
-<p>Marvelous. We can see that the results suggest that after listening to Ed Sheeran, our sample on average reported more anger. This is because the 95% confidence interval does not include 0, and therefore I am confident in saying that there is probably some effect going on here.</p>
+<p>We can do this in another way, but instead running a 1-sample t-test on the difference variable, testing whether it is different from zero:</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<pre><code>## # A tibble: 1 × 1
+##   p_value
+##     &lt;dbl&gt;
+## 1       0</code></pre>
+<pre><code>## Response: DIF (numeric)
+## # A tibble: 1 × 1
+##    stat
+##   &lt;dbl&gt;
+## 1  1.33</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre><code>## [1] 3.333333</code></pre>
+<p>Marvelous. We can see that the results from both variants of this test suggest that after listening to Ed Sheeran, our sample on average reported more anger.</p>
+<p>1: Because the 95% confidence interval does not include 0, I am confident in saying that there is some effect going on here.</p>
+<p>2: Because the bootstrapped probability (as expressed by the p-value) of observing the mean difference in anger between T1 and T2 of 1.33 is very low (0 in our results, but the true value will not be exactly zero), I am confident in saying there is an effect here.</p>
 <p>Not surprised…</p>
-<p><sup>1</sup>If you are a friend or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study.</p>
+<p><sup>1</sup>If you are a fan, friend, or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study. Furthermore, I am sure Ed Sheeran is a very nice person and I would delight in his company. This is merely a bit of humour.</p>
 
 </div>
 </div>

@@ -16,9 +16,7 @@ library(dplyr)
 
 ```
 
-This Chapter supplements the material in the first part of Lecture 7.
-
-In this chapter, we will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.
+This Chapter relates to the second part of Lecture 6.In this chapter, you will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.
 
 The basic process is fairly simple, once you have your original sample, and has the following characteristics:
 
@@ -32,7 +30,7 @@ Recall from the last chapter that there was a simulated data set of 498 people, 
 
 We treated this as **the population** and then sampled from it to demonstrate uncertainty at different sample sizes.
 
-So, let's take the sample of 50 that we drew from that 'population' of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.
+So, let's take the sample of **50** that we drew from that 'population' of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.
 
 First we will remind ourselves of the properties and distribution of our sample, the median, mean, and distribution:
 
@@ -42,11 +40,15 @@ mean(sub.50$smoking)
 ggplot(sub.50, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black", fill="white")
 ```
 
-Ok, there we go. Remember, this sample is our 'data set' for analysis.
+Ok, there we go. Remember, this sample is our 'data set' for analysis. Remember, it represents a **sample of 50 cases** from a **population of 498**.
 
-We know the median and mean, but we have no real indication of the uncertainty in those estimates. In order to get that information, we will eventually use the bootstrap method. For now, we are just going to demonstrate the basic idea.
+We know the median and mean, but we have no real indication of the uncertainty in those estimates. What I mean is, without information about the population mean and median (which of course we would not have in a real-life sampling situation), we cannot know how close the sample median and mean are to the population mean and median.
 
-So, what we do now is draw *another random sample of 50* from this 50, but each time we draw a data point, we *replace* it back, so we are always drawing our sample from the full 50. This is called *sampling with replacement*.
+In order to estimate that information, we will eventually use the bootstrap method. For now, we are just going to demonstrate the basic idea.
+
+So, what we do now is draw *another random sample of 50*. However, we don't draw it from the population, we instad draw the new sample of 50 **from our existing sample of 50**.
+
+That sounds weird to many people, and at first they often say 'but how can it be different from your original 50??'. The trick is that each time we draw a data point, we *replace* it back, so we are always drawing our sample from the full 50. This is called *sampling with replacement*.
 
 In this way, the new sample can **only contain values which were in the original sample**, but can contain different frequencies of those values. Or in other words, each value can occur many different times, and that number of times may be different to the original sample. So the *distribution of values* in this new sample will be different to the original sample, and the statistics will therefore also be different.
 
@@ -165,7 +167,9 @@ boot.ci(results, type="norm")
 
 ```
 
-We'll now build a table with these values *back in the slide deck. I*Again, remember the values in the slide deck will differ from these due to the randomness of the process.
+We'll now build a table with these values *back in the slide deck*. Again, remember the values in the slide deck will differ from these due to the randomness of the process.
+
+###Bootstrapping the Original Sample
 
 Now, let's shift our minds a bit, and consider that the data set of 498 actually represents **a sample of a larger population** (remember from the last chapter, it's simulated, but meant to represent a sample from the population).
 
@@ -302,3 +306,4 @@ conf_ints
 ```
 
 It's worth reflecting on exactly what these conflidence intervals mean, and to do so, we can move **back to the slides...**
+
