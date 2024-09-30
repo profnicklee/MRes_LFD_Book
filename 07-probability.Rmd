@@ -21,7 +21,7 @@ library(png)
 library(installr)
 ```
 
-This Chapter provides examples and additional content for Lesson 8.
+This Chapter provides examples and additional content for the first part of Lesson 7.
 
 In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainy of our estimates, and from there we can begin to draw inferences from the sample to the population.
 
@@ -75,7 +75,7 @@ Note, much of the inspiration and code for this section comes from: <https://boo
 The data comes from: <https://www.football-data.co.uk/englandm.php> and is the EPL results for 21-22 Season
 
 ```{r}
-EPL<-read_excel("D:/Dropbox/R_Files/Data/EPL21-22.xlsx")
+EPL<-read_excel("Data/EPL21-22.xlsx")
 head(EPL)
 ```
 
@@ -158,7 +158,7 @@ POIS
 
 So, this table of probabilities, based on the Poisson distribution, allows us to make some predictions of what we could expect.
 
-Remembering again that there are 380 games in a season, we can see that there is a 0.16% chance of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.
+Remembering again that there are 380 games in a season, we can see that there is a 0.16 chance (i.e. 16%) of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.
 
 We can check this out by creating a new table comparing **actual** with **predicted** values...
 
@@ -185,9 +185,9 @@ NewGoalsTable %>%
 
 Wow, that is pretty accurate! Remember, the 'expected' figures are purely drawn from the *entirely theoretical* Poisson distribution with a mean of 2.82. They very closely match the actual data.
 
-To be fair though, that graph is really just a bit of show, but what we want is the 'go'. In other words, what could we do with this information?
+To be honest though, that graph is really just a bit of show, but what we want is the 'dough' (I had an old friend who was a golfer who always said 'drive for show, putt for dough...). In other words, what could we do with this information?
 
-Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that **there will be a game in the 22-23 season with 10 goals?** - assuming that this is being written before the 22-23 season (which is true).
+Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that **there will be a game in the 22-23 season with 10 goals?** - assuming that this is originally being written before the 22-23 season (which is true).
 
 Remember, there were 380 games in 21-22, none of which contained 10 goals. So, for ease of thinking about this, let's make the assumption that the PL started in 2021, and there were no games before to count (in reality, we would go back to the last time 10 goals were scored and count from there, but let's go with this in the first instance, and we'll expand later on, promise).
 
@@ -225,62 +225,20 @@ By the way, as of the start of the 22-23 season, there had been 21 matches with 
 
 So, the above example is *totally unchanged* (other than some typo corrections and nicer wording) from when I originally coded it in 2022. The million dollar question: *was there a game with 10 goals in the 22-23 season...?*
 
-The answer is no, there wasn't. But there were two with 9! Luckily I am not a betting man. I do think we are due one, so this season (2024) is probably a good bet, but as of January 20th 2024, we still haven't had one... Unless of course you think something has fundamentally changed about the premier league in recent years, changing the probability of goals (and thus suggesting recent seasons are drawn from a *Poisson distribution with different characteristics* than past ones), which is in fact an interesting question in its own right...
+The answer is no, there wasn't. But there were two with 9! Luckily I am not a betting man. I do think we are due one, so this season (2023-2024) is probably a good bet, but as of January 20th 2024, we still haven't had one... Unless of course you think something has fundamentally changed about the premier league in recent years, changing the probability of goals (and thus suggesting recent seasons are drawn from a *Poisson distribution with different characteristics* than past ones), which is in fact an interesting question in its own right...
 
-## Birth Weight and the Normal Distribution: Brief Example
+### 2024 Update
 
-Let's consider UK births in 2020, since they're a subject close to my heart, as my son was born that year.
+Did we get one in 2023-2024...again, no. The highest in fact this season was 8 - and there were 3 games with 8 goals in. 
 
-Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g 'bins'.
+This is interesting. At this point (30 September, 2025) I find it tempting to put on a bet for a 10 goal game. I might do that, even though I am not much of a gambler. Here's why: 
 
-Source: <https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data>
+1. The probabilities suggest we are well overdue one, unless there has been something fundamentally changing about the distribution of premier league goal.
 
-We can use these numbers to create a chart, and see what it looks like, inspired by David Spiegelhalter's originals, which are available on his Github page.
+2. The sort of change would logically need to be a reduction of average goals scored per game, which would change the mean of the Poisson distribution, reducing the probabilities of a 9-goal game.
 
-Spiegelhalter's Github can be found here: <https://github.com/dspiegel29/ArtofStatistics>
+3. However, the average goals per game is actually ***increasing***, according to the statistics - and you can check out the following to confirm this: https://www.premierleague.com/news/4016793
 
-```{r}
-weights=c(1500, 2000, 2500, 3000, 3500, 4000, 4500,5000,5500) #modified categories from 2020 UK Data
-mids=weights-250 # Note the DS original is +250, but this does not work for UK data as the numbered is the UPPER bound of the weight category in the ONS stats. So the babies in the '2000' bin weigh 1500-1999, so the midpoint is 1750, not 2250
-n=c(5015, 7103, 27554, 99220, 218442, 179088, 53530,6952,635) # numbers in each bin, UK2020
-N=sum(n)  # total number of babies
-area=N*500  # number * binwidth = total area of histogram
+4. So, one could also draw the conclusion that the Poisson distribution is no longer a good fit - but this could be checked, and I would guess this isn't the case (you can check yourself).
 
-#I think lbw should be sum of groups 1-3 not 1-2 as in the book code. Using 1-3 gives a result for the UK of 6.6% which tallies with the official stat given that I remove the 'no recorded weight' and 'implausible' categories'. I imagine that the DS book data has categories which may be the lower bound not the upper as in the UK data table.
-
-lbw   = sum(n[1:3])   # number with low birth weight (less than 2500)
-lbw.percent=100*lbw/N  # % low birth weight
-# 6.6% which tallies with Nuffield stat for 2020.
-
-#calculate mean and sd of population
-# could use sheppard's correction
-
-birth.mean=sum(n*mids/N)
-birth.sd=sqrt( sum(n*(mids-birth.mean)^2)/N)
-
-
-
-par(mfrow=c(2,2))
-# setup plot ranges noting max of normal density is at mean
-xrange <- c(1500,6000)
-yrange <- range( c(n, area*dnorm(birth.mean, birth.mean, birth.sd), 0))
-scale=0.6
-par(mar=c(5,0,1,0)+0.1)
-
-# (a) empirical distribution and fitted normal
-plot(xrange, yrange, type = "n", xlab = "", ylab = "",
-     bty="n",axes=F,main="2020 UK Birthweights(g)", cex=scale)
-axis(1,cex=scale) 
-# draw bars using rect and density using curve
-rect(weights, 0, weights - 500, n, col = "lightblue")
-curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE, 
-      lwd=3, col="blue")
-
-print (birth.mean)
-print(birth.sd)
-
-```
-
-The first number is the mean, the second is the standard deviation.
-
-What you can see here is, just using the real data from 2020 UK birthweights, it looks very much like what is called a 'normal distribution', or what you might have heard called a 'bell curve'. We can almost certainly treat any given child's birthweight as if it was a random variable drawn from a normal distribution, with a mean and standard deviation that is given by the empirical data here (3345.263 and 577.7594 respectively).
+Interesting. 

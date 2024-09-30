@@ -23,13 +23,11 @@ library(installr)
 library(TeachingDemos)
 ```
 
-This Chapter builds on the material in Lesson 9.
+This Chapter builds on the material in the second part of Lesson 7. Here, we begin to apply our probability concepts to the task of statistical inference in the 'classical' way.
 
-Here, we begin to apply our probability concepts to the task of statistical inference in the 'classical' way.
+The theory explained and demonstrated here is the foundation of the (very large) majority of the quantitative business and management research you will read and use. Almost any time someone refers to a finding being **(statistically) significant** or to a **p-value**, they are using this idea. However, a major weakness in many social science fields - business and management being one - is that a rather large proportion of researchers don't actually understand the core principles of statistical inference, and are instead often just copying what other people have written, or told them to do.
 
-The theory explained and demonstrated here is the foundation of the (very large) majority of the quantitative business and management research you will read and use. Almost any time someone refers to a finding being **(statistically) significant** or a **p-value**, they are using this idea. However, a major weakness in many social science fields - business and management being one - is that a rather large proportion of researchers don't actually understand the core principles of statistical inference, and are instead often just copying what other people have written, or told them to do.
-
-So, if you can get your head around the next 3-4 chapters, you'll be in a strong position to work with what's already out there, and also do your own solid research.
+So, if you can get your head around the next 3-4 chapters, you'll be in a strong position to work with what's already out there, and also to do your own solid research, if you wish.
 
 ## The Distribution of Sample Means, and the Central Limit Theorem
 
@@ -38,7 +36,7 @@ The first thing to cover is an extension of the ideas in the last chapter about 
 To do so, I will use a synthetic data set of monthly incomes from 20 people. Let us treat this data set as the **population**.
 
 ```{r}
-CLT<-read_excel("D:/Dropbox/R_Files/Data/CLT.xlsx")
+CLT<-read_excel("Data/CLT.xlsx")
 head(CLT)
 summary(CLT$Income)
 sd(CLT$Income)
@@ -83,9 +81,9 @@ So, let's now do that for **every possible combination of 2 values** from this p
 
 Given there are n=20 values in the population, there are k=190 possible combinations of two values.
 
-Note: This is not the same as bootstrapping - we are *not sampling with replacement* here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.
+Note: This is not the same as bootstrapping - we are *not* sampling with replacement here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.
 
-Remember the ping-pong balls!
+Remember the ping-pong balls I used in class to demonstrate!
 
 Let's do it:
 
@@ -278,3 +276,85 @@ Specifically, **your actual sample** is one of a very large amount of possible s
 As such, we can see how it is clearly a measure of the **precision** of the estimate. For a compelling visualization of this, look how wide the CIs for N=5 are.
 
 One thing to remember though is the 'law of large numbers' here. You might notice that not all of the CI plots contain exactly 5 intervals that do not contain the mean. This is analagous to the idea of coin flipping - it's just probability over very large numbers of trials, not saying that 'out of every 100, exactly 5 will not include the population mean'. But, over a very large number of trials, we can expect the amount of intervals that do not include the mean to tend towards 5%, in the same way that over a large number of coin flips, the proportion of heads tends towards 50%.
+
+## Rate of Change in Football Goals per Season
+
+In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example. Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+
+I hand-entered this into a spreadsheet, and calculated the additional stuff.
+
+```{r}
+EPLGOALS<-read_excel("Data/EPLGOALS.xlsx")
+head(EPLGOALS)
+```
+
+You can see here I have calculated the standard errors from the yearly goal totals (which represent that year's underlying rate of goal occurrence), then used that to calculate the 95% Confidence Interval limits
+
+We can use these to create a nifty chart with the error bars...drawing from the code used by Spiegelhalter in his book for Figure 9.4 available on his github (linked in the code).
+
+```{r}
+#modified from Spiegelhalter's Figure 9.4 available at:
+#https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd
+
+#note, the hashed-out code is not relevant to my example
+#but left in in case someone else wants to use it
+
+df<-EPLGOALS # read data to dataframe df
+p <- ggplot(df, aes(x=Season, y=Goals)) # initial plot
+p <- p + geom_bar(stat="identity", fill="red") +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Season") # assign bar chart type,
+#and x axis labels, rotated 
+
+#yearLabels <- c("Apr  97-\nMar  98","Apr  00-\nMar  01","Apr  03-\nMar  
+#04","Apr  06-\nMar  07","Apr 09-\nMar  10","Apr  12-\nMar  13","Apr  #15-\nMar  16") 
+# assign labels for x-axis
+
+p <- p + geom_errorbar(aes(ymin=Lower95CI, ymax=Upper95CI), width=.1) # 95% intervals
+
+#p <- p + scale_x_continuous(breaks=seq(1997, 2015, 3), labels =yearLabels) # attach labels and their break points
+
+p <- p + scale_y_continuous(breaks=seq(0, 1100, 100)) # define break points for y-axis
+p <- p + labs(y="Total Goals") # add y-axis label and caption
+p
+
+```
+
+From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic.
+
+The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.
+
+In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter 7: https://www.premierleague.com/news/4016793 
+
+This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which *directly tests the hypothesis* that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
+
+See: <https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides>
+
+The z-test is simply explained in the linked article from the BMJ: <https://www.bmj.com/content/332/7552/1256>
+
+It links us nicely to the next lesson, because it is aiming to test a *specific hypothesis* that the difference is zero...
+
+If you open the data file below, you can see I have calculated the z-test results for the difference between each season, year-on-year.
+
+```{r}
+EPLZ<-read_excel("Data/EPLGOALSZ.xlsx")
+head(EPLZ)
+```
+
+The 'Z' column is what we are interested in, and we are looking for a z-value greater than + or - 1.96 for a 95% test (analogous to the 95% intervals we've been dealing with so far).
+
+A simple way to visualize this is to plot the z-values for each season, and include 'control lines' which represent the + or -1.96 z value, beyond which we consider there to be a significant difference
+
+```{r}
+#visualize the z values simply with control lines
+U <- 1.96
+L <- -1.96
+p <- ggplot(EPLZ, aes(x=Season, y=Z)) + geom_point() +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Season")
+p <- p+ geom_hline(aes(yintercept=U))
+p <- p+ geom_hline(aes(yintercept=L))
+p
+
+```
+
+So, we can see that the 1999-2000 season, and the 2009-10 seasons exceed our z values, making them significantly different from the seasons before.
+
+Of course, we could do z-tests for any combination of two seasons, if we had a good reason. You can see on the ONS website they do this for different years' murder rates to make a point.
+

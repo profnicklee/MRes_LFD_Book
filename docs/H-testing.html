@@ -184,18 +184,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="8.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>8.2.2</b> 2024 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>8.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
 <li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>9.3</b> Rate of Change in Football Goals per Season</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -230,9 +232,99 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="H-testing" class="section level1 hasAnchor" number="10">
 <h1><span class="header-section-number">Chapter 10</span> Classical Statistical Hypothesis Testing<a href="H-testing.html#H-testing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This Chapter relates to Lecture 10, and contains some (re)worked examples from earlier sessions, focusing specifically on the hypothesis testing aspect of them.</p>
-<div id="correlation-significance-tests" class="section level2 hasAnchor" number="10.1">
-<h2><span class="header-section-number">10.1</span> Correlation Significance Tests<a href="H-testing.html#correlation-significance-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This Chapter relates to the first part of Lecture 8, and contains some (re)worked examples from earlier chapters / lessons, focusing specifically on the hypothesis testing aspect of them.</p>
+<div id="premier-league-goals-and-the-poisson-distribution-1" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Premier League Goals and the Poisson Distribution<a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section, we are not really worried about the <em>actual</em> goals or anything like that. What we are concerned about is formally testing the hypothesis that Premier League goals per game actually do follow a Poisson distribution. To do this, we will use what is called a <strong>chi-square</strong> test, which uses the chi-square statistic.</p>
+<p>Chi-square is a fantastically versatile statistic, which is often used to compare tables of observations. Commonly, we compare a table of observed events with a table of events that we would expect if the null hypothesis were true in the population. The chi-square value is the measure of the difference between observed and expected counts in the table. We can use it here to compare the amount of goals we actually did observe in the 21-22 season, with those that we would <em>expect</em> to observe if the goals per game really do follow a Poisson distribution.</p>
+<p>Again, much of the idea and code for this section comes from: <a href="https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html" class="uri">https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html</a></p>
+<p>The data comes from: <a href="https://www.football-data.co.uk/englandm.php" class="uri">https://www.football-data.co.uk/englandm.php</a> and is the EPL results for 21-22 Season, with a new column of Total Goals (TOTG) created by me in Excel.</p>
+<pre><code>## # A tibble: 6 × 107
+##   Div   Date                Time                HomeTeam   AwayTeam   FTHG  FTAG
+##   &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
+## 1 E0    2021-08-13 00:00:00 1899-12-31 20:00:00 Brentford  Arsenal       2     0
+## 2 E0    2021-08-14 00:00:00 1899-12-31 12:30:00 Man United Leeds         5     1
+## 3 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Burnley    Brighton      1     2
+## 4 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Chelsea    Crystal …     3     0
+## 5 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Everton    Southamp…     3     1
+## 6 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Leicester  Wolves        1     0
+## # ℹ 100 more variables: TOTG &lt;dbl&gt;, FTR &lt;chr&gt;, HTHG &lt;dbl&gt;, HTAG &lt;dbl&gt;,
+## #   HTR &lt;chr&gt;, Referee &lt;chr&gt;, HS &lt;dbl&gt;, AS &lt;dbl&gt;, HST &lt;dbl&gt;, AST &lt;dbl&gt;,
+## #   HF &lt;dbl&gt;, AF &lt;dbl&gt;, HC &lt;dbl&gt;, AC &lt;dbl&gt;, HY &lt;dbl&gt;, AY &lt;dbl&gt;, HR &lt;dbl&gt;,
+## #   AR &lt;dbl&gt;, B365H &lt;dbl&gt;, B365D &lt;dbl&gt;, B365A &lt;dbl&gt;, BWH &lt;dbl&gt;, BWD &lt;dbl&gt;,
+## #   BWA &lt;dbl&gt;, IWH &lt;dbl&gt;, IWD &lt;dbl&gt;, IWA &lt;dbl&gt;, PSH &lt;dbl&gt;, PSD &lt;dbl&gt;,
+## #   PSA &lt;dbl&gt;, WHH &lt;dbl&gt;, WHD &lt;dbl&gt;, WHA &lt;dbl&gt;, VCH &lt;dbl&gt;, VCD &lt;dbl&gt;,
+## #   VCA &lt;dbl&gt;, MaxH &lt;dbl&gt;, MaxD &lt;dbl&gt;, MaxA &lt;dbl&gt;, AvgH &lt;dbl&gt;, AvgD &lt;dbl&gt;, …</code></pre>
+<pre><code>##    Length     Class      Mode 
+##       380 character character</code></pre>
+<p>The above is a quick way of calculating / checking the total number of games if you don’t know already.</p>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   0.000   2.000   3.000   2.818   4.000   9.000</code></pre>
+<pre><code>## [1] 1071</code></pre>
+<p>First, let’s create a table of all the matches with different numbers of goals, just as we did in Chapter 7.</p>
+<pre><code>## # A tibble: 9 × 2
+##    TOTG ActualMatches
+##   &lt;dbl&gt;         &lt;int&gt;
+## 1     0            22
+## 2     1            65
+## 3     2            88
+## 4     3            81
+## 5     4            60
+## 6     5            43
+## 7     6            17
+## 8     7             3
+## 9     9             1</code></pre>
+<p>Here, we have a problem. The chi-square test has a condition that the expected values in every column will be greater than 5, and as we go down the Poisson probabilities (i.e. for higher total goals), it is clear that this will start to become a problem for us.</p>
+<p>The solution is simple, we combine the numbers for larger numbers of goals into a single ‘x and above’ variable. Here, let’s do it for 6 goals and above.</p>
+<p>To do so, we first need to create a new table, where the values for 6 and above are combined into a new row.</p>
+<pre><code>## # A tibble: 7 × 2
+##   TOTG      ActualMatches
+##   &lt;chr&gt;             &lt;int&gt;
+## 1 0                    22
+## 2 1                    65
+## 3 2                    88
+## 4 3                    81
+## 5 4                    60
+## 6 5                    43
+## 7 6 or more            21</code></pre>
+<p>Now we can create the Poisson distribution for the relevant mean, which means we first need to create the stats…</p>
+<pre><code>##  min Q1 median Q3 max     mean       sd   n missing
+##    0  2      3  4   9 2.818421 1.626359 380       0</code></pre>
+<p>Below is some code which will help us to create the distributions and also check them.</p>
+<pre><code>## [1] 2.818421</code></pre>
+<pre><code>## [1] 2.645042</code></pre>
+<p>As we saw in Chapter 7, while for a Poisson distribution these should be exactly the same, we decided that they were good enough to be going on with.</p>
+<p>So, let’s actually check this formally with the Chi-square test.</p>
+<p>We do so by first creating a table of the Poisson probabilities for x or fewer goals, for the Poisson with a mean of 2.818 (i.e. the variable MeanGoals)</p>
+<pre><code>##     PoisProb
+## 1 0.05970013
+## 2 0.16826011
+## 3 0.23711392
+## 4 0.22276228
+## 5 0.15695948
+## 6 0.08847558
+## 7 0.04156024</code></pre>
+<p>This allows us to make some predictions of what we could expect.</p>
+<p>Remembering again that there are 380 games in a season, we can see that there is a 0.16 chance of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.</p>
+<p>We can check this out by creating a new table comparing actual with predicted values…</p>
+<pre><code>##        TOTG ActualMatches   PoisProb ExpectedMatches
+## 1         0            22 0.05970013              23
+## 2         1            65 0.16826011              64
+## 3         2            88 0.23711392              90
+## 4         3            81 0.22276228              85
+## 5         4            60 0.15695948              60
+## 6         5            43 0.08847558              34
+## 7 6 or more            21 0.04156024              16</code></pre>
+<p>This looks quite frighteningly close up until you get to the 5 row. It will be interesting to see how we go with a formal chi-square test.</p>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  NewGoalsTable$ActualMatches
+## X-squared = 4.2244, df = 6, p-value = 0.6463</code></pre>
+<p>The P-value here is actually 0.64. This suggests that there is not a significant difference between the distribution of the actual goals, and that which would be expected if they did follow a Poisson distribution.</p>
+</div>
+<div id="correlation-significance-tests" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Correlation Significance Tests<a href="H-testing.html#correlation-significance-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here, we revisit our correlation between GDP per capita, and Happiness metrics, which I pulled from Our Word in Data:</p>
 <pre><code>##    Country            Happiness         GDPpc             Pop           
 ##  Length:249         Min.   :2.400   Min.   :   731   Min.   :8.090e+02  
@@ -269,8 +361,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Importantly, this does not mean that the <strong>true correlation in the population</strong> is 0.745, simply that it is <em>very unlikely to be zero</em>.</p>
 <p>We can then look at our estimate of 0.745, and - even better - our confidence interval (see Section <a href="statistics.html#conf">9.2</a> for information on how to interpret confidence intervals), to gain some indication of the likely true correlation in the population.</p>
 </div>
-<div id="regression-significance-tests" class="section level2 hasAnchor" number="10.2">
-<h2><span class="header-section-number">10.2</span> Regression Significance Tests<a href="H-testing.html#regression-significance-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regression-significance-tests" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Regression Significance Tests<a href="H-testing.html#regression-significance-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The process to asses the significance of regression estimates is very very similar to that for correlations. Let’s revisit the heart disease data set we used earlier.</p>
 <pre><code>##       ...1           biking          smoking        heart.disease    
 ##  Min.   :  1.0   Min.   : 1.119   Min.   : 0.5259   Min.   : 0.5519  
@@ -288,7 +380,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4     4  44.8     2.80          6.82
 ## 5     5  69.4    16.0           4.06
 ## 6     6  54.4    29.3           9.55</code></pre>
-<p>Let’s go straight the the multiple regression model.</p>
+<p>Let’s go straight to the multiple regression model.</p>
 <pre><code>## 
 ## Call:
 ## lm(formula = heart.disease ~ biking + smoking, data = Heart)
@@ -310,9 +402,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F-statistic: 1.19e+04 on 2 and 495 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>We interpret these just as we did the correlation significance tests.</p>
 <p>The t-value is large, and the <em>p</em>-value (two-tailed) is small.</p>
-<p>Interestingly, here we are given ‘stars’ for the different levels of significance, so to some extent the software is doing some decision making for you. To be honest, I always caution against relying solely on looking for ‘stars’ (it’s actually a bit of a running joke that I once told an entire class in the 1990s to ‘just look at the stars’). That’s because the actual significance or not decision is based on the critical value and one- or two-tailed decision. The software often makes an assumption of 0.05 critical value for <em>p</em>, two-tailed, and calculates the ‘stars’ based on that. Sometimes that can conflict with the decision you have made yourself about what should be significant or not. That can trip you up if you didn’t know to change these values in the software package.</p>
-<p>Further, it also sort of entrenches the idea that things can be ‘more’ or ‘less’ statistically significant. Take a look at the results above, you’ll see 3 stars represents a significance of ‘0’, and 2 stars represents ‘0.001’, boring old ‘0.05’ only gets a single star, and ‘0.1’ gets a dot. I’m not a fan here because this encourages the analyst to post-hoc make decisions about ‘marginally’ significant, or ‘very’ significant. These concepts do not exist. You decide your critical value, and you either pass or fail it.</p>
-<p>Am I perfect? No. Specifically, do any of my papers use the language of ‘marginal’ significance? Sure, I bet you could find it. I am never a fan though, and I can promise you I argued about it at the time!</p>
+<p>Interestingly, here we are given ‘stars’ for the different levels of significance, so to some extent the software is doing some decision making for you. To be honest, I always caution against relying solely on looking for ‘stars’ (it’s actually a bit of a running joke amongst the people who have known me a long time that I once told an entire class in the 1990s to ‘just look for the stars’). That’s because the actual significance or not decision is based on the critical value and one- or two-tailed decision. The software often makes an assumption of 0.05 critical value for <em>p</em>, two-tailed, and calculates the ‘stars’ based on that. Sometimes that can conflict with the decision you have made yourself about what should be significant or not. That can trip you up if you didn’t know to change these values in the software package.</p>
+<p>Further, it also sort of entrenches the idea that things can be ‘more’ or ‘less’ statistically significant. Take a look at the results above, you’ll see 3 stars represents a significance of ‘0’, and 2 stars represents ‘0.001’, boring old ‘0.05’ only gets a single star, and ‘0.1’ gets a dot. I’m not a fan here because this encourages the analyst to post-hoc make decisions about ‘marginally’ significant, or ‘very’ significant. These concepts do not actually exist in real statistical theory. Instead, you decide your critical value <strong><em>a priori</em></strong>, and you either pass or fail it. As Yoda may have said if he was a statistician, “Pass or do not pass. There is no marginally significant”.</p>
+<p>Am I perfect? No. Specifically, do any of my papers use the language of ‘marginal’ significance? Sure, I bet you could find them. I am never a fan though, and I can promise you I argued about it at the time!</p>
 
 </div>
 </div>

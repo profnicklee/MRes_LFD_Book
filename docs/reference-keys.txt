@@ -27,11 +27,13 @@ probability
 simulating-coin-flips
 premier-league-goals-and-the-poisson-distribution
 update
-birth-weight-and-the-normal-distribution-brief-example
+update-1
 statistics
 the-distribution-of-sample-means-and-the-central-limit-theorem
 conf
+rate-of-change-in-football-goals-per-season
 H-testing
+premier-league-goals-and-the-poisson-distribution-1
 correlation-significance-tests
 regression-significance-tests
 ANOVA

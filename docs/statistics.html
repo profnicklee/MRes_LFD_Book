@@ -184,18 +184,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="8.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>8.2.2</b> 2024 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>8.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
 <li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>9.3</b> Rate of Change in Football Goals per Season</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -230,10 +232,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="statistics" class="section level1 hasAnchor" number="9">
 <h1><span class="header-section-number">Chapter 9</span> Introduction to Statistics<a href="statistics.html#statistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This Chapter builds on the material in Lesson 9.</p>
-<p>Here, we begin to apply our probability concepts to the task of statistical inference in the ‘classical’ way.</p>
-<p>The theory explained and demonstrated here is the foundation of the (very large) majority of the quantitative business and management research you will read and use. Almost any time someone refers to a finding being <strong>(statistically) significant</strong> or a <strong>p-value</strong>, they are using this idea. However, a major weakness in many social science fields - business and management being one - is that a rather large proportion of researchers don’t actually understand the core principles of statistical inference, and are instead often just copying what other people have written, or told them to do.</p>
-<p>So, if you can get your head around the next 3-4 chapters, you’ll be in a strong position to work with what’s already out there, and also do your own solid research.</p>
+<p>This Chapter builds on the material in the second part of Lesson 7. Here, we begin to apply our probability concepts to the task of statistical inference in the ‘classical’ way.</p>
+<p>The theory explained and demonstrated here is the foundation of the (very large) majority of the quantitative business and management research you will read and use. Almost any time someone refers to a finding being <strong>(statistically) significant</strong> or to a <strong>p-value</strong>, they are using this idea. However, a major weakness in many social science fields - business and management being one - is that a rather large proportion of researchers don’t actually understand the core principles of statistical inference, and are instead often just copying what other people have written, or told them to do.</p>
+<p>So, if you can get your head around the next 3-4 chapters, you’ll be in a strong position to work with what’s already out there, and also to do your own solid research, if you wish.</p>
 <div id="the-distribution-of-sample-means-and-the-central-limit-theorem" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> The Distribution of Sample Means, and the Central Limit Theorem<a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The first thing to cover is an extension of the ideas in the last chapter about sampling distributions. It’s called the <em>Central Limit Theorem</em>, and is often the source of much angst in statistics students (including myself). However, here I am actually going to demonstrate how it works, and show how is actually quite amazing.</p>
@@ -251,7 +252,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##    5600    7500    9400    9400   11300   13200</code></pre>
 <pre><code>## [1] 2366.432</code></pre>
 <p>Above, you’ll see the important descriptive statistics, including the standard deviation of 2366.432. Let’s plot the frequency distribution, and once we do so we will find that it is essentially uniform - every value occurs once and only once in the population.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 <p>Now, what I am going to do is take a <em>single random sample of 2</em> from that population. This sample is taken ‘without replacement’, if you are wondering, and so it is in essence exactly as if a researcher went into the field and took a sample from this population.</p>
 <pre><code>## [1] &quot;One Random Combination of 2 of the 20 Income Values&quot;</code></pre>
 <pre><code>## [1] 12800 11600</code></pre>
@@ -264,8 +265,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Just for reference, the mean of the population (remember, the 20 people) was 9400</p>
 <p>So, let’s now do that for <strong>every possible combination of 2 values</strong> from this population.</p>
 <p>Given there are n=20 values in the population, there are k=190 possible combinations of two values.</p>
-<p>Note: This is not the same as bootstrapping - we are <em>not sampling with replacement</em> here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.</p>
-<p>Remember the ping-pong balls!</p>
+<p>Note: This is not the same as bootstrapping - we are <em>not</em> sampling with replacement here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.</p>
+<p>Remember the ping-pong balls I used in class to demonstrate!</p>
 <p>Let’s do it:</p>
 <pre><code>## [1] &quot;Every Possible Combination of the 20 Income Values&quot;</code></pre>
 <pre><code>##         [,1]  [,2]
@@ -473,11 +474,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>That’s just the first 6 (the head of the data set), but you can rest assured that there are 190 means created here.</p>
 <p>OK, so here is the kicker. Let’s plot a histogram of these 190 means.</p>
 <p>Remember, a histogram is a frequency distribution:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
 <p>Well well well!</p>
 <p>Even though the original population was a completely uniform distribution with a mean of 9400, the distribution of all of the sample means looks quite a lot like a normal distribution / bell curve!</p>
 <p>Let’s overlay one on it as well to make the point…</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <p>Further, let’s take the mean of those means…</p>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    5800    8200    9400    9400   10600   13000</code></pre>
@@ -502,12 +503,51 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>How confidence intervals get more precise as sample size increases, and</li>
 <li>How to interpret your specific confidence interval as simply one possibility of many.</li>
 </ol>
-<p><img src="LFD_files/figure-html/unnamed-chunk-124-1.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-2.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-3.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-4.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-123-1.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-2.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-3.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-4.png" width="672" /></p>
 <p>So, you can see that the confidence intervals for each of the 100 samples at a given sample size all cluster around the mean, but are wider as sample size is lower. That makes sense intuitively.</p>
 <p>Looking specifically at our example N of 42, we can estimate which one of the 100 that might be, and see how the CI for sample means of about that size does include the real population mean of 165. You can also see there are a number of coloured CIs which do <strong>not</strong> include the sample mean. This shows how to interpret a CI.</p>
 <p>Specifically, <strong>your actual sample</strong> is one of a very large amount of possible samples from the population (here we took 100 but we could have taken many more). The CI calculation essentially creates a CI with the width so that, out of 100 random samples, approximately 95 will actually contain the <em>true population mean</em>.</p>
 <p>As such, we can see how it is clearly a measure of the <strong>precision</strong> of the estimate. For a compelling visualization of this, look how wide the CIs for N=5 are.</p>
 <p>One thing to remember though is the ‘law of large numbers’ here. You might notice that not all of the CI plots contain exactly 5 intervals that do not contain the mean. This is analagous to the idea of coin flipping - it’s just probability over very large numbers of trials, not saying that ‘out of every 100, exactly 5 will not include the population mean’. But, over a very large number of trials, we can expect the amount of intervals that do not include the mean to tend towards 5%, in the same way that over a large number of coin flips, the proportion of heads tends towards 50%.</p>
+</div>
+<div id="rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Rate of Change in Football Goals per Season<a href="statistics.html#rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this example, I’ll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I’ll continue on with my football goals example. Here, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
+<p>I hand-entered this into a spreadsheet, and calculated the additional stuff.</p>
+<pre><code>## # A tibble: 6 × 7
+##   Season  Games Goals   GPG    SE Lower95CI Upper95CI
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 1995-96   380   988  2.6   31.4      926.     1050.
+## 2 1996-97   380   970  2.55  31.1      909.     1031.
+## 3 1997-98   380  1019  2.68  31.9      956.     1082.
+## 4 1998-99   380   959  2.52  31.0      898.     1020.
+## 5 1999-00   380  1060  2.79  32.6      996.     1124.
+## 6 2000-01   380   992  2.61  31.5      930.     1054.</code></pre>
+<p>You can see here I have calculated the standard errors from the yearly goal totals (which represent that year’s underlying rate of goal occurrence), then used that to calculate the 95% Confidence Interval limits</p>
+<p>We can use these to create a nifty chart with the error bars…drawing from the code used by Spiegelhalter in his book for Figure 9.4 available on his github (linked in the code).</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p>From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic.</p>
+<p>The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.</p>
+<p>In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter 7: <a href="https://www.premierleague.com/news/4016793" class="uri">https://www.premierleague.com/news/4016793</a></p>
+<p>This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which <em>directly tests the hypothesis</em> that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.</p>
+<p>See: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides</a></p>
+<p>The z-test is simply explained in the linked article from the BMJ: <a href="https://www.bmj.com/content/332/7552/1256" class="uri">https://www.bmj.com/content/332/7552/1256</a></p>
+<p>It links us nicely to the next lesson, because it is aiming to test a <em>specific hypothesis</em> that the difference is zero…</p>
+<p>If you open the data file below, you can see I have calculated the z-test results for the difference between each season, year-on-year.</p>
+<pre><code>## # A tibble: 6 × 9
+##   Season  Games Goals   GPG    SE Lower95CI Upper95CI Change      Z
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1995-96   380   988  2.6   31.4      926.     1050.     NA NA    
+## 2 1996-97   380   970  2.55  31.1      909.     1031.    -18 -0.407
+## 3 1997-98   380  1019  2.68  31.9      956.     1082.     49  1.10 
+## 4 1998-99   380   959  2.52  31.0      898.     1020.    -60 -1.35 
+## 5 1999-00   380  1060  2.79  32.6      996.     1124.    101  2.25 
+## 6 2000-01   380   992  2.61  31.5      930.     1054.    -68 -1.50</code></pre>
+<p>The ‘Z’ column is what we are interested in, and we are looking for a z-value greater than + or - 1.96 for a 95% test (analogous to the 95% intervals we’ve been dealing with so far).</p>
+<p>A simple way to visualize this is to plot the z-values for each season, and include ‘control lines’ which represent the + or -1.96 z value, beyond which we consider there to be a significant difference</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
+<p>So, we can see that the 1999-2000 season, and the 2009-10 seasons exceed our z values, making them significantly different from the seasons before.</p>
+<p>Of course, we could do z-tests for any combination of two seasons, if we had a good reason. You can see on the ONS website they do this for different years’ murder rates to make a point.</p>
 
 </div>
 </div>

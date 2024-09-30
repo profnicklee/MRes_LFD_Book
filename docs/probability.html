@@ -184,18 +184,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="8.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>8.2.2</b> 2024 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>8.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
 <li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>9.3</b> Rate of Change in Football Goals per Season</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -230,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="probability" class="section level1 hasAnchor" number="8">
 <h1><span class="header-section-number">Chapter 8</span> Introduction to Probability<a href="probability.html#probability" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This Chapter provides examples and additional content for Lesson 8.</p>
+<p>This Chapter provides examples and additional content for the first part of Lesson 7.</p>
 <p>In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainy of our estimates, and from there we can begin to draw inferences from the sample to the population.</p>
 <div id="simulating-coin-flips" class="section level2 hasAnchor" number="8.1">
 <h2><span class="header-section-number">8.1</span> Simulating Coin Flips<a href="probability.html#simulating-coin-flips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -314,7 +316,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 8 0.016733465
 ## 9 0.005895244</code></pre>
 <p>So, this table of probabilities, based on the Poisson distribution, allows us to make some predictions of what we could expect.</p>
-<p>Remembering again that there are 380 games in a season, we can see that there is a 0.16% chance of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.</p>
+<p>Remembering again that there are 380 games in a season, we can see that there is a 0.16 chance (i.e. 16%) of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.</p>
 <p>We can check this out by creating a new table comparing <strong>actual</strong> with <strong>predicted</strong> values…</p>
 <pre><code>## # A tibble: 9 × 3
 ##    TOTG ActualMatches ExpectedMatches
@@ -333,8 +335,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s plot this for the big payoff:</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>Wow, that is pretty accurate! Remember, the ‘expected’ figures are purely drawn from the <em>entirely theoretical</em> Poisson distribution with a mean of 2.82. They very closely match the actual data.</p>
-<p>To be fair though, that graph is really just a bit of show, but what we want is the ‘go’. In other words, what could we do with this information?</p>
-<p>Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that <strong>there will be a game in the 22-23 season with 10 goals?</strong> - assuming that this is being written before the 22-23 season (which is true).</p>
+<p>To be honest though, that graph is really just a bit of show, but what we want is the ‘dough’ (I had an old friend who was a golfer who always said ’drive for show, putt for dough…). In other words, what could we do with this information?</p>
+<p>Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that <strong>there will be a game in the 22-23 season with 10 goals?</strong> - assuming that this is originally being written before the 22-23 season (which is true).</p>
 <p>Remember, there were 380 games in 21-22, none of which contained 10 goals. So, for ease of thinking about this, let’s make the assumption that the PL started in 2021, and there were no games before to count (in reality, we would go back to the last time 10 goals were scored and count from there, but let’s go with this in the first instance, and we’ll expand later on, promise).</p>
 <p>So, first, we need to calculate a new set of probabilities out to 10 goals.</p>
 <pre><code>##        PoisProb
@@ -364,22 +366,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="update" class="section level3 hasAnchor" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> 2023 Update<a href="probability.html#update" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So, the above example is <em>totally unchanged</em> (other than some typo corrections and nicer wording) from when I originally coded it in 2022. The million dollar question: <em>was there a game with 10 goals in the 22-23 season…?</em></p>
-<p>The answer is no, there wasn’t. But there were two with 9! Luckily I am not a betting man. I do think we are due one, so this season (2024) is probably a good bet, but as of January 20th 2024, we still haven’t had one… Unless of course you think something has fundamentally changed about the premier league in recent years, changing the probability of goals (and thus suggesting recent seasons are drawn from a <em>Poisson distribution with different characteristics</em> than past ones), which is in fact an interesting question in its own right…</p>
+<p>The answer is no, there wasn’t. But there were two with 9! Luckily I am not a betting man. I do think we are due one, so this season (2023-2024) is probably a good bet, but as of January 20th 2024, we still haven’t had one… Unless of course you think something has fundamentally changed about the premier league in recent years, changing the probability of goals (and thus suggesting recent seasons are drawn from a <em>Poisson distribution with different characteristics</em> than past ones), which is in fact an interesting question in its own right…</p>
 </div>
-</div>
-<div id="birth-weight-and-the-normal-distribution-brief-example" class="section level2 hasAnchor" number="8.3">
-<h2><span class="header-section-number">8.3</span> Birth Weight and the Normal Distribution: Brief Example<a href="probability.html#birth-weight-and-the-normal-distribution-brief-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s consider UK births in 2020, since they’re a subject close to my heart, as my son was born that year.</p>
-<p>Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g ‘bins’.</p>
-<p>Source: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data</a></p>
-<p>We can use these numbers to create a chart, and see what it looks like, inspired by David Spiegelhalter’s originals, which are available on his Github page.</p>
-<p>Spiegelhalter’s Github can be found here: <a href="https://github.com/dspiegel29/ArtofStatistics" class="uri">https://github.com/dspiegel29/ArtofStatistics</a></p>
-<pre><code>## [1] 3345.263</code></pre>
-<pre><code>## [1] 577.7594</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
-<p>The first number is the mean, the second is the standard deviation.</p>
-<p>What you can see here is, just using the real data from 2020 UK birthweights, it looks very much like what is called a ‘normal distribution’, or what you might have heard called a ‘bell curve’. We can almost certainly treat any given child’s birthweight as if it was a random variable drawn from a normal distribution, with a mean and standard deviation that is given by the empirical data here (3345.263 and 577.7594 respectively).</p>
+<div id="update-1" class="section level3 hasAnchor" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> 2024 Update<a href="probability.html#update-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Did we get one in 2023-2024…again, no. The highest in fact this season was 8 - and there were 3 games with 8 goals in.</p>
+<p>This is interesting. At this point (30 September, 2025) I find it tempting to put on a bet for a 10 goal game. I might do that, even though I am not much of a gambler. Here’s why:</p>
+<ol style="list-style-type: decimal">
+<li><p>The probabilities suggest we are well overdue one, unless there has been something fundamentally changing about the distribution of premier league goal.</p></li>
+<li><p>The sort of change would logically need to be a reduction of average goals scored per game, which would change the mean of the Poisson distribution, reducing the probabilities of a 9-goal game.</p></li>
+<li><p>However, the average goals per game is actually <strong><em>increasing</em></strong>, according to the statistics - and you can check out the following to confirm this: <a href="https://www.premierleague.com/news/4016793" class="uri">https://www.premierleague.com/news/4016793</a></p></li>
+<li><p>So, one could also draw the conclusion that the Poisson distribution is no longer a good fit - but this could be checked, and I would guess this isn’t the case (you can check yourself).</p></li>
+</ol>
+<p>Interesting.</p>
 
+</div>
 </div>
 </div>
             </section>

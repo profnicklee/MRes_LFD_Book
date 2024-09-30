@@ -184,18 +184,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="8.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>8.2.2</b> 2024 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>8.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
 <li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>9.3</b> Rate of Change in Football Goals per Season</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -230,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="ANOVA" class="section level1 hasAnchor" number="11">
 <h1><span class="header-section-number">Chapter 11</span> ANOVA<a href="ANOVA.html#ANOVA" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This Chapter provides analysis and examples related to the first part of Lecture 11.</p>
+<p>This Chapter provides analysis and examples related to the second part of Lecture 8.</p>
 <p>Here, I’ll demonstrate the basic application of ANOVA on the simple 3-group case of the Ed Sheeran Study, and go from there to introduce some classic ‘concerns’ with the statistical hypothesis testing methodology.</p>
 <pre><code>##        ID     GROUP      ANGER      
 ##  Min.   : 1   1:15   Min.   :1.000  
@@ -255,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 1     ANGER       15  2.33 0.816
 ## 2 2     ANGER       15  4.27 0.704
 ## 3 3     ANGER       15  3.07 1.03</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 <p>Interesting picture. Group 1 is the control group, Group 2 is those who heard Ed Sheeran, Group 3 is those who heard other music. This is what we might call ‘model-free’ analysis. We are just looking at the data to see if intuitively it looks like we expect it to.</p>
 <p>Let’s run an ANOVA now, which places a statistical model on it, and tests whether or not the data supports the model.</p>
 <pre><code>## ANOVA Table (type II tests)
@@ -275,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 GROUP 2      3               0   -1.2    -1.96      -0.435 0.00126    
 ## # ℹ 1 more variable: p.adj.signif &lt;chr&gt;</code></pre>
 <p>We can actually plot these results in a really effective way:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
 <p>This very clearly tells us that it is the <em>Ed Sheeran group (2)</em> that is driving these results, and there isn’t much to choose between the control group, and the ‘music’ group.</p>
 <p>However, this type of post-hoc analysis has the potential for what is known as a <em>multiple comparisons problem</em>, which we might need to deal with.</p>
 <p>Let’s take a look <strong>back in the slide deck…</strong></p>

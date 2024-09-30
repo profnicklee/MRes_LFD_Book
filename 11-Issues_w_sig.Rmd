@@ -26,7 +26,7 @@ library(pwr)
 library(waffle)
 ```
 
-This chapter provides examples and analysis for the second part of Lecture 11.
+This chapter provides examples and analysis for the third part of Lecture 8, and also parts of Lecture 9.
 
 In this chapter, I'll explore examples of two common 'issues' or 'debates' regarding statistical significance testing, applied to two of our prior examples.
 
@@ -109,56 +109,9 @@ For example, in the Ed Sheeran post-hoc tests above, we used Tukey's test, which
 
 ## The Bonferroni Correction: Rate of Change in Football Goals per Season
 
-Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+Here, I will expand on the football goals rate-of-change example from Chapter 8, to incorporate corrections for the multiple comparisons problem. Again, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
 
-I hand-entered this into a spreadsheet, and calculated the additional numbers myself.
-
-```{r}
-EPLGOALS<-read_excel("Data/EPLGOALS.xlsx")
-head(EPLGOALS)
-```
-
-You can see here I have calculated the standard errors from the yearly goal totals (which represent that year's underlying rate of goal occurrence), then used that to calculate the 95% confidence Interval limits
-
-We can use these to create a nifty chart with error bars, drawing from the code used by Spiegelhalter for Figure 9.4 in his book, available on his github:
-
-<https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd>
-
-```{r}
-#modified from Spiegelhalter's Figure 9.4 available at:
-#https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd
-
-#note, the hashed-out code is not relevant to my example
-#but left in in case someone else wants to use it
-
-df<-EPLGOALS # read data to dataframe df
-p <- ggplot(df, aes(x=Season, y=Goals)) # initial plot
-p <- p + geom_bar(stat="identity", fill="red") +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Season") # assign bar chart type, and x axis labels, rotated
-#P <- p + theme(axis.text.x = element_text(angle = 90)) #rotate lables x axis
-
-#p +geom_bar(stat="identity")+theme(axis.text.x = element_text(angle = #90))+scale_x_discrete(name="Country")+scale_y_continuous(name = "Survival Rate")
-
-#yearLabels <- c("Apr  97-\nMar  98","Apr  00-\nMar  01","Apr  03-\nMar  #04","Apr  06-\nMar  07","Apr 09-\nMar  10","Apr  12-\nMar  13","Apr  #15-\nMar  16") # assign labels for x-axis
-
-p <- p + geom_errorbar(aes(ymin=Lower95CI, ymax=Upper95CI), width=.1) # 95% intervals
-
-#p <- p + scale_x_continuous(breaks=seq(1997, 2015, 3), labels =yearLabels) # attach labels and their break points
-
-p <- p + scale_y_continuous(breaks=seq(0, 1100, 100)) # define break points for y-axis
-p <- p + labs(y="Total Goals") # add y-axis label and caption
-p
-
-```
-
-From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic, despite what many football 'experts' said.
-
-We can look at this in some more depth though. First, it's worth knowing that the UK Office for National Statistics uses this basic technique to estimate the probability of homicides, which also seem to be usefully approximated by the Poisson distribution.
-
-Interestingly, the ONS suggest that it is over-stringent to rely on error bar overlap, and that we can also use z-tests to directly test the assumption that the change is zero.
-
-See: <https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides>
-
-So using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
+I'm building on the z-test table from the end of Chapter 8. But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
 
 ```{r}
 EPLP<-read_excel("Data/EPLGOALSP.xlsx")

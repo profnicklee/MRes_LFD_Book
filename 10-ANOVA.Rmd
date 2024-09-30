@@ -26,7 +26,7 @@ library(pwr)
 
 ```
 
-This Chapter provides analysis and examples related to the first part of Lecture 11.
+This Chapter provides analysis and examples related to the second part of Lecture 8.
 
 Here, I'll demonstrate the basic application of ANOVA on the simple 3-group case of the Ed Sheeran Study, and go from there to introduce some classic 'concerns' with the statistical hypothesis testing methodology.
 

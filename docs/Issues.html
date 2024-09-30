@@ -184,18 +184,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
 <ul>
 <li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="8.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>8.2.2</b> 2024 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="probability.html"><a href="probability.html#birth-weight-and-the-normal-distribution-brief-example"><i class="fa fa-check"></i><b>8.3</b> Birth Weight and the Normal Distribution: Brief Example</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
 <li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="9.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>9.3</b> Rate of Change in Football Goals per Season</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -230,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="Issues" class="section level1 hasAnchor" number="12">
 <h1><span class="header-section-number">Chapter 12</span> Issues with Significance Testing<a href="Issues.html#Issues" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This chapter provides examples and analysis for the second part of Lecture 11.</p>
+<p>This chapter provides examples and analysis for the third part of Lecture 8, and also parts of Lecture 9.</p>
 <p>In this chapter, I’ll explore examples of two common ‘issues’ or ‘debates’ regarding statistical significance testing, applied to two of our prior examples.</p>
 <p>But first, let’s unpack more about the Ed Sheeran Study, and the multiple comparisons problem.</p>
 <div id="more-on-the-multiple-comparisons-problem" class="section level2 hasAnchor" number="12.1">
@@ -238,11 +240,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this section, I’ll provide some visualizations which can help us to understand the problem with multiple comparisons.</p>
 <p>However, it’s worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.</p>
 <p>First, let’s visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 <p>Now, remember, <strong>even if all null hypotheses are true</strong>, our significance level, or <em>p</em> = 0.05, so we have to expect that <em>on average</em> we would expect <strong>5</strong> of these hypotheses tests to return <em>p</em>-values &lt; 0.05, and thus we would reject the null. This is known as a <strong>false positive</strong>.</p>
 <p>You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required <em>p</em> to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept <em>all</em> null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really <em>was</em> true in the population in every single case, you would be inevitably missing out on making some discoveries.</p>
 <p>Moving on, let’s visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
 <p>Now, that is just the <em>expected</em> level for every 100 tests. If you remember from the discussion in Section <a href="statistics.html#conf">9.2</a>, it may not be you get <em>exactly</em> 5 false positives in 100 tests, just that you would expect the long run average number of false positives to be 5%, in an all-null world.</p>
 <p>So, we can look at it through a different lens. What is the probability that you would get <strong>at least one false positive</strong> in any given batch of multiple tests.</p>
 <p>That is known as the <em>familywise error rate</em>, and it applies whenever you can define a cluster or ‘family’ of tests.</p>
@@ -268,26 +270,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="12.2">
 <h2><span class="header-section-number">12.2</span> The Bonferroni Correction: Rate of Change in Football Goals per Season<a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
-<p>I hand-entered this into a spreadsheet, and calculated the additional numbers myself.</p>
-<pre><code>## # A tibble: 6 × 7
-##   Season  Games Goals   GPG    SE Lower95CI Upper95CI
-##   &lt;chr&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 1995-96   380   988  2.6   31.4      926.     1050.
-## 2 1996-97   380   970  2.55  31.1      909.     1031.
-## 3 1997-98   380  1019  2.68  31.9      956.     1082.
-## 4 1998-99   380   959  2.52  31.0      898.     1020.
-## 5 1999-00   380  1060  2.79  32.6      996.     1124.
-## 6 2000-01   380   992  2.61  31.5      930.     1054.</code></pre>
-<p>You can see here I have calculated the standard errors from the yearly goal totals (which represent that year’s underlying rate of goal occurrence), then used that to calculate the 95% confidence Interval limits</p>
-<p>We can use these to create a nifty chart with error bars, drawing from the code used by Spiegelhalter for Figure 9.4 in his book, available on his github:</p>
-<p><a href="https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd" class="uri">https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd</a></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
-<p>From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic, despite what many football ‘experts’ said.</p>
-<p>We can look at this in some more depth though. First, it’s worth knowing that the UK Office for National Statistics uses this basic technique to estimate the probability of homicides, which also seem to be usefully approximated by the Poisson distribution.</p>
-<p>Interestingly, the ONS suggest that it is over-stringent to rely on error bar overlap, and that we can also use z-tests to directly test the assumption that the change is zero.</p>
-<p>See: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides</a></p>
-<p>So using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.</p>
+<p>Here, I will expand on the football goals rate-of-change example from Chapter 8, to incorporate corrections for the multiple comparisons problem. Again, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
+<p>I’m building on the z-test table from the end of Chapter 8. But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.</p>
 <pre><code>##     Season              Games         Goals             GPG       
 ##  Length:27          Min.   :380   Min.   : 931.0   Min.   :2.450  
 ##  Class :character   1st Qu.:380   1st Qu.: 981.5   1st Qu.:2.583  
@@ -323,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 2000-01   380   992  2.61  31.5      930.     1054.    -68 -1.50  -1.50 
 ## # ℹ 1 more variable: p2 &lt;dbl&gt;</code></pre>
 <p>Here, we can plot the p-values (2-tailed), and again we see that two seasons seem to have significant differences. In other words, the p-values are less than 0.05 for the test as to whether the number of goals scored differs from the season before</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
 <p>We can see that the 1999-2000 season, and the 2009-10 seasons have p values less than 0.05</p>
 <p>The question is <strong>are we suffering from the multiple comparisons problem</strong>? Should we correct for it?</p>
 <p>It’s hard to say actually. Of course, we are indeed running multiple tests, 26 in fact. So, the chance of a false positive is high. The Bonferroni correction would immediately reduce the false positive chances, but at what cost?</p>
@@ -335,7 +319,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>n</em> = number of comparisons (here this is 26)</p>
 <p>So, the formula gives us a new Bonferroni-adjusted critical p value of 0.0019</p>
 <p>Let’s see what happens with this new critical p value:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
 <p>We can see that none of our tests now rejects the null. The Bonferroni correction is known as a highly conservative test. That is, it is based on the idea that the <em>null hypothesis is true</em> in each case in the population. We can thus consider it as the most stringent and conservative way to correct for the chance of false positives when doing multiple comparisons.</p>
 <p>But, as I suggested above, that might not always be the best idea. Indeed, if you want to totally avoid any chance of a false positive, why not simply make the required alpha 0? Then, you would never get a false positive. Of course, you would never detect a <strong>true positive</strong> either.</p>
 <p>What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be <em>no false positives</em>. Therefore, in such a situation you would be <em>increasing the chances of a false negative</em> by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?</p>
