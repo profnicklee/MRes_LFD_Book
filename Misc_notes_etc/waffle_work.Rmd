@@ -1,0 +1,78 @@
+---
+title: "Working Waffle"
+author: "Nick Chamberlain"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+waffle <- function(x, rows, cols = seq_along(x), ...) {
+  xx <- rep(cols, times = x)
+  lx <- length(xx)
+  m <- matrix(nrow = rows, ncol = (lx %/% rows) + (lx %% rows != 0))
+  m[1:length(xx)] <- xx
+
+  op <- par(no.readonly = TRUE)
+  on.exit(par(op))
+
+  par(list(...))
+  plot.new()
+  o <- cbind(c(row(m)), c(col(m))) + 1
+  plot.window(xlim = c(0, max(o[, 2]) + 1), ylim = c(0, max(o[, 1]) + 1),
+              asp = 1, xaxs = 'i', yaxs = 'i')
+  rect(o[, 2], o[, 1], o[, 2] + .85, o[, 1] + .85, col = c(m), border = NA)
+
+  invisible(list(m = m, o = o))
+}
+
+
+cols <- c("lightgrey", "red", "#00BFC4", "#C77CFF")
+m <- waffle(c(100, 0, 0, 0), rows = 10, cols = cols, mar = c(0,0,0,7),
+            bg = 'white')
+#legend('right', legend = LETTERS[1:2], pch = 15, col = cols, pt.cex = 2,
+      # bty = 'n')
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+waffle <- function(x, rows, cols = seq_along(x), ...) {
+  xx <- rep(cols, times = x)
+  lx <- length(xx)
+  m <- matrix(nrow = rows, ncol = (lx %/% rows) + (lx %% rows != 0))
+  m[1:length(xx)] <- xx
+
+  op <- par(no.readonly = TRUE)
+  on.exit(par(op))
+
+  par(list(...))
+  plot.new()
+  o <- cbind(c(row(m)), c(col(m))) + 1
+  plot.window(xlim = c(0, max(o[, 2]) + 1), ylim = c(0, max(o[, 1]) + 1),
+              asp = 1, xaxs = 'i', yaxs = 'i')
+  rect(o[, 2], o[, 1], o[, 2] + .85, o[, 1] + .85, col = c(m), border = NA)
+
+  invisible(list(m = m, o = o))
+}
+
+
+cols <- c("lightgrey", "red")
+m <- waffle(c(100, 0), rows = 10, cols = cols, mar = c(0,0),
+            bg = 'white')
+legend('right', legend = LETTERS[1:2], pch = 15, col = cols, pt.cex = 2,
+       bty = 'n')
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

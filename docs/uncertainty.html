@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Beginning to Understand Uncertainty | WBS MRes: Learning From Data</title>
   <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Beginning to Understand Uncertainty | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2024-09-30" />
+<meta name="date" content="2025-10-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -66,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -263,54 +263,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    75   4.49   23.4          18.8 
-##  2    54   9.82   23.8          17.8 
-##  3   198  16.0    19.9          15.4 
-##  4   393  54.1    26.0           8.85
-##  5    40  45.8     4.72          7.04
-##  6   361  62.1    21.2           6.72
-##  7   386  65.2    24.2           7.18
-##  8   300   7.48   19.4          16.6 
-##  9   490  70.2    16.3           4.71
-## 10   474  25.4    13.2          12.4</code></pre>
+##  1   189   5.51   17.9          16.0 
+##  2   486  41.2     7.58          7.83
+##  3   362  49.9     3.86          5.33
+##  4   336  14.7    19.5          14.4 
+##  5   384  68.2    15.3           4.48
+##  6   344   8.63    4.38         14.5 
+##  7   208  36.5     2.05          8.50
+##  8   137  73.7    14.1           2.99
+##  9   324  34.5    16.8          10.7 
+## 10   120   9.65    8.37         15.6</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 20.54868</code></pre>
-<pre><code>## [1] 19.21726</code></pre>
+<pre><code>## [1] 11.23585</code></pre>
+<pre><code>## [1] 10.97984</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   409   8.80   16.5          16.5 
-##  2   422  25.9    16.2          13.6 
-##  3   488  69.9    26.0           6.76
-##  4   285  61.9    26.3           6.86
-##  5   129  17.6    27.2          15.1 
-##  6    70  22.9    24.6          16.2 
-##  7   378  13.4    29.7          17.2 
-##  8   184  72.4     7.52          1.87
-##  9   468  56.2    19.2           6.51
-## 10   381   8.52   29.9          17.9 
+##  1    25  30.4    17.0          12.4 
+##  2   201  35.0    22.7          12.5 
+##  3   186  45.6    20.6           9.80
+##  4   449  60.0    11.4           5.07
+##  5   229  25.3     7.17         12.0 
+##  6    50  21.1    18.9          14.8 
+##  7   249  45.7    23.8           9.23
+##  8   440  30.5    18.1          11.7 
+##  9   209   7.83   26.8          17.6 
+## 10   311  33.9    24.4          11.4 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 16.88572</code></pre>
-<pre><code>## [1] 17.59577</code></pre>
+<pre><code>## [1] 17.2713</code></pre>
+<pre><code>## [1] 15.88717</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    37   67.4   23.9           5.28
-##  2    96   63.0   22.2           6.36
-##  3   253   26.9   11.5          12.2 
-##  4    60   26.4    7.76         11.0 
-##  5     2   65.1    2.22          2.85
-##  6   197   60.3   15.1           4.95
-##  7   331   13.7   14.2          14.3 
-##  8   478   11.9    1.14         12.8 
-##  9   308   71.8   13.0           2.06
-## 10   198   16.0   19.9          15.4 
+##  1     6  54.4    29.3           9.55
+##  2   288  45.5    25.8          10.9 
+##  3   369  39.9    14.5          10.0 
+##  4   214  70.1    10.4           2.24
+##  5    56  28.6     1.15         10.1 
+##  6   395  60.6     6.47          3.35
+##  7   407   4.16   19.7          17.1 
+##  8   165  35.3     9.15          9.75
+##  9   222  22.7    28.7          16.8 
+## 10   254  34.2    24.4          13.2 
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 15.56235</code></pre>
-<pre><code>## [1] 15.56235</code></pre>
+<pre><code>## [1] 16.55924</code></pre>
+<pre><code>## [1] 16.55924</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>
@@ -337,42 +337,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-estimation.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["LFD.pdf", "LFD.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/rstudio/bookdown-demo/edit/master/04-estimation.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["LFD.pdf", "LFD.epub"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
 });
 });
 </script>
