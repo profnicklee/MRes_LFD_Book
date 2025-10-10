@@ -24,7 +24,7 @@ This book is written in **Markdown**, using R and the **bookdown** package, and 
 
 This book is essentially a 'live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runnings.
 
-The current year is 2024, and the book is currently *in progress for 2024.*
+The current year is 2025, and the book is currently *in progress for 2025.*
 
 Please enjoy the book, and learn from it. 
 
