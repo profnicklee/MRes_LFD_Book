@@ -7,17 +7,12 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```{r}
 #note: some of these aren't used for the code that I run, but for other parts I have hashed out.
 library(tidyverse)
-library(combinat)
-library(gtools)
 library(readxl)
 library(ggplot2)
 library(ggpubr)
 library(mosaic)
 
 library(dplyr)
-library(gganimate)
-library(gifski)
-library(png)
 ```
 
 This Chapter provides examples and additional content for the first part of Lesson 7.
