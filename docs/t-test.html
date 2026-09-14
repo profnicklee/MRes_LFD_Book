@@ -260,7 +260,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## GROUP    2 30  1.50 0.51    1.5    1.50  0.74   1   2     1 0.00    -2.07 0.09
 ## ANGER    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4 0.04    -1.30 0.22</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-87">Table 7.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-88">Table 7.1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -401,7 +401,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   &lt;fct&gt; &lt;dbl&gt;
 ## 1 1      2.8 
 ## 2 2      3.87</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-88-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-89-1.png" alt="" width="672" /></p>
 <pre><code>## Response: ANGER (numeric)
 ## Explanatory: GROUP (factor)
 ## # A tibble: 1 × 1
@@ -454,7 +454,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can see there is a new ‘DIF’ variable here.</p>
 <p>Notice we’re bootstrapping the mean of this difference directly, not a t-statistic as we did for the independent-samples design above. It’s the same underlying question — is this far from zero? — just reached without the standardisation step in between. Nothing is lost by skipping it: with paired data there’s a single already-differenced variable rather than two separately-scaled groups to compare, so there’s less need to standardise before asking the question.</p>
 <p>Next, we bootstrap a confidence interval for the <em>mean of the difference variable</em>, to see whether it includes zero:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-91-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-92-1.png" alt="" width="672" /></p>
 <pre><code>## Response: DIF (numeric)
 ## # A tibble: 1 × 1
 ##    stat
@@ -467,7 +467,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 2</code></pre>
 <pre><code>## [1] 3.333333</code></pre>
 <p>We can do this in another way, but instead running a 1-sample t-test on the difference variable, testing whether it is different from zero:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-92-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-93-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 1 × 1
 ##   p_value
 ##     &lt;dbl&gt;

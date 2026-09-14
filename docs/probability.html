@@ -251,7 +251,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5     1     5         3 0.6000000
 ## 6     0     6         3 0.5000000</code></pre>
 <p>Below, we’ll plot the results of this simulation for ease of interpretation</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-97-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-98-1.png" alt="" width="672" /></p>
 <p>The thing to notice (in combination with the table of results above the plot) is that eventually the proportion of heads versus tails approaches 50%, <em>but it does not start out that way</em>.</p>
 <p>In other words, for a fair coin toss sequence, the trials (tosses) are <em>independent</em>, which means that for any given toss of the coin, the chance of a head or tail is 50%. But, that’s not the same as saying that you’ll get equal numbers of heads or tails for every (or any) particular sequence of multiple tosses - it’s not ‘self-correcting’ in any other way than sheer weight of numbers. So, <strong>eventually</strong> over enough trials, the sequence should start to look like 50/50 heads and tails. But, that is not the tosses ‘self-correcting’, simply that you are tossing a lot of coins. This is at the root of a number of fallacies about predicting random events, such as the Gambler’s fallacy.</p>
 </div>
@@ -284,7 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   0.000   2.000   3.000   2.818   4.000   9.000</code></pre>
 <p>OK, so now we have some idea of the goals per game, let’s plot the distribution of goals.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-102-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-103-1.png" alt="" width="672" /></p>
 <p>If you’ve ever seen a Poisson distribution, you’ll recognise this!</p>
 <p>Let’s check this out. First, let’s create a table of all the matches with different numbers of goals.</p>
 <pre><code>## # A tibble: 9 × 2
@@ -338,7 +338,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Remember, as you can see above, the row for ‘8’ is missing, and it goes straight to 9. So, to repeat, just take (for simplicity’s sake here) the final row of Expected Matches as meaning ‘2 games with 8 or more goals’</p>
 <p>Anyway, it’s pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).</p>
 <p>Let’s plot this for the big payoff:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-109-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-110-1.png" alt="" width="672" /></p>
 <p>Wow, that is pretty accurate! Remember, the ‘expected’ figures are purely drawn from the <em>entirely theoretical</em> Poisson distribution with a mean of 2.82. They very closely match the actual data.</p>
 <p>To be honest though, that graph is really just a bit of show, but what we want is the ‘dough’ (I had an old friend who was a golfer who always said ’drive for show, putt for dough…). In other words, what could we do with this information?</p>
 <p>Well, there is a lot of money spent on sports betting. We could use this information to help us decide whether we should place a bet that <strong>there will be a game in the 22-23 season with 10 goals?</strong> - assuming that this is originally being written before the 22-23 season (which is true).</p>

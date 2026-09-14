@@ -13,6 +13,7 @@ library(skimr)
 library (infer)
 library(ggpubr)
 library(dplyr)
+library(psych)
 
 ```
 
@@ -31,6 +32,16 @@ Recall from the last chapter that there was a simulated data set of 498 people, 
 We treated this as **the population** and then sampled from it to demonstrate uncertainty at different sample sizes.
 
 So, let's take the sample of **50** that we drew from that 'population' of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.
+
+Because this chapter now draws its own sample rather than reusing the one still in memory from Chapter \@ref(uncertainty), the exact numbers below may land somewhere slightly different from what we saw there — same unseeded variation as always, not a new inconsistency.
+
+```{r}
+Heart<-read_excel("Data/heart.data.xlsx")
+
+sub.10 <- Heart[sample(nrow(Heart), size = 10, replace = FALSE), ]
+sub.50 <- Heart[sample(nrow(Heart), size = 50, replace = FALSE), ]
+sub.200 <- Heart[sample(nrow(Heart), size = 200, replace = FALSE), ]
+```
 
 First we will remind ourselves of the properties and distribution of our sample, the median, mean, and distribution:
 
