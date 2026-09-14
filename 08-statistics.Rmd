@@ -322,7 +322,7 @@ From this chart, and looking at the data itself, we can see that the 95% Interva
 
 The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.
 
-In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter 7: https://www.premierleague.com/news/4016793 
+In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \@ref(probability): https://www.premierleague.com/news/4016793
 
 This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which *directly tests the hypothesis* that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
 

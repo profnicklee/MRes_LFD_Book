@@ -103,7 +103,7 @@ summary(EPL$TOTG)
 sum(EPL$TOTG)
 ```
 
-First, let's create a table of all the matches with different numbers of goals, just as we did in Chapter 7.
+First, let's create a table of all the matches with different numbers of goals, just as we did in Chapter \@ref(probability).
 
 ```{r}
 GoalsTable <- 
@@ -153,7 +153,7 @@ MeanGoals
 VarianceGoals
 ```
 
-As we saw in Chapter 7, while for a Poisson distribution these should be exactly the same, we decided that they were good enough to be going on with.
+As we saw in Chapter \@ref(probability), while for a Poisson distribution these should be exactly the same, we decided that they were good enough to be going on with.
 
 So, let's actually check this formally with the Chi-square test.
 

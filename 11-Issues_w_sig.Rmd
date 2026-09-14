@@ -170,9 +170,9 @@ For example, in the Ed Sheeran post-hoc tests above, we used Tukey's test, which
 
 ## The Bonferroni Correction: Rate of Change in Football Goals per Season
 
-Here, I will expand on the football goals rate-of-change example from Chapter 8, to incorporate corrections for the multiple comparisons problem. Again, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+Here, I will expand on the football goals rate-of-change example from Chapter \@ref(statistics), to incorporate corrections for the multiple comparisons problem. Again, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
 
-I'm building on the z-test table from the end of Chapter 8. But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
+I'm building on the z-test table from the end of Chapter \@ref(statistics). But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
 
 ```{r}
 EPLP<-read_excel("Data/EPLGOALSP.xlsx")

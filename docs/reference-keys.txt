@@ -18,6 +18,7 @@ uncertainty
 demonstration-sampling-from-a-known-population
 bootstrap
 bootstrapping-in-the-context-of-previous-examples
+bootstrapping-the-original-sample
 bootstrapping-other-stuff
 correlations
 t-test
