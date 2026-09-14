@@ -268,54 +268,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   156  54.4    16.3           7.59
-##  2    88  14.6     6.80         14.5 
-##  3   241   6.28   20.2          17.6 
-##  4    92  26.9    16.7          13.5 
-##  5    55   4.38   20.7          17.4 
-##  6    28  45.2     2.14          6.59
-##  7   252  35.9    18.5          11.4 
-##  8   461  71.4    12.8           3.26
-##  9   309  60.0     4.29          4.11
-## 10    66   1.12   19.6          17.7</code></pre>
+##  1   323  56.4    17.5           6.81
+##  2    79  56.7    16.2           6.74
+##  3   253  26.9    11.5          12.2 
+##  4   125  71.6    18.9           4.09
+##  5    78   8.76    3.90         13.4 
+##  6   184  72.4     7.52          1.87
+##  7   162  22.3    23.2          15.9 
+##  8   179   5.20    4.36         15.6 
+##  9    14  26.2     6.65         10.6 
+## 10     6  54.4    29.3           9.55</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 16.53047</code></pre>
-<pre><code>## [1] 13.8032</code></pre>
+<pre><code>## [1] 13.85598</code></pre>
+<pre><code>## [1] 13.91326</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   485  22.7     1.02         10.9 
-##  2    18  33.9     5.76          9.16
-##  3   170  29.7     2.40          9.39
-##  4   247  49.6    16.3           8.14
-##  5    55   4.38   20.7          17.4 
-##  6   263  67.1     8.48          3.12
-##  7   167  44.7    10.0           7.45
-##  8   362  49.9     3.86          5.33
-##  9   271  69.3     4.66          2.20
-## 10   248  29.7    23.3          13.0 
+##  1   299  51.7    19.2           6.95
+##  2   388  67.3    15.0           4.63
+##  3    22  18.5    26.4          16.0 
+##  4   177  73.8    16.2           2.35
+##  5   112  58.0    15.7           6.56
+##  6   438  31.8    22.2          13.3 
+##  7   311  33.9    24.4          11.4 
+##  8    85   3.71   21.5          17.9 
+##  9   161  30.5     2.53          8.94
+## 10   480   7.58   29.6          18.1 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 14.16218</code></pre>
-<pre><code>## [1] 14.79677</code></pre>
+<pre><code>## [1] 15.93246</code></pre>
+<pre><code>## [1] 16.1363</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   479   4.82   27.6          18.5 
-##  2   440  30.5    18.1          11.7 
-##  3   206  44.0     6.58          8.50
-##  4   498  30.8    23.6          11.8 
-##  5   474  25.4    13.2          12.4 
-##  6   202  10.3    27.6          17.4 
-##  7   258  10.7    16.5          15.4 
-##  8   341  46.0    18.1           9.23
-##  9    32  61.1    27.8           7.72
-## 10   237  39.2    17.6          10.7 
+##  1   215   1.33   28.8          20.5 
+##  2   279  37.7    25.0          11.1 
+##  3   374  61.5    17.0           5.91
+##  4    31  44.2     3.97          7.98
+##  5   175  38.2    20.1          11.6 
+##  6   278  39.3    15.1           9.32
+##  7   342  33.3    17.3          11.3 
+##  8   409   8.80   16.5          16.5 
+##  9   183  41.2     4.15          7.59
+## 10   274  55.4    17.2           7.23
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 16.55611</code></pre>
-<pre><code>## [1] 16.55611</code></pre>
+<pre><code>## [1] 15.63987</code></pre>
+<pre><code>## [1] 15.63987</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>

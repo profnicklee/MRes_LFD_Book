@@ -249,8 +249,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We treated this as <strong>the population</strong> and then sampled from it to demonstrate uncertainty at different sample sizes.</p>
 <p>So, let’s take the sample of <strong>50</strong> that we drew from that ‘population’ of 498, and imagine that we got this sample by (for example) doing a survey of the population (of 498), and this is our data set for analysis.</p>
 <p>First we will remind ourselves of the properties and distribution of our sample, the median, mean, and distribution:</p>
-<pre><code>## [1] 14.16218</code></pre>
-<pre><code>## [1] 14.79677</code></pre>
+<pre><code>## [1] 15.93246</code></pre>
+<pre><code>## [1] 16.1363</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-71-1.png" alt="" width="672" /></p>
 <p>Ok, there we go. Remember, this sample is our ‘data set’ for analysis. Remember, it represents a <strong>sample of 50 cases</strong> from a <strong>population of 498</strong>.</p>
 <p>We know the median and mean, but we have no real indication of the uncertainty in those estimates. What I mean is, without information about the population mean and median (which of course we would not have in a real-life sampling situation), we cannot know how close the sample median and mean are to the population mean and median.</p>
@@ -262,54 +262,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   121  65.6    14.1           4.04
-##  2    92  26.9    16.7          13.5 
-##  3   362  49.9     3.86          5.33
-##  4   285  61.9    26.3           6.86
-##  5   331  13.7    14.2          14.3 
-##  6   247  49.6    16.3           8.14
-##  7    55   4.38   20.7          17.4 
-##  8   247  49.6    16.3           8.14
-##  9   121  65.6    14.1           4.04
-## 10   142  11.3     9.23         14.5 
+##  1    55   4.38   20.7          17.4 
+##  2   129  17.6    27.2          15.1 
+##  3   352  61.4    18.0           4.95
+##  4   479   4.82   27.6          18.5 
+##  5   396  61.3     4.25          3.40
+##  6   161  30.5     2.53          8.94
+##  7   210  40.4     7.03          6.74
+##  8   396  61.3     4.25          3.40
+##  9   161  30.5     2.53          8.94
+## 10   497  42.3    20.7          10.1 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 16.25902</code></pre>
-<pre><code>## [1] 15.0491</code></pre>
+<pre><code>## [1] 14.20224</code></pre>
+<pre><code>## [1] 14.31033</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-72-1.png" alt="" width="672" /></p>
 <p>Marvelous! Now, for the purpose of example, let’s draw two more of these resamples from the original 50, take their median and mean, and plot the distributions…</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   296   13.6    1.42         11.8 
-##  2   176   15.5   11.6          13.4 
-##  3   331   13.7   14.2          14.3 
-##  4   390   63.6   12.5           3.45
-##  5    29   48.6   10.4           6.66
-##  6    56   28.6    1.15         10.1 
-##  7   264   10.3   26.9          17.1 
-##  8    18   33.9    5.76          9.16
-##  9   242   61.4   24.5           7.62
-## 10   390   63.6   12.5           3.45
+##  1   112  58.0    15.7           6.56
+##  2   465  40.8    11.6           8.46
+##  3    67  23.3    14.3          13.3 
+##  4    58  27.6     4.39         10.9 
+##  5   165  35.3     9.15          9.75
+##  6   301  47.4    15.3           9.10
+##  7   480   7.58   29.6          18.1 
+##  8   129  17.6    27.2          15.1 
+##  9   111  15.2    14.5          14.6 
+## 10   497  42.3    20.7          10.1 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 14.16218</code></pre>
-<pre><code>## [1] 14.47465</code></pre>
+<pre><code>## [1] 18.1527</code></pre>
+<pre><code>## [1] 17.39895</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-73-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   159   59.6    24.8          8.52
-##  2   159   59.6    24.8          8.52
-##  3   247   49.6    16.3          8.14
-##  4   188   40.1    16.5          9.39
-##  5   248   29.7    23.3         13.0 
-##  6   188   40.1    16.5          9.39
-##  7   269   42.6    26.3         11.6 
-##  8   242   61.4    24.5          7.62
-##  9   382   37.2    22.4         10.5 
-## 10   458   68.7    22.4          5.36
+##  1   123  48.3    12.0           7.30
+##  2   346   1.58    9.06         14.4 
+##  3   480   7.58   29.6          18.1 
+##  4   368   2.63   18.3          16.4 
+##  5   433   3.22    9.18         16.5 
+##  6   111  15.2    14.5          14.6 
+##  7   488  69.9    26.0           6.76
+##  8   273  24.7     4.60         12.1 
+##  9    22  18.5    26.4          16.0 
+## 10   381   8.52   29.9          17.9 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 16.25902</code></pre>
-<pre><code>## [1] 15.17708</code></pre>
+<pre><code>## [1] 18.1065</code></pre>
+<pre><code>## [1] 16.64303</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-74-1.png" alt="" width="672" /></p>
 <p>Now, if we <strong>return to the slides</strong>, we can build a table using these mean and median values. Of course, the slide deck will have slightly different values, since it’s based on a different run of the resampling process, but the principle is the same.</p>
 <p>So, this is the basic idea of bootstrapping. We sample with replacement from our original sample, many many times. We did 3 here manually, but we generally use a program to do this many more times, such as a thousand or more.</p>
@@ -330,8 +330,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## 
 ## Bootstrap Statistics :
-##     original      bias    std. error
-## t1*  13.8032 -0.02555543    2.123976</code></pre>
+##     original     bias    std. error
+## t1* 13.91326 -0.1392538     2.51721</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-75-1.png" alt="" width="672" /></p>
 <pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 ## Based on 1000 bootstrap replicates
@@ -341,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Intervals : 
 ## Level      Normal        
-## 95%   ( 9.67, 17.99 )  
+## 95%   ( 9.12, 18.99 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 <p>Now let’s do it for the other two subsamples of n=50, and n=200</p>
 <pre><code>## 
@@ -353,8 +353,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## 
 ## Bootstrap Statistics :
-##     original     bias    std. error
-## t1* 14.79677 0.05448915    1.210842</code></pre>
+##     original      bias    std. error
+## t1*  16.1363 -0.06900001    1.063942</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-76-1.png" alt="" width="672" /></p>
 <pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 ## Based on 1000 bootstrap replicates
@@ -364,7 +364,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Intervals : 
 ## Level      Normal        
-## 95%   (12.37, 17.12 )  
+## 95%   (14.12, 18.29 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 <pre><code>## 
 ## ORDINARY NONPARAMETRIC BOOTSTRAP
@@ -376,7 +376,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Bootstrap Statistics :
 ##     original      bias    std. error
-## t1* 16.13098 -0.01787988   0.5363096</code></pre>
+## t1* 15.46819 -0.02100129   0.5866814</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-77-1.png" alt="" width="672" /></p>
 <pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
 ## Based on 1000 bootstrap replicates
@@ -386,7 +386,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Intervals : 
 ## Level      Normal        
-## 95%   (15.1, 17.2 )  
+## 95%   (14.34, 16.64 )  
 ## Calculations and Intervals on Original Scale</code></pre>
 <p>We’ll now build a table with these values <em>back in the slide deck</em>. Again, remember the values in the slide deck will differ from these due to the randomness of the process.</p>
 <div id="bootstrapping-the-original-sample" class="section level3 hasAnchor" number="6.1.1">
