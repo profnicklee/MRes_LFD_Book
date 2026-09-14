@@ -307,6 +307,10 @@ Generate, run, check against the criteria above, and iterate. Do not hand the nu
 
 ---
 
+> **Deferred.** Numbered as Priority 2 but deliberately held until Priority 5 is
+> complete, since both touch `11-Issues_w_sig.Rmd` and this avoids revising that
+> chapter twice. Action after Priority 5 lands, not in Priority 2's own pass.
+
 ## 2.8 Replace the embedded Shiny app — `11-Issues_w_sig.Rmd` (Ch 12)
 
 The familywise error rate calculator is embedded with `knitr::include_app("https://danielroelfs.shinyapps.io/FWER_simple/")`. This writes an iframe at render time and never contacts the app, so a successful render says nothing about whether students will see anything. As of September 2026 the embed is erroring in the browser.
