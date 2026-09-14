@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Beginning to Understand Uncertainty | WBS MRes: Learning From Data</title>
   <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Beginning to Understand Uncertainty | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2025-10-10" />
+<meta name="date" content="2026-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -258,60 +259,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s <em>now</em> assume that this sample of 498 people actually <em>is</em> the population we are interested in.</p>
 <p>What <strong>this</strong> means is, we can actually <em>draw a sample from this population of 498</em> and see what happens.</p>
 <p>First, let’s present the distribution for the entire ‘population’ of 498.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-63-1.png" alt="" width="672" /></p>
 <p>Now, let’s literally take a <em>sample</em> of 10 random cases from that population of 498. Here, we are <strong>sampling without replacement</strong>, and are thus essentially doing exactly what a hypothetical ‘researcher’ would do if they drew a random sample of 10 people to complete their survey, from the population of 498.</p>
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   189   5.51   17.9          16.0 
-##  2   486  41.2     7.58          7.83
-##  3   362  49.9     3.86          5.33
-##  4   336  14.7    19.5          14.4 
-##  5   384  68.2    15.3           4.48
-##  6   344   8.63    4.38         14.5 
-##  7   208  36.5     2.05          8.50
-##  8   137  73.7    14.1           2.99
-##  9   324  34.5    16.8          10.7 
-## 10   120   9.65    8.37         15.6</code></pre>
+##  1   385  31.7    28.7          13.0 
+##  2   167  44.7    10.0           7.45
+##  3   312  43.3     8.29          6.56
+##  4   313  22.9     2.40         11.0 
+##  5   274  55.4    17.2           7.23
+##  6   494  47.7    27.6          11.3 
+##  7   238   9.94   22.3          16.4 
+##  8   212  47.6    29.5          11.6 
+##  9   120   9.65    8.37         15.6 
+## 10   224  35.5    15.9          11.4</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 11.23585</code></pre>
-<pre><code>## [1] 10.97984</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<pre><code>## [1] 16.527</code></pre>
+<pre><code>## [1] 17.02321</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    25  30.4    17.0          12.4 
-##  2   201  35.0    22.7          12.5 
-##  3   186  45.6    20.6           9.80
-##  4   449  60.0    11.4           5.07
-##  5   229  25.3     7.17         12.0 
-##  6    50  21.1    18.9          14.8 
-##  7   249  45.7    23.8           9.23
-##  8   440  30.5    18.1          11.7 
-##  9   209   7.83   26.8          17.6 
-## 10   311  33.9    24.4          11.4 
+##  1   207   67.1    5.82          2.55
+##  2   424   58.0   20.6           7.50
+##  3   463   39.3   13.6           8.87
+##  4   495   45.1   21.4           9.62
+##  5   193   31.2    7.80          9.78
+##  6   357   19.4    6.12         11.5 
+##  7   118   17.2   20.7          15.2 
+##  8   158   54.1   20.4           8.05
+##  9   375   19.7    1.40         11.8 
+## 10   492   68.9   10.5           3.11
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 17.2713</code></pre>
-<pre><code>## [1] 15.88717</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<pre><code>## [1] 14.85851</code></pre>
+<pre><code>## [1] 14.4136</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1     6  54.4    29.3           9.55
-##  2   288  45.5    25.8          10.9 
-##  3   369  39.9    14.5          10.0 
-##  4   214  70.1    10.4           2.24
-##  5    56  28.6     1.15         10.1 
-##  6   395  60.6     6.47          3.35
-##  7   407   4.16   19.7          17.1 
-##  8   165  35.3     9.15          9.75
-##  9   222  22.7    28.7          16.8 
-## 10   254  34.2    24.4          13.2 
+##  1   285  61.9    26.3          6.86 
+##  2     4  44.8     2.80         6.82 
+##  3   212  47.6    29.5         11.6  
+##  4   232  10.4    16.0         14.1  
+##  5   481  54.2     5.96         5.35 
+##  6    23  24.5    26.9         15.0  
+##  7   325  71.0     3.52         0.705
+##  8   310  60.3     8.79         4.59 
+##  9   130   9.41    8.61        13.5  
+## 10   435  29.9     2.39         9.45 
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 16.55924</code></pre>
-<pre><code>## [1] 16.55924</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<pre><code>## [1] 15.28958</code></pre>
+<pre><code>## [1] 15.28958</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>
 

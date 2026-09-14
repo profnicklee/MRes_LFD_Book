@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 The Normal Distribution | WBS MRes: Learning From Data</title>
   <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 The Normal Distribution | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2025-10-10" />
+<meta name="date" content="2026-09-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -286,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now, at last, we can do some plots!</p>
 <p>First let’s set up the histogram and overlay a normal distribution on to it.</p>
 <p>The weight of Monty is overlaid as a red line. We can estimate if this is ‘unusual’ or not by how far away it is from the mean of the distribution.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-34-1.png" alt="" width="672" /></p>
 </div>
 <div id="what-actually-is-a-normal-distribution" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> What Actually is a Normal Distribution?<a href="norm_dist.html#what-actually-is-a-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -295,7 +296,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occuring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.</p>
 <p>We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594</p>
 <p>So, it is 95% probable that a random baby born in the UK in 2020 will weigh between 2189.745 and 4500.781g</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-35-1.png" alt="" width="672" /></p>
 <p>We can calculate how many SDs Monty’s weight was above the mean by calculating the z-score for his weight of 3912g.</p>
 <p>To do so, let’s return to the slide deck and see the calculation.</p>
 <p><strong><em>Move back to the slides…</em></strong></p>
@@ -303,12 +304,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>50th is of course the median, and the 25th and 75th percentilies are the quartiles.</p>
 <p>Here, the same things we have previously discussed in relation to samples are applied to populations</p>
 <p>We can also see that Monty lies on the 83rd percentile, that is 83% of babies born in 2020 weighed less. This tallies with what we were told at the time, and then things are monitored quite closely from that time on in terms of percentiles.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-36-1.png" alt="" width="672" /></p>
 <p>Moving to a discussion of low birthweight. It is medically defined as low if below 2500g. Nuffield reports that 6.6% of babies in 2020 were born at low birthweight, which is fairly good.</p>
 <p>This tallies fairly well with the predicted proportion from the normal distribution of 7.2%</p>
 <p>What we gain from the grey shaded area is the proportion of the population which is expected to be born at low birthweight, but also an indication of the probability that a randomly-chosen baby born in 2020 would be of low weight.</p>
 <p>This concept can easily be transferred to other weights in this population (and by extension to other variables and populations distributed like this)</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-37-1.png" alt="" width="672" /></p>
 
 </div>
 </div>
