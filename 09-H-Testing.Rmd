@@ -26,6 +26,54 @@ library(pwr)
 
 This Chapter relates to the first part of Lecture 8, and contains some (re)worked examples from earlier chapters / lessons, focusing specifically on the hypothesis testing aspect of them.
 
+## Testing a Real Hypothesis: Are WBS PhD Salaries Different? {#salary-ztest}
+
+Back in Section \@ref(conf) we used the WBS PhD graduate salary data — 42 graduates, mean starting salary $170,000, standard deviation $46,617.4 — to build a confidence interval. That was useful, but it didn't actually answer the question I cared about when I started looking at this data: can I claim, in the PhD program prospectus, that WBS graduates earn more than graduates elsewhere?
+
+A confidence interval alone doesn't let me say that. It tells me something about precision, not about a comparison. To make a comparison I need a number to compare against, and I need to state, in advance, how different my sample would have to be before I'm willing to call it a real difference rather than the ordinary noise you'd expect from any sample of 42 people.
+
+That comparison number is my null hypothesis, and I didn't invent it out of thin air. The American Marketing Association runs a doctoral special interest group, and every year they survey new marketing PhD graduates about starting salary and send me the results — mostly, I suspect, to depress me about what I earned in my first job. The most recent figure was US$145,000. It's not a perfect number (a proper job would involve going round every PhD director in the business school and averaging across fields), but it's a real, defensible estimate of "what graduates elsewhere earn", which is exactly what a null hypothesis needs to be.
+
+- **Null hypothesis:** the average starting salary of WBS PhD graduates is not different from US$145,000.
+- **Sample:** 42 WBS graduates, sample mean $170,000, sample SD $46,617.4 — the same sample as Section \@ref(conf).
+
+Before doing any calculation, there's a decision to make, and it's the decision that usually gets made by accident, halfway through the arithmetic, once everyone's attention is already used up. Did I hypothesize a direction? I could have framed the alternative as directional — WBS graduates earn *more* than $145,000 — or non-directional — WBS graduates earn a *different* amount, which could be more or less. A directional hypothesis is the stronger claim, and it has to be committed to in advance, not read off the result after the fact.
+
+Here's the honest version: privately, of course I was expecting WBS graduates to earn more. But my null hypothesis, as written, was "not different from $145,000", which commits me to the non-directional alternative whatever I was quietly hoping. I didn't encode the direction I actually believed in, so I don't get to use it. That's not me being pedantic about my own case for the sake of the example — it's the actual mechanism. A lot of people hypothesize a direction in their head and then run a two-tailed test anyway, mostly because no one ever made them sit down and decide properly. Here, the test is two-tailed.
+
+With that settled, the arithmetic is almost an anticlimax. What I want to know is: if the population mean really is $145,000, how far away — in standardised units — is my observed sample mean of $170,000?
+
+```{r}
+null.mean <- 145000
+sample.mean <- 170000
+sample.sd <- 46617.4
+n <- 42
+
+se <- sample.sd / sqrt(n)
+z <- (sample.mean - null.mean) / se
+z
+```
+
+Same standardisation logic as everywhere else in this book: take what I observed, subtract what I'd expect under the null, divide by how much variation sampling alone would produce. The effect is to redraw the whole problem on a scale where the null sits at zero, and my sample mean lands wherever it lands. A z of around 3.5 means my sample mean is roughly three and a half standard errors out from where the null says it should be — well beyond the 1.96 we've used as our 95% cutoff elsewhere.
+
+```{r}
+p.two.tailed <- 2 * (1 - pnorm(abs(z)))
+p.two.tailed
+```
+
+That p-value — somewhere around 0.0005, about 1 in 2,000 — means: *if* the null is true, the probability of drawing a sample of 42 with a mean this far out, in either direction, is about 1 in 2,000. It does not mean there's a 1-in-2,000 chance the null is true. A p-value says nothing about the probability of any hypothesis. It's a statement about how surprising the data would be under an assumption, not a verdict on the assumption.
+
+So, do I reject the null? This is a judgement, not a law of nature. Nothing about this p-value compels a conclusion — I could, in principle, decide this is just an unusually extreme sample from a population that really does average $145,000, and nothing in the maths would stop me. What I actually do, like almost everyone else, is apply a cutoff — conventionally p < 0.05 — and treat anything below it as evidence against the null. That cutoff exists because people like rules, not because 0.05 has any special status in nature. Here the data are miles past any conventional threshold, so the call is easy. It won't always be, and when it isn't, the arithmetic still won't make the decision for you.
+
+**Directional vs non-directional, side by side:**
+
+| | One-tailed (directional) | Two-tailed (non-directional) |
+|---|---|---|
+| Alternative hypothesis | States a direction — e.g. "bigger than $145,000" | States only "different from $145,000" |
+| Must be decided | Before looking at the data | Before looking at the data |
+| Relationship between the p-values | Half the two-tailed p, for the same z | Double the one-tailed p, for the same z |
+| This example | Not what I actually committed to | What I actually committed to |
+
 ## Premier League Goals and the Poisson Distribution
 
 In this section, we are not really worried about the *actual* goals or anything like that. What we are concerned about is formally testing the hypothesis that Premier League goals per game actually do follow a Poisson distribution. To do this, we will use what is called a **chi-square** test, which uses the chi-square statistic.

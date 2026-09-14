@@ -196,9 +196,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#salary-ztest"><i class="fa fa-check"></i><b>10.1</b> Testing a Real Hypothesis: Are WBS PhD Salaries Different?</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.2</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.4" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.4</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -258,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 1     ANGER       15  2.33 0.816
 ## 2 2     ANGER       15  4.27 0.704
 ## 3 3     ANGER       15  3.07 1.03</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-150-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-152-1.png" alt="" width="672" /></p>
 <p>Interesting picture. Group 1 is the control group, Group 2 is those who heard Ed Sheeran, Group 3 is those who heard other music. This is what we might call ‘model-free’ analysis. We are just looking at the data to see if intuitively it looks like we expect it to.</p>
 <p>Let’s run an ANOVA now, which places a statistical model on it, and tests whether or not the data supports the model.</p>
 <pre><code>## ANOVA Table (type II tests)
@@ -278,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 GROUP 2      3               0   -1.2    -1.96      -0.435 0.00126    
 ## # ℹ 1 more variable: p.adj.signif &lt;chr&gt;</code></pre>
 <p>We can actually plot these results in a really effective way:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-153-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-155-1.png" alt="" width="672" /></p>
 <p>This very clearly tells us that it is the <em>Ed Sheeran group (2)</em> that is driving these results, and there isn’t much to choose between the control group, and the ‘music’ group.</p>
 <p>However, this type of post-hoc analysis has the potential for what is known as a <em>multiple comparisons problem</em>, which we might need to deal with.</p>
 <p>Let’s take a look <strong>back in the slide deck…</strong></p>

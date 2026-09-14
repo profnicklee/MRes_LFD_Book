@@ -33,6 +33,7 @@ the-distribution-of-sample-means-and-the-central-limit-theorem
 conf
 rate-of-change-in-football-goals-per-season
 H-testing
+salary-ztest
 premier-league-goals-and-the-poisson-distribution-1
 correlation-significance-tests
 regression-significance-tests

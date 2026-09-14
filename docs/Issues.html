@@ -196,9 +196,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#salary-ztest"><i class="fa fa-check"></i><b>10.1</b> Testing a Real Hypothesis: Are WBS PhD Salaries Different?</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.2</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.4" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.4</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -241,11 +242,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this section, I’ll provide some visualizations which can help us to understand the problem with multiple comparisons.</p>
 <p>However, it’s worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.</p>
 <p>First, let’s visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-156-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-158-1.png" alt="" width="672" /></p>
 <p>Now, remember, <strong>even if all null hypotheses are true</strong>, our significance level, or <em>p</em> = 0.05, so we have to expect that <em>on average</em> we would expect <strong>5</strong> of these hypotheses tests to return <em>p</em>-values &lt; 0.05, and thus we would reject the null. This is known as a <strong>false positive</strong>.</p>
 <p>You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required <em>p</em> to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept <em>all</em> null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really <em>was</em> true in the population in every single case, you would be inevitably missing out on making some discoveries.</p>
 <p>Moving on, let’s visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-157-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-159-1.png" alt="" width="672" /></p>
 <p>Now, that is just the <em>expected</em> level for every 100 tests. If you remember from the discussion in Section <a href="statistics.html#conf">9.2</a>, it may not be you get <em>exactly</em> 5 false positives in 100 tests, just that you would expect the long run average number of false positives to be 5%, in an all-null world.</p>
 <p>So, we can look at it through a different lens. What is the probability that you would get <strong>at least one false positive</strong> in any given batch of multiple tests.</p>
 <p>That is known as the <em>familywise error rate</em>, and it applies whenever you can define a cluster or ‘family’ of tests.</p>
@@ -308,7 +309,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 2000-01   380   992  2.61  31.5      930.     1054.    -68 -1.50  -1.50 
 ## # ℹ 1 more variable: p2 &lt;dbl&gt;</code></pre>
 <p>Here, we can plot the p-values (2-tailed), and again we see that two seasons seem to have significant differences. In other words, the p-values are less than 0.05 for the test as to whether the number of goals scored differs from the season before</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-161-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-163-1.png" alt="" width="672" /></p>
 <p>We can see that the 1999-2000 season, and the 2009-10 seasons have p values less than 0.05</p>
 <p>The question is <strong>are we suffering from the multiple comparisons problem</strong>? Should we correct for it?</p>
 <p>It’s hard to say actually. Of course, we are indeed running multiple tests, 26 in fact. So, the chance of a false positive is high. The Bonferroni correction would immediately reduce the false positive chances, but at what cost?</p>
@@ -320,7 +321,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><em>n</em> = number of comparisons (here this is 26)</p>
 <p>So, the formula gives us a new Bonferroni-adjusted critical p value of 0.0019</p>
 <p>Let’s see what happens with this new critical p value:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-162-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-164-1.png" alt="" width="672" /></p>
 <p>We can see that none of our tests now rejects the null. The Bonferroni correction is known as a highly conservative test. That is, it is based on the idea that the <em>null hypothesis is true</em> in each case in the population. We can thus consider it as the most stringent and conservative way to correct for the chance of false positives when doing multiple comparisons.</p>
 <p>But, as I suggested above, that might not always be the best idea. Indeed, if you want to totally avoid any chance of a false positive, why not simply make the required alpha 0? Then, you would never get a false positive. Of course, you would never detect a <strong>true positive</strong> either.</p>
 <p>What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be <em>no false positives</em>. Therefore, in such a situation you would be <em>increasing the chances of a false negative</em> by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?</p>
