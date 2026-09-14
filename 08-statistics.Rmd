@@ -18,7 +18,6 @@ library(dplyr)
 library(gganimate)
 library(gifski)
 library(png)
-library(installr)
 
 library(TeachingDemos)
 ```
