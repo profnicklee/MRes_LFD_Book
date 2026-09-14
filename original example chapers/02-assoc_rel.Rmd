@@ -1,3 +1,0 @@
-# Associations and Relationships {#assoc_rel}
-
-Placeholder for associations and relationships DBA lesson 5
