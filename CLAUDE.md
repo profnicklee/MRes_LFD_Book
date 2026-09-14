@@ -69,8 +69,8 @@ Nick's slides and spoken lecture references use the **rendered** numbers. Do not
 |---|---|---|---|
 | `index.Rmd` | Ch 1 | — | — |
 | `01-intro.Rmd` | Ch 2 | `{#intro}` | 2 |
-| `02-Distributions.rmd` | Ch 3 | `{#norm_dist}` | 3 |
-| `03-assoc_rel.Rmd` | Ch 4 | `{#assoc_rel}` | 5 |
+| `02-Distributions.rmd` | Ch 3 | `{#norm-dist}` | 3 |
+| `03-assoc_rel.Rmd` | Ch 4 | `{#assoc-rel}` | 5 |
 | `04-estimation.Rmd` | Ch 5 | `{#uncertainty}` | 6, pt 1 |
 | `05-bootstrapping.Rmd` | Ch 6 | `{#bootstrap}` | 6, pt 2 |
 | `06-t-test.Rmd` | Ch 7 | `{#t-test}` | 6, pt 2 |

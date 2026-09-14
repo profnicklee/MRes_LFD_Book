@@ -140,11 +140,13 @@ All of these hardcode a chapter number that is wrong. Replace each with a `\@ref
 | `09-H-Testing.Rmd` | "As we saw in Chapter 7" | Ch 8 | `probability` |
 | `11-Issues_w_sig.Rmd` | "the football goals rate-of-change example from Chapter 8" | Ch 9 | `statistics` |
 | `11-Issues_w_sig.Rmd` | "the z-test table from the end of Chapter 8" | Ch 9 | `statistics` |
-| `05-bootstrapping.Rmd` | "the same analysis as in Chapter 2" | Ch 4 | `assoc_rel` |
+| `05-bootstrapping.Rmd` | "the same analysis as in Chapter 2" | Ch 4 | `assoc-rel` |
 
 Also check `03-assoc_rel.Rmd`'s "I touched on them earlier, in Chapter 2" — this refers to data transformations and may be correct as written, since `01-intro.Rmd` renders as Chapter 2. Verify against the content before changing.
 
-Every chapter already carries a label (`{#intro}`, `{#norm_dist}`, `{#assoc_rel}`, `{#uncertainty}`, `{#bootstrap}`, `{#t-test}`, `{#probability}`, `{#statistics}`, `{#H-testing}`, `{#ANOVA}`, `{#Issues}`). The mechanism is already in use — `09-H-Testing.Rmd` uses `\@ref(conf)` correctly.
+Every chapter already carries a label (`{#intro}`, `{#norm-dist}`, `{#assoc-rel}`, `{#uncertainty}`, `{#bootstrap}`, `{#t-test}`, `{#probability}`, `{#statistics}`, `{#H-testing}`, `{#ANOVA}`, `{#Issues}`). The mechanism is already in use — `09-H-Testing.Rmd` uses `\@ref(conf)` correctly.
+
+**Correction (2026-09-14):** the labels were originally `{#assoc_rel}` and `{#norm_dist}` (underscores, matching the filenames `03-assoc_rel.Rmd` and `02-Distributions.rmd`). Both were renamed to `assoc-rel` / `norm-dist` after discovering that bookdown's `\@ref()` resolver only matches `[-:[:alnum:]]+` — underscores are silently excluded, so `\@ref(assoc_rel)` never resolves and renders as literal text. This broke the Task 1.2 insertion in `06-t-test.Rmd` (fixed alongside this) and would have broken this task's own `assoc-rel` reference and the Part Two 6.3 cross-references below had it not been caught here. Filenames are unchanged (they're just alphabetical ordering, not the label); only the `{#...}` label and every `\@ref()` call to it changed. This renames `docs/assoc_rel.html` to `docs/assoc-rel.html` and `docs/norm_dist.html` to `docs/norm-dist.html` on next render.
 
 ## 2.2 Fix the broken heading in `05-bootstrapping.Rmd`
 
@@ -361,7 +363,7 @@ Confounding is the most simulable concept in the module. Simulated data where X 
 
 **Placement.** After the correlation material, before regression. This positions it as "here is why a correlation isn't enough" immediately after students have learned to compute one.
 
-**Acceptance criteria.** No new statistical machinery. No causal inference techniques taught. Every claim demonstrated by simulation rather than asserted. Seeded so the numbers are stable within a render, with the usual note that they differ from the slides. Cross-referenced from `06-t-test.Rmd` and `10-ANOVA.Rmd` with `\@ref(assoc_rel)`.
+**Acceptance criteria.** No new statistical machinery. No causal inference techniques taught. Every claim demonstrated by simulation rather than asserted. Seeded so the numbers are stable within a render, with the usual note that they differ from the slides. Cross-referenced from `06-t-test.Rmd` and `10-ANOVA.Rmd` with `\@ref(assoc-rel)`.
 
 ---
 

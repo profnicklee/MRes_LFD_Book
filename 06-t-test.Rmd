@@ -54,7 +54,7 @@ Before we get to the code, it's worth pausing on what we're actually bootstrappi
 
 The raw mean difference — a bit over 1 point on our five-point anger scale — is perfectly interpretable in its own right: it's a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in anger scores. A difference of "1 point" is enormous on a scale that barely moves and unremarkable on one that swings wildly.
 
-This is the same problem as the standardised versus unstandardised regression estimates back in Section \@ref(assoc_rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can't be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.
+This is the same problem as the standardised versus unstandardised regression estimates back in Section \@ref(assoc-rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can't be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.
 
 ```{r}
 

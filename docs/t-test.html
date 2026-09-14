@@ -149,18 +149,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.4</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="norm_dist.html"><a href="norm_dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
+<li class="chapter" data-level="3" data-path="norm-dist.html"><a href="norm-dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="norm_dist.html"><a href="norm_dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
-<li class="chapter" data-level="3.2" data-path="norm_dist.html"><a href="norm_dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
+<li class="chapter" data-level="3.1" data-path="norm-dist.html"><a href="norm-dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="norm-dist.html"><a href="norm-dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
+<li class="chapter" data-level="4" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="4.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="4.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="4.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="4.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="4.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
+<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
 <ul>
@@ -392,7 +392,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We use an independent samples test, as the <em>theory</em> is these two groups - after participating in the experiment - are no longer the ‘same’. There is something ‘different’ about the population of people who listen to Ed Sheeran, compared to those who do not. What we are trying to do is assess whether this difference is in <em>anger.</em></p>
 <p>Before we get to the code, it’s worth pausing on what we’re actually bootstrapping, and why it isn’t simply the difference in the two group means.</p>
 <p>The raw mean difference — a bit over 1 point on our five-point anger scale — is perfectly interpretable in its own right: it’s a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in anger scores. A difference of “1 point” is enormous on a scale that barely moves and unremarkable on one that swings wildly.</p>
-<p>This is the same problem as the standardised versus unstandardised regression estimates back in Section @ref(assoc_rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can’t be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.</p>
+<p>This is the same problem as the standardised versus unstandardised regression estimates back in Section <a href="assoc-rel.html#assoc-rel">4</a>. An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can’t be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.</p>
 <pre><code>## # A tibble: 2 × 2
 ##   GROUP  name
 ##   &lt;fct&gt; &lt;dbl&gt;

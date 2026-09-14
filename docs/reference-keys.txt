@@ -5,10 +5,10 @@ summarizing-data-with-numbers
 box-plots
 violin-plots-and-ridge-plots
 transformations
-norm_dist
+norm-dist
 a-simple-demonstration-of-the-normal-distribution
 what-actually-is-a-normal-distribution
-assoc_rel
+assoc-rel
 correlations-and-associations
 introducing-nonlinear-associations
 regression
