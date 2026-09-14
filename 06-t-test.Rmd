@@ -50,6 +50,12 @@ So, let's run an *independent samples T-Test* with bootstrapped confidence inter
 
 We use an independent samples test, as the *theory* is these two groups - after participating in the experiment - are no longer the 'same'. There is something 'different' about the population of people who listen to Ed Sheeran, compared to those who do not. What we are trying to do is assess whether this difference is in *anger.*
 
+Before we get to the code, it's worth pausing on what we're actually bootstrapping, and why it isn't simply the difference in the two group means.
+
+The raw mean difference — a bit over 1 point on our five-point anger scale — is perfectly interpretable in its own right: it's a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in anger scores. A difference of "1 point" is enormous on a scale that barely moves and unremarkable on one that swings wildly.
+
+This is the same problem as the standardised versus unstandardised regression estimates back in Section \@ref(assoc_rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can't be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.
+
 ```{r}
 
 #First, some code to display the group means using dplyr
@@ -86,6 +92,8 @@ Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran.
 
 Cool, so it seems that Group 2 displayed more anger. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we'll return to this issue of what confidence intervals actually mean.
 
+I'll be honest: in a purely bootstrap context like this one, that standardisation step can feel like an unnecessary detour. We didn't need the t to reach our conclusion — the conclusion was always going to be "does the confidence interval contain zero or not", and that would have been exactly as true if we'd bootstrapped the raw mean difference directly instead. The t only really earns its keep once we start relying on known probability distributions rather than brute-force resampling, which is where we're headed in the next chapter. For now, take it as scaffolding for what's coming rather than something bootstrapping strictly requires.
+
 ## Paired-Sample T-tests
 
 OK, so let's use a different design, using a paired samples t-test. Let me go *back to the slides...* to explain this difference.
@@ -112,6 +120,8 @@ describe(ED_PAIR)
 ```
 
 We can see there is a new 'DIF' variable here.
+
+Notice we're bootstrapping the mean of this difference directly, not a t-statistic as we did for the independent-samples design above. It's the same underlying question — is this far from zero? — just reached without the standardisation step in between. Nothing is lost by skipping it: with paired data there's a single already-differenced variable rather than two separately-scaled groups to compare, so there's less need to standardise before asking the question.
 
 Next, we bootstrap a confidence interval for the *mean of the difference variable*, to see whether it includes zero:
 

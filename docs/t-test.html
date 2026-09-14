@@ -390,6 +390,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can see that we have one FACTOR variable, which we need to indicate the group each subject was in (CONTROL being GROUP 1, and ED being GROUP 2).</p>
 <p>So, let’s run an <em>independent samples T-Test</em> with bootstrapped confidence interval.</p>
 <p>We use an independent samples test, as the <em>theory</em> is these two groups - after participating in the experiment - are no longer the ‘same’. There is something ‘different’ about the population of people who listen to Ed Sheeran, compared to those who do not. What we are trying to do is assess whether this difference is in <em>anger.</em></p>
+<p>Before we get to the code, it’s worth pausing on what we’re actually bootstrapping, and why it isn’t simply the difference in the two group means.</p>
+<p>The raw mean difference — a bit over 1 point on our five-point anger scale — is perfectly interpretable in its own right: it’s a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in anger scores. A difference of “1 point” is enormous on a scale that barely moves and unremarkable on one that swings wildly.</p>
+<p>This is the same problem as the standardised versus unstandardised regression estimates back in Section @ref(assoc_rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can’t be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.</p>
 <pre><code>## # A tibble: 2 × 2
 ##   GROUP  name
 ##   &lt;fct&gt; &lt;dbl&gt;
@@ -408,6 +411,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1    -5.49   -0.575</code></pre>
 <p>Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran.</p>
 <p>Cool, so it seems that Group 2 displayed more anger. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we’ll return to this issue of what confidence intervals actually mean.</p>
+<p>I’ll be honest: in a purely bootstrap context like this one, that standardisation step can feel like an unnecessary detour. We didn’t need the t to reach our conclusion — the conclusion was always going to be “does the confidence interval contain zero or not”, and that would have been exactly as true if we’d bootstrapped the raw mean difference directly instead. The t only really earns its keep once we start relying on known probability distributions rather than brute-force resampling, which is where we’re headed in the next chapter. For now, take it as scaffolding for what’s coming rather than something bootstrapping strictly requires.</p>
 </div>
 <div id="paired-sample-t-tests" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Paired-Sample T-tests<a href="t-test.html#paired-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -445,6 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## ANG_T2 0.22
 ## DIF    0.23</code></pre>
 <p>We can see there is a new ‘DIF’ variable here.</p>
+<p>Notice we’re bootstrapping the mean of this difference directly, not a t-statistic as we did for the independent-samples design above. It’s the same underlying question — is this far from zero? — just reached without the standardisation step in between. Nothing is lost by skipping it: with paired data there’s a single already-differenced variable rather than two separately-scaled groups to compare, so there’s less need to standardise before asking the question.</p>
 <p>Next, we bootstrap a confidence interval for the <em>mean of the difference variable</em>, to see whether it includes zero:</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-91-1.png" alt="" width="672" /></p>
 <pre><code>## Response: DIF (numeric)
