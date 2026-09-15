@@ -88,9 +88,11 @@ Lectures 1 and 4 have no chapters. This is expected and stated to students in `i
 
 **Do not edit files in `ACTUAL_NOTE_CODE/`.** They are superseded 2023 drafts with hardcoded `D:/Dropbox/R_Files/Data/…` paths, close enough to the live chapters to be mistaken for them. They are scheduled for deletion. If they still exist, the live chapter is always the numbered file in the repo root.
 
-**Chapters share a single R session.** Bookdown merges everything before knitting, so objects created in one chapter are visible in later ones. `05-bootstrapping.Rmd` currently relies on `sub.10`/`sub.50`/`sub.200` from `04-estimation.Rmd`. Do not introduce new dependencies of this kind, and do not assume a chapter is self-contained.
+**Chapters share a single R session in the merged build.** Bookdown merges everything before knitting, so a chapter can depend on a library or object an earlier one loaded, and pass cleanly in the merged build while failing standalone — this is exactly how `05-bootstrapping.Rmd`'s missing `library(psych)` surfaced during task 3.3 (it relied on `03-assoc_rel.Rmd` having already loaded it). Do not assume a chapter is self-contained; verify with `rmarkdown::render()` on the single file, not only `bookdown::render_book()` on the whole book.
 
-**`installr` is loaded in several chapters.** It is a Windows-only R-updating utility, does nothing for the book, and will fail on Linux or in a container. It is scheduled for removal.
+**When a task's stated assumption doesn't match what the code actually does, stop and flag it rather than resolving it unilaterally** — a claimed seed, a claimed dependency, a claimed library, or anything else `revisions-2026.md` asserts as fact. This happened twice in the 2026 revision (the `assoc_rel` label's underscore bug, and `04-estimation.Rmd` turning out to have no seed despite the worklist assuming one), and both times the right call differed from what looked obvious at first glance.
+
+**`installr` was removed from all five chapters that loaded it** (task 3.1). It's a Windows-only R-updating utility that does nothing for the book and will fail on Linux or in a container — remove it again if it reappears.
 
 **Two data files are named after the Ed Sheeran example** (`SHEERAN_T.xlsx`, `SHEERAN_ANOVA.xlsx`). That example is being replaced. Name new data files after the construct, not the stimulus, so future swaps are prose edits.
 
