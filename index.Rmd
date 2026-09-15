@@ -8,8 +8,8 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: rstudio/bookdown-demo
-description: "This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook."
+github-repo: profnicklee/MRes_LFD_Book
+description: "This book contains the examples and notes for the WBS MRes Learning From Data Course."
 ---
 
 # Introduction and Orientation
@@ -24,7 +24,7 @@ This book is written in **Markdown**, using R and the **bookdown** package, and 
 
 This book is essentially a 'live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runnings.
 
-The current year is 2025, and the book is currently *in progress for 2025.*
+The current year is `r format(Sys.Date(), "%Y")`, and the book is currently *in progress for `r format(Sys.Date(), "%Y")`.*
 
 Please enjoy the book, and learn from it. 
 

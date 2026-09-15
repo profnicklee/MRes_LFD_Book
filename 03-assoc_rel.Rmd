@@ -1,4 +1,4 @@
-# Associations and Relationships {#assoc_rel}
+# Associations and Relationships {#assoc-rel}
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
@@ -9,7 +9,6 @@ library(readxl)
 library(ggplot2)
 library(psych)
 library(ggpubr)
-
 ```
 
 This chapter supplements the content in Lecture 5.
@@ -25,7 +24,7 @@ Happy<-read_excel("Data/HappyGDP.xlsx", sheet = "2020")
 
 ```
 
-First, I can just double check the data by describing it.
+First, I can just double check the data by describing it. `describe()` is what I'll reach for throughout the book whenever I'm looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.
 
 ```{r}
 describe(Happy)
@@ -52,13 +51,10 @@ Either way, all we have here is a basic data display. While, as I showed previou
 What we want to do, is have some sort of objective **metric** for the relationship, and for this, we have the **correlation** statistic.
 
 ```{r}
-Assoc1 <- cor.test(Happy$Happiness, Happy$GDPpc, 
+Assoc1 <- cor.test(Happy$Happiness, Happy$GDPpc,
                     method = "pearson")
 
-#Assoc2 <- cor.test(Happy$Happiness, Happy$GDPpc_log, 
-  #                  method = "pearson")
 Assoc1
-#Assoc2
 
 ```
 

@@ -5,22 +5,13 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 ```{r}
-#note: some of these aren't used for the code that I run, but for other parts I have hashed out.
 library(tidyverse)
-library(combinat)
 library(gtools)
 library(readxl)
 library(ggplot2)
 library(ggpubr)
 library(mosaic)
-
 library(dplyr)
-library(gganimate)
-library(gifski)
-library(png)
-library(installr)
-
-library(TeachingDemos)
 ```
 
 This Chapter builds on the material in the second part of Lesson 7. Here, we begin to apply our probability concepts to the task of statistical inference in the 'classical' way.
@@ -85,7 +76,7 @@ Note: This is not the same as bootstrapping - we are *not* sampling with replace
 
 Remember the ping-pong balls I used in class to demonstrate!
 
-Let's do it:
+Let's do it - the code below is adapted from a GeeksforGeeks tutorial: <https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/>
 
 ```{r}
 ##code modified from: https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/
@@ -279,7 +270,7 @@ One thing to remember though is the 'law of large numbers' here. You might notic
 
 ## Rate of Change in Football Goals per Season
 
-In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example. Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \@ref(probability). Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
 
 I hand-entered this into a spreadsheet, and calculated the additional stuff.
 
@@ -290,27 +281,18 @@ head(EPLGOALS)
 
 You can see here I have calculated the standard errors from the yearly goal totals (which represent that year's underlying rate of goal occurrence), then used that to calculate the 95% Confidence Interval limits
 
-We can use these to create a nifty chart with the error bars...drawing from the code used by Spiegelhalter in his book for Figure 9.4 available on his github (linked in the code).
+We can use these to create a nifty chart with the error bars...drawing from the code used by Spiegelhalter in his book for Figure 9.4, available on his GitHub: <https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd>
 
 ```{r}
 #modified from Spiegelhalter's Figure 9.4 available at:
 #https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd
 
-#note, the hashed-out code is not relevant to my example
-#but left in in case someone else wants to use it
-
 df<-EPLGOALS # read data to dataframe df
 p <- ggplot(df, aes(x=Season, y=Goals)) # initial plot
 p <- p + geom_bar(stat="identity", fill="red") +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Season") # assign bar chart type,
-#and x axis labels, rotated 
-
-#yearLabels <- c("Apr  97-\nMar  98","Apr  00-\nMar  01","Apr  03-\nMar  
-#04","Apr  06-\nMar  07","Apr 09-\nMar  10","Apr  12-\nMar  13","Apr  #15-\nMar  16") 
-# assign labels for x-axis
+#and x axis labels, rotated
 
 p <- p + geom_errorbar(aes(ymin=Lower95CI, ymax=Upper95CI), width=.1) # 95% intervals
-
-#p <- p + scale_x_continuous(breaks=seq(1997, 2015, 3), labels =yearLabels) # attach labels and their break points
 
 p <- p + scale_y_continuous(breaks=seq(0, 1100, 100)) # define break points for y-axis
 p <- p + labs(y="Total Goals") # add y-axis label and caption
@@ -322,7 +304,7 @@ From this chart, and looking at the data itself, we can see that the 95% Interva
 
 The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.
 
-In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter 7: https://www.premierleague.com/news/4016793 
+In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \@ref(probability): https://www.premierleague.com/news/4016793
 
 This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which *directly tests the hypothesis* that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
 

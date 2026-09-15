@@ -6,3 +6,20 @@
   \thm@postskip=\thm@preskip
 }
 \makeatother
+
+% Copyright footer on every page. Patching the book class's own page
+% styles (\ps@headings / \ps@plain) was tried first and didn't work --
+% this template's running headers don't route through the \ps@ macros
+% book.cls normally uses, so overriding them had no visible effect (a
+% forced huge test string never appeared). eso-pic stamps text directly
+% onto every shipped-out page at the physical layer, independent of
+% whatever page style is active, which sidesteps that entirely.
+\usepackage{eso-pic}
+\AddToShipoutPictureBG{%
+  \AtPageLowerLeft{%
+    \hspace{0.5\paperwidth}%
+    \raisebox{1.2cm}{%
+      \makebox[0pt][c]{\small \copyright\ Nick Lee --- \textit{Learning From Data (and) Science}}%
+    }%
+  }%
+}

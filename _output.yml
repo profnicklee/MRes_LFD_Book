@@ -3,16 +3,15 @@ bookdown::gitbook:
   config:
     toc:
       before: |
-        <li><a href="./">WBS DBA Quantitative Methods</li>
+        <li><a href="./">WBS MRes: Learning From Data</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/rstudio/bookdown-demo/edit/master/%s
-    download: ["pdf", "epub"]
+    edit: https://github.com/profnicklee/MRes_LFD_Book/edit/main/%s
+    download: ["pdf"]
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
   citation_package: natbib
   keep_tex: yes
-bookdown::epub_book: default
 bookdown::bs4_book: default

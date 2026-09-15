@@ -5,32 +5,32 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Beginning to Understand Uncertainty | WBS MRes: Learning From Data</title>
-  <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Beginning to Understand Uncertainty | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
+  <meta name="github-repo" content="profnicklee/MRes_LFD_Book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 5 Beginning to Understand Uncertainty | WBS MRes: Learning From Data" />
   
-  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   
 
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2025-10-10" />
+<meta name="date" content="2026-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="assoc_rel.html"/>
+<link rel="prev" href="assoc-rel.html"/>
 <link rel="next" href="bootstrap.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -137,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">WBS DBA Quantitative Methods</li>
+<li><a href="./">WBS MRes: Learning From Data</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
@@ -148,18 +149,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.4</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="norm_dist.html"><a href="norm_dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
+<li class="chapter" data-level="3" data-path="norm-dist.html"><a href="norm-dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="norm_dist.html"><a href="norm_dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
-<li class="chapter" data-level="3.2" data-path="norm_dist.html"><a href="norm_dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
+<li class="chapter" data-level="3.1" data-path="norm-dist.html"><a href="norm-dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="norm-dist.html"><a href="norm-dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
+<li class="chapter" data-level="4" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="4.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="4.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="4.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="4.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="4.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
+<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
 <ul>
@@ -167,7 +168,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bootstrapping</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>6.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="6.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>6.1</b> Bootstrapping in the Context of Previous Examples</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-the-original-sample"><i class="fa fa-check"></i><b>6.1.1</b> Bootstrapping the Original Sample</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>6.2</b> Bootstrapping Other Stuff…</a>
 <ul>
 <li class="chapter" data-level="6.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>6.2.1</b> Correlations</a></li>
@@ -175,8 +179,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>7.1</b> Independent Sample T-Tests</a></li>
-<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>7.2</b> Paired-Sample T-tests</a></li>
+<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>7.1</b> The Christmas Music Study</a></li>
+<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>7.2</b> Independent-Samples T-Test</a></li>
+<li class="chapter" data-level="7.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>7.3</b> Paired-Sample T-test</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
 <ul>
@@ -195,9 +200,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#salary-ztest"><i class="fa fa-check"></i><b>10.1</b> Testing a Real Hypothesis: Are WBS PhD Salaries Different?</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.2</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.4" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.4</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -235,7 +241,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This Chapter relates to the first part of lecture 6. Here, I’ll introduce core concepts around <strong>uncertainty</strong> in our results. Understanding that the results of our analysis always contain some level of uncertainty is probably the most critical concept to get our heads around as quantitative social scientists. Most of our job is not really coming up with the actual <em>statistics</em>, such as the correlation coefficient, or regression beta, but is more about understanding how to interpret and use those results - i.e. <strong>what they mean</strong>. And, fundamental to that is understanding their uncertainty.</p>
 <p>Again, to reiterate the message I sent in class, many of the examples in this Chapter, and later ones, involve <strong>randomness</strong>. This means that the results here may be slightly different numerically to the results in the slides. And, if you were to run these examples yourself, you would also get slightly different results. This is nothing to worry about, because the meaning of the results does not change.</p>
 <p>So, to start the journey, let’s grab some data.</p>
-<p>Here, we will again use the simple three-variable set of simulated data from the demonstration of multiple regression, which represents rates of smoking, rates of cycling, and heart disease incidence.</p>
+<p>Here, we will again use the simple three-variable set of simulated data from the demonstration of multiple regression in Chapter <a href="assoc-rel.html#assoc-rel">4</a>, which represents rates of smoking, rates of cycling, and heart disease incidence.</p>
 <pre><code>## # A tibble: 6 × 4
 ##    ...1 biking smoking heart.disease
 ##   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
@@ -245,7 +251,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4     4  44.8     2.80          6.82
 ## 5     5  69.4    16.0           4.06
 ## 6     6  54.4    29.3           9.55</code></pre>
-<p>Rather than do the full ‘describe’ as I did in the last chapter, I have simply above looked at what is called the ‘head’ of the data set or the first few rows. This is because all I want to do here is double check that I have the data, and what variables are there.</p>
+<p>You’ll notice I use different functions to preview data through the book, and that’s deliberate rather than sloppy. <code>head()</code>, like I’ve done here, is just for confirming the data loaded and what variables are there. <code>describe()</code> is for a fuller statistical snapshot of a data set I haven’t looked at yet — including whether anything’s missing — which is why I used it in the last chapter. And a plain <code>summary()</code>, like the one below, is for a quick look at a single variable I’m about to use. Three different jobs, so three different functions.</p>
 <p>Let’s calculate some simple summary statistics from this data set to build on. For example, what is the mean and median for ‘smoking’?</p>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##  0.5259  8.2798 15.8146 15.4350 22.5689 29.9467</code></pre>
@@ -258,60 +264,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s <em>now</em> assume that this sample of 498 people actually <em>is</em> the population we are interested in.</p>
 <p>What <strong>this</strong> means is, we can actually <em>draw a sample from this population of 498</em> and see what happens.</p>
 <p>First, let’s present the distribution for the entire ‘population’ of 498.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-63-1.png" alt="" width="672" /></p>
 <p>Now, let’s literally take a <em>sample</em> of 10 random cases from that population of 498. Here, we are <strong>sampling without replacement</strong>, and are thus essentially doing exactly what a hypothetical ‘researcher’ would do if they drew a random sample of 10 people to complete their survey, from the population of 498.</p>
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   189   5.51   17.9          16.0 
-##  2   486  41.2     7.58          7.83
-##  3   362  49.9     3.86          5.33
-##  4   336  14.7    19.5          14.4 
-##  5   384  68.2    15.3           4.48
-##  6   344   8.63    4.38         14.5 
-##  7   208  36.5     2.05          8.50
-##  8   137  73.7    14.1           2.99
-##  9   324  34.5    16.8          10.7 
-## 10   120   9.65    8.37         15.6</code></pre>
+##  1   257   52.6   13.9          7.49 
+##  2    67   23.3   14.3         13.3  
+##  3   264   10.3   26.9         17.1  
+##  4   286   25.7   23.3         13.6  
+##  5   391   40.0   14.5          9.51 
+##  6   159   59.6   24.8          8.52 
+##  7   456   55.2   15.3          7.02 
+##  8   476   25.9    8.16        10.9  
+##  9    51   68.6    1.80         0.684
+## 10   369   39.9   14.5         10.0</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 11.23585</code></pre>
-<pre><code>## [1] 10.97984</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<pre><code>## [1] 14.51825</code></pre>
+<pre><code>## [1] 15.74317</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    25  30.4    17.0          12.4 
-##  2   201  35.0    22.7          12.5 
-##  3   186  45.6    20.6           9.80
-##  4   449  60.0    11.4           5.07
-##  5   229  25.3     7.17         12.0 
-##  6    50  21.1    18.9          14.8 
-##  7   249  45.7    23.8           9.23
-##  8   440  30.5    18.1          11.7 
-##  9   209   7.83   26.8          17.6 
-## 10   311  33.9    24.4          11.4 
+##  1    44  23.9     4.19         10.9 
+##  2   481  54.2     5.96          5.35
+##  3   187  29.7    12.2          12.8 
+##  4    25  30.4    17.0          12.4 
+##  5   260  37.7    26.3          11.2 
+##  6    54   9.82   23.8          17.8 
+##  7   173  10.1    11.3          14.8 
+##  8   435  29.9     2.39          9.45
+##  9   204  63.2    20.5           5.56
+## 10   184  72.4     7.52          1.87
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 17.2713</code></pre>
-<pre><code>## [1] 15.88717</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<pre><code>## [1] 13.8495</code></pre>
+<pre><code>## [1] 14.05266</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1     6  54.4    29.3           9.55
-##  2   288  45.5    25.8          10.9 
-##  3   369  39.9    14.5          10.0 
-##  4   214  70.1    10.4           2.24
-##  5    56  28.6     1.15         10.1 
-##  6   395  60.6     6.47          3.35
-##  7   407   4.16   19.7          17.1 
-##  8   165  35.3     9.15          9.75
-##  9   222  22.7    28.7          16.8 
-## 10   254  34.2    24.4          13.2 
+##  1    95   69.9   26.3           6.07
+##  2    87   31.0   29.0          13.8 
+##  3   495   45.1   21.4           9.62
+##  4   461   71.4   12.8           3.26
+##  5   219   71.0   15.3           4.08
+##  6   360   25.0   23.2          13.7 
+##  7    27   60.5    3.98          3.22
+##  8   272   38.6   18.2           9.51
+##  9   235   66.1   18.6           4.59
+## 10   208   36.5    2.05          8.50
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 16.55924</code></pre>
-<pre><code>## [1] 16.55924</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<pre><code>## [1] 15.45589</code></pre>
+<pre><code>## [1] 15.45589</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>
 
@@ -322,7 +328,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="assoc_rel.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assoc-rel.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="bootstrap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -354,7 +360,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/rstudio/bookdown-demo/edit/master/04-estimation.Rmd",
+    "link": "https://github.com/profnicklee/MRes_LFD_Book/edit/main/04-estimation.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -365,7 +371,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["LFD.pdf", "LFD.epub"],
+  "download": ["LFD.pdf"],
   "search": {
     "engine": "fuse",
     "options": null

@@ -5,34 +5,27 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 ```{r}
-#note: some of these aren't used for the code that I run, but for other parts I have hashed out.
 library(tidyverse)
-library(combinat)
-library(gtools)
 library(readxl)
 library(ggplot2)
 library(ggpubr)
 library(mosaic)
-
 library(dplyr)
-library(gganimate)
-library(gifski)
-library(png)
-library(installr)
-library(skimr)
 library(rstatix)
 library(pwr)
-
-
 ```
 
 This Chapter provides analysis and examples related to the second part of Lecture 8.
 
-Here, I'll demonstrate the basic application of ANOVA on the simple 3-group case of the Ed Sheeran Study, and go from there to introduce some classic 'concerns' with the statistical hypothesis testing methodology.
+Let's pick up exactly where Chapter \@ref(t-test) left off. That chapter showed that people who did a boring proofreading task with Christmas music playing ended up more irritated than people who did the identical task in silence — but it couldn't tell us whether that was really about *Christmas* music, or just about having background music of any kind playing while you're bored. Silence was the only comparison available, so the design couldn't separate the two explanations.
+
+Study 2 fixes that by adding a third group: people who did the same task with background music that wasn't Christmas music, but was matched to it on tempo and familiarity, so it isn't a softer comparison to beat just because it's blander. Now there are three groups — Silence, Other (music), and Christmas — which finally lets us ask the question Chapter \@ref(t-test) left hanging: is it Christmas music specifically that's the problem, or just having something playing in the background at all?
+
+With three groups instead of two, running three separate t-tests would walk straight into the multiple comparisons problem (more on that in the next chapter). ANOVA instead tests whether there's a difference among all three groups with a single significance test, which is where we'll start.
 
 ```{r}
-ED<-read_excel("Data/SHEERAN_ANOVA.xlsx", sheet = "ANOVA")
-ED$GROUP <- factor(ED$GROUP)
+ED<-read_excel("Data/MUSIC_STUDY.xlsx", sheet = "S2_ANOVA")
+ED$GROUP <- factor(ED$GROUP, levels = c("Silence", "Other", "Christmas"))
 summary(ED)
 head(ED)
 ```
@@ -42,29 +35,29 @@ Let's create a quick table of the group means, and visualize it with a simple bo
 ```{r}
 ED %>%
   group_by(GROUP) %>%
-  get_summary_stats(ANGER, type = "mean_sd")
-ggboxplot(ED, x = "GROUP", y = "ANGER")
+  get_summary_stats(IRRIT, type = "mean_sd")
+ggboxplot(ED, x = "GROUP", y = "IRRIT")
 ```
 
-Interesting picture. Group 1 is the control group, Group 2 is those who heard Ed Sheeran, Group 3 is those who heard other music. This is what we might call 'model-free' analysis. We are just looking at the data to see if intuitively it looks like we expect it to.
+Interesting picture. Silence is our baseline, Other is the matched background music without any Christmas content, and Christmas is, well, Christmas music. This is what we might call 'model-free' analysis. We are just looking at the data to see if intuitively it looks like we expect it to.
 
 Let's run an ANOVA now, which places a statistical model on it, and tests whether or not the data supports the model.
 
 ```{r}
-res.aov <- ED %>% anova_test(ANGER ~ GROUP)
+res.aov <- ED %>% anova_test(IRRIT ~ GROUP)
 res.aov
 ```
 
-Results here suggest there is a significant effect (p-value is very small). We also have an *effect size* measure ('ges', or generalized eta-squared) which is very useful to us, and suggests the effect is quite large. This can be interpreted similarly to a regression coefficient (which is also an effect size measure), and is the amount of variance in the dependent variable (Anger) that is explained by group membership.
+Results here suggest there is a significant effect (p-value is very small). We also have an *effect size* measure ('ges', or generalized eta-squared) which is very useful to us, and suggests the effect is quite large. This can be interpreted similarly to a regression coefficient (which is also an effect size measure), and is the amount of variance in the dependent variable (irritation) that is explained by group membership.
 
-However, ANOVA only tests the *general effect* of the treatment / group. We don't know whether this is because of the difference between **all of the groups**, or only **some**. E.g., is it that there is an effect of music in general (i.e. between Control and Ed, and Control and Music, but not between Ed and Music), or that Ed specifically is anger-inducing (in which case we would see an effect between Ed and Music, and Ed and Control, and not between Music and Control).
+However, ANOVA only tests the *general effect* of the treatment / group. We don't know whether this is because of the difference between **all of the groups**, or only **some**. If it's background music *in general* that's irritating, we'd expect Silence to differ from both Other and Christmas, but Other and Christmas to look much the same as each other. If it's *Christmas music specifically*, we'd expect the opposite pattern: Christmas differs from both Silence and Other, but Silence and Other look much the same as each other. Only a post-hoc comparison of every pair can tell us which of these it actually is.
 
 ## Post-Hoc Testing
 
 We can investigate this using **post-hoc tests**, which compare the difference between each pair of groups. There are many different types of post-hoc test for ANOVA, but the most typical one to use is the Tukey's test, which is what we will do here.
 
 ```{r}
-pwc <- ED %>% tukey_hsd(ANGER ~ GROUP)
+pwc <- ED %>% tukey_hsd(IRRIT ~ GROUP)
 pwc
 ```
 
@@ -73,7 +66,7 @@ We can actually plot these results in a really effective way:
 ```{r}
 # Visualization: box plots with p-values
 pwc <- pwc %>% add_xy_position(x = "GROUP")
-ggboxplot(ED, x = "GROUP", y = "ANGER") +
+ggboxplot(ED, x = "GROUP", y = "IRRIT") +
   stat_pvalue_manual(pwc, hide.ns = TRUE) +
   labs(
     subtitle = get_test_label(res.aov, detailed = TRUE),
@@ -81,11 +74,12 @@ ggboxplot(ED, x = "GROUP", y = "ANGER") +
     )
 ```
 
-This very clearly tells us that it is the *Ed Sheeran group (2)* that is driving these results, and there isn't much to choose between the control group, and the 'music' group.
+This is the *Christmas-specifically* pattern from a moment ago: Christmas differs clearly from both Silence and Other, and Silence and Other don't differ significantly from each other (p = .118). Taken at face value, that looks like a clean answer — it really is something about Christmas music, not background music in general.
+
+But look at the Silence-vs-Other comparison a bit more carefully, because this is exactly the case that a bare significant/not-significant reading undersells. Its 95% confidence interval is -0.12 to 1.28. That interval *only just* crosses zero — the lower bound is a hair's breadth into negative territory. Reading "not significant" as "proven: no difference" throws away exactly the information the interval is offering, which is that the data are entirely compatible with a real, positive difference too; there just isn't enough precision at n = 15 per group to rule zero out. A p-value collapses that whole interval down to one bit of information, pass or fail, and right at a boundary this close, that's precisely where the collapse costs you the most. I'd want a bigger sample before I'd rule out *any* effect of background music in general — this result argues for "Christmas specifically, at least as far as we can tell from here," not "definitely, only Christmas, case closed."
 
 However, this type of post-hoc analysis has the potential for what is known as a *multiple comparisons problem*, which we might need to deal with.
 
 Let's take a look **back in the slide deck...**
 
 Remember, there are many other things that if we were doing ANOVA that we would also look to deal with - such as the various assumptions required of ANOVA, and so forth. But, they are beyond our scope in this class. Suffice to say that this has only scratched the surface of ANOVA so far.
-

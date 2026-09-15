@@ -5,25 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 9 Introduction to Statistics | WBS MRes: Learning From Data</title>
-  <meta name="description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+  <meta name="description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 9 Introduction to Statistics | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
-  <meta name="github-repo" content="rstudio/bookdown-demo" />
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
+  <meta name="github-repo" content="profnicklee/MRes_LFD_Book" />
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Chapter 9 Introduction to Statistics | WBS MRes: Learning From Data" />
   
-  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MrRes Learning from Data Course. It is based on the Bookdown Demo written by Hui. The output format for this example is bookdown::gitbook." />
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   
 
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2025-10-10" />
+<meta name="date" content="2026-09-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,8 +55,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +67,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -137,7 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">WBS DBA Quantitative Methods</li>
+<li><a href="./">WBS MRes: Learning From Data</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
@@ -148,18 +149,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.4</b> Transformations</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="norm_dist.html"><a href="norm_dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
+<li class="chapter" data-level="3" data-path="norm-dist.html"><a href="norm-dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="norm_dist.html"><a href="norm_dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
-<li class="chapter" data-level="3.2" data-path="norm_dist.html"><a href="norm_dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
+<li class="chapter" data-level="3.1" data-path="norm-dist.html"><a href="norm-dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="norm-dist.html"><a href="norm-dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="assoc_rel.html"><a href="assoc_rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
+<li class="chapter" data-level="4" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="assoc_rel.html"><a href="assoc_rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="4.2" data-path="assoc_rel.html"><a href="assoc_rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="4.3" data-path="assoc_rel.html"><a href="assoc_rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="assoc_rel.html"><a href="assoc_rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="4.5" data-path="assoc_rel.html"><a href="assoc_rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="4.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="4.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
+<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
 <ul>
@@ -167,7 +168,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bootstrapping</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>6.1</b> Bootstrapping in the Context of Previous Examples</a></li>
+<li class="chapter" data-level="6.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>6.1</b> Bootstrapping in the Context of Previous Examples</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-the-original-sample"><i class="fa fa-check"></i><b>6.1.1</b> Bootstrapping the Original Sample</a></li>
+</ul></li>
 <li class="chapter" data-level="6.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>6.2</b> Bootstrapping Other Stuff…</a>
 <ul>
 <li class="chapter" data-level="6.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>6.2.1</b> Correlations</a></li>
@@ -175,8 +179,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>7.1</b> Independent Sample T-Tests</a></li>
-<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>7.2</b> Paired-Sample T-tests</a></li>
+<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>7.1</b> The Christmas Music Study</a></li>
+<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>7.2</b> Independent-Samples T-Test</a></li>
+<li class="chapter" data-level="7.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>7.3</b> Paired-Sample T-test</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
 <ul>
@@ -195,9 +200,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.1</b> Premier League Goals and the Poisson Distribution</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.2</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#salary-ztest"><i class="fa fa-check"></i><b>10.1</b> Testing a Real Hypothesis: Are WBS PhD Salaries Different?</a></li>
+<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.2</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="10.4" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.4</b> Regression Significance Tests</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
 <ul>
@@ -252,22 +258,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##    5600    7500    9400    9400   11300   13200</code></pre>
 <pre><code>## [1] 2366.432</code></pre>
 <p>Above, you’ll see the important descriptive statistics, including the standard deviation of 2366.432. Let’s plot the frequency distribution, and once we do so we will find that it is essentially uniform - every value occurs once and only once in the population.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-115-1.png" alt="" width="672" /></p>
 <p>Now, what I am going to do is take a <em>single random sample of 2</em> from that population. This sample is taken ‘without replacement’, if you are wondering, and so it is in essence exactly as if a researcher went into the field and took a sample from this population.</p>
 <pre><code>## [1] &quot;One Random Combination of 2 of the 20 Income Values&quot;</code></pre>
-<pre><code>## [1] 12800 11600</code></pre>
+<pre><code>## [1]  5600 10000</code></pre>
 <p>Let’s take the mean of the sample:</p>
 <pre><code>##    res1
-## 1 12800
-## 2 11600</code></pre>
-<pre><code>## [1] 12200</code></pre>
+## 1  5600
+## 2 10000</code></pre>
+<pre><code>## [1] 7800</code></pre>
 <p>The mean of the random sample of 2 will of course be different each time the sample is taken (e.g. when writing this text, the mean was 10600, but this may not be the same in the version you are reading!)</p>
 <p>Just for reference, the mean of the population (remember, the 20 people) was 9400</p>
 <p>So, let’s now do that for <strong>every possible combination of 2 values</strong> from this population.</p>
 <p>Given there are n=20 values in the population, there are k=190 possible combinations of two values.</p>
 <p>Note: This is not the same as bootstrapping - we are <em>not</em> sampling with replacement here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.</p>
 <p>Remember the ping-pong balls I used in class to demonstrate!</p>
-<p>Let’s do it:</p>
+<p>Let’s do it - the code below is adapted from a GeeksforGeeks tutorial: <a href="https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/" class="uri">https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/</a></p>
 <pre><code>## [1] &quot;Every Possible Combination of the 20 Income Values&quot;</code></pre>
 <pre><code>##         [,1]  [,2]
 ##   [1,]  5600  6000
@@ -474,11 +480,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>That’s just the first 6 (the head of the data set), but you can rest assured that there are 190 means created here.</p>
 <p>OK, so here is the kicker. Let’s plot a histogram of these 190 means.</p>
 <p>Remember, a histogram is a frequency distribution:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-120-1.png" alt="" width="672" /></p>
 <p>Well well well!</p>
 <p>Even though the original population was a completely uniform distribution with a mean of 9400, the distribution of all of the sample means looks quite a lot like a normal distribution / bell curve!</p>
 <p>Let’s overlay one on it as well to make the point…</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-121-1.png" alt="" width="672" /></p>
 <p>Further, let’s take the mean of those means…</p>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##    5800    8200    9400    9400   10600   13000</code></pre>
@@ -503,7 +509,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>How confidence intervals get more precise as sample size increases, and</li>
 <li>How to interpret your specific confidence interval as simply one possibility of many.</li>
 </ol>
-<p><img src="LFD_files/figure-html/unnamed-chunk-123-1.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-2.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-3.png" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-123-4.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-124-1.png" alt="" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-2.png" alt="" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-3.png" alt="" width="672" /><img src="LFD_files/figure-html/unnamed-chunk-124-4.png" alt="" width="672" /></p>
 <p>So, you can see that the confidence intervals for each of the 100 samples at a given sample size all cluster around the mean, but are wider as sample size is lower. That makes sense intuitively.</p>
 <p>Looking specifically at our example N of 42, we can estimate which one of the 100 that might be, and see how the CI for sample means of about that size does include the real population mean of 165. You can also see there are a number of coloured CIs which do <strong>not</strong> include the sample mean. This shows how to interpret a CI.</p>
 <p>Specifically, <strong>your actual sample</strong> is one of a very large amount of possible samples from the population (here we took 100 but we could have taken many more). The CI calculation essentially creates a CI with the width so that, out of 100 random samples, approximately 95 will actually contain the <em>true population mean</em>.</p>
@@ -512,7 +518,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> Rate of Change in Football Goals per Season<a href="statistics.html#rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this example, I’ll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I’ll continue on with my football goals example. Here, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
+<p>In this example, I’ll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I’ll continue on with my football goals example from Chapter <a href="probability.html#probability">8</a>. Here, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
 <p>I hand-entered this into a spreadsheet, and calculated the additional stuff.</p>
 <pre><code>## # A tibble: 6 × 7
 ##   Season  Games Goals   GPG    SE Lower95CI Upper95CI
@@ -524,11 +530,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 5 1999-00   380  1060  2.79  32.6      996.     1124.
 ## 6 2000-01   380   992  2.61  31.5      930.     1054.</code></pre>
 <p>You can see here I have calculated the standard errors from the yearly goal totals (which represent that year’s underlying rate of goal occurrence), then used that to calculate the 95% Confidence Interval limits</p>
-<p>We can use these to create a nifty chart with the error bars…drawing from the code used by Spiegelhalter in his book for Figure 9.4 available on his github (linked in the code).</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p>We can use these to create a nifty chart with the error bars…drawing from the code used by Spiegelhalter in his book for Figure 9.4, available on his GitHub: <a href="https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd" class="uri">https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd</a></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-126-1.png" alt="" width="672" /></p>
 <p>From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic.</p>
 <p>The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.</p>
-<p>In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter 7: <a href="https://www.premierleague.com/news/4016793" class="uri">https://www.premierleague.com/news/4016793</a></p>
+<p>In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter <a href="probability.html#probability">8</a>: <a href="https://www.premierleague.com/news/4016793" class="uri">https://www.premierleague.com/news/4016793</a></p>
 <p>This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which <em>directly tests the hypothesis</em> that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.</p>
 <p>See: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides</a></p>
 <p>The z-test is simply explained in the linked article from the BMJ: <a href="https://www.bmj.com/content/332/7552/1256" class="uri">https://www.bmj.com/content/332/7552/1256</a></p>
@@ -545,7 +551,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 6 2000-01   380   992  2.61  31.5      930.     1054.    -68 -1.50</code></pre>
 <p>The ‘Z’ column is what we are interested in, and we are looking for a z-value greater than + or - 1.96 for a 95% test (analogous to the 95% intervals we’ve been dealing with so far).</p>
 <p>A simple way to visualize this is to plot the z-values for each season, and include ‘control lines’ which represent the + or -1.96 z value, beyond which we consider there to be a significant difference</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-128-1.png" alt="" width="672" /></p>
 <p>So, we can see that the 1999-2000 season, and the 2009-10 seasons exceed our z values, making them significantly different from the seasons before.</p>
 <p>Of course, we could do z-tests for any combination of two seasons, if we had a good reason. You can see on the ONS website they do this for different years’ murder rates to make a point.</p>
 
@@ -588,7 +594,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/rstudio/bookdown-demo/edit/master/08-statistics.Rmd",
+    "link": "https://github.com/profnicklee/MRes_LFD_Book/edit/main/08-statistics.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -599,7 +605,7 @@ gitbook.start({
     "link": null,
     "text": null
   },
-  "download": ["LFD.pdf", "LFD.epub"],
+  "download": ["LFD.pdf"],
   "search": {
     "engine": "fuse",
     "options": null
