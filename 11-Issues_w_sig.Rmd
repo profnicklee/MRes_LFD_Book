@@ -129,20 +129,46 @@ But, for 3 tests, the false positive rate is $1-0.95^{3}=0.14$
 
 We are 'rolling the dice' multiple times.
 
-In fact, below is a nice little calculator that demonstrates how the familywise error rate changes, based on the number of tests, and the chosen significance level. It was created by Dr Daniel Roelfs, during his time at the Norwegian Centre for Mental Disorders Research (NORMENT) in Oslo, and he kindly allowed me to use it here. Check out his website: <https://danielroelfs.com/about/>
+In fact, the familywise error rate is easy to see for yourself, once you know the formula: it's simply $1-(1-\alpha)^n$, where $\alpha$ is your chosen significance level and *n* is the number of tests you're running. The figure below plots that out for a few different significance levels, so you can see how quickly the error rate climbs as the number of comparisons grows.
 
-What you could do is adjust the sliders to check the above calculations - what is the familywise error rate for 3 comparisons and a 0.05 significance level?
-
-```{r}
-knitr::include_app("https://danielroelfs.shinyapps.io/FWER_simple/",
-  height = "700px")
-```
+I first saw this demonstrated properly using a lovely interactive calculator built by Dr Daniel Roelfs, during his time at the Norwegian Centre for Mental Disorders Research (NORMENT) in Oslo, and he kindly gave permission for me to reproduce the idea here. I still use his live version in the lecture itself, where you can drag the sliders around and watch the number update in real time - genuinely a nicer way to build intuition for this than a static plot. Check out his website: <https://danielroelfs.com/about/>. A book page can't rely on an external app staying up forever for every reader, though, so the version below reproduces the same idea as a static figure instead.
 
 ```{r}
-#<iframe src="https://danielroelfs.shinyapps.io/FWER_simple" width="100%" height="400px" #frameBorder="0"></iframe>
+#Familywise error rate = 1 - (1 - alpha)^n, plotted across a range of test counts
+#reproduces the idea behind Dr Daniel Roelfs' interactive FWER calculator, see text above
+
+fwer_df <- expand.grid(n = 1:30, alpha = c(0.05, 0.01, 0.001))
+fwer_df$FWER <- 1 - (1 - fwer_df$alpha) ^ fwer_df$n
+fwer_df$alpha <- factor(fwer_df$alpha,
+                         levels = c(0.05, 0.01, 0.001),
+                         labels = c("alpha = 0.05", "alpha = 0.01", "alpha = 0.001"))
+
+#the two values Nick reads off the live app in the lecture: 3 comparisons (the post-hoc
+#case just above) and 26 comparisons (the football goals case a bit further below)
+fwer_points <- data.frame(
+  n = c(3, 26),
+  FWER = c(1 - 0.95^3, 1 - 0.95^26),
+  label = c("3 comparisons\nFWER = 0.14\n(the post-hoc case)",
+            "26 comparisons\nFWER = 0.74\n(the football goals case)"),
+  hjust = c(0, 1),
+  nudge_x = c(1.5, -1.5)
+)
+
+ggplot(fwer_df, aes(x = n, y = FWER, colour = alpha)) +
+  geom_line(linewidth = 1) +
+  geom_point(data = fwer_points, aes(x = n, y = FWER), colour = "black", size = 2, inherit.aes = FALSE) +
+  geom_label(data = fwer_points,
+             aes(x = n + nudge_x, y = FWER + 0.05, label = label, hjust = hjust),
+             colour = "black", fill = "white", size = 3, inherit.aes = FALSE) +
+  scale_x_continuous(limits = c(0, 30)) +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(x = "Number of comparisons", y = "Familywise error rate",
+       colour = "Significance level",
+       title = "Familywise Error Rate vs Number of Comparisons") +
+  theme_bw()
 ```
 
-When you adjust the slides, it feels kind of scary right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.
+Watching that curve climb feels kind of scary, right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.
 
 For example, in the Christmas-music post-hoc tests in Chapter \@ref(ANOVA), we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the *Bonferoni Correction*, which is generally the most well-known of them.
 
