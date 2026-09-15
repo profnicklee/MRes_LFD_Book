@@ -158,9 +158,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
 <li class="chapter" data-level="4.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#confounding"><i class="fa fa-check"></i><b>4.3</b> Confounding</a></li>
+<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#selection-bias"><i class="fa fa-check"></i><b>4.4</b> Selection Bias</a></li>
+<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#randomisation"><i class="fa fa-check"></i><b>4.5</b> Randomisation</a></li>
+<li class="chapter" data-level="4.6" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.6</b> Regression</a></li>
+<li class="chapter" data-level="4.7" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.7</b> Multiple Regression</a></li>
+<li class="chapter" data-level="4.8" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.8</b> Visualizing Multiple Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
 <ul>
@@ -264,60 +267,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s <em>now</em> assume that this sample of 498 people actually <em>is</em> the population we are interested in.</p>
 <p>What <strong>this</strong> means is, we can actually <em>draw a sample from this population of 498</em> and see what happens.</p>
 <p>First, let’s present the distribution for the entire ‘population’ of 498.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-63-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-69-1.png" alt="" width="672" /></p>
 <p>Now, let’s literally take a <em>sample</em> of 10 random cases from that population of 498. Here, we are <strong>sampling without replacement</strong>, and are thus essentially doing exactly what a hypothetical ‘researcher’ would do if they drew a random sample of 10 people to complete their survey, from the population of 498.</p>
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   238   9.94    22.3         16.4 
-##  2   189   5.51    17.9         16.0 
-##  3   242  61.4     24.5          7.62
-##  4   472  56.2     28.4         10.2 
-##  5   372  15.3     22.4         17.3 
-##  6   323  56.4     17.5          6.81
-##  7   232  10.4     16.0         14.1 
-##  8   494  47.7     27.6         11.3 
-##  9   431  64.0     29.6          8.57
-## 10   272  38.6     18.2          9.51</code></pre>
+##  1   161  30.5     2.53          8.94
+##  2   237  39.2    17.6          10.7 
+##  3   297  54.8    10.6           6.22
+##  4   133  67.3    16.6           3.74
+##  5    40  45.8     4.72          7.04
+##  6   224  35.5    15.9          11.4 
+##  7   460  31.4     8.18          9.79
+##  8   300   7.48   19.4          16.6 
+##  9   132   3.95    6.36         14.6 
+## 10   491  50.8     6.03          5.59</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 22.38443</code></pre>
-<pre><code>## [1] 22.43748</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 9.404218</code></pre>
+<pre><code>## [1] 10.79042</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-72-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    62  11.5     6.74         14.6 
-##  2   476  25.9     8.16         10.9 
-##  3    46  27.2    13.4          12.3 
-##  4   200  12.9    25.2          16.3 
-##  5   393  54.1    26.0           8.85
-##  6   412   4.45   27.3          18.7 
-##  7    32  61.1    27.8           7.72
-##  8   170  29.7     2.40          9.39
-##  9   328  14.2    26.7          17.4 
-## 10   223  49.7     3.49          5.07
+##  1   320  52.0    16.2           8.27
+##  2   117  11.6     6.35         14.4 
+##  3   430   6.32    5.21         14.8 
+##  4    14  26.2     6.65         10.6 
+##  5   451  24.7    25.6          13.7 
+##  6   225  59.5    18.8           5.69
+##  7   319  15.5    19.5          15.2 
+##  8    43   9.67    3.50         12.9 
+##  9   365  59.9    22.9           7.32
+## 10   271  69.3     4.66          2.20
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 16.38327</code></pre>
-<pre><code>## [1] 16.05544</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 15.6274</code></pre>
+<pre><code>## [1] 14.53408</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-73-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   153  55.8     2.25          4.50
-##  2    42  17.1     1.35         11.5 
-##  3    22  18.5    26.4          16.0 
-##  4   226  31.7    23.2          12.5 
-##  5   366  19.1    27.1          16.6 
-##  6    57  21.5    23.0          15.0 
-##  7   444   2.01    1.75         14.0 
-##  8   117  11.6     6.35         14.4 
-##  9    91   6.95   26.1          18.7 
-## 10   426  15.4    23.4          14.1 
+##  1   154  28.8    11.4          12.8 
+##  2    20  63.1    22.9           5.86
+##  3   210  40.4     7.03          6.74
+##  4   336  14.7    19.5          14.4 
+##  5   232  10.4    16.0          14.1 
+##  6   483  36.1    13.8           9.73
+##  7    28  45.2     2.14          6.59
+##  8   189   5.51   17.9          16.0 
+##  9   238   9.94   22.3          16.4 
+## 10   205  24.0     7.61         11.6 
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 16.0277</code></pre>
-<pre><code>## [1] 16.0277</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 15.16827</code></pre>
+<pre><code>## [1] 15.16827</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-74-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>
 

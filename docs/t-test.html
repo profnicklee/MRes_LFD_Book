@@ -158,9 +158,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
 <li class="chapter" data-level="4.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.3</b> Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#confounding"><i class="fa fa-check"></i><b>4.3</b> Confounding</a></li>
+<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#selection-bias"><i class="fa fa-check"></i><b>4.4</b> Selection Bias</a></li>
+<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#randomisation"><i class="fa fa-check"></i><b>4.5</b> Randomisation</a></li>
+<li class="chapter" data-level="4.6" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.6</b> Regression</a></li>
+<li class="chapter" data-level="4.7" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.7</b> Multiple Regression</a></li>
+<li class="chapter" data-level="4.8" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.8</b> Visualizing Multiple Regression</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
 <ul>
@@ -277,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## IRRIT_ONEDGE        0.37 0.22
 ## IRRIT              -0.82 0.20</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-88">Table 7.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-94">Table 7.1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -470,7 +473,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   &lt;fct&gt;     &lt;dbl&gt;
 ## 1 Silence    3.28
 ## 2 Christmas  4.87</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-89-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-95-1.png" alt="" width="672" /></p>
 <pre><code>## Response: IRRIT (numeric)
 ## Explanatory: GROUP (factor)
 ## # A tibble: 1 × 1
@@ -586,7 +589,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can see there is a new ‘DIF’ variable here.</p>
 <p>Notice we’re bootstrapping the mean of this difference directly, not a t-statistic as we did for the independent-samples design above. It’s the same underlying question — is this far from zero? — just reached without the standardisation step in between. Nothing is lost by skipping it: with paired data there’s a single already-differenced variable rather than two separately-scaled groups to compare, so there’s less need to standardise before asking the question.</p>
 <p>Next, we bootstrap a confidence interval for the <em>mean of the difference variable</em>, to see whether it includes zero:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-92-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-98-1.png" alt="" width="672" /></p>
 <pre><code>## Response: DIF (numeric)
 ## # A tibble: 1 × 1
 ##    stat
@@ -599,7 +602,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 3.366667</code></pre>
 <pre><code>## [1] 5.066667</code></pre>
 <p>We can do this in another way, but instead running a 1-sample t-test on the difference variable, testing whether it is different from zero:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-93-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-99-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 1 × 1
 ##   p_value
 ##     &lt;dbl&gt;

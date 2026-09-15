@@ -1,4 +1,4 @@
-tab:unnamed-chunk-88
+tab:unnamed-chunk-94
 introduction-and-orientation
 intro
 summarizing-data-with-numbers
@@ -11,6 +11,9 @@ what-actually-is-a-normal-distribution
 assoc-rel
 correlations-and-associations
 introducing-nonlinear-associations
+confounding
+selection-bias
+randomisation
 regression
 multiple-regression
 visualizing-multiple-regression
