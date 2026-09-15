@@ -281,7 +281,7 @@ head(EPLGOALS)
 
 You can see here I have calculated the standard errors from the yearly goal totals (which represent that year's underlying rate of goal occurrence), then used that to calculate the 95% Confidence Interval limits
 
-We can use these to create a nifty chart with the error bars...drawing from the code used by Spiegelhalter in his book for Figure 9.4 available on his github (linked in the code).
+We can use these to create a nifty chart with the error bars...drawing from the code used by Spiegelhalter in his book for Figure 9.4, available on his GitHub: <https://github.com/dspiegel29/ArtofStatistics/blob/master/09-4-homicide-rates-E%2BW/09-4-homicide-trends-x.Rmd>
 
 ```{r}
 #modified from Spiegelhalter's Figure 9.4 available at:
