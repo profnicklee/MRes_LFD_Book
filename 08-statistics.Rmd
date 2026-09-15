@@ -270,7 +270,7 @@ One thing to remember though is the 'law of large numbers' here. You might notic
 
 ## Rate of Change in Football Goals per Season
 
-In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example. Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \@ref(probability). Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
 
 I hand-entered this into a spreadsheet, and calculated the additional stuff.
 

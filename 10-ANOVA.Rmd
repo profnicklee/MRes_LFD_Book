@@ -11,14 +11,13 @@ library(ggplot2)
 library(ggpubr)
 library(mosaic)
 library(dplyr)
-library(skimr)
 library(rstatix)
 library(pwr)
 ```
 
 This Chapter provides analysis and examples related to the second part of Lecture 8.
 
-Here, I'll demonstrate the basic application of ANOVA on the simple 3-group case of the Ed Sheeran Study, and go from there to introduce some classic 'concerns' with the statistical hypothesis testing methodology.
+Here, I'll demonstrate the basic application of ANOVA on the simple 3-group case of the Ed Sheeran Study we first met in Chapter \@ref(t-test), and go from there to introduce some classic 'concerns' with the statistical hypothesis testing methodology.
 
 ```{r}
 ED<-read_excel("Data/SHEERAN_ANOVA.xlsx", sheet = "ANOVA")

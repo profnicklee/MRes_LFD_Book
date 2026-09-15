@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This Chapter relates to the first part of lecture 6. Here, I’ll introduce core concepts around <strong>uncertainty</strong> in our results. Understanding that the results of our analysis always contain some level of uncertainty is probably the most critical concept to get our heads around as quantitative social scientists. Most of our job is not really coming up with the actual <em>statistics</em>, such as the correlation coefficient, or regression beta, but is more about understanding how to interpret and use those results - i.e. <strong>what they mean</strong>. And, fundamental to that is understanding their uncertainty.</p>
 <p>Again, to reiterate the message I sent in class, many of the examples in this Chapter, and later ones, involve <strong>randomness</strong>. This means that the results here may be slightly different numerically to the results in the slides. And, if you were to run these examples yourself, you would also get slightly different results. This is nothing to worry about, because the meaning of the results does not change.</p>
 <p>So, to start the journey, let’s grab some data.</p>
-<p>Here, we will again use the simple three-variable set of simulated data from the demonstration of multiple regression, which represents rates of smoking, rates of cycling, and heart disease incidence.</p>
+<p>Here, we will again use the simple three-variable set of simulated data from the demonstration of multiple regression in Chapter <a href="assoc-rel.html#assoc-rel">4</a>, which represents rates of smoking, rates of cycling, and heart disease incidence.</p>
 <pre><code>## # A tibble: 6 × 4
 ##    ...1 biking smoking heart.disease
 ##   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
@@ -268,54 +268,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    69  30.7    16.7          11.8 
-##  2    63  17.7     8.28         13.8 
-##  3   445  11.1    17.5          14.9 
-##  4   120   9.65    8.37         15.6 
-##  5   136  28.4    20.2          13.0 
-##  6   378  13.4    29.7          17.2 
-##  7   467  74.5    22.5           4.30
-##  8   453  10.5    15.0          15.6 
-##  9    74  49.4    23.2           9.47
-## 10    14  26.2     6.65         10.6</code></pre>
+##  1   292   47.7   28.4          10.2 
+##  2   451   24.7   25.6          13.7 
+##  3   383   70.7   19.1           2.83
+##  4   342   33.3   17.3          11.3 
+##  5   495   45.1   21.4           9.62
+##  6   173   10.1   11.3          14.8 
+##  7   417   45.9    2.62          5.81
+##  8   205   24.0    7.61         11.6 
+##  9    99   67.5   27.0           6.58
+## 10   206   44.0    6.58          8.50</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 17.09546</code></pre>
-<pre><code>## [1] 16.80685</code></pre>
+<pre><code>## [1] 18.18111</code></pre>
+<pre><code>## [1] 16.68226</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    31  44.2     3.97          7.98
-##  2   462  34.8    29.8          13.4 
-##  3   419   6.06   14.3          17.1 
-##  4   409   8.80   16.5          16.5 
-##  5   281  73.9    26.5           5.33
-##  6    41  31.5    22.2          13.2 
-##  7   134  71.2    25.2           6.00
-##  8   370  48.5     5.07          6.51
-##  9   439  63.8     9.91          3.40
-## 10   360  25.0    23.2          13.7 
+##  1   413  30.1     29.3         15.0 
+##  2   343  19.9     19.1         14.5 
+##  3   185  10.6     19.3         16.7 
+##  4   336  14.7     19.5         14.4 
+##  5   350   5.47    16.1         17.6 
+##  6   269  42.6     26.3         11.6 
+##  7    97  21.3     12.9         13.8 
+##  8   247  49.6     16.3          8.14
+##  9   228  58.7     19.6          6.66
+## 10   166  72.2     15.3          2.83
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 16.34851</code></pre>
-<pre><code>## [1] 16.15125</code></pre>
+<pre><code>## [1] 18.00857</code></pre>
+<pre><code>## [1] 16.74832</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1    24   18.4  23.4           16.5 
-##  2   375   19.7   1.40          11.8 
-##  3   437   18.1  10.8           13.3 
-##  4    23   24.5  26.9           15.0 
-##  5   364   29.6  18.8           11.8 
-##  6   150   32.1   0.969          8.87
-##  7     5   69.4  16.0            4.06
-##  8   376   23.3  20.7           13.8 
-##  9   175   38.2  20.1           11.6 
-## 10   147   38.0  13.9           10.1 
+##  1   261   72.4    4.25         0.712
+##  2   395   60.6    6.47         3.35 
+##  3    11   51.8   14.4          6.43 
+##  4   457   57.0    9.68         5.73 
+##  5   352   61.4   18.0          4.95 
+##  6    36   18.8   16.8         15.1  
+##  7   486   41.2    7.58         7.83 
+##  8   152   31.7   21.4         12.1  
+##  9   495   45.1   21.4          9.62 
+## 10   374   61.5   17.0          5.91 
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 16.18353</code></pre>
-<pre><code>## [1] 16.18353</code></pre>
+<pre><code>## [1] 15.98487</code></pre>
+<pre><code>## [1] 15.98487</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>

@@ -9,7 +9,6 @@ library(readxl)
 library(ggplot2)
 library(boot)
 library(rstatix)
-library(skimr)
 library(infer)
 library(ggpubr)
 library(dplyr)
@@ -21,7 +20,7 @@ Again, to reiterate the message I sent in class, many of the examples in this Ch
 
 So, to start the journey, let's grab some data.
 
-Here, we will again use the simple three-variable set of simulated data from the demonstration of multiple regression, which represents rates of smoking, rates of cycling, and heart disease incidence.
+Here, we will again use the simple three-variable set of simulated data from the demonstration of multiple regression in Chapter \@ref(assoc-rel), which represents rates of smoking, rates of cycling, and heart disease incidence.
 
 ```{r}
 Heart<-read_excel("Data/heart.data.xlsx")

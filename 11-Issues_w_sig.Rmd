@@ -11,7 +11,6 @@ library(ggplot2)
 library(ggpubr)
 library(mosaic)
 library(dplyr)
-library(skimr)
 library(rstatix)
 library(pwr)
 
@@ -145,7 +144,7 @@ knitr::include_app("https://danielroelfs.shinyapps.io/FWER_simple/",
 
 When you adjust the slides, it feels kind of scary right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.
 
-For example, in the Ed Sheeran post-hoc tests above, we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the *Bonferoni Correction*, which is generally the most well-known of them.
+For example, in the Ed Sheeran post-hoc tests in Chapter \@ref(ANOVA), we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the *Bonferoni Correction*, which is generally the most well-known of them.
 
 ## The Bonferroni Correction: Rate of Change in Football Goals per Season
 
@@ -215,7 +214,7 @@ It's never as simple as it seems when making statistical decisions, is it?
 
 ## Statistical Power: Brief Demonstration
 
-Different types of analysis and research design require different types of power calculation, so it is hard to give a uniform example. But, for simplicity's sake, let's calculate the required sample size for the Ed Sheeran study we conducted earlier.
+Different types of analysis and research design require different types of power calculation, so it is hard to give a uniform example. But, for simplicity's sake, let's calculate the required sample size for the Ed Sheeran study we conducted earlier, in Chapter \@ref(ANOVA).
 
 Remember, really, we should have done this **before collecting data**.
 

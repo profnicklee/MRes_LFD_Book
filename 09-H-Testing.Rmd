@@ -11,7 +11,6 @@ library(ggplot2)
 library(ggpubr)
 library(mosaic)
 library(dplyr)
-library(skimr)
 library(rstatix)
 library(pwr)
 ```
@@ -213,7 +212,7 @@ We can then look at our estimate of 0.745, and - even better - our confidence in
 
 ## Regression Significance Tests
 
-The process to asses the significance of regression estimates is very very similar to that for correlations. Let's revisit the heart disease data set we used earlier.
+The process to asses the significance of regression estimates is very very similar to that for correlations. Let's revisit the heart disease data set we used earlier, in Chapter \@ref(assoc-rel).
 
 ```{r}
 Heart<-read_excel("Data/heart.data.xlsx")

@@ -9,7 +9,6 @@ library(readxl)
 library(ggplot2)
 library(boot)
 library(rstatix)
-library(skimr)
 library(infer)
 library(ggpubr)
 library(dplyr)
@@ -268,7 +267,7 @@ corr_hat
 
 So, you can see the correlation is 0.75 with a 95% confidence interval of 0.69 - 0.81
 
-Now, let's extend this to the multiple regression case we have previously used, examining the relationships between smoking, biking, and heart disease.
+Now, let's extend this to the multiple regression case we have previously used in Chapter \@ref(assoc-rel), examining the relationships between smoking, biking, and heart disease.
 
 ```{r}
 Heart<-read_excel("Data/heart.data.xlsx")
