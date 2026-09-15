@@ -24,7 +24,7 @@ Happy<-read_excel("Data/HappyGDP.xlsx", sheet = "2020")
 
 ```
 
-First, I can just double check the data by describing it.
+First, I can just double check the data by describing it. `describe()` is what I'll reach for throughout the book whenever I'm looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.
 
 ```{r}
 describe(Happy)

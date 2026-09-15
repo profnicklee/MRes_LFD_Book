@@ -27,7 +27,7 @@ Heart<-read_excel("Data/heart.data.xlsx")
 head(Heart)
 ```
 
-Rather than do the full 'describe' as I did in the last chapter, I have simply above looked at what is called the 'head' of the data set or the first few rows. This is because all I want to do here is double check that I have the data, and what variables are there.
+You'll notice I use different functions to preview data through the book, and that's deliberate rather than sloppy. `head()`, like I've done here, is just for confirming the data loaded and what variables are there. `describe()` is for a fuller statistical snapshot of a data set I haven't looked at yet — including whether anything's missing — which is why I used it in the last chapter. And a plain `summary()`, like the one below, is for a quick look at a single variable I'm about to use. Three different jobs, so three different functions.
 
 Let's calculate some simple summary statistics from this data set to build on. For example, what is the mean and median for 'smoking'?
 

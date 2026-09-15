@@ -250,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 4     4  44.8     2.80          6.82
 ## 5     5  69.4    16.0           4.06
 ## 6     6  54.4    29.3           9.55</code></pre>
-<p>Rather than do the full ‘describe’ as I did in the last chapter, I have simply above looked at what is called the ‘head’ of the data set or the first few rows. This is because all I want to do here is double check that I have the data, and what variables are there.</p>
+<p>You’ll notice I use different functions to preview data through the book, and that’s deliberate rather than sloppy. <code>head()</code>, like I’ve done here, is just for confirming the data loaded and what variables are there. <code>describe()</code> is for a fuller statistical snapshot of a data set I haven’t looked at yet — including whether anything’s missing — which is why I used it in the last chapter. And a plain <code>summary()</code>, like the one below, is for a quick look at a single variable I’m about to use. Three different jobs, so three different functions.</p>
 <p>Let’s calculate some simple summary statistics from this data set to build on. For example, what is the mean and median for ‘smoking’?</p>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##  0.5259  8.2798 15.8146 15.4350 22.5689 29.9467</code></pre>
@@ -268,54 +268,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   292   47.7   28.4          10.2 
-##  2   451   24.7   25.6          13.7 
-##  3   383   70.7   19.1           2.83
-##  4   342   33.3   17.3          11.3 
-##  5   495   45.1   21.4           9.62
-##  6   173   10.1   11.3          14.8 
-##  7   417   45.9    2.62          5.81
-##  8   205   24.0    7.61         11.6 
-##  9    99   67.5   27.0           6.58
-## 10   206   44.0    6.58          8.50</code></pre>
+##  1    71   59.8   8.70          5.69 
+##  2    92   26.9  16.7          13.5  
+##  3   139   21.6   2.57         11.4  
+##  4   399   71.7   0.942         0.555
+##  5   471   60.6   8.17          4.94 
+##  6    87   31.0  29.0          13.8  
+##  7   304   40.6   2.78          6.57 
+##  8    65   42.3   8.41          7.46 
+##  9   464   73.8   0.642         0.552
+## 10    19   39.7  12.7           9.75</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 18.18111</code></pre>
-<pre><code>## [1] 16.68226</code></pre>
+<pre><code>## [1] 8.292992</code></pre>
+<pre><code>## [1] 9.062542</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   413  30.1     29.3         15.0 
-##  2   343  19.9     19.1         14.5 
-##  3   185  10.6     19.3         16.7 
-##  4   336  14.7     19.5         14.4 
-##  5   350   5.47    16.1         17.6 
-##  6   269  42.6     26.3         11.6 
-##  7    97  21.3     12.9         13.8 
-##  8   247  49.6     16.3          8.14
-##  9   228  58.7     19.6          6.66
-## 10   166  72.2     15.3          2.83
+##  1   452  74.9    5.70          1.09 
+##  2   456  55.2   15.3           7.02 
+##  3    67  23.3   14.3          13.3  
+##  4   468  56.2   19.2           6.51 
+##  5   442  33.0    0.682         8.56 
+##  6    98   3.81  17.7          18.5  
+##  7   464  73.8    0.642         0.552
+##  8    92  26.9   16.7          13.5  
+##  9   443  22.5   16.3          13.7  
+## 10   319  15.5   19.5          15.2  
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 18.00857</code></pre>
-<pre><code>## [1] 16.74832</code></pre>
+<pre><code>## [1] 14.74529</code></pre>
+<pre><code>## [1] 13.3978</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   261   72.4    4.25         0.712
-##  2   395   60.6    6.47         3.35 
-##  3    11   51.8   14.4          6.43 
-##  4   457   57.0    9.68         5.73 
-##  5   352   61.4   18.0          4.95 
-##  6    36   18.8   16.8         15.1  
-##  7   486   41.2    7.58         7.83 
-##  8   152   31.7   21.4         12.1  
-##  9   495   45.1   21.4          9.62 
-## 10   374   61.5   17.0          5.91 
+##  1   262  30.2     6.61          9.84
+##  2   446  25.3    18.1          13.2 
+##  3   165  35.3     9.15          9.75
+##  4    83  30.5    12.4          11.1 
+##  5   459  40.3     1.60          6.79
+##  6   133  67.3    16.6           3.74
+##  7   345  50.9    29.8          10.8 
+##  8    32  61.1    27.8           7.72
+##  9   395  60.6     6.47          3.35
+## 10   411   5.78    6.81         15.8 
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 15.98487</code></pre>
-<pre><code>## [1] 15.98487</code></pre>
+<pre><code>## [1] 16.64291</code></pre>
+<pre><code>## [1] 16.64291</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-68-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>

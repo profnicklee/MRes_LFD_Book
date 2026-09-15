@@ -242,7 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Correlations and Associations<a href="assoc-rel.html#correlations-and-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data.</p>
 <p>You can explore their work here: <a href="https://ourworldindata.org/" class="uri">https://ourworldindata.org/</a></p>
-<p>First, I can just double check the data by describing it.</p>
+<p>First, I can just double check the data by describing it. <code>describe()</code> is what I’ll reach for throughout the book whenever I’m looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.</p>
 <pre><code>##           vars   n        mean           sd     median     trimmed        mad
 ## Country*     1 249      125.00        72.02     125.00      125.00      91.92
 ## Happiness    2 153        5.49         1.12       5.53        5.52       1.16
