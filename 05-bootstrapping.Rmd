@@ -10,11 +10,10 @@ library(ggplot2)
 library(boot)
 library(rstatix)
 library(skimr)
-library (infer)
+library(infer)
 library(ggpubr)
 library(dplyr)
 library(psych)
-
 ```
 
 This Chapter relates to the second part of Lecture 6.In this chapter, you will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.

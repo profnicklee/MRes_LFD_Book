@@ -9,7 +9,6 @@ library(readxl)
 library(ggplot2)
 library(psych)
 library(ggpubr)
-
 ```
 
 This chapter supplements the content in Lecture 5.

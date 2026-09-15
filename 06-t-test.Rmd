@@ -10,11 +10,10 @@ library(ggplot2)
 library(boot)
 library(rstatix)
 library(skimr)
-library (infer)
+library(infer)
 library(ggpubr)
 library(dplyr)
 library(psych)
-
 ```
 
 This Chapter supplements the material on t-tests in the second part of Lecture 6.
