@@ -131,7 +131,7 @@ We are 'rolling the dice' multiple times.
 
 In fact, the familywise error rate is easy to see for yourself, once you know the formula: it's simply $1-(1-\alpha)^n$, where $\alpha$ is your chosen significance level and *n* is the number of tests you're running. The figure below plots that out for a few different significance levels, so you can see how quickly the error rate climbs as the number of comparisons grows.
 
-I first saw this demonstrated properly using a lovely interactive calculator built by Dr Daniel Roelfs, during his time at the Norwegian Centre for Mental Disorders Research (NORMENT) in Oslo, and he kindly gave permission for me to reproduce the idea here. I still use his live version in the lecture itself, where you can drag the sliders around and watch the number update in real time - genuinely a nicer way to build intuition for this than a static plot. Check out his website: <https://danielroelfs.com/about/>. A book page can't rely on an external app staying up forever for every reader, though, so the version below reproduces the same idea as a static figure instead.
+I first saw this demonstrated properly using a lovely interactive calculator built by Dr Daniel Roelfs, during his time at the Norwegian Centre for Mental Disorders Research (NORMENT) in Oslo, and he kindly gave permission for me to reproduce the idea here. Check out his website: <https://danielroelfs.com/about/>. A book page can't rely on an external app staying up forever for every reader, so the version below reproduces the same idea as a static figure instead.
 
 ```{r}
 #Familywise error rate = 1 - (1 - alpha)^n, plotted across a range of test counts
@@ -143,7 +143,7 @@ fwer_df$alpha <- factor(fwer_df$alpha,
                          levels = c(0.05, 0.01, 0.001),
                          labels = c("alpha = 0.05", "alpha = 0.01", "alpha = 0.001"))
 
-#the two values Nick reads off the live app in the lecture: 3 comparisons (the post-hoc
+#the two values highlighted in the lecture discussion: 3 comparisons (the post-hoc
 #case just above) and 26 comparisons (the football goals case a bit further below)
 fwer_points <- data.frame(
   n = c(3, 26),
