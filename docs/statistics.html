@@ -179,8 +179,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>7.1</b> Independent Sample T-Tests</a></li>
-<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>7.2</b> Paired-Sample T-tests</a></li>
+<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>7.1</b> The Christmas Music Study</a></li>
+<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>7.2</b> Independent-Samples T-Test</a></li>
+<li class="chapter" data-level="7.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>7.3</b> Paired-Sample T-test</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
 <ul>
@@ -260,12 +261,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="LFD_files/figure-html/unnamed-chunk-115-1.png" alt="" width="672" /></p>
 <p>Now, what I am going to do is take a <em>single random sample of 2</em> from that population. This sample is taken ‘without replacement’, if you are wondering, and so it is in essence exactly as if a researcher went into the field and took a sample from this population.</p>
 <pre><code>## [1] &quot;One Random Combination of 2 of the 20 Income Values&quot;</code></pre>
-<pre><code>## [1] 12800 11600</code></pre>
+<pre><code>## [1]  5600 10000</code></pre>
 <p>Let’s take the mean of the sample:</p>
 <pre><code>##    res1
-## 1 12800
-## 2 11600</code></pre>
-<pre><code>## [1] 12200</code></pre>
+## 1  5600
+## 2 10000</code></pre>
+<pre><code>## [1] 7800</code></pre>
 <p>The mean of the random sample of 2 will of course be different each time the sample is taken (e.g. when writing this text, the mean was 10600, but this may not be the same in the version you are reading!)</p>
 <p>Just for reference, the mean of the population (remember, the 20 people) was 9400</p>
 <p>So, let’s now do that for <strong>every possible combination of 2 values</strong> from this population.</p>

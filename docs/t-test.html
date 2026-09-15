@@ -179,8 +179,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>7.1</b> Independent Sample T-Tests</a></li>
-<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>7.2</b> Paired-Sample T-tests</a></li>
+<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>7.1</b> The Christmas Music Study</a></li>
+<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>7.2</b> Independent-Samples T-Test</a></li>
+<li class="chapter" data-level="7.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>7.3</b> Paired-Sample T-test</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
 <ul>
@@ -239,26 +240,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 7</span> T-Tests for Means<a href="t-test.html#t-test" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This Chapter supplements the material on t-tests in the second part of Lecture 6.</p>
 <p>In this chapter, I will introduce the t-test, a classic analysis technique that is used to compare two groups together.</p>
-<div id="independent-sample-t-tests" class="section level2 hasAnchor" number="7.1">
-<h2><span class="header-section-number">7.1</span> Independent Sample T-Tests<a href="t-test.html#independent-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-christmas-music-study" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> The Christmas Music Study<a href="t-test.html#the-christmas-music-study" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can also use bootstrapping as an entry point to a new analysis situation, where we are comparing two groups. This could be for example in a classic experimental context; treatment and control.</p>
 <p>Remember, t-tests can be done in any analysis setting, and it does not require bootstrapping at all. It just so happens that they are nicely explainable at this point.</p>
-<p>So, we are going to analyze a set of data from my infamous Ed Sheeran Study<sup>1</sup> - which would certainly win an Ignobel Prize if I were ever to do it in reality rather than in my fondest imaginings.</p>
-<p>The design was discussed in the lecture slides, but in brief we have a two-group ‘treatment and control’ experiment, the classic ‘randomized control trial’ style study.</p>
+<p>So, here’s the study I’ll use for the rest of this chapter, and pick up again a couple of chapters from now. Participants come in and proofread a passage of text — a genuinely tedious task, by design — with background audio playing. I tell them the study is about concentration and background noise, which is true as far as it goes, but isn’t the whole story. Half the participants get silence, half get Christmas music (which is, delightfully, one of the few things guaranteed to mildly irritate almost everybody, making it a gift for a researcher even if not for the participants). Before and after the task, I measure how irritated people feel, using four items — irritated / annoyed / tense / on edge, each rated 1-7 — and average them into a single composite score, <code>IRRIT</code>. The four items hold together well as one measure: Cronbach’s alpha across them is a healthy 0.86 in this sample, so treating them as a single composite rather than four separate numbers is a reasonable thing to do.</p>
+<p>Before looking at any numbers, there’s a design question worth sitting with, because it’s the reason this chapter runs two different-looking t-tests on what can feel like the same question.</p>
+<p>Suppose the Christmas-music group’s irritation goes up from before the task to after it. Is that enough, on its own, to conclude Christmas music is irritating? No — because the task itself is boring. Twenty minutes of proofreading a dull passage would probably wind most people up a bit regardless of what’s playing in the background, including nothing at all. A rise from baseline to post-task doesn’t tell you the <em>music</em> did anything, because the task alone might have. What actually answers that question is a comparison group who did the identical boring task in silence, so I can see whether the Christmas-music group ended up <em>more</em> irritated than boredom alone would predict. That’s why this chapter needs both an independent-samples comparison (Christmas vs silence, after the task) and a paired comparison (the Christmas group’s own before-and-after) — they answer two different questions, and only one of them can rule out “it was just the task.”</p>
+</div>
+<div id="independent-samples-t-test" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Independent-Samples T-Test<a href="t-test.html#independent-samples-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The first thing to do is read in the data and describe it.</p>
-<pre><code>## # A tibble: 6 × 3
-##      ID GROUP ANGER
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1     1     1     4
-## 2     2     2     5
-## 3     3     1     2
-## 4     4     2     3
-## 5     5     2     4
-## 6     6     1     2</code></pre>
-<pre><code>##       vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
-## ID       1 30 15.50 8.80   15.5   15.50 11.12   1  30    29 0.00    -1.32 1.61
-## GROUP    2 30  1.50 0.51    1.5    1.50  0.74   1   2     1 0.00    -2.07 0.09
-## ANGER    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4 0.04    -1.30 0.22</code></pre>
+<pre><code>## # A tibble: 6 × 7
+##      ID GROUP   IRRIT_IRRITATED IRRIT_ANNOYED IRRIT_TENSE IRRIT_ONEDGE IRRIT
+##   &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt; &lt;dbl&gt;
+## 1     1 Silence               3             4           2            5  3.5 
+## 2     2 Silence               3             3           4            3  3.25
+## 3     3 Silence               3             3           3            3  3   
+## 4     4 Silence               5             4           4            4  4.25
+## 5     5 Silence               4             2           4            3  3.25
+## 6     6 Silence               3             2           3            3  2.75</code></pre>
+<pre><code>##                 vars  n  mean   sd median trimmed   mad min   max range  skew
+## ID                 1 30 15.50 8.80  15.50   15.50 11.12 1.0 30.00 29.00  0.00
+## GROUP*             2 30  1.50 0.51   1.50    1.50  0.74 1.0  2.00  1.00  0.00
+## IRRIT_IRRITATED    3 30  4.10 1.40   4.00    4.21  1.48 1.0  6.00  5.00 -0.46
+## IRRIT_ANNOYED      4 30  4.13 1.38   4.00    4.08  1.48 2.0  7.00  5.00  0.37
+## IRRIT_TENSE        5 30  4.13 1.17   4.00    4.17  1.48 2.0  6.00  4.00 -0.25
+## IRRIT_ONEDGE       6 30  3.93 1.20   4.00    3.92  1.48 1.0  7.00  6.00  0.12
+## IRRIT              7 30  4.08 1.08   4.25    4.12  1.30 1.5  5.75  4.25 -0.37
+##                 kurtosis   se
+## ID                 -1.32 1.61
+## GROUP*             -2.07 0.09
+## IRRIT_IRRITATED    -0.52 0.26
+## IRRIT_ANNOYED      -0.72 0.25
+## IRRIT_TENSE        -0.95 0.21
+## IRRIT_ONEDGE        0.37 0.22
+## IRRIT              -0.82 0.20</code></pre>
 <table>
 <caption><span id="tab:unnamed-chunk-88">Table 7.1: </span>Data summary</caption>
 <tbody>
@@ -272,7 +289,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">Number of columns</td>
-<td align="left">3</td>
+<td align="left">7</td>
 </tr>
 <tr class="even">
 <td align="left">_______________________</td>
@@ -288,7 +305,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td align="left">numeric</td>
-<td align="left">2</td>
+<td align="left">6</td>
 </tr>
 <tr class="even">
 <td align="left">________________________</td>
@@ -303,12 +320,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><strong>Variable type: factor</strong></p>
 <table>
 <colgroup>
-<col width="20%" />
-<col width="14%" />
-<col width="20%" />
-<col width="11%" />
+<col width="19%" />
 <col width="13%" />
 <col width="19%" />
+<col width="11%" />
+<col width="12%" />
+<col width="23%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -327,23 +344,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">1</td>
 <td align="left">FALSE</td>
 <td align="right">2</td>
-<td align="left">1: 15, 2: 15</td>
+<td align="left">Sil: 15, Chr: 15</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table style="width:100%;">
 <colgroup>
-<col width="17%" />
-<col width="12%" />
-<col width="17%" />
+<col width="19%" />
+<col width="11%" />
+<col width="16%" />
 <col width="7%" />
-<col width="6%" />
-<col width="3%" />
-<col width="6%" />
-<col width="6%" />
+<col width="5%" />
+<col width="4%" />
+<col width="5%" />
 <col width="7%" />
-<col width="6%" />
+<col width="7%" />
+<col width="7%" />
 <col width="7%" />
 </colgroup>
 <thead>
@@ -368,89 +385,204 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td align="right">1</td>
 <td align="right">15.50</td>
 <td align="right">8.80</td>
-<td align="right">1</td>
+<td align="right">1.0</td>
 <td align="right">8.25</td>
-<td align="right">15.5</td>
+<td align="right">15.50</td>
 <td align="right">22.75</td>
-<td align="right">30</td>
+<td align="right">30.00</td>
 <td align="left">▇▇▇▇▇</td>
 </tr>
 <tr class="even">
-<td align="left">ANGER</td>
+<td align="left">IRRIT_IRRITATED</td>
 <td align="right">0</td>
 <td align="right">1</td>
-<td align="right">3.33</td>
-<td align="right">1.21</td>
-<td align="right">1</td>
-<td align="right">2.00</td>
-<td align="right">3.0</td>
+<td align="right">4.10</td>
+<td align="right">1.40</td>
+<td align="right">1.0</td>
+<td align="right">3.00</td>
 <td align="right">4.00</td>
-<td align="right">5</td>
-<td align="left">▁▇▇▆▇</td>
+<td align="right">5.00</td>
+<td align="right">6.00</td>
+<td align="left">▃▇▇▇▅</td>
+</tr>
+<tr class="odd">
+<td align="left">IRRIT_ANNOYED</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.13</td>
+<td align="right">1.38</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="right">5.00</td>
+<td align="right">7.00</td>
+<td align="left">▇▆▅▂▂</td>
+</tr>
+<tr class="even">
+<td align="left">IRRIT_TENSE</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.13</td>
+<td align="right">1.17</td>
+<td align="right">2.0</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="right">5.00</td>
+<td align="right">6.00</td>
+<td align="left">▂▅▆▇▂</td>
+</tr>
+<tr class="odd">
+<td align="left">IRRIT_ONEDGE</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3.93</td>
+<td align="right">1.20</td>
+<td align="right">1.0</td>
+<td align="right">3.00</td>
+<td align="right">4.00</td>
+<td align="right">5.00</td>
+<td align="right">7.00</td>
+<td align="left">▂▇▇▆▂</td>
+</tr>
+<tr class="even">
+<td align="left">IRRIT</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4.08</td>
+<td align="right">1.08</td>
+<td align="right">1.5</td>
+<td align="right">3.25</td>
+<td align="right">4.25</td>
+<td align="right">4.94</td>
+<td align="right">5.75</td>
+<td align="left">▂▅▅▇▇</td>
 </tr>
 </tbody>
 </table>
-<p>We can see that we have one FACTOR variable, which we need to indicate the group each subject was in (CONTROL being GROUP 1, and ED being GROUP 2).</p>
-<p>So, let’s run an <em>independent samples T-Test</em> with bootstrapped confidence interval.</p>
-<p>We use an independent samples test, as the <em>theory</em> is these two groups - after participating in the experiment - are no longer the ‘same’. There is something ‘different’ about the population of people who listen to Ed Sheeran, compared to those who do not. What we are trying to do is assess whether this difference is in <em>anger.</em></p>
+<p>We can see that we have one FACTOR variable, which indicates which group each subject was in — Silence or Christmas.</p>
+<p>So, let’s run an <em>independent samples T-Test</em> with bootstrapped confidence interval, comparing the two groups’ irritation scores at the end of the task (T2).</p>
+<p>We use an independent samples test here because these are two different groups of people, who did the task under two different conditions. What we’re trying to assess is whether the Christmas-music group ended up more irritated than the silence group.</p>
 <p>Before we get to the code, it’s worth pausing on what we’re actually bootstrapping, and why it isn’t simply the difference in the two group means.</p>
-<p>The raw mean difference — a bit over 1 point on our five-point anger scale — is perfectly interpretable in its own right: it’s a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in anger scores. A difference of “1 point” is enormous on a scale that barely moves and unremarkable on one that swings wildly.</p>
+<p>The raw mean difference — a bit over 1.5 points on our seven-point irritation scale — is perfectly interpretable in its own right: it’s a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in irritation scores. A difference of “1.5 points” is enormous on a scale that barely moves and unremarkable on one that swings wildly.</p>
 <p>This is the same problem as the standardised versus unstandardised regression estimates back in Section <a href="assoc-rel.html#assoc-rel">4</a>. An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can’t be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.</p>
 <pre><code>## # A tibble: 2 × 2
-##   GROUP  name
-##   &lt;fct&gt; &lt;dbl&gt;
-## 1 1      2.8 
-## 2 2      3.87</code></pre>
+##   GROUP      name
+##   &lt;fct&gt;     &lt;dbl&gt;
+## 1 Silence    3.28
+## 2 Christmas  4.87</code></pre>
 <p><img src="LFD_files/figure-html/unnamed-chunk-89-1.png" alt="" width="672" /></p>
-<pre><code>## Response: ANGER (numeric)
+<pre><code>## Response: IRRIT (numeric)
 ## Explanatory: GROUP (factor)
 ## # A tibble: 1 × 1
 ##    stat
 ##   &lt;dbl&gt;
-## 1 -2.65</code></pre>
+## 1  5.88</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##   lower_ci upper_ci
 ##      &lt;dbl&gt;    &lt;dbl&gt;
-## 1    -5.49   -0.575</code></pre>
-<p>Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran.</p>
-<p>Cool, so it seems that Group 2 displayed more anger. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we’ll return to this issue of what confidence intervals actually mean.</p>
+## 1     3.55     10.5</code></pre>
+<p>Cool, so it seems that the Christmas-music group displayed more irritation. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a real difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we’ll return to this issue of what confidence intervals actually mean.</p>
 <p>I’ll be honest: in a purely bootstrap context like this one, that standardisation step can feel like an unnecessary detour. We didn’t need the t to reach our conclusion — the conclusion was always going to be “does the confidence interval contain zero or not”, and that would have been exactly as true if we’d bootstrapped the raw mean difference directly instead. The t only really earns its keep once we start relying on known probability distributions rather than brute-force resampling, which is where we’re headed in the next chapter. For now, take it as scaffolding for what’s coming rather than something bootstrapping strictly requires.</p>
 </div>
-<div id="paired-sample-t-tests" class="section level2 hasAnchor" number="7.2">
-<h2><span class="header-section-number">7.2</span> Paired-Sample T-tests<a href="t-test.html#paired-sample-t-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>OK, so let’s use a different design, using a paired samples t-test. Let me go <em>back to the slides…</em> to explain this difference.</p>
+<div id="paired-sample-t-test" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Paired-Sample T-test<a href="t-test.html#paired-sample-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>OK, so let’s use a different design on the same study — the Christmas-music group’s own scores, before the task (T1) and after it (T2) — using a paired samples t-test. Let me go <em>back to the slides…</em> to explain this difference.</p>
 <p>The same basic process is needed, but with some modifications because of the type of comparison we are doing. And, as such, we have some new data.</p>
-<pre><code>##   ID ANG_T1 ANG_T2
-## 1  1      1      4
-## 2  2      2      5
-## 3  3      3      2
-## 4  4      4      3
-## 5  5      2      4
-## 6  6      1      2</code></pre>
-<pre><code>##        vars  n  mean   sd median trimmed   mad min max range skew kurtosis   se
-## ID        1 30 15.50 8.80   15.5   15.50 11.12   1  30    29 0.00    -1.32 1.61
-## ANG_T1    2 30  2.00 1.02    2.0    1.88  1.48   1   4     3 0.76    -0.57 0.19
-## ANG_T2    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4 0.04    -1.30 0.22</code></pre>
+<pre><code>##   ID IRRIT_T1_IRRITATED IRRIT_T1_ANNOYED IRRIT_T1_TENSE IRRIT_T1_ONEDGE
+## 1  1                  3                1              1               3
+## 2  2                  3                5              5               5
+## 3  3                  4                4              5               3
+## 4  4                  3                3              4               2
+## 5  5                  2                4              2               2
+## 6  6                  4                4              5               3
+##   IRRIT_T2_IRRITATED IRRIT_T2_ANNOYED IRRIT_T2_TENSE IRRIT_T2_ONEDGE IRRIT_T1
+## 1                  6                6              6               5      2.0
+## 2                  6                5              6               5      4.5
+## 3                  7                7              7               7      4.0
+## 4                  4                4              6               3      3.0
+## 5                  4                4              3               5      2.5
+## 6                  4                5              4               4      4.0
+##   IRRIT_T2
+## 1     5.75
+## 2     5.50
+## 3     7.00
+## 4     4.25
+## 5     4.00
+## 6     4.25</code></pre>
+<pre><code>##                    vars  n mean   sd median trimmed  mad min   max range  skew
+## ID                    1 15 8.00 4.47   8.00    8.00 5.93   1 15.00 14.00  0.00
+## IRRIT_T1_IRRITATED    2 15 3.60 1.55   3.00    3.54 1.48   1  7.00  6.00  0.53
+## IRRIT_T1_ANNOYED      3 15 3.20 1.57   3.00    3.15 1.48   1  6.00  5.00  0.00
+## IRRIT_T1_TENSE        4 15 3.33 1.54   4.00    3.38 1.48   1  5.00  4.00 -0.20
+## IRRIT_T1_ONEDGE       5 15 3.33 1.11   3.00    3.31 1.48   2  5.00  3.00  0.25
+## IRRIT_T2_IRRITATED    6 15 5.27 1.03   5.00    5.23 1.48   4  7.00  3.00  0.23
+## IRRIT_T2_ANNOYED      7 15 4.93 1.22   5.00    4.92 1.48   3  7.00  4.00  0.12
+## IRRIT_T2_TENSE        8 15 5.13 1.06   5.00    5.15 1.48   3  7.00  4.00 -0.24
+## IRRIT_T2_ONEDGE       9 15 4.93 0.96   5.00    4.92 0.00   3  7.00  4.00  0.12
+## IRRIT_T1             10 15 3.37 1.15   3.25    3.29 1.11   2  5.75  3.75  0.50
+## IRRIT_T2             11 15 5.07 0.87   4.75    5.00 0.74   4  7.00  3.00  0.68
+##                    kurtosis   se
+## ID                    -1.44 1.15
+## IRRIT_T1_IRRITATED    -0.34 0.40
+## IRRIT_T1_ANNOYED      -1.25 0.40
+## IRRIT_T1_TENSE        -1.69 0.40
+## IRRIT_T1_ONEDGE       -1.41 0.29
+## IRRIT_T2_IRRITATED    -1.27 0.27
+## IRRIT_T2_ANNOYED      -0.93 0.32
+## IRRIT_T2_TENSE        -0.86 0.27
+## IRRIT_T2_ONEDGE       -0.10 0.25
+## IRRIT_T1              -0.97 0.30
+## IRRIT_T2              -0.73 0.23</code></pre>
 <p>Now, for this bootstrap purpose we actually need to to calculate the <strong>difference between the two measurements</strong> (here, T1 and T2).</p>
 <p>Then, we bootstrap a one-sample t-test with this difference variable. This essentially tests whether the difference is different from zero. If it is, that indicates some effect of the treatment.</p>
 <p>Let us first calculate the new variable:</p>
-<pre><code>##   ID ANG_T1 ANG_T2 DIF
-## 1  1      1      4   3
-## 2  2      2      5   3
-## 3  3      3      2  -1
-## 4  4      4      3  -1
-## 5  5      2      4   2
-## 6  6      1      2   1</code></pre>
-<pre><code>##        vars  n  mean   sd median trimmed   mad min max range  skew kurtosis
-## ID        1 30 15.50 8.80   15.5   15.50 11.12   1  30    29  0.00    -1.32
-## ANG_T1    2 30  2.00 1.02    2.0    1.88  1.48   1   4     3  0.76    -0.57
-## ANG_T2    3 30  3.33 1.21    3.0    3.33  1.48   1   5     4  0.04    -1.30
-## DIF       4 30  1.33 1.27    1.0    1.38  1.48  -1   4     5 -0.13    -0.62
-##          se
-## ID     1.61
-## ANG_T1 0.19
-## ANG_T2 0.22
-## DIF    0.23</code></pre>
+<pre><code>##   ID IRRIT_T1_IRRITATED IRRIT_T1_ANNOYED IRRIT_T1_TENSE IRRIT_T1_ONEDGE
+## 1  1                  3                1              1               3
+## 2  2                  3                5              5               5
+## 3  3                  4                4              5               3
+## 4  4                  3                3              4               2
+## 5  5                  2                4              2               2
+## 6  6                  4                4              5               3
+##   IRRIT_T2_IRRITATED IRRIT_T2_ANNOYED IRRIT_T2_TENSE IRRIT_T2_ONEDGE IRRIT_T1
+## 1                  6                6              6               5      2.0
+## 2                  6                5              6               5      4.5
+## 3                  7                7              7               7      4.0
+## 4                  4                4              6               3      3.0
+## 5                  4                4              3               5      2.5
+## 6                  4                5              4               4      4.0
+##   IRRIT_T2  DIF
+## 1     5.75 3.75
+## 2     5.50 1.00
+## 3     7.00 3.00
+## 4     4.25 1.25
+## 5     4.00 1.50
+## 6     4.25 0.25</code></pre>
+<pre><code>##                    vars  n mean   sd median trimmed  mad  min   max range  skew
+## ID                    1 15 8.00 4.47   8.00    8.00 5.93 1.00 15.00 14.00  0.00
+## IRRIT_T1_IRRITATED    2 15 3.60 1.55   3.00    3.54 1.48 1.00  7.00  6.00  0.53
+## IRRIT_T1_ANNOYED      3 15 3.20 1.57   3.00    3.15 1.48 1.00  6.00  5.00  0.00
+## IRRIT_T1_TENSE        4 15 3.33 1.54   4.00    3.38 1.48 1.00  5.00  4.00 -0.20
+## IRRIT_T1_ONEDGE       5 15 3.33 1.11   3.00    3.31 1.48 2.00  5.00  3.00  0.25
+## IRRIT_T2_IRRITATED    6 15 5.27 1.03   5.00    5.23 1.48 4.00  7.00  3.00  0.23
+## IRRIT_T2_ANNOYED      7 15 4.93 1.22   5.00    4.92 1.48 3.00  7.00  4.00  0.12
+## IRRIT_T2_TENSE        8 15 5.13 1.06   5.00    5.15 1.48 3.00  7.00  4.00 -0.24
+## IRRIT_T2_ONEDGE       9 15 4.93 0.96   5.00    4.92 0.00 3.00  7.00  4.00  0.12
+## IRRIT_T1             10 15 3.37 1.15   3.25    3.29 1.11 2.00  5.75  3.75  0.50
+## IRRIT_T2             11 15 5.07 0.87   4.75    5.00 0.74 4.00  7.00  3.00  0.68
+## DIF                  12 15 1.70 1.03   1.50    1.65 0.74 0.25  3.75  3.50  0.43
+##                    kurtosis   se
+## ID                    -1.44 1.15
+## IRRIT_T1_IRRITATED    -0.34 0.40
+## IRRIT_T1_ANNOYED      -1.25 0.40
+## IRRIT_T1_TENSE        -1.69 0.40
+## IRRIT_T1_ONEDGE       -1.41 0.29
+## IRRIT_T2_IRRITATED    -1.27 0.27
+## IRRIT_T2_ANNOYED      -0.93 0.32
+## IRRIT_T2_TENSE        -0.86 0.27
+## IRRIT_T2_ONEDGE       -0.10 0.25
+## IRRIT_T1              -0.97 0.30
+## IRRIT_T2              -0.73 0.23
+## DIF                   -0.99 0.27</code></pre>
 <p>We can see there is a new ‘DIF’ variable here.</p>
 <p>Notice we’re bootstrapping the mean of this difference directly, not a t-statistic as we did for the independent-samples design above. It’s the same underlying question — is this far from zero? — just reached without the standardisation step in between. Nothing is lost by skipping it: with paired data there’s a single already-differenced variable rather than two separately-scaled groups to compare, so there’s less need to standardise before asking the question.</p>
 <p>Next, we bootstrap a confidence interval for the <em>mean of the difference variable</em>, to see whether it includes zero:</p>
@@ -459,13 +591,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # A tibble: 1 × 1
 ##    stat
 ##   &lt;dbl&gt;
-## 1  1.33</code></pre>
+## 1   1.7</code></pre>
 <pre><code>## # A tibble: 1 × 2
 ##   lower_ci upper_ci
 ##      &lt;dbl&gt;    &lt;dbl&gt;
-## 1      0.9     1.73</code></pre>
-<pre><code>## [1] 2</code></pre>
-<pre><code>## [1] 3.333333</code></pre>
+## 1     1.22     2.17</code></pre>
+<pre><code>## [1] 3.366667</code></pre>
+<pre><code>## [1] 5.066667</code></pre>
 <p>We can do this in another way, but instead running a 1-sample t-test on the difference variable, testing whether it is different from zero:</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-93-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 1 × 1
@@ -476,14 +608,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # A tibble: 1 × 1
 ##    stat
 ##   &lt;dbl&gt;
-## 1  1.33</code></pre>
-<pre><code>## [1] 2</code></pre>
-<pre><code>## [1] 3.333333</code></pre>
-<p>Marvelous. We can see that the results from both variants of this test suggest that after listening to Ed Sheeran, our sample on average reported more anger.</p>
+## 1   1.7</code></pre>
+<pre><code>## [1] 3.366667</code></pre>
+<pre><code>## [1] 5.066667</code></pre>
+<p>Marvelous. We can see that the results from both variants of this test suggest that after the proofreading task with Christmas music playing, our sample on average reported more irritation than they did beforehand.</p>
 <p>1: Because the 95% confidence interval does not include 0, I am confident in saying that there is some effect going on here.</p>
-<p>2: Because the bootstrapped probability (as expressed by the p-value) of observing the mean difference in anger between T1 and T2 of 1.33 is very low (0 in our results, but the true value will not be exactly zero), I am confident in saying there is an effect here.</p>
-<p>Not surprised…</p>
-<p><sup>1</sup>If you are a fan, friend, or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study. Furthermore, I am sure Ed Sheeran is a very nice person and I would delight in his company. This is merely a bit of humour.</p>
+<p>2: Because the bootstrapped probability (as expressed by the p-value) of observing the mean difference in irritation between T1 and T2 of 1.7 is very low (0 in our results, but the true value will not be exactly zero), I am confident in saying there is an effect here.</p>
+<p>Not surprised — but remember the design question from the start of the chapter: this rise, on its own, doesn’t tell us the <em>music</em> did it, because the boring task alone could have produced some of it. That’s exactly what the independent-samples comparison above was for, and it agrees — the Christmas-music group ended up more irritated than the silence group who did the identical task.</p>
+<p>But there’s a limit to what even that comparison can tell us. All I’ve actually shown is that background music of <em>some</em> kind moves irritation more than no music at all — I haven’t shown there’s anything special about <em>Christmas</em> music specifically, as opposed to background music in general. The design as it stands can’t separate “background music is irritating” from “Christmas music in particular is irritating,” because silence is the only comparison group I have. That’s a real limitation, not a minor caveat, and it’s exactly the question the next chapter picks up, with a third group added to settle it.</p>
 
 </div>
 </div>

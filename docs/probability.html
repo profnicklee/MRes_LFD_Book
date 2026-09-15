@@ -179,8 +179,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#independent-sample-t-tests"><i class="fa fa-check"></i><b>7.1</b> Independent Sample T-Tests</a></li>
-<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#paired-sample-t-tests"><i class="fa fa-check"></i><b>7.2</b> Paired-Sample T-tests</a></li>
+<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>7.1</b> The Christmas Music Study</a></li>
+<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>7.2</b> Independent-Samples T-Test</a></li>
+<li class="chapter" data-level="7.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>7.3</b> Paired-Sample T-test</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
 <ul>
@@ -244,12 +245,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The first thing we’ll do is simulate 5000 fair coin flips.</p>
 <p>Remember, this is another random process, so results will differ each time slightly</p>
 <pre><code>##   Heads Trial Cum_Heads Pct_Heads
-## 1     1     1         1 1.0000000
-## 2     1     2         2 1.0000000
-## 3     0     3         2 0.6666667
-## 4     0     4         2 0.5000000
-## 5     1     5         3 0.6000000
-## 6     0     6         3 0.5000000</code></pre>
+## 1     0     1         0 0.0000000
+## 2     1     2         1 0.5000000
+## 3     1     3         2 0.6666667
+## 4     1     4         3 0.7500000
+## 5     1     5         4 0.8000000
+## 6     0     6         4 0.6666667</code></pre>
 <p>Below, we’ll plot the results of this simulation for ease of interpretation</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-98-1.png" alt="" width="672" /></p>
 <p>The thing to notice (in combination with the table of results above the plot) is that eventually the proportion of heads versus tails approaches 50%, <em>but it does not start out that way</em>.</p>

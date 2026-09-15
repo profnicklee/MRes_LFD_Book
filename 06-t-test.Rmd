@@ -20,38 +20,42 @@ This Chapter supplements the material on t-tests in the second part of Lecture 6
 
 In this chapter, I will introduce the t-test, a classic analysis technique that is used to compare two groups together.
 
-## Independent Sample T-Tests
+## The Christmas Music Study
 
 We can also use bootstrapping as an entry point to a new analysis situation, where we are comparing two groups. This could be for example in a classic experimental context; treatment and control.
 
 Remember, t-tests can be done in any analysis setting, and it does not require bootstrapping at all. It just so happens that they are nicely explainable at this point.
 
-So, we are going to analyze a set of data from my infamous Ed Sheeran Study^1^ - which would certainly win an Ignobel Prize if I were ever to do it in reality rather than in my fondest imaginings.
+So, here's the study I'll use for the rest of this chapter, and pick up again a couple of chapters from now. Participants come in and proofread a passage of text — a genuinely tedious task, by design — with background audio playing. I tell them the study is about concentration and background noise, which is true as far as it goes, but isn't the whole story. Half the participants get silence, half get Christmas music (which is, delightfully, one of the few things guaranteed to mildly irritate almost everybody, making it a gift for a researcher even if not for the participants). Before and after the task, I measure how irritated people feel, using four items — irritated / annoyed / tense / on edge, each rated 1-7 — and average them into a single composite score, `IRRIT`. The four items hold together well as one measure: Cronbach's alpha across them is a healthy 0.86 in this sample, so treating them as a single composite rather than four separate numbers is a reasonable thing to do.
 
-The design was discussed in the lecture slides, but in brief we have a two-group 'treatment and control' experiment, the classic 'randomized control trial' style study.
+Before looking at any numbers, there's a design question worth sitting with, because it's the reason this chapter runs two different-looking t-tests on what can feel like the same question.
+
+Suppose the Christmas-music group's irritation goes up from before the task to after it. Is that enough, on its own, to conclude Christmas music is irritating? No — because the task itself is boring. Twenty minutes of proofreading a dull passage would probably wind most people up a bit regardless of what's playing in the background, including nothing at all. A rise from baseline to post-task doesn't tell you the *music* did anything, because the task alone might have. What actually answers that question is a comparison group who did the identical boring task in silence, so I can see whether the Christmas-music group ended up *more* irritated than boredom alone would predict. That's why this chapter needs both an independent-samples comparison (Christmas vs silence, after the task) and a paired comparison (the Christmas group's own before-and-after) — they answer two different questions, and only one of them can rule out "it was just the task."
+
+## Independent-Samples T-Test
 
 The first thing to do is read in the data and describe it.
 
 ```{r}
-ED_IND<-read_excel("Data/SHEERAN_T.xlsx", sheet = "IND")
+ED_IND<-read_excel("Data/MUSIC_STUDY.xlsx", sheet = "S1_IND")
 ```
 
 ```{r}
 head(ED_IND)
 describe(ED_IND)
-ED_IND$GROUP <- factor(ED_IND$GROUP)
+ED_IND$GROUP <- factor(ED_IND$GROUP, levels = c("Silence", "Christmas"))
 skim(ED_IND)
 ```
 
-We can see that we have one FACTOR variable, which we need to indicate the group each subject was in (CONTROL being GROUP 1, and ED being GROUP 2).
+We can see that we have one FACTOR variable, which indicates which group each subject was in — Silence or Christmas.
 
-So, let's run an *independent samples T-Test* with bootstrapped confidence interval.
+So, let's run an *independent samples T-Test* with bootstrapped confidence interval, comparing the two groups' irritation scores at the end of the task (T2).
 
-We use an independent samples test, as the *theory* is these two groups - after participating in the experiment - are no longer the 'same'. There is something 'different' about the population of people who listen to Ed Sheeran, compared to those who do not. What we are trying to do is assess whether this difference is in *anger.*
+We use an independent samples test here because these are two different groups of people, who did the task under two different conditions. What we're trying to assess is whether the Christmas-music group ended up more irritated than the silence group.
 
 Before we get to the code, it's worth pausing on what we're actually bootstrapping, and why it isn't simply the difference in the two group means.
 
-The raw mean difference — a bit over 1 point on our five-point anger scale — is perfectly interpretable in its own right: it's a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in anger scores. A difference of "1 point" is enormous on a scale that barely moves and unremarkable on one that swings wildly.
+The raw mean difference — a bit over 1.5 points on our seven-point irritation scale — is perfectly interpretable in its own right: it's a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in irritation scores. A difference of "1.5 points" is enormous on a scale that barely moves and unremarkable on one that swings wildly.
 
 This is the same problem as the standardised versus unstandardised regression estimates back in Section \@ref(assoc-rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can't be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.
 
@@ -60,20 +64,20 @@ This is the same problem as the standardised versus unstandardised regression es
 #First, some code to display the group means using dplyr
 ED_IND %>%   # Specify data frame
 group_by(GROUP) %>% # Specify group indicator
-summarise_at(vars(ANGER), # Specify column
+summarise_at(vars(IRRIT), # Specify column
 list(name = mean))    # Specify function
 
 #use infer to bootstrap the t-value
-#https://infer.netlify.app/articles/observed_stat_examples
+#https://infer.netlify.app/articles/observed_stat_examples.html
 
 t_hat <- ED_IND %>%
-  specify(ANGER ~ GROUP) %>%
-  calculate(stat = "t", order = c("1", "2"))
+  specify(IRRIT ~ GROUP) %>%
+  calculate(stat = "t", order = c("Christmas", "Silence"))
 
 boot_dist <- ED_IND %>%
-   specify(ANGER ~ GROUP) %>%
+   specify(IRRIT ~ GROUP) %>%
    generate(reps = 1000, type = "bootstrap") %>%
-   calculate(stat = "t", order = c("1", "2"))
+   calculate(stat = "t", order = c("Christmas", "Silence"))
 
 percentile_ci <- get_ci(boot_dist)
 
@@ -87,20 +91,18 @@ percentile_ci
 
 ```
 
-Remember: Group 1 is the control, and Group 2 listened to Ed Sheeran.
-
-Cool, so it seems that Group 2 displayed more anger. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we'll return to this issue of what confidence intervals actually mean.
+Cool, so it seems that the Christmas-music group displayed more irritation. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a real difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we'll return to this issue of what confidence intervals actually mean.
 
 I'll be honest: in a purely bootstrap context like this one, that standardisation step can feel like an unnecessary detour. We didn't need the t to reach our conclusion — the conclusion was always going to be "does the confidence interval contain zero or not", and that would have been exactly as true if we'd bootstrapped the raw mean difference directly instead. The t only really earns its keep once we start relying on known probability distributions rather than brute-force resampling, which is where we're headed in the next chapter. For now, take it as scaffolding for what's coming rather than something bootstrapping strictly requires.
 
-## Paired-Sample T-tests
+## Paired-Sample T-test
 
-OK, so let's use a different design, using a paired samples t-test. Let me go *back to the slides...* to explain this difference.
+OK, so let's use a different design on the same study — the Christmas-music group's own scores, before the task (T1) and after it (T2) — using a paired samples t-test. Let me go *back to the slides...* to explain this difference.
 
 The same basic process is needed, but with some modifications because of the type of comparison we are doing. And, as such, we have some new data.
 
 ```{r}
-ED_PAIR<-read_excel("Data/SHEERAN_T.xlsx", sheet = "PAIR")
+ED_PAIR<-read_excel("Data/MUSIC_STUDY.xlsx", sheet = "S1_PAIR")
 ED_PAIR <- data.frame(ED_PAIR)
 head(ED_PAIR)
 describe(ED_PAIR)
@@ -113,7 +115,7 @@ Then, we bootstrap a one-sample t-test with this difference variable. This essen
 Let us first calculate the new variable:
 
 ```{r}
-ED_PAIR$DIF <- ED_PAIR$ANG_T2-ED_PAIR$ANG_T1
+ED_PAIR$DIF <- ED_PAIR$IRRIT_T2-ED_PAIR$IRRIT_T1
 head(ED_PAIR)
 describe(ED_PAIR)
 ```
@@ -128,7 +130,7 @@ Next, we bootstrap a confidence interval for the *mean of the difference variabl
 #modified from https://infer.netlify.app/articles/observed_stat_examples.html
 
 
-x_bar <- ED_PAIR %>% 
+x_bar <- ED_PAIR %>%
   specify(response = DIF) %>%
   calculate(stat = "mean")
 
@@ -145,8 +147,8 @@ visualize(boot_dist) +
 #report the results
 x_bar
 percentile_ci
-mean(ED_PAIR$ANG_T1)
-mean(ED_PAIR$ANG_T2)
+mean(ED_PAIR$IRRIT_T1)
+mean(ED_PAIR$IRRIT_T2)
 
 
 ```
@@ -155,7 +157,7 @@ We can do this in another way, but instead running a 1-sample t-test on the diff
 
 ```{r}
 #modified from https://cran.r-project.org/web/packages/infer/vignettes/observed_stat_examples.html
-x_bar <- ED_PAIR %>% 
+x_bar <- ED_PAIR %>%
   specify(response = DIF) %>%
   calculate(stat = "mean")
 
@@ -175,18 +177,18 @@ null_dist %>%
 
 x_bar
 
-mean(ED_PAIR$ANG_T1)
-mean(ED_PAIR$ANG_T2)
+mean(ED_PAIR$IRRIT_T1)
+mean(ED_PAIR$IRRIT_T2)
 
 
 ```
 
-Marvelous. We can see that the results from both variants of this test suggest that after listening to Ed Sheeran, our sample on average reported more anger. 
+Marvelous. We can see that the results from both variants of this test suggest that after the proofreading task with Christmas music playing, our sample on average reported more irritation than they did beforehand.
 
 1: Because the 95% confidence interval does not include 0, I am confident in saying that there is some effect going on here.
 
-2: Because the bootstrapped probability (as expressed by the p-value) of observing the mean difference in anger between T1 and T2 of 1.33 is very low (0 in our results, but the true value will not be exactly zero), I am confident in saying there is an effect here.
+2: Because the bootstrapped probability (as expressed by the p-value) of observing the mean difference in irritation between T1 and T2 of 1.7 is very low (0 in our results, but the true value will not be exactly zero), I am confident in saying there is an effect here.
 
-Not surprised...
+Not surprised — but remember the design question from the start of the chapter: this rise, on its own, doesn't tell us the *music* did it, because the boring task alone could have produced some of it. That's exactly what the independent-samples comparison above was for, and it agrees — the Christmas-music group ended up more irritated than the silence group who did the identical task.
 
-^1^If you are a fan, friend, or relative of, or more importantly a lawyer for, Ed Sheeran, please note that this is not a real study. Furthermore, I am sure Ed Sheeran is a very nice person and I would delight in his company. This is merely a bit of humour. 
+But there's a limit to what even that comparison can tell us. All I've actually shown is that background music of *some* kind moves irritation more than no music at all — I haven't shown there's anything special about *Christmas* music specifically, as opposed to background music in general. The design as it stands can't separate "background music is irritating" from "Christmas music in particular is irritating," because silence is the only comparison group I have. That's a real limitation, not a minor caveat, and it's exactly the question the next chapter picks up, with a third group added to settle it.

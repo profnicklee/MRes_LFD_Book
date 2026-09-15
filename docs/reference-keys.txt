@@ -22,8 +22,9 @@ bootstrapping-the-original-sample
 bootstrapping-other-stuff
 correlations
 t-test
-independent-sample-t-tests
-paired-sample-t-tests
+the-christmas-music-study
+independent-samples-t-test
+paired-sample-t-test
 probability
 simulating-coin-flips
 premier-league-goals-and-the-poisson-distribution
