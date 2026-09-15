@@ -35,13 +35,7 @@ However, it's worth noting that the results depend on a number of assumptions ab
 First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.
 
 ```{r}
-#NEXT TWO LINES ARE CORRECT ELEGANT WAFFLE CODE, NOT USED IF WAFFLE PACKAGE NOT INSTALLED. IF WAFFLE BECOMES AVAILABLE REINSTATE THEM AND REMOVE UGLY BASE R VERSION BELOW
-#x <- c(Hypotheses=100)
-#waffle::waffle(x, colors=c("lightgrey"))
-#DO NOT UNCOMMENT BELOW LINE EVEN IF USING WAFFLE CODE
-#waffle::waffle(c(40, 60), colors=c("blue", "lightgrey")) + guides(fill=FALSE)
-
-#UGLY BASE R CODE BELOW. Note that this is not fully thought through and may contain unnecessary code, i was rushing to solve the waffle problem that was dumped on me. Code taken from https://stats.stackexchange.com/q/143424 and modified by me
+#UGLY BASE R CODE BELOW. Note that this is not fully thought through and may contain unnecessary code. Code taken from https://stats.stackexchange.com/q/143424 and modified by me
 waffle <- function(x, rows, cols = seq_along(x), ...) {
   xx <- rep(cols, times = x)
   lx <- length(xx)
@@ -77,14 +71,7 @@ You might wonder how we could reduce the chances of false positive to zero. You 
 Moving on, let's visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.
 
 ```{r}
-#NEXT THREE LINES ARE CORRECT ELEGANT WAFFLE CODE, NOT USED IF WAFFLE PACKAGE NOT INSTALLED. IF WAFFLE BECOMES AVAILABLE REINSTATE THEM AND REMOVE UGLY BASE R VERSION BELOW. 
-#Do NOT uncomment second line even if go back to waffle.
-#x <- c(False_Pos.=5, True_Neg.=95)
-#waffle::waffle(x, colors=c("lightgrey"))
-#waffle(x, colors=c("red", "lightgrey")) #+ guides(fill=FALSE)
-
-
-#UGLY BASE R CODE BELOW. Note that this is not fully thought through and may contain unnecessary code, i was rushing to solve the waffle problem that was dumped on me. Code taken from https://stats.stackexchange.com/q/143424 and modified by me
+#UGLY BASE R CODE BELOW. Note that this is not fully thought through and may contain unnecessary code. Code taken from https://stats.stackexchange.com/q/143424 and modified by me
 waffle <- function(x, rows, cols = seq_along(x), ...) {
   xx <- rep(cols, times = x)
   lx <- length(xx)
@@ -179,10 +166,8 @@ Here, we can plot the p-values (2-tailed), and again we see that two seasons see
 ```{r}
 #visualize the z values simply with control lines
 U <- 0.05
-#L <- -1.96
 p <- ggplot(EPLP, aes(x=Season, y=p2)) + geom_point() +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Country")
 p <- p+ geom_hline(aes(yintercept=U))
-#p <- p+ geom_hline(aes(yintercept=L))
 p
 
 ```
@@ -212,10 +197,8 @@ Let's see what happens with this new critical p value:
 ```{r}
 #visualize the z values simply with control lines
 U <- 0.0019
-#L <- -1.96
 p <- ggplot(EPLP, aes(x=Season, y=p2)) + geom_point() +theme(axis.text.x = element_text(angle = 90))+scale_x_discrete(name="Country")
 p <- p+ geom_hline(aes(yintercept=U))
-#p <- p+ geom_hline(aes(yintercept=L))
 p
 
 ```

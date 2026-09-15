@@ -52,13 +52,10 @@ Either way, all we have here is a basic data display. While, as I showed previou
 What we want to do, is have some sort of objective **metric** for the relationship, and for this, we have the **correlation** statistic.
 
 ```{r}
-Assoc1 <- cor.test(Happy$Happiness, Happy$GDPpc, 
+Assoc1 <- cor.test(Happy$Happiness, Happy$GDPpc,
                     method = "pearson")
 
-#Assoc2 <- cor.test(Happy$Happiness, Happy$GDPpc_log, 
-  #                  method = "pearson")
 Assoc1
-#Assoc2
 
 ```
 
