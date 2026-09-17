@@ -256,7 +256,7 @@ Reverse causation is a different failure with the same symptom. Maybe training d
 
 Selection bias adds a third route in. If the training course is optional, who actually chooses to do it? Often the people who feel they need it — not the stars. If untrained salespeople outperform the trained group on average, an easy but wrong conclusion is "training makes people worse." The real explanation is that the people who opted in started from a lower baseline; training might have helped every one of them, and you'd never see it, because the comparison was never fair to begin with.
 
-Here's the same idea made visual: three simulated datasets, one per mechanism above, each built to produce a similar-looking negative relationship between training score and sales performance — similar strength, similar slope, similar spread.
+Here's the same idea made visual: three simulated datasets, one per mechanism above, each built to produce a similar-looking negative relationship between training score and sales performance — similar strength, similar slope. The spread is a different story, and deliberately so.
 
 ```{r}
 set.seed(34)
@@ -288,11 +288,11 @@ Endog_df$Mechanism <- factor(Endog_df$Mechanism,
 
 ggplot(Endog_df, aes(Training, Sales)) +
   geom_point() +
-  facet_wrap(~ Mechanism, scales = "free") +
+  facet_wrap(~ Mechanism, scales = "fixed") +
   labs(x = "Training score", y = "Sales performance")
 ```
 
-If I hadn't labelled the panels above, you wouldn't be able to tell them apart — and that's exactly the point. Three entirely different mechanisms — an omitted variable driving both sides, an arrow running the wrong direction, a systematically unrepresentative sample — and all three produce the identical statistical symptom: your independent variable ends up tangled up with the very thing you're trying to explain, the error term. That symptom has a name — endogeneity — and it's the word you'll meet most often if you go on to read empirical papers seriously. It doesn't tell you which of the three is happening. It just tells you that something is, and that the confident arrow you drew earlier might not be pointing the way you think.
+Confounding and reverse causation really are that hard to tell apart — same strength, same slope, same scatter. Selection bias gives itself away a little: the third panel is visibly tighter, because restricting the sample to whoever clears a bar doesn't just distort the relationship, it shrinks the range of data you ever get to see in the first place. That's a genuine signature of selection effects, not a plotting artefact — though spotting it still depends on already suspecting where to look. Three entirely different mechanisms — an omitted variable driving both sides, an arrow running the wrong direction, a systematically unrepresentative sample — and all three produce the identical statistical symptom: your independent variable ends up tangled up with the very thing you're trying to explain, the error term. That symptom has a name — endogeneity — and it's the word you'll meet most often if you go on to read empirical papers seriously. It doesn't tell you which of the three is happening. It just tells you that something is, and that the confident arrow you drew earlier might not be pointing the way you think.
 
 ## Randomisation
 
