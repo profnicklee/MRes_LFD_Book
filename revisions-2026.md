@@ -335,19 +335,23 @@ Prompted by 2.8. The book links out to footballhistory.org, premierleague.com, R
 
 Start only once Priorities 0 to 5 are complete and merged. This is the highest-value single addition available and the smallest of the three uncovered-lecture items. If the revision runs short of time, it is the one to keep.
 
-## 6.1 Why the book doesn't cover Lectures 1 and 4
+## 6.1 Why the book didn't originally cover Lectures 1 and 4
 
-Lecture 1 ("Facts and Feelings") and Lecture 4 ("What is a Cause and How do you Know?") are the module's conceptual lectures. Nick says explicitly in Lecture 4 that it is "the last lesson where we don't really talk about any actual analysis". `index.Rmd` tells students the book does not cover them.
+Lecture 1 ("Facts and Feelings") and Lecture 4 ("What is a Cause and How do you Know?") are the module's conceptual lectures. Nick says explicitly in Lecture 4 that it is "the last lesson where we don't really talk about any actual analysis". `index.Rmd` tells students that chapter numbers don't map onto lecture numbers, since not every lecture has quantitative content — which was, at the time, true of both Lecture 1 and Lecture 4.
 
-That framing is correct for the lectures. It is not a reason for the *book* to stay silent, because both lectures contain material that demonstrates far better than it argues.
+That framing was correct for the lectures. It was never a reason for the *book* to stay silent, because both lectures contain material that demonstrates far better than it argues. Lecture 4 no longer goes uncovered — see the reversal in 6.2 below. Lecture 1 remains deferred; see 7.1.
 
-## 6.2 The renumbering constraint — applies to everything in Parts Two and Three
+## 6.2 The renumbering constraint — REVERSED, see below
 
 Lecture 4 sits between Lecture 3 (Ch 3) and Lecture 5 (Ch 4). A new chapter file for it would render as Chapter 4 and push every later chapter down one, invalidating every slide and spoken reference from Lecture 5 onwards. The same applies to any new chapter for Lecture 1 material.
 
-**Therefore: add sections to existing chapters. Do not create new chapter files.** This gets the content in with no disruption to numbering. Do not revisit this decision without checking it with Nick first.
+~~**Therefore: add sections to existing chapters. Do not create new chapter files.** This gets the content in with no disruption to numbering. Do not revisit this decision without checking it with Nick first.~~
+
+**Reversed (2026-09-17).** Nick has accepted the renumbering cascade this causes and is updating slide-deck references separately, week by week — not part of the book work. Lecture 4 now gets its own chapter, `03-causation.Rmd` (renders as Ch 4, label `{#causation}`), inserted between `02-Distributions.rmd` and the chapter formerly known as `03-assoc_rel.Rmd`. Every file from there onward shifted its numeric prefix up by one (`03-assoc_rel.Rmd` → `04-assoc_rel.Rmd`, and so on through the old `12-references.Rmd` → `13-references.Rmd`); see the updated table in `CLAUDE.md`. The confounding and selection-bias demonstrations specified in 6.3 below moved into the new chapter rather than staying in the correlation chapter — see 6.3's completion note.
 
 ## 6.3 Demonstrate confounding and selection bias — `03-assoc_rel.Rmd` (Ch 4)
+
+**Completed, then superseded (2026-09-17).** This was actioned first inside `03-assoc_rel.Rmd` per the original "no new chapter files" constraint. Once 6.2 was reversed, that content (all four simulations, both citations) moved into the new standalone causation chapter instead, alongside substantial new material (the Cornfield/Fisher smoking case, the Hurricane Sandy self-selection example, and an endogeneity section tying confounding, reverse causation, and selection bias together). The spec below is kept for the historical reasoning — the *content* now lives in `03-causation.Rmd` (Ch 4, label `{#causation}`), not in the correlation chapter, which has reverted to just correlation content plus a one-line callback to the causation chapter.
 
 **Why this one.** Three reasons, in order of weight.
 
