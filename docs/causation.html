@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Causation | WBS MRes: Learning From Data</title>
+  <meta name="description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Causation | WBS MRes: Learning From Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
+  <meta name="github-repo" content="profnicklee/MRes_LFD_Book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Causation | WBS MRes: Learning From Data" />
+  
+  <meta name="twitter:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
+  
+
+<meta name="author" content="Professor Nick Lee" />
+
+
+<meta name="date" content="2026-09-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="norm-dist.html"/>
+<link rel="next" href="assoc-rel.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">WBS MRes: Learning From Data</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.1</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.2</b> Box Plots</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.3</b> Violin Plots and Ridge Plots</a></li>
+<li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.4</b> Transformations</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="norm-dist.html"><a href="norm-dist.html"><i class="fa fa-check"></i><b>3</b> The Normal Distribution</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="norm-dist.html"><a href="norm-dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
+<li class="chapter" data-level="3.2" data-path="norm-dist.html"><a href="norm-dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="causation.html"><a href="causation.html"><i class="fa fa-check"></i><b>4</b> Causation</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="causation.html"><a href="causation.html#confounding"><i class="fa fa-check"></i><b>4.1</b> Confounding</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="causation.html"><a href="causation.html#the-cornfield-test"><i class="fa fa-check"></i><b>4.1.1</b> The Cornfield Test</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="causation.html"><a href="causation.html#selection-bias"><i class="fa fa-check"></i><b>4.2</b> Selection Bias</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="causation.html"><a href="causation.html#all-the-data-isnt-all-the-data"><i class="fa fa-check"></i><b>4.2.1</b> All the Data Isn’t All the Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
+<li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#randomisation"><i class="fa fa-check"></i><b>4.4</b> Randomisation</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>5.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="5.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>5.3</b> Regression</a></li>
+<li class="chapter" data-level="5.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>5.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualizing Multiple Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>6</b> Beginning to Understand Uncertainty</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>6.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>7</b> Introduction to Bootstrapping</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>7.1</b> Bootstrapping in the Context of Previous Examples</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-the-original-sample"><i class="fa fa-check"></i><b>7.1.1</b> Bootstrapping the Original Sample</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>7.2</b> Bootstrapping Other Stuff…</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>7.2.1</b> Correlations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>8</b> T-Tests for Means</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>8.1</b> The Christmas Music Study</a></li>
+<li class="chapter" data-level="8.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>8.2</b> Independent-Samples T-Test</a></li>
+<li class="chapter" data-level="8.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired-Sample T-test</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>9</b> Introduction to Probability</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>9.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="9.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>9.2</b> Premier League Goals and the Poisson Distribution</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>9.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="9.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>9.2.2</b> 2024 Update</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>10</b> Introduction to Statistics</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>10.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="10.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>10.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="10.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>10.3</b> Rate of Change in Football Goals per Season</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>11</b> Classical Statistical Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="H-testing.html"><a href="H-testing.html#salary-ztest"><i class="fa fa-check"></i><b>11.1</b> Testing a Real Hypothesis: Are WBS PhD Salaries Different?</a></li>
+<li class="chapter" data-level="11.2" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>11.2</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="11.3" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>11.3</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="11.4" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>11.4</b> Regression Significance Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>12</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>12.1</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>13</b> Issues with Significance Testing</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>13.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="13.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>13.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="13.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>13.3</b> Statistical Power: Brief Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">WBS MRes: Learning From Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="causation" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Causation<a href="causation.html#causation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This chapter supplements the content in Lecture 4.</p>
+<p>Every chapter so far has been building toward a question this one finally asks directly: when two things move together, what would it actually take to say one <em>causes</em> the other?</p>
+<p>Start with a claim you’ll meet constantly once you leave this course: a company runs a sales-training programme, and afterwards, salespeople who scored higher on the training assessment also post higher sales numbers. Training works — right?</p>
+<p>Maybe. But notice what that claim is doing. It’s drawing an arrow: training score → sales performance. One thing causing another. And the honest first question about any arrow like that isn’t “is the correlation strong enough?” — it’s “what’s actually at the other end of it, and is anything else pointing in?”</p>
+<p>Here’s a trick worth keeping, because you’ll use it constantly from here on: a variable is <em>endogenous</em> if something else in your explanation points into it — if it’s being explained. It’s <em>exogenous</em> if nothing is — if it’s just a starting point you’re taking as given. The easiest way to remember which is which: the end of an <em>arrow</em> points <em>into</em> the <em>endo</em>genous variable. Genuinely came up with that myself, and no one else has ever found it as satisfying as I do, but it’s yours now too.</p>
+<p>In the training example, sales performance is what we’re trying to explain — arrow pointing in, endogenous. Training score is what we’re using to explain it. But is training score really where the story starts? Or is something else pointing into <em>that</em> too — something that also has its own arrow running straight to sales performance, independent of training altogether?</p>
+<p>That’s the whole problem this chapter is about. Not “is there a correlation” — you already know how to check that — but “have I actually found the arrow I think I’ve found, or have I mistaken two effects of the same cause for one thing causing the other?” Sometimes the honest answer is genuinely hard to reach. Occasionally, someone reaches it anyway, against a famous opponent, with nothing but the strength of the argument. That’s where we’ll start.</p>
+<div id="confounding" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Confounding<a href="causation.html#confounding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="the-cornfield-test" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> The Cornfield Test<a href="causation.html#the-cornfield-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By the late 1950s, the evidence linking smoking to lung cancer was overwhelming in one specific sense: smokers were getting lung cancer at roughly nine times the rate of non-smokers. Not a modest bump — ninefold.</p>
+<p>And yet Ronald Fisher — one of the most important statisticians who ever lived, a genuine giant of the field — spent his final years arguing, in print, that this proved nothing about causation. His alternative: some unmeasured genetic factor might make a person both more likely to smoke <em>and</em> more likely to develop lung cancer. No causal arrow between smoking and cancer at all — just two effects of the same hidden cause. Fisher wasn’t a crank. He was applying a rule this whole chapter is going to keep insisting on: correlation isn’t causation, and a third variable can produce exactly this pattern. He was right that it <em>could</em>.</p>
+<p>Jerome Cornfield’s answer wasn’t to argue Fisher’s logic was wrong — it wasn’t — but to ask a sharper question: <em>how big would this hidden factor have to be?</em> For a confounder to fully explain away a ninefold relationship, it isn’t enough for it to be loosely associated with smoking and loosely associated with cancer. It has to be at least as strongly tied to smoking as smoking is to cancer, <em>and</em> at least as strongly tied to cancer as smoking is to cancer. Both bars, not one.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-40-1.png" alt="" width="672" /></p>
+<p>Below and to the left of both dashed lines, a candidate confounder simply can’t do the job — it isn’t strongly enough tied to <em>both</em> smoking and cancer to produce a ninefold relationship on its own. Above and to the right of both, it isn’t mathematically ruled out — but now you have to actually name a real factor that’s this strongly linked to becoming a smoker <em>and</em> this strongly linked to cancer, independently of smoking itself. Genetics that strong? Diet? Something else entirely? The point isn’t that clearing both bars is impossible. It’s that nobody, in over sixty years, has ever produced a real candidate that gets close.</p>
+<p>Nobody has ever found that factor. Fisher never named one. The argument didn’t kill the possibility of confounding — it just showed exactly what confounding would need to look like, and let the silence answer the rest.</p>
+</div>
+</div>
+<div id="selection-bias" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Selection Bias<a href="causation.html#selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="all-the-data-isnt-all-the-data" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> All the Data Isn’t All the Data<a href="causation.html#all-the-data-isnt-all-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here’s the plainest version, and it happened in this room. If I ask everyone here a question — say, how satisfied are you with the course so far — and I use your answers to draw a conclusion about the whole cohort, I’ve made an error before I’ve even started analysing anything. You didn’t choose to be in this sample by accident. You chose to come to this specific class, at this specific time, which makes you systematically different from the people who didn’t. Maybe more conscientious. Maybe just better at reading a timetable. Either way, whatever I conclude from this room doesn’t automatically generalise to everyone I’m claiming to describe.</p>
+<p>That much is intuitive once it’s pointed out — nobody’s surprised that a self-selected sample is biased. What catches people out is the belief that this problem goes away once you stop sampling and start using “all the data.” A lot of big-data enthusiasm rests on exactly that idea: no sample, no sampling bias, done.</p>
+<p>Here’s why I don’t buy it. A 2013 study analysed millions of geotagged Twitter and Foursquare posts to track real-world activity through Hurricane Sandy — genuinely all the check-in data available, not a survey, not a sample. Their headline finding: a spike in nightlife check-ins right after the storm passed, which they read as people celebrating having made it through. Taken at face value, that’s a nice, tidy story, and the paper reports it as evidence their method was picking up something real.</p>
+<p>Read it a little more suspiciously, though, and a different story is sitting right there in the same dataset. Check-in activity — on both platforms — comes overwhelmingly from wherever population density and phone connectivity are highest. During Sandy, that wasn’t evenly distributed across New York at all: swathes of Lower Manhattan lost power outright, but Midtown and Upper Manhattan largely didn’t, while the outer boroughs and the Long Island shoreline — hit hardest by flooding and the longest power outages — simply went dark and stopped generating data almost entirely. “All the data” quietly became “all the data from the people whose phones still worked,” and the people whose phones still worked were disproportionately the ones for whom Sandy had been the least disruptive. A “celebration” spike and “the sample skewed toward people having a comparatively normal night” would look identical in a dataset built this way — and only one of those explanations was on the table.</p>
+<p>To be clear, this isn’t the original researchers admitting to a mistake — they don’t raise the geography question themselves, and their finding is entirely honest as reported. It’s what happens when you take a real published result and ask, on your own, who actually generated this data and whether that’s the population the conclusion is really about. That’s a habit worth having with everything you read, not just this one paper.</p>
+<p>That’s selection bias without anyone choosing anything, in the ordinary sense — nobody self-selected into being a well-connected New Yorker with power that night. The selection happened in how the data was collected, not in who volunteered. It’s the same underlying problem wearing a different disguise, and it’s the reason “we have all the data” is a claim worth being suspicious of rather than reassured by.</p>
+</div>
+</div>
+<div id="endogeneity" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Endogeneity<a href="causation.html#endogeneity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Here’s a useful way to see all three of these threats side by side, because they don’t compete with each other — the same study can be hit by more than one at once, and they often travel together in the same variable pair.</p>
+<p>Go back to the sales-training question this chapter opened with: does a training course actually improve sales performance?</p>
+<p>Confounding, you’ve already watched at work. Smarter people tend to do better both on training assessments and in actual sales. Leave intelligence unmeasured, and part of what looks like “training works” is really “smart people are good at everything” — an arrow pointing into both variables from somewhere you never accounted for.</p>
+<p>Reverse causation is a different failure with the same symptom. Maybe training doesn’t cause sales performance at all — maybe sales performance causes how seriously someone takes training. A salesperson who’s already succeeding has no urgency to engage with a mandatory course; someone who’s struggling might throw themselves into it, hoping it turns things around. If that’s what’s happening, the arrow runs backwards from what the study assumed.</p>
+<p>Selection bias adds a third route in. If the training course is optional, who actually chooses to do it? Often the people who feel they need it — not the stars. If untrained salespeople outperform the trained group on average, an easy but wrong conclusion is “training makes people worse.” The real explanation is that the people who opted in started from a lower baseline; training might have helped every one of them, and you’d never see it, because the comparison was never fair to begin with.</p>
+<p>Three entirely different mechanisms — an omitted variable driving both sides, an arrow running the wrong direction, a systematically unrepresentative sample — and all three produce the identical statistical symptom: your independent variable ends up tangled up with the very thing you’re trying to explain, the error term. That symptom has a name — endogeneity — and it’s the word you’ll meet most often if you go on to read empirical papers seriously. It doesn’t tell you which of the three is happening. It just tells you that something is, and that the confident arrow you drew earlier might not be pointing the way you think.</p>
+</div>
+<div id="randomisation" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Randomisation<a href="causation.html#randomisation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So confounding, reverse causation, and selection bias share something important: all three can manufacture a relationship — or hide one — without you doing anything wrong with your statistics. The correlation you calculate is correct. It’s the story you tell about why it’s there that goes wrong.</p>
+<p>There’s one design choice that neutralises confounding before you ever reach the analysis stage: randomisation. If who receives a treatment is decided by something like a coin flip, rather than by any pre-existing characteristic, then every confounder — measured or not, thought of or not — ends up, on average, equally represented on both sides of the comparison. Randomisation doesn’t remove confounders. It makes them irrelevant, because they can no longer line up systematically with which group you’re in.</p>
+<p>Hold onto that idea. A few chapters from now, you’ll meet a two-study design built around exactly this problem — and you’ll be equipped to see why the second study’s fix actually works before the book explains it.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="norm-dist.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assoc-rel.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/profnicklee/MRes_LFD_Book/edit/main/03-causation.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["LFD.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

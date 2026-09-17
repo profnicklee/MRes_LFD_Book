@@ -1,4 +1,4 @@
-tab:unnamed-chunk-94
+tab:unnamed-chunk-91
 introduction-and-orientation
 intro
 summarizing-data-with-numbers
@@ -8,12 +8,16 @@ transformations
 norm-dist
 a-simple-demonstration-of-the-normal-distribution
 what-actually-is-a-normal-distribution
+causation
+confounding
+the-cornfield-test
+selection-bias
+all-the-data-isnt-all-the-data
+endogeneity
+randomisation
 assoc-rel
 correlations-and-associations
 introducing-nonlinear-associations
-confounding
-selection-bias
-randomisation
 regression
 multiple-regression
 visualizing-multiple-regression

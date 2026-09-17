@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Associations and Relationships | WBS MRes: Learning From Data</title>
+  <title>Chapter 5 Associations and Relationships | WBS MRes: Learning From Data</title>
   <meta name="description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Associations and Relationships | WBS MRes: Learning From Data" />
+  <meta property="og:title" content="Chapter 5 Associations and Relationships | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   <meta name="github-repo" content="profnicklee/MRes_LFD_Book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Associations and Relationships | WBS MRes: Learning From Data" />
+  <meta name="twitter:title" content="Chapter 5 Associations and Relationships | WBS MRes: Learning From Data" />
   
   <meta name="twitter:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="norm-dist.html"/>
+<link rel="prev" href="causation.html"/>
 <link rel="next" href="uncertainty.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -154,69 +154,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.1" data-path="norm-dist.html"><a href="norm-dist.html#a-simple-demonstration-of-the-normal-distribution"><i class="fa fa-check"></i><b>3.1</b> A Simple Demonstration of the Normal Distribution</a></li>
 <li class="chapter" data-level="3.2" data-path="norm-dist.html"><a href="norm-dist.html#what-actually-is-a-normal-distribution"><i class="fa fa-check"></i><b>3.2</b> What Actually is a Normal Distribution?</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>4</b> Associations and Relationships</a>
+<li class="chapter" data-level="4" data-path="causation.html"><a href="causation.html"><i class="fa fa-check"></i><b>4</b> Causation</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>4.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="4.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>4.2</b> Introducing Nonlinear Associations</a></li>
-<li class="chapter" data-level="4.3" data-path="assoc-rel.html"><a href="assoc-rel.html#confounding"><i class="fa fa-check"></i><b>4.3</b> Confounding</a></li>
-<li class="chapter" data-level="4.4" data-path="assoc-rel.html"><a href="assoc-rel.html#selection-bias"><i class="fa fa-check"></i><b>4.4</b> Selection Bias</a></li>
-<li class="chapter" data-level="4.5" data-path="assoc-rel.html"><a href="assoc-rel.html#randomisation"><i class="fa fa-check"></i><b>4.5</b> Randomisation</a></li>
-<li class="chapter" data-level="4.6" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>4.6</b> Regression</a></li>
-<li class="chapter" data-level="4.7" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>4.7</b> Multiple Regression</a></li>
-<li class="chapter" data-level="4.8" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>4.8</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="4.1" data-path="causation.html"><a href="causation.html#confounding"><i class="fa fa-check"></i><b>4.1</b> Confounding</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="causation.html"><a href="causation.html#the-cornfield-test"><i class="fa fa-check"></i><b>4.1.1</b> The Cornfield Test</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>5</b> Beginning to Understand Uncertainty</a>
+<li class="chapter" data-level="4.2" data-path="causation.html"><a href="causation.html#selection-bias"><i class="fa fa-check"></i><b>4.2</b> Selection Bias</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>5.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
+<li class="chapter" data-level="4.2.1" data-path="causation.html"><a href="causation.html#all-the-data-isnt-all-the-data"><i class="fa fa-check"></i><b>4.2.1</b> All the Data Isn’t All the Data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>6</b> Introduction to Bootstrapping</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>6.1</b> Bootstrapping in the Context of Previous Examples</a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-the-original-sample"><i class="fa fa-check"></i><b>6.1.1</b> Bootstrapping the Original Sample</a></li>
+<li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
+<li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#randomisation"><i class="fa fa-check"></i><b>4.4</b> Randomisation</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>6.2</b> Bootstrapping Other Stuff…</a>
+<li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>6.2.1</b> Correlations</a></li>
+<li class="chapter" data-level="5.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>5.1</b> Correlations and Associations</a></li>
+<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="5.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>5.3</b> Regression</a></li>
+<li class="chapter" data-level="5.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>5.4</b> Multiple Regression</a></li>
+<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualizing Multiple Regression</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="uncertainty.html"><a href="uncertainty.html"><i class="fa fa-check"></i><b>6</b> Beginning to Understand Uncertainty</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="uncertainty.html"><a href="uncertainty.html#demonstration-sampling-from-a-known-population"><i class="fa fa-check"></i><b>6.1</b> Demonstration: Sampling from a ‘Known’ Population</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>7</b> T-Tests for Means</a>
+<li class="chapter" data-level="7" data-path="bootstrap.html"><a href="bootstrap.html"><i class="fa fa-check"></i><b>7</b> Introduction to Bootstrapping</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>7.1</b> The Christmas Music Study</a></li>
-<li class="chapter" data-level="7.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>7.2</b> Independent-Samples T-Test</a></li>
-<li class="chapter" data-level="7.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>7.3</b> Paired-Sample T-test</a></li>
+<li class="chapter" data-level="7.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-in-the-context-of-previous-examples"><i class="fa fa-check"></i><b>7.1</b> Bootstrapping in the Context of Previous Examples</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-the-original-sample"><i class="fa fa-check"></i><b>7.1.1</b> Bootstrapping the Original Sample</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>8</b> Introduction to Probability</a>
+<li class="chapter" data-level="7.2" data-path="bootstrap.html"><a href="bootstrap.html#bootstrapping-other-stuff"><i class="fa fa-check"></i><b>7.2</b> Bootstrapping Other Stuff…</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>8.1</b> Simulating Coin Flips</a></li>
-<li class="chapter" data-level="8.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>8.2</b> Premier League Goals and the Poisson Distribution</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>8.2.1</b> 2023 Update</a></li>
-<li class="chapter" data-level="8.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>8.2.2</b> 2024 Update</a></li>
+<li class="chapter" data-level="7.2.1" data-path="bootstrap.html"><a href="bootstrap.html#correlations"><i class="fa fa-check"></i><b>7.2.1</b> Correlations</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>9</b> Introduction to Statistics</a>
+<li class="chapter" data-level="8" data-path="t-test.html"><a href="t-test.html"><i class="fa fa-check"></i><b>8</b> T-Tests for Means</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>9.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
-<li class="chapter" data-level="9.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>9.2</b> Demonstrating Confidence Intervals</a></li>
-<li class="chapter" data-level="9.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>9.3</b> Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="8.1" data-path="t-test.html"><a href="t-test.html#the-christmas-music-study"><i class="fa fa-check"></i><b>8.1</b> The Christmas Music Study</a></li>
+<li class="chapter" data-level="8.2" data-path="t-test.html"><a href="t-test.html#independent-samples-t-test"><i class="fa fa-check"></i><b>8.2</b> Independent-Samples T-Test</a></li>
+<li class="chapter" data-level="8.3" data-path="t-test.html"><a href="t-test.html#paired-sample-t-test"><i class="fa fa-check"></i><b>8.3</b> Paired-Sample T-test</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>10</b> Classical Statistical Hypothesis Testing</a>
+<li class="chapter" data-level="9" data-path="probability.html"><a href="probability.html"><i class="fa fa-check"></i><b>9</b> Introduction to Probability</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="H-testing.html"><a href="H-testing.html#salary-ztest"><i class="fa fa-check"></i><b>10.1</b> Testing a Real Hypothesis: Are WBS PhD Salaries Different?</a></li>
-<li class="chapter" data-level="10.2" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>10.2</b> Premier League Goals and the Poisson Distribution</a></li>
-<li class="chapter" data-level="10.3" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>10.3</b> Correlation Significance Tests</a></li>
-<li class="chapter" data-level="10.4" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>10.4</b> Regression Significance Tests</a></li>
+<li class="chapter" data-level="9.1" data-path="probability.html"><a href="probability.html#simulating-coin-flips"><i class="fa fa-check"></i><b>9.1</b> Simulating Coin Flips</a></li>
+<li class="chapter" data-level="9.2" data-path="probability.html"><a href="probability.html#premier-league-goals-and-the-poisson-distribution"><i class="fa fa-check"></i><b>9.2</b> Premier League Goals and the Poisson Distribution</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="probability.html"><a href="probability.html#update"><i class="fa fa-check"></i><b>9.2.1</b> 2023 Update</a></li>
+<li class="chapter" data-level="9.2.2" data-path="probability.html"><a href="probability.html#update-1"><i class="fa fa-check"></i><b>9.2.2</b> 2024 Update</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>11</b> ANOVA</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>11.1</b> Post-Hoc Testing</a></li>
 </ul></li>
-<li class="chapter" data-level="12" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>12</b> Issues with Significance Testing</a>
+<li class="chapter" data-level="10" data-path="statistics.html"><a href="statistics.html"><i class="fa fa-check"></i><b>10</b> Introduction to Statistics</a>
 <ul>
-<li class="chapter" data-level="12.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>12.1</b> More on the Multiple Comparisons Problem</a></li>
-<li class="chapter" data-level="12.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>12.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
-<li class="chapter" data-level="12.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>12.3</b> Statistical Power: Brief Demonstration</a></li>
+<li class="chapter" data-level="10.1" data-path="statistics.html"><a href="statistics.html#the-distribution-of-sample-means-and-the-central-limit-theorem"><i class="fa fa-check"></i><b>10.1</b> The Distribution of Sample Means, and the Central Limit Theorem</a></li>
+<li class="chapter" data-level="10.2" data-path="statistics.html"><a href="statistics.html#conf"><i class="fa fa-check"></i><b>10.2</b> Demonstrating Confidence Intervals</a></li>
+<li class="chapter" data-level="10.3" data-path="statistics.html"><a href="statistics.html#rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>10.3</b> Rate of Change in Football Goals per Season</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="H-testing.html"><a href="H-testing.html"><i class="fa fa-check"></i><b>11</b> Classical Statistical Hypothesis Testing</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="H-testing.html"><a href="H-testing.html#salary-ztest"><i class="fa fa-check"></i><b>11.1</b> Testing a Real Hypothesis: Are WBS PhD Salaries Different?</a></li>
+<li class="chapter" data-level="11.2" data-path="H-testing.html"><a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1"><i class="fa fa-check"></i><b>11.2</b> Premier League Goals and the Poisson Distribution</a></li>
+<li class="chapter" data-level="11.3" data-path="H-testing.html"><a href="H-testing.html#correlation-significance-tests"><i class="fa fa-check"></i><b>11.3</b> Correlation Significance Tests</a></li>
+<li class="chapter" data-level="11.4" data-path="H-testing.html"><a href="H-testing.html#regression-significance-tests"><i class="fa fa-check"></i><b>11.4</b> Regression Significance Tests</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ANOVA.html"><a href="ANOVA.html"><i class="fa fa-check"></i><b>12</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ANOVA.html"><a href="ANOVA.html#post-hoc-testing"><i class="fa fa-check"></i><b>12.1</b> Post-Hoc Testing</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="Issues.html"><a href="Issues.html"><i class="fa fa-check"></i><b>13</b> Issues with Significance Testing</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>13.1</b> More on the Multiple Comparisons Problem</a></li>
+<li class="chapter" data-level="13.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>13.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
+<li class="chapter" data-level="13.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>13.3</b> Statistical Power: Brief Demonstration</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -239,11 +249,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="assoc-rel" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Associations and Relationships<a href="assoc-rel.html#assoc-rel" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="assoc-rel" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Associations and Relationships<a href="assoc-rel.html#assoc-rel" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This chapter supplements the content in Lecture 5.</p>
-<div id="correlations-and-associations" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Correlations and Associations<a href="assoc-rel.html#correlations-and-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="correlations-and-associations" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Correlations and Associations<a href="assoc-rel.html#correlations-and-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data.</p>
 <p>You can explore their work here: <a href="https://ourworldindata.org/" class="uri">https://ourworldindata.org/</a></p>
 <p>First, I can just double check the data by describing it. <code>describe()</code> is what I’ll reach for throughout the book whenever I’m looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.</p>
@@ -259,11 +269,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Pop       809.0 4.663087e+09 4.663086e+09 11.65   152.44 21333379.77</code></pre>
 <p>We’ve got 249 countries, with population, GDP per capita, and Happiness. There’s a fair bit of missing data, which you can see by looking at the numbers in the <em>n</em> column. That’s ok for now, as long as we are aware of it.</p>
 <p>Let’s plot this data using a very basic scatterplot.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-42-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-45-1.png" alt="" width="672" /></p>
 <p>Interpretation: there’s seemingly an association here. As one variable increases, the other does too.</p>
 <p>It’s worth noting that I have chosen to put GDPpc on the x-axis, which <em>implies</em> that the driver of Happiness is GDP. This replicates the way that most of the media articles that are regularly written on this kind of topic do it.</p>
-<p>Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis, because it’s important that you do <strong>NOT</strong> draw any causal conclusion from this very basic scatterplot. Simple associations are <em>not</em> in any way conclusive evidence of any causality in the relationship, since there are many other things which could be going on that are impossible to tease out simply with a bivariate association seen on a scatterplot. For example, there could be a spurious relationship - what could cause <em>both</em> happiness and GDPpc to increase?</p>
-<p>Ideas? Could it simply be something like ‘political stability’? Or something else?</p>
+<p>Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis — it’s just a correlation, and Chapter <a href="causation.html#causation">4</a> is where we deal properly with why that’s <em>not</em> the same thing as causation.</p>
 <p>Either way, all we have here is a basic data display. While, as I showed previously, simply displaying data can be very powerful, it is still only essentially an ‘eyeball’ analysis, and different people might draw different conclusions here (we’ll discuss that later on).</p>
 <p>What we want to do, is have some sort of objective <strong>metric</strong> for the relationship, and for this, we have the <strong>correlation</strong> statistic.</p>
 <pre><code>## 
@@ -280,10 +289,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Here, we can see that the correlation is 0.75</p>
 <p>But what does that mean? We can <strong>return to the slides for some explanation</strong>.</p>
 </div>
-<div id="introducing-nonlinear-associations" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Introducing Nonlinear Associations<a href="assoc-rel.html#introducing-nonlinear-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introducing-nonlinear-associations" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Introducing Nonlinear Associations<a href="assoc-rel.html#introducing-nonlinear-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s return to the scatterplot of GDPpc and Happiness</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-44-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-47-1.png" alt="" width="672" /></p>
 <p>As the <em>Economist</em> analysis discussed in the lectures suggests, this association also looks kind of <em>nonlinear</em>.</p>
 <p>However, unlike the <em>Economist</em>, we can also say that there are multiple ways to look at this:</p>
 <p>First, you could take the <em>Economist’s</em> view that this is probably a <strong>nonlinear relationship.</strong> Indeed, we can check this out by <em>transforming</em> GDPpc and comparing the results between transformed and non-transformed data.</p>
@@ -301,8 +310,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Pop       809.00 4.663087e+09 4.663086e+09 11.65   152.44 21333379.77
 ## GDPpc_log   6.59 1.163000e+01 5.040000e+00 -0.25    -0.79        0.08</code></pre>
 <p>We can see there is a new variable now, GDPpc_log, which is the log transformed GDPpc variable - basically the original GDPpc variable multiplied by the natural logarithm.</p>
-<p>Of course, there are many other possible transforms. I touched on them earlier, in Chapter 2, and I’ll elaborate a little more on it below, for now let’s rerun the plot using GDPpc_log</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-46-1.png" alt="" width="672" /></p>
+<p>Of course, there are many other possible transforms. I touched on them earlier, in Chapter <a href="intro.html#intro">2</a>, and I’ll elaborate a little more on it below, for now let’s rerun the plot using GDPpc_log</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-49-1.png" alt="" width="672" /></p>
 <p>That relationship definitely looks more linear, and if that was my only criteria for deciding what to do with the data, I would definitely now run with this idea, as the <em>Economist</em> did in their article</p>
 <p>With that in mind, let’s take a quick look at the correlations for these variables. First the original GDPpc, and then the log transformed one.</p>
 <pre><code>## 
@@ -335,63 +344,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Maybe I’ll leave that for another day though.</p>
 <p>We can <strong>return to the slides</strong> for a bit more discussion.</p>
 </div>
-<div id="confounding" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Confounding<a href="assoc-rel.html#confounding" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>You’ve probably met this one already, possibly at a dinner party where someone was showing off. Across US cities, ice cream sales and murder rates rise and fall together — and not weakly, either. Plot one against the other and you’ll get a relationship strong enough that if you’d found it in your own data, you’d be drafting the abstract. This isn’t a made-up example either — Tyler Vigen’s <em>Spurious Correlations</em> project puts the real figure at r = 0.715 across US data from 1990–2021 (<a href="https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates" class="uri">https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates</a>).</p>
-<p>Nobody thinks ice cream causes murder. The obvious culprit is temperature: hot weather means more people buying ice cream, and — for reasons criminologists actually take seriously — more violent crime too. Ice cream and murder never talk to each other. They’re each just reacting to the same third thing.</p>
-<p>That’s a confounder: a variable that causes both of the things you’re looking at, with no arrow running between them at all. And here’s what makes it worth more than a paragraph — we can simulate exactly this, watch the correlation appear, and then watch it disappear.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-48-1.png" alt="" width="672" /></p>
-<pre><code>## [1] 0.7137528</code></pre>
-<p>There’s the strong relationship, and it’s entirely manufactured — neither variable had any effect on the other anywhere in that code. Both were generated purely from <code>Temp</code>, city-months’ average monthly temperature. Now let’s split the sample into cold, mild, and hot months, and look again within each band.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-49-1.png" alt="" width="672" /></p>
-<pre><code>##         Cold         Mild          Hot 
-##  0.053207223 -0.009546515  0.067120654</code></pre>
-<p>Not weakened. Gone. Within each band the correlation is close enough to zero to be noise. Nothing about ice cream or murder changed; we just stopped letting temperature do the confounding.</p>
-<p>Now here’s the version that should worry you more, because it doesn’t come with a punchline built in. Suppose a well-meaning HR department rolls out a wellbeing programme, and a year later, teams that spent more per head on it are visibly more productive. It’s tempting — and I’ve sat in the meeting where someone was tempted — to write the business case right there.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-50-1.png" alt="" width="672" /></p>
-<pre><code>## [1] 0.4463021</code></pre>
-<p>But run the same check first. Departments with bigger budgets can afford <em>both</em> better wellbeing programmes <em>and</em> better everything else: staffing, tools, time.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-51-1.png" alt="" width="672" /></p>
-<pre><code>##          Low          Med         High 
-## -0.006996962  0.046068957 -0.031799717</code></pre>
-<p>Split by department resourcing, and the wellbeing–productivity relationship folds up exactly the way ice cream and murder did.</p>
-<p>The mechanism is identical in both cases. Only the stakes changed.</p>
-</div>
-<div id="selection-bias" class="section level2 hasAnchor" number="4.4">
-<h2><span class="header-section-number">4.4</span> Selection Bias<a href="assoc-rel.html#selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here’s one that should feel more surprising than the last, because there’s no obvious third variable to blame — the surprise is that a relationship shows up <em>at all</em>.</p>
-<p>Take height and basketball skill. Across the general population, these two things are essentially unrelated — being tall doesn’t make you more skilled with a basketball, and being skilled doesn’t make you tall. But look only at NBA players, and you’ll find something odd: among people who’ve actually made the league, height and skill are <em>negatively</em> correlated. The shorter players are, on average, the more skilled ones. Michael Jordan wasn’t tall for an NBA player. Allen Iverson was shorter still. This isn’t a fluke of two famous names — it holds up in the data, and it’s been documented both informally (Nylon Calculus, <a href="https://fansided.com/2017/12/22/nylon-calculus-nba-draft-selection-bias/" class="uri">https://fansided.com/2017/12/22/nylon-calculus-nba-draft-selection-bias/</a>) and in the peer-reviewed literature on NBA draft sampling bias.</p>
-<pre><code>## [1] 0.00365453</code></pre>
-<pre><code>## [1] -0.4462717</code></pre>
-<p>In the pool of 20,000 draft-eligible prospects, height and skill are unrelated, exactly as we built them to be. Select down to the players good enough or tall enough (or both) to clear the bar, though, and a clear negative relationship appears out of nothing.</p>
-<p>Nothing about height or skill changed between “general population” and “NBA players.” What changed is how the sample was built. The NBA doesn’t select on height, and it doesn’t select on skill — it selects on <em>some combination of the two clearing a bar</em>. You can make a roster by being exceptionally tall, or by being exceptionally skilled, but rarely need to be both. Once you only look at the players who cleared that bar, you’re looking at a sample where — among the tall ones, the skill requirement was more negotiable, and among the short ones, it wasn’t. Select on a sum, and you manufacture a relationship between the parts that was never there in the population you drew from.</p>
-<p>Now the version with more at stake. A company hiring for a role screens on some blend of technical skill and cultural fit — nobody demands maximum on both, but the combination has to clear a bar. In the applicant pool at large, skill and fit have nothing to do with each other.</p>
-<pre><code>## [1] 0.04425896</code></pre>
-<pre><code>## [1] -0.6027258</code></pre>
-<p>Among the people who get <em>hired</em>, though, they look negatively related — the highly skilled hires will tend to be the ones who scraped by on fit, and vice versa. If a manager later notices “our most technically brilliant hires are always the awkward ones” and starts wondering whether skill and personality genuinely trade off, they’re not wrong about the pattern — they’re wrong about where it came from.</p>
-</div>
-<div id="randomisation" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> Randomisation<a href="assoc-rel.html#randomisation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>So confounding and selection bias share something important: both can manufacture a relationship — or hide one — without you doing anything wrong with your statistics. The correlation you calculate is correct. It’s the story you tell about why it’s there that goes wrong.</p>
-<p>There’s one design choice that neutralises confounding before you ever reach the analysis stage: randomisation. If who receives a treatment is decided by something like a coin flip, rather than by any pre-existing characteristic, then every confounder — measured or not, thought of or not — ends up, on average, equally represented on both sides of the comparison. Randomisation doesn’t remove confounders. It makes them irrelevant, because they can no longer line up systematically with which group you’re in.</p>
-<p>Hold onto that idea. A few chapters from now, you’ll meet a two-study design built around exactly this problem — and you’ll be equipped to see why the second study’s fix actually works before the book explains it.</p>
-</div>
-<div id="regression" class="section level2 hasAnchor" number="4.6">
-<h2><span class="header-section-number">4.6</span> Regression<a href="assoc-rel.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regression" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Regression<a href="assoc-rel.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We can add a <strong>regression line</strong> to the GDPpc / Happiness scatterplot, for some extra information over the correlation.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-54-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-51-1.png" alt="" width="672" /></p>
 <p>We can also do this with the log GDPpc to compare.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-52-1.png" alt="" width="672" /></p>
 <p>You can see that using the log GDPpc variable does improve things, but not by that much in my view. That said, it’s clear that the line is a bit more ‘precise’ (the errors are lower which can be seen by the narrower shaded regions). So, if we are looking for the ‘best’ model, it’s pretty clear that the log GDPpc model is better than the simple GDPpc model.</p>
 <p>Either way, the regression line adds a layer of information on to the correlation, which allows us to predict <em>y</em> from <em>x</em>.</p>
 <p>How so? Well, let’s add the regression equation to the chart to see:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-53-1.png" alt="" width="672" /></p>
 <p>This adds an <em>intercept</em>, and with that plus the coefficient we have all that we need to plot a straight line, which we can <em>extrapolate</em> to higher values of GDPpc (although remember this is the logged GDP variable) and predict what the happiness scores would be.</p>
 <p>This is obviously viable to the extent we can justify the relationship, and also within the parameters of our variables, and how confident we are that the relationship is consistent at all levels of the variables.</p>
 <p><strong>return to the slides</strong></p>
 </div>
-<div id="multiple-regression" class="section level2 hasAnchor" number="4.7">
-<h2><span class="header-section-number">4.7</span> Multiple Regression<a href="assoc-rel.html#multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="multiple-regression" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Multiple Regression<a href="assoc-rel.html#multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
 <p>Remember, this is <strong>simulated data</strong> not real data.</p>
 <pre><code>##               vars   n   mean     sd median trimmed    mad  min    max  range
@@ -405,9 +373,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## smoking       -0.04    -1.12 0.37
 ## heart.disease -0.03    -0.93 0.20</code></pre>
 <p>Next, let’s run three simple regressions among the three variables</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-58-1.png" alt="" width="672" /></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-59-1.png" alt="" width="672" /></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-60-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-55-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-57-1.png" alt="" width="672" /></p>
 <p>Remember, these are <em>simple</em> regression lines, with bivariate scatterplots. What I mean, is the effect of biking on heart disease does not take account of the effect of smoking on heart disease. What we need to do is run a model which takes account of <em>both</em> the predictors, as <strong>we can explain on the slide-deck…</strong></p>
 <p>Now we can run the Multiple Regression Model</p>
 <pre><code>## 
@@ -471,13 +439,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The correct interpretation of these standardized effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.</p>
 <p>So, we can see that actually biking has a much <strong>higher</strong> relative effect on heart disease than smoking (although in the opposite direction). That said, this assumes that both the two IVs have similar standard deviations, and distributions, and we didn’t check that in this example.</p>
 </div>
-<div id="visualizing-multiple-regression" class="section level2 hasAnchor" number="4.8">
-<h2><span class="header-section-number">4.8</span> Visualizing Multiple Regression<a href="assoc-rel.html#visualizing-multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="visualizing-multiple-regression" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Visualizing Multiple Regression<a href="assoc-rel.html#visualizing-multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are loads of different ways to visualize multiple regression. It’s not trivial, because we have more than two variables, so we can’t use the techniques we used already.</p>
 <p>Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much payoff (if any).</p>
 <p>In this case, we can use a pretty simple visualization, where we could plot the relationship of biking to heart disease at different levels of smoking.</p>
 <p>This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn’t really work that way, but it’s a cool visualization regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-64-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-61-1.png" alt="" width="672" /></p>
 <p>Here, we can see that the effect of smoking is really just to raise the likelihood of heart disease, however much biking you do.</p>
 <p>So, for a given person who bikes a given amount, if they smoke more they will have a higher risk than a person who bikes the same amount but smokes less.</p>
 <p>But, <em>for a given smoker</em>, the more they bike, the lower their risk of heart disease, to the extent that if a heavy smoker bikes enough, their actual risk of heart disease could even be lower than a non-smoker who does not bike at all.</p>
@@ -490,7 +458,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="norm-dist.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="causation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="uncertainty.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
