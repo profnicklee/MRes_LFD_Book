@@ -41,24 +41,32 @@ RR_points <- data.frame(
   Factor    = c("Genetics (CHRNA5)", "Radon exposure", "Asbestos exposure", "Heavy alcohol use"),
   RR_smoke  = c(1.3, 1.0, 1.0, 4.0),
   RR_cancer = c(1.3, 1.55, 1.6, 1.1),
-  label_x   = c(1.3, 0.2, 1.0, 4.0),
-  label_y   = c(3.3, 1.55, -0.6, 2.6),
-  hjust     = c(0.5, 1, 0.5, 0.5)
+  label_x   = c(1.3, 0.2, 1.0, 5.3),
+  label_y   = c(3.6, 1.9, -0.7, 1.6),
+  hjust     = c(0.5, 1, 0.5, 0)
 )
 
 ggplot(RR_grid, aes(RR_smoke, RR_cancer, fill = Verdict)) +
   geom_tile() +
+  geom_vline(xintercept = 1, linetype = "dotted", colour = "grey55", linewidth = 0.4) +
+  geom_hline(yintercept = 1, linetype = "dotted", colour = "grey55", linewidth = 0.4) +
+  annotate("text", x = 1, y = 17.5, label = "RR = 1", angle = 90,
+           vjust = -0.6, size = 2.8, colour = "grey40") +
+  annotate("text", x = 17.5, y = 1, label = "RR = 1",
+           vjust = -0.6, size = 2.8, colour = "grey40") +
   geom_vline(xintercept = 9, linetype = "dashed") +
   geom_hline(yintercept = 9, linetype = "dashed") +
   annotate("point", x = 9, y = 9, size = 2) +
   annotate("text", x = 9.5, y = 19, label = "Observed smoking-cancer RR = 9",
            hjust = 0, size = 3.5) +
-  geom_point(data = RR_points, aes(RR_smoke, RR_cancer), inherit.aes = FALSE, size = 2) +
+  geom_segment(data = RR_points, aes(x = RR_smoke, y = RR_cancer, xend = label_x, yend = label_y),
+               inherit.aes = FALSE, linewidth = 0.3, colour = "grey30") +
+  geom_point(data = RR_points, aes(RR_smoke, RR_cancer), inherit.aes = FALSE, size = 2.5) +
   geom_text(data = RR_points, aes(x = label_x, y = label_y, label = Factor, hjust = hjust),
             inherit.aes = FALSE, size = 3) +
   scale_fill_manual(values = c("Clears both bars" = "grey55",
                                 "Can't explain the ninefold link" = "grey88")) +
-  scale_x_continuous(expand = expansion(mult = c(0.16, 0.02))) +
+  scale_x_continuous(expand = expansion(mult = c(0.16, 0.05))) +
   scale_y_continuous(expand = expansion(mult = c(0.16, 0.02))) +
   labs(x = "Hidden factor's RR with becoming a smoker",
        y = "Hidden factor's RR with lung cancer",
@@ -66,7 +74,7 @@ ggplot(RR_grid, aes(RR_smoke, RR_cancer, fill = Verdict)) +
   theme(legend.position = "bottom")
 ```
 
-Below and to the left of both dashed lines, a candidate confounder simply can't do the job — it isn't strongly enough tied to *both* smoking and cancer to produce a ninefold relationship on its own. Above and to the right of both, it isn't mathematically ruled out — but now you have to actually name a real factor that's this strongly linked to becoming a smoker *and* this strongly linked to cancer, independently of smoking itself. Here's what happens when you actually go looking. The closest thing to Fisher's hypothesised factor that modern genetics has found — a gene variant linked to both nicotine dependence and lung cancer risk — clears neither bar by a wide margin. Radon gas meaningfully raises cancer risk but has nothing to do with who smokes. Asbestos exposure is the same shape. Heavy drinking is strongly tied to smoking but does essentially nothing to lung cancer risk on its own once you separate the two out. Four real, well-studied factors, marked on the plot above, four different ways of falling short — and not one of them gets remotely close to doing the job Fisher's argument needed. The point isn't that clearing both bars is impossible. It's that nobody, in over sixty years, has ever produced a real candidate that gets close.
+Below and to the left of both dashed lines, a candidate confounder simply can't do the job — it isn't strongly enough tied to *both* smoking and cancer to produce a ninefold relationship on its own. Above and to the right of both, it isn't mathematically ruled out — but now you have to actually name a real factor that's this strongly linked to becoming a smoker *and* this strongly linked to cancer, independently of smoking itself. Here's what happens when you actually go looking. The closest thing to Fisher's hypothesised factor that modern genetics has found is a variant near the *CHRNA5* nicotine-receptor gene: three independent genome-wide studies linked it to roughly a 30% increase in lung cancer risk (RR ≈ 1.3), and the same variant modestly raises nicotine dependence and smoking heaviness (Amos et al., 2008) — real, replicated, and nowhere near either bar. Radon gas is a genuine lung cancer risk factor — high residential exposure raises risk by roughly 50–60% (RR ≈ 1.5–1.6) (a pooled German residential radon analysis, PMC11588942) — but has essentially no relationship to who smokes (RR ≈ 1). Occupational asbestos exposure lands in almost the same place: RR ≈ 1.6 for lung cancer (a meta-analysis of asbestos-exposed occupational cohorts, PMID 10530617), no meaningful link to smoking status. Heavy drinking is the mirror image — heavy drinkers are roughly four times more likely to smoke than light or non-drinkers (RR ≈ 4) (Garnett & Cox, 2022) — but alcohol's own independent effect on lung cancer, once smoking is separated out, is essentially null (RR ≈ 1.1, not statistically significant) (a never-smoker meta-analysis, PMID 21427064). Four real, well-studied factors, marked on the plot above, four different ways of falling short — and not one of them gets remotely close to doing the job Fisher's argument needed. The point isn't that clearing both bars is impossible. It's that nobody, in over sixty years, has ever produced a real candidate that gets close.
 
 Nobody has ever found that factor. Fisher never named one. The argument didn't kill the possibility of confounding — it just showed exactly what confounding would need to look like, and let the silence answer the rest.
 
