@@ -279,60 +279,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s <em>now</em> assume that this sample of 498 people actually <em>is</em> the population we are interested in.</p>
 <p>What <strong>this</strong> means is, we can actually <em>draw a sample from this population of 498</em> and see what happens.</p>
 <p>First, let’s present the distribution for the entire ‘population’ of 498.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-75-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-76-1.png" alt="" width="672" /></p>
 <p>Now, let’s literally take a <em>sample</em> of 10 random cases from that population of 498. Here, we are <strong>sampling without replacement</strong>, and are thus essentially doing exactly what a hypothetical ‘researcher’ would do if they drew a random sample of 10 people to complete their survey, from the population of 498.</p>
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   161  30.5     2.53          8.94
-##  2   237  39.2    17.6          10.7 
-##  3   297  54.8    10.6           6.22
-##  4   133  67.3    16.6           3.74
-##  5    40  45.8     4.72          7.04
-##  6   224  35.5    15.9          11.4 
-##  7   460  31.4     8.18          9.79
-##  8   300   7.48   19.4          16.6 
-##  9   132   3.95    6.36         14.6 
-## 10   491  50.8     6.03          5.59</code></pre>
+##  1   334  13.9   27.3          16.0  
+##  2   332  51.6   23.3           8.55 
+##  3   230  22.7    8.29         11.3  
+##  4   266  66.8    0.526         0.988
+##  5   273  24.7    4.60         12.1  
+##  6   241   6.28  20.2          17.6  
+##  7   473  74.2   26.1           4.63 
+##  8   223  49.7    3.49          5.07 
+##  9   333  74.0   18.9           3.30 
+## 10   318  43.9   26.1          11.4</code></pre>
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
-<pre><code>## [1] 9.404218</code></pre>
-<pre><code>## [1] 10.79042</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-78-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 19.51484</code></pre>
+<pre><code>## [1] 15.86817</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-79-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   320  52.0    16.2           8.27
-##  2   117  11.6     6.35         14.4 
-##  3   430   6.32    5.21         14.8 
-##  4    14  26.2     6.65         10.6 
-##  5   451  24.7    25.6          13.7 
-##  6   225  59.5    18.8           5.69
-##  7   319  15.5    19.5          15.2 
-##  8    43   9.67    3.50         12.9 
-##  9   365  59.9    22.9           7.32
-## 10   271  69.3     4.66          2.20
+##  1   281  73.9    26.5           5.33
+##  2   373  74.6    16.2           2.91
+##  3   422  25.9    16.2          13.6 
+##  4    31  44.2     3.97          7.98
+##  5   267  70.3     6.42          1.10
+##  6     3   1.96   17.6          17.2 
+##  7    20  63.1    22.9           5.86
+##  8   170  29.7     2.40          9.39
+##  9   310  60.3     8.79          4.59
+## 10   280  28.5    17.3          11.7 
 ## # ℹ 40 more rows</code></pre>
-<pre><code>## [1] 15.6274</code></pre>
-<pre><code>## [1] 14.53408</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-79-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 14.3452</code></pre>
+<pre><code>## [1] 15.07077</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-80-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-##  1   154  28.8    11.4          12.8 
-##  2    20  63.1    22.9           5.86
-##  3   210  40.4     7.03          6.74
-##  4   336  14.7    19.5          14.4 
-##  5   232  10.4    16.0          14.1 
-##  6   483  36.1    13.8           9.73
-##  7    28  45.2     2.14          6.59
-##  8   189   5.51   17.9          16.0 
-##  9   238   9.94   22.3          16.4 
-## 10   205  24.0     7.61         11.6 
+##  1   250  47.5    20.1           8.94
+##  2    39  14.0    21.0          16.0 
+##  3    26  53.0    27.7           9.09
+##  4   338   8.13    5.89         14.4 
+##  5   269  42.6    26.3          11.6 
+##  6   274  55.4    17.2           7.23
+##  7   219  71.0    15.3           4.08
+##  8   209   7.83   26.8          17.6 
+##  9   164  70.9    29.9           6.34
+## 10   213  15.5    18.8          14.9 
 ## # ℹ 190 more rows</code></pre>
-<pre><code>## [1] 15.16827</code></pre>
-<pre><code>## [1] 15.16827</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-80-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 15.74633</code></pre>
+<pre><code>## [1] 15.74633</code></pre>
+<p><img src="LFD_files/figure-html/unnamed-chunk-81-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>
 

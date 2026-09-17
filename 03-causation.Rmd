@@ -250,13 +250,49 @@ Here's a useful way to see all three of these threats side by side, because they
 
 Go back to the sales-training question this chapter opened with: does a training course actually improve sales performance?
 
-Confounding, you've already watched at work. Smarter people tend to do better both on training assessments and in actual sales. Leave intelligence unmeasured, and part of what looks like "training works" is really "smart people are good at everything" — an arrow pointing into both variables from somewhere you never accounted for.
+Confounding, you've already watched at work. Here it's tenure: more experienced salespeople tend to coast through a mandatory training assessment — they've heard it all before, so they don't try especially hard, and their scores show it — but that same experience is exactly what makes them better at actually selling. Leave tenure unmeasured, and part of what looks like "training hurts performance" is really "people who don't need the training are also the people who are already good at the job" — an arrow pointing into both variables from somewhere you never accounted for.
 
 Reverse causation is a different failure with the same symptom. Maybe training doesn't cause sales performance at all — maybe sales performance causes how seriously someone takes training. A salesperson who's already succeeding has no urgency to engage with a mandatory course; someone who's struggling might throw themselves into it, hoping it turns things around. If that's what's happening, the arrow runs backwards from what the study assumed.
 
 Selection bias adds a third route in. If the training course is optional, who actually chooses to do it? Often the people who feel they need it — not the stars. If untrained salespeople outperform the trained group on average, an easy but wrong conclusion is "training makes people worse." The real explanation is that the people who opted in started from a lower baseline; training might have helped every one of them, and you'd never see it, because the comparison was never fair to begin with.
 
-Three entirely different mechanisms — an omitted variable driving both sides, an arrow running the wrong direction, a systematically unrepresentative sample — and all three produce the identical statistical symptom: your independent variable ends up tangled up with the very thing you're trying to explain, the error term. That symptom has a name — endogeneity — and it's the word you'll meet most often if you go on to read empirical papers seriously. It doesn't tell you which of the three is happening. It just tells you that something is, and that the confident arrow you drew earlier might not be pointing the way you think.
+Here's the same idea made visual: three simulated datasets, one per mechanism above, each built to produce a similar-looking negative relationship between training score and sales performance — similar strength, similar slope, similar spread.
+
+```{r}
+set.seed(34)
+Tenure <- rnorm(150)
+Confound_Training <- -Tenure + rnorm(150, 0, 1)
+Confound_Sales <- Tenure + rnorm(150, 0, 1)
+
+set.seed(286)
+Reverse_Sales <- rnorm(150)
+Reverse_Training <- -Reverse_Sales + rnorm(150, 0, 1.732)
+
+set.seed(54)
+Pop_Training <- rnorm(400)
+Pop_Sales <- rnorm(400)
+Retained <- Pop_Training + Pop_Sales + rnorm(400, 0, 0.3) > 0.5
+Select_Training <- Pop_Training[Retained]
+Select_Sales <- Pop_Sales[Retained]
+
+Endog_df <- rbind(
+  data.frame(Training = Confound_Training, Sales = Confound_Sales,
+             Mechanism = "Confounding"),
+  data.frame(Training = Reverse_Training, Sales = Reverse_Sales,
+             Mechanism = "Reverse causation"),
+  data.frame(Training = Select_Training, Sales = Select_Sales,
+             Mechanism = "Selection bias")
+)
+Endog_df$Mechanism <- factor(Endog_df$Mechanism,
+                              levels = c("Confounding", "Reverse causation", "Selection bias"))
+
+ggplot(Endog_df, aes(Training, Sales)) +
+  geom_point() +
+  facet_wrap(~ Mechanism, scales = "free") +
+  labs(x = "Training score", y = "Sales performance")
+```
+
+If I hadn't labelled the panels above, you wouldn't be able to tell them apart — and that's exactly the point. Three entirely different mechanisms — an omitted variable driving both sides, an arrow running the wrong direction, a systematically unrepresentative sample — and all three produce the identical statistical symptom: your independent variable ends up tangled up with the very thing you're trying to explain, the error term. That symptom has a name — endogeneity — and it's the word you'll meet most often if you go on to read empirical papers seriously. It doesn't tell you which of the three is happening. It just tells you that something is, and that the confident arrow you drew earlier might not be pointing the way you think.
 
 ## Randomisation
 
