@@ -159,10 +159,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="causation.html"><a href="causation.html#confounding"><i class="fa fa-check"></i><b>4.1</b> Confounding</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="causation.html"><a href="causation.html#the-cornfield-test"><i class="fa fa-check"></i><b>4.1.1</b> The Cornfield Test</a></li>
+<li class="chapter" data-level="4.1.2" data-path="causation.html"><a href="causation.html#the-everyday-version"><i class="fa fa-check"></i><b>4.1.2</b> The Everyday Version</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="causation.html"><a href="causation.html#selection-bias"><i class="fa fa-check"></i><b>4.2</b> Selection Bias</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="causation.html"><a href="causation.html#all-the-data-isnt-all-the-data"><i class="fa fa-check"></i><b>4.2.1</b> All the Data Isn’t All the Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="causation.html"><a href="causation.html#manufacturing-a-relationship-from-nothing"><i class="fa fa-check"></i><b>4.2.2</b> Manufacturing a Relationship from Nothing</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
 <li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#randomisation"><i class="fa fa-check"></i><b>4.4</b> Randomisation</a></li>
@@ -285,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 1 Silence   IRRIT       15  3.28 0.807
 ## 2 Other     IRRIT       15  3.87 0.661
 ## 3 Christmas IRRIT       15  4.83 0.88</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-156-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-162-1.png" alt="" width="672" /></p>
 <p>Interesting picture. Silence is our baseline, Other is the matched background music without any Christmas content, and Christmas is, well, Christmas music. This is what we might call ‘model-free’ analysis. We are just looking at the data to see if intuitively it looks like we expect it to.</p>
 <p>Let’s run an ANOVA now, which places a statistical model on it, and tests whether or not the data supports the model.</p>
 <pre><code>## ANOVA Table (type II tests)
@@ -305,7 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 3 GROUP Other   Christmas          0    0.967    0.268      1.67 0.00464   
 ## # ℹ 1 more variable: p.adj.signif &lt;chr&gt;</code></pre>
 <p>We can actually plot these results in a really effective way:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-159-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-165-1.png" alt="" width="672" /></p>
 <p>This is the <em>Christmas-specifically</em> pattern from a moment ago: Christmas differs clearly from both Silence and Other, and Silence and Other don’t differ significantly from each other (p = .118). Taken at face value, that looks like a clean answer — it really is something about Christmas music, not background music in general.</p>
 <p>But look at the Silence-vs-Other comparison a bit more carefully, because this is exactly the case that a bare significant/not-significant reading undersells. Its 95% confidence interval is -0.12 to 1.28. That interval <em>only just</em> crosses zero — the lower bound is a hair’s breadth into negative territory. Reading “not significant” as “proven: no difference” throws away exactly the information the interval is offering, which is that the data are entirely compatible with a real, positive difference too; there just isn’t enough precision at n = 15 per group to rule zero out. A p-value collapses that whole interval down to one bit of information, pass or fail, and right at a boundary this close, that’s precisely where the collapse costs you the most. I’d want a bigger sample before I’d rule out <em>any</em> effect of background music in general — this result argues for “Christmas specifically, at least as far as we can tell from here,” not “definitely, only Christmas, case closed.”</p>
 <p>However, this type of post-hoc analysis has the potential for what is known as a <em>multiple comparisons problem</em>, which we might need to deal with.</p>

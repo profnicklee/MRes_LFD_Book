@@ -159,10 +159,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="causation.html"><a href="causation.html#confounding"><i class="fa fa-check"></i><b>4.1</b> Confounding</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="causation.html"><a href="causation.html#the-cornfield-test"><i class="fa fa-check"></i><b>4.1.1</b> The Cornfield Test</a></li>
+<li class="chapter" data-level="4.1.2" data-path="causation.html"><a href="causation.html#the-everyday-version"><i class="fa fa-check"></i><b>4.1.2</b> The Everyday Version</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="causation.html"><a href="causation.html#selection-bias"><i class="fa fa-check"></i><b>4.2</b> Selection Bias</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="causation.html"><a href="causation.html#all-the-data-isnt-all-the-data"><i class="fa fa-check"></i><b>4.2.1</b> All the Data Isn’t All the Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="causation.html"><a href="causation.html#manufacturing-a-relationship-from-nothing"><i class="fa fa-check"></i><b>4.2.2</b> Manufacturing a Relationship from Nothing</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
 <li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#randomisation"><i class="fa fa-check"></i><b>4.4</b> Randomisation</a></li>
@@ -290,7 +292,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## IRRIT_ONEDGE        0.37 0.22
 ## IRRIT              -0.82 0.20</code></pre>
 <table>
-<caption><span id="tab:unnamed-chunk-91">Table 8.1: </span>Data summary</caption>
+<caption><span id="tab:unnamed-chunk-97">Table 8.1: </span>Data summary</caption>
 <tbody>
 <tr class="odd">
 <td align="left">Name</td>
@@ -483,7 +485,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##   &lt;fct&gt;     &lt;dbl&gt;
 ## 1 Silence    3.28
 ## 2 Christmas  4.87</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-92-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-98-1.png" alt="" width="672" /></p>
 <pre><code>## Response: IRRIT (numeric)
 ## Explanatory: GROUP (factor)
 ## # A tibble: 1 × 1
@@ -599,7 +601,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We can see there is a new ‘DIF’ variable here.</p>
 <p>Notice we’re bootstrapping the mean of this difference directly, not a t-statistic as we did for the independent-samples design above. It’s the same underlying question — is this far from zero? — just reached without the standardisation step in between. Nothing is lost by skipping it: with paired data there’s a single already-differenced variable rather than two separately-scaled groups to compare, so there’s less need to standardise before asking the question.</p>
 <p>Next, we bootstrap a confidence interval for the <em>mean of the difference variable</em>, to see whether it includes zero:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-95-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-101-1.png" alt="" width="672" /></p>
 <pre><code>## Response: DIF (numeric)
 ## # A tibble: 1 × 1
 ##    stat
@@ -612,7 +614,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] 3.366667</code></pre>
 <pre><code>## [1] 5.066667</code></pre>
 <p>We can do this in another way, but instead running a 1-sample t-test on the difference variable, testing whether it is different from zero:</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-96-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-102-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 1 × 1
 ##   p_value
 ##     &lt;dbl&gt;

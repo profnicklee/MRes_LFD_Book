@@ -42,9 +42,7 @@ Interpretation: there's seemingly an association here. As one variable increases
 
 It's worth noting that I have chosen to put GDPpc on the x-axis, which *implies* that the driver of Happiness is GDP. This replicates the way that most of the media articles that are regularly written on this kind of topic do it.
 
-Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis, because it's important that you do **NOT** draw any causal conclusion from this very basic scatterplot. Simple associations are *not* in any way conclusive evidence of any causality in the relationship, since there are many other things which could be going on that are impossible to tease out simply with a bivariate association seen on a scatterplot. For example, there could be a spurious relationship - what could cause *both* happiness and GDPpc to increase?
-
-Ideas? Could it simply be something like 'political stability'? Or something else?
+Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis — it's just a correlation, and Chapter \@ref(causation) is where we deal properly with why that's *not* the same thing as causation.
 
 Either way, all we have here is a basic data display. While, as I showed previously, simply displaying data can be very powerful, it is still only essentially an 'eyeball' analysis, and different people might draw different conclusions here (we'll discuss that later on).
 
@@ -85,7 +83,7 @@ describe(Happy)
 
 We can see there is a new variable now, GDPpc_log, which is the log transformed GDPpc variable - basically the original GDPpc variable multiplied by the natural logarithm.
 
-Of course, there are many other possible transforms. I touched on them earlier, in Chapter 2, and I'll elaborate a little more on it below, for now let's rerun the plot using GDPpc_log
+Of course, there are many other possible transforms. I touched on them earlier, in Chapter \@ref(intro), and I'll elaborate a little more on it below, for now let's rerun the plot using GDPpc_log
 
 ```{r}
 y <- Happy$Happiness
@@ -121,120 +119,6 @@ In this case, I admit that the logic makes sense, that there is still a relation
 Maybe I'll leave that for another day though.
 
 We can **return to the slides** for a bit more discussion.
-
-## Confounding
-
-You've probably met this one already, possibly at a dinner party where someone was showing off. Across US cities, ice cream sales and murder rates rise and fall together — and not weakly, either. Plot one against the other and you'll get a relationship strong enough that if you'd found it in your own data, you'd be drafting the abstract. This isn't a made-up example either — Tyler Vigen's *Spurious Correlations* project puts the real figure at r = 0.715 across US data from 1990–2021 (<https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates>).
-
-Nobody thinks ice cream causes murder. The obvious culprit is temperature: hot weather means more people buying ice cream, and — for reasons criminologists actually take seriously — more violent crime too. Ice cream and murder never talk to each other. They're each just reacting to the same third thing.
-
-That's a confounder: a variable that causes both of the things you're looking at, with no arrow running between them at all. And here's what makes it worth more than a paragraph — we can simulate exactly this, watch the correlation appear, and then watch it disappear.
-
-```{r}
-set.seed(21)
-Temp_grp <- rep(c("Cold", "Mild", "Hot"), each = 100)
-Temp <- c(Cold = 45, Mild = 70, Hot = 90)[Temp_grp] + rnorm(300, 0, 4)
-
-IceCream <- Temp + rnorm(300, 0, 11.7)
-Murders <- Temp + rnorm(300, 0, 11.7)
-
-plot(IceCream, Murders)
-cor(IceCream, Murders)
-```
-
-There's the strong relationship, and it's entirely manufactured — neither variable had any effect on the other anywhere in that code. Both were generated purely from `Temp`, city-months' average monthly temperature. Now let's split the sample into cold, mild, and hot months, and look again within each band.
-
-```{r}
-Confound1 <- data.frame(IceCream, Murders,
-                         Temp_grp = factor(Temp_grp, levels = c("Cold", "Mild", "Hot")))
-
-ggplot(Confound1, aes(IceCream, Murders)) +
-  geom_point() +
-  facet_wrap(~ Temp_grp) +
-  labs(x = "Ice cream sales index", y = "Murders per month")
-
-tapply(seq_len(nrow(Confound1)), Confound1$Temp_grp,
-       function(i) cor(Confound1$IceCream[i], Confound1$Murders[i]))
-```
-
-Not weakened. Gone. Within each band the correlation is close enough to zero to be noise. Nothing about ice cream or murder changed; we just stopped letting temperature do the confounding.
-
-Now here's the version that should worry you more, because it doesn't come with a punchline built in. Suppose a well-meaning HR department rolls out a wellbeing programme, and a year later, teams that spent more per head on it are visibly more productive. It's tempting — and I've sat in the meeting where someone was tempted — to write the business case right there.
-
-```{r}
-set.seed(271)
-Res_grp <- rep(c("Low", "Med", "High"), each = 50)
-Resourcing <- c(Low = 30, Med = 60, High = 90)[Res_grp] + rnorm(150, 0, 6)
-
-Wellbeing <- Resourcing + rnorm(150, 0, 27.7)
-Productivity <- Resourcing + rnorm(150, 0, 27.7)
-
-plot(Wellbeing, Productivity)
-cor(Wellbeing, Productivity)
-```
-
-But run the same check first. Departments with bigger budgets can afford *both* better wellbeing programmes *and* better everything else: staffing, tools, time.
-
-```{r}
-Confound2 <- data.frame(Wellbeing, Productivity,
-                         Res_grp = factor(Res_grp, levels = c("Low", "Med", "High")))
-
-ggplot(Confound2, aes(Wellbeing, Productivity)) +
-  geom_point() +
-  facet_wrap(~ Res_grp) +
-  labs(x = "Wellbeing spend per head", y = "Productivity score")
-
-tapply(seq_len(nrow(Confound2)), Confound2$Res_grp,
-       function(i) cor(Confound2$Wellbeing[i], Confound2$Productivity[i]))
-```
-
-Split by department resourcing, and the wellbeing–productivity relationship folds up exactly the way ice cream and murder did.
-
-The mechanism is identical in both cases. Only the stakes changed.
-
-## Selection Bias
-
-Here's one that should feel more surprising than the last, because there's no obvious third variable to blame — the surprise is that a relationship shows up *at all*.
-
-Take height and basketball skill. Across the general population, these two things are essentially unrelated — being tall doesn't make you more skilled with a basketball, and being skilled doesn't make you tall. But look only at NBA players, and you'll find something odd: among people who've actually made the league, height and skill are *negatively* correlated. The shorter players are, on average, the more skilled ones. Michael Jordan wasn't tall for an NBA player. Allen Iverson was shorter still. This isn't a fluke of two famous names — it holds up in the data, and it's been documented both informally (Nylon Calculus, <https://fansided.com/2017/12/22/nylon-calculus-nba-draft-selection-bias/>) and in the peer-reviewed literature on NBA draft sampling bias.
-
-```{r}
-set.seed(4)
-Height <- rnorm(20000)
-Skill <- rnorm(20000)
-SelectionScore <- Height + Skill + rnorm(20000, 0, 0.9)
-Made_NBA <- SelectionScore > 3
-
-cor(Height, Skill)
-cor(Height[Made_NBA], Skill[Made_NBA])
-```
-
-In the pool of 20,000 draft-eligible prospects, height and skill are unrelated, exactly as we built them to be. Select down to the players good enough or tall enough (or both) to clear the bar, though, and a clear negative relationship appears out of nothing.
-
-Nothing about height or skill changed between "general population" and "NBA players." What changed is how the sample was built. The NBA doesn't select on height, and it doesn't select on skill — it selects on *some combination of the two clearing a bar*. You can make a roster by being exceptionally tall, or by being exceptionally skilled, but rarely need to be both. Once you only look at the players who cleared that bar, you're looking at a sample where — among the tall ones, the skill requirement was more negotiable, and among the short ones, it wasn't. Select on a sum, and you manufacture a relationship between the parts that was never there in the population you drew from.
-
-Now the version with more at stake. A company hiring for a role screens on some blend of technical skill and cultural fit — nobody demands maximum on both, but the combination has to clear a bar. In the applicant pool at large, skill and fit have nothing to do with each other.
-
-```{r}
-set.seed(12)
-TechSkill <- rnorm(800)
-CultureFit <- rnorm(800)
-HireScore <- TechSkill + CultureFit + rnorm(800, 0, 0.4)
-Hired <- HireScore > 1.6
-
-cor(TechSkill, CultureFit)
-cor(TechSkill[Hired], CultureFit[Hired])
-```
-
-Among the people who get *hired*, though, they look negatively related — the highly skilled hires will tend to be the ones who scraped by on fit, and vice versa. If a manager later notices "our most technically brilliant hires are always the awkward ones" and starts wondering whether skill and personality genuinely trade off, they're not wrong about the pattern — they're wrong about where it came from.
-
-## Randomisation
-
-So confounding and selection bias share something important: both can manufacture a relationship — or hide one — without you doing anything wrong with your statistics. The correlation you calculate is correct. It's the story you tell about why it's there that goes wrong.
-
-There's one design choice that neutralises confounding before you ever reach the analysis stage: randomisation. If who receives a treatment is decided by something like a coin flip, rather than by any pre-existing characteristic, then every confounder — measured or not, thought of or not — ends up, on average, equally represented on both sides of the comparison. Randomisation doesn't remove confounders. It makes them irrelevant, because they can no longer line up systematically with which group you're in.
-
-Hold onto that idea. A few chapters from now, you'll meet a two-study design built around exactly this problem — and you'll be equipped to see why the second study's fix actually works before the book explains it.
 
 ## Regression
 

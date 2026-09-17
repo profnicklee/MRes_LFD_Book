@@ -159,10 +159,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="causation.html"><a href="causation.html#confounding"><i class="fa fa-check"></i><b>4.1</b> Confounding</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="causation.html"><a href="causation.html#the-cornfield-test"><i class="fa fa-check"></i><b>4.1.1</b> The Cornfield Test</a></li>
+<li class="chapter" data-level="4.1.2" data-path="causation.html"><a href="causation.html#the-everyday-version"><i class="fa fa-check"></i><b>4.1.2</b> The Everyday Version</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="causation.html"><a href="causation.html#selection-bias"><i class="fa fa-check"></i><b>4.2</b> Selection Bias</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="causation.html"><a href="causation.html#all-the-data-isnt-all-the-data"><i class="fa fa-check"></i><b>4.2.1</b> All the Data Isn’t All the Data</a></li>
+<li class="chapter" data-level="4.2.2" data-path="causation.html"><a href="causation.html#manufacturing-a-relationship-from-nothing"><i class="fa fa-check"></i><b>4.2.2</b> Manufacturing a Relationship from Nothing</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
 <li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#randomisation"><i class="fa fa-check"></i><b>4.4</b> Randomisation</a></li>
@@ -269,6 +271,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Below and to the left of both dashed lines, a candidate confounder simply can’t do the job — it isn’t strongly enough tied to <em>both</em> smoking and cancer to produce a ninefold relationship on its own. Above and to the right of both, it isn’t mathematically ruled out — but now you have to actually name a real factor that’s this strongly linked to becoming a smoker <em>and</em> this strongly linked to cancer, independently of smoking itself. Genetics that strong? Diet? Something else entirely? The point isn’t that clearing both bars is impossible. It’s that nobody, in over sixty years, has ever produced a real candidate that gets close.</p>
 <p>Nobody has ever found that factor. Fisher never named one. The argument didn’t kill the possibility of confounding — it just showed exactly what confounding would need to look like, and let the silence answer the rest.</p>
 </div>
+<div id="the-everyday-version" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> The Everyday Version<a href="causation.html#the-everyday-version" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>You won’t often get to run an argument as tight as Cornfield’s yourself — it took decades, a real historical dataset, and the simple fact that nobody ever found the missing factor. But the everyday version of watching a confound do its work doesn’t need any of that. It shows up anywhere you have the data and don’t think to check.</p>
+<p>You’ve probably met the classic case already, possibly at a dinner party where someone was showing off. Across US cities, ice cream sales and murder rates rise and fall together — and not weakly, either. Plot one against the other and you’ll get a relationship strong enough that if you’d found it in your own data, you’d be drafting the abstract. This isn’t a made-up example either — Tyler Vigen’s <em>Spurious Correlations</em> project puts the real figure at r = 0.715 across US data from 1990–2021 (<a href="https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates" class="uri">https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates</a>).</p>
+<p>Nobody thinks ice cream causes murder. The obvious culprit is temperature: hot weather means more people buying ice cream, and — for reasons criminologists actually take seriously — more violent crime too. Ice cream and murder never talk to each other. They’re each just reacting to the same third thing.</p>
+<p>That’s a confounder: a variable that causes both of the things you’re looking at, with no arrow running between them at all. And here’s what makes it worth more than a paragraph — we can simulate exactly this, watch the correlation appear, and then watch it disappear.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-41-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 0.7137528</code></pre>
+<p>There’s the strong relationship, and it’s entirely manufactured — neither variable had any effect on the other anywhere in that code. Both were generated purely from <code>Temp</code>, city-months’ average monthly temperature. Now let’s split the sample into cold, mild, and hot months, and look again within each band.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-42-1.png" alt="" width="672" /></p>
+<pre><code>##         Cold         Mild          Hot 
+##  0.053207223 -0.009546515  0.067120654</code></pre>
+<p>Not weakened. Gone. Within each band the correlation is close enough to zero to be noise. Nothing about ice cream or murder changed; we just stopped letting temperature do the confounding.</p>
+<p>Suppose a well-meaning HR department rolls out a wellbeing programme, and a year later, teams that spent more per head on it are visibly more productive. It’s tempting — and I’ve sat in the meeting where someone was tempted — to write the business case right there.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-43-1.png" alt="" width="672" /></p>
+<pre><code>## [1] 0.4463021</code></pre>
+<p>But run the same check first. Departments with bigger budgets can afford <em>both</em> better wellbeing programmes <em>and</em> better everything else: staffing, tools, time.</p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-44-1.png" alt="" width="672" /></p>
+<pre><code>##          Low          Med         High 
+## -0.006996962  0.046068957 -0.031799717</code></pre>
+<p>Split by department resourcing, and the wellbeing–productivity relationship folds up exactly the way ice cream and murder did.</p>
+<p>Confounding is a story about a third variable doing its work invisibly behind two others. Selection bias is stranger still — because sometimes there isn’t a third variable at all. The relationship gets built entirely by how the sample was assembled.</p>
+</div>
 </div>
 <div id="selection-bias" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Selection Bias<a href="causation.html#selection-bias" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -280,6 +305,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Read it a little more suspiciously, though, and a different story is sitting right there in the same dataset. Check-in activity — on both platforms — comes overwhelmingly from wherever population density and phone connectivity are highest. During Sandy, that wasn’t evenly distributed across New York at all: swathes of Lower Manhattan lost power outright, but Midtown and Upper Manhattan largely didn’t, while the outer boroughs and the Long Island shoreline — hit hardest by flooding and the longest power outages — simply went dark and stopped generating data almost entirely. “All the data” quietly became “all the data from the people whose phones still worked,” and the people whose phones still worked were disproportionately the ones for whom Sandy had been the least disruptive. A “celebration” spike and “the sample skewed toward people having a comparatively normal night” would look identical in a dataset built this way — and only one of those explanations was on the table.</p>
 <p>To be clear, this isn’t the original researchers admitting to a mistake — they don’t raise the geography question themselves, and their finding is entirely honest as reported. It’s what happens when you take a real published result and ask, on your own, who actually generated this data and whether that’s the population the conclusion is really about. That’s a habit worth having with everything you read, not just this one paper.</p>
 <p>That’s selection bias without anyone choosing anything, in the ordinary sense — nobody self-selected into being a well-connected New Yorker with power that night. The selection happened in how the data was collected, not in who volunteered. It’s the same underlying problem wearing a different disguise, and it’s the reason “we have all the data” is a claim worth being suspicious of rather than reassured by.</p>
+<p>Sometimes, though, selection bias is more deliberate than either of those cases — a genuine filter applied on purpose — and what it does to a relationship is stranger still, because it can manufacture one that was never there at all.</p>
+</div>
+<div id="manufacturing-a-relationship-from-nothing" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Manufacturing a Relationship from Nothing<a href="causation.html#manufacturing-a-relationship-from-nothing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Here’s one that should feel more surprising than the last, because there’s no obvious third variable to blame — the surprise is that a relationship shows up <em>at all</em>.</p>
+<p>Take height and basketball skill. Across the general population, these two things are essentially unrelated — being tall doesn’t make you more skilled with a basketball, and being skilled doesn’t make you tall. But look only at NBA players, and you’ll find something odd: among people who’ve actually made the league, height and skill are <em>negatively</em> correlated. The shorter players are, on average, the more skilled ones. Michael Jordan wasn’t tall for an NBA player. Allen Iverson was shorter still. This isn’t a fluke of two famous names — it holds up in the data, and it’s been documented both informally (Nylon Calculus, <a href="https://fansided.com/2017/12/22/nylon-calculus-nba-draft-selection-bias/" class="uri">https://fansided.com/2017/12/22/nylon-calculus-nba-draft-selection-bias/</a>) and in the peer-reviewed literature on NBA draft sampling bias.</p>
+<pre><code>## [1] 0.00365453</code></pre>
+<pre><code>## [1] -0.4462717</code></pre>
+<p>In the pool of 20,000 draft-eligible prospects, height and skill are unrelated, exactly as we built them to be. Select down to the players good enough or tall enough (or both) to clear the bar, though, and a clear negative relationship appears out of nothing.</p>
+<p>Nothing about height or skill changed between “general population” and “NBA players.” What changed is how the sample was built. The NBA doesn’t select on height, and it doesn’t select on skill — it selects on <em>some combination of the two clearing a bar</em>. You can make a roster by being exceptionally tall, or by being exceptionally skilled, but rarely need to be both. Once you only look at the players who cleared that bar, you’re looking at a sample where — among the tall ones, the skill requirement was more negotiable, and among the short ones, it wasn’t. Select on a sum, and you manufacture a relationship between the parts that was never there in the population you drew from.</p>
+<p>Now the version with more at stake. A company hiring for a role screens on some blend of technical skill and cultural fit — nobody demands maximum on both, but the combination has to clear a bar. In the applicant pool at large, skill and fit have nothing to do with each other.</p>
+<pre><code>## [1] 0.04425896</code></pre>
+<pre><code>## [1] -0.6027258</code></pre>
+<p>Among the people who get <em>hired</em>, though, they look negatively related — the highly skilled hires will tend to be the ones who scraped by on fit, and vice versa. If a manager later notices “our most technically brilliant hires are always the awkward ones” and starts wondering whether skill and personality genuinely trade off, they’re not wrong about the pattern — they’re wrong about where it came from.</p>
 </div>
 </div>
 <div id="endogeneity" class="section level2 hasAnchor" number="4.3">

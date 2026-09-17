@@ -1,4 +1,4 @@
-tab:unnamed-chunk-91
+tab:unnamed-chunk-97
 introduction-and-orientation
 intro
 summarizing-data-with-numbers
@@ -11,8 +11,10 @@ what-actually-is-a-normal-distribution
 causation
 confounding
 the-cornfield-test
+the-everyday-version
 selection-bias
 all-the-data-isnt-all-the-data
+manufacturing-a-relationship-from-nothing
 endogeneity
 randomisation
 assoc-rel
