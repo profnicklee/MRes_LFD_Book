@@ -279,7 +279,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s <em>now</em> assume that this sample of 498 people actually <em>is</em> the population we are interested in.</p>
 <p>What <strong>this</strong> means is, we can actually <em>draw a sample from this population of 498</em> and see what happens.</p>
 <p>First, let’s present the distribution for the entire ‘population’ of 498.</p>
-<p><img src="LFD_files/figure-html/unnamed-chunk-72-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-75-1.png" alt="" width="672" /></p>
 <p>Now, let’s literally take a <em>sample</em> of 10 random cases from that population of 498. Here, we are <strong>sampling without replacement</strong>, and are thus essentially doing exactly what a hypothetical ‘researcher’ would do if they drew a random sample of 10 people to complete their survey, from the population of 498.</p>
 <pre><code>## # A tibble: 10 × 4
 ##     ...1 biking smoking heart.disease
@@ -297,7 +297,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Next, let’s look at the relevant statistics (median and then mean) and distribution of this sample of 10:</p>
 <pre><code>## [1] 9.404218</code></pre>
 <pre><code>## [1] 10.79042</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-75-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-78-1.png" alt="" width="672" /></p>
 <p>We can do the same for successively larger samples, say 50, and 200:</p>
 <pre><code>## # A tibble: 50 × 4
 ##     ...1 biking smoking heart.disease
@@ -315,7 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 40 more rows</code></pre>
 <pre><code>## [1] 15.6274</code></pre>
 <pre><code>## [1] 14.53408</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-76-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-79-1.png" alt="" width="672" /></p>
 <pre><code>## # A tibble: 200 × 4
 ##     ...1 biking smoking heart.disease
 ##    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## # ℹ 190 more rows</code></pre>
 <pre><code>## [1] 15.16827</code></pre>
 <pre><code>## [1] 15.16827</code></pre>
-<p><img src="LFD_files/figure-html/unnamed-chunk-77-1.png" alt="" width="672" /></p>
+<p><img src="LFD_files/figure-html/unnamed-chunk-80-1.png" alt="" width="672" /></p>
 <p>As you can see, the distributions of the smaller samples are more peaky and bumpy, because they are very sensitive to individual data points. As the sample gets larger, it starts to look more like the population right?</p>
 <p>We can complete our table now in the slides of the sample statistics (median and mean) showing that in general, as we get closer to the population size, the statistics generally get closer too. To do so, let’s go <strong>back to the slides…</strong></p>
 
