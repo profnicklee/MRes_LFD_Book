@@ -167,7 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.2" data-path="causation.html"><a href="causation.html#manufacturing-a-relationship-from-nothing"><i class="fa fa-check"></i><b>4.2.2</b> Manufacturing a Relationship from Nothing</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
-<li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#randomisation"><i class="fa fa-check"></i><b>4.4</b> Randomisation</a></li>
+<li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#the-power-of-randomisation"><i class="fa fa-check"></i><b>4.4</b> The Power of Randomisation</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
 <ul>
@@ -258,7 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">5.1</span> Correlations and Associations<a href="assoc-rel.html#correlations-and-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data.</p>
 <p>You can explore their work here: <a href="https://ourworldindata.org/" class="uri">https://ourworldindata.org/</a></p>
-<p>First, I can just double check the data by describing it. <code>describe()</code> is what I’ll reach for throughout the book whenever I’m looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.</p>
+<p>I can just double check the data by describing it. <code>describe()</code> is what I’ll reach for throughout the book whenever I’m looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.</p>
 <pre><code>##           vars   n        mean           sd     median     trimmed        mad
 ## Country*     1 249      125.00        72.02     125.00      125.00      91.92
 ## Happiness    2 153        5.49         1.12       5.53        5.52       1.16
@@ -276,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>It’s worth noting that I have chosen to put GDPpc on the x-axis, which <em>implies</em> that the driver of Happiness is GDP. This replicates the way that most of the media articles that are regularly written on this kind of topic do it.</p>
 <p>Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis — it’s just a correlation, and Chapter <a href="causation.html#causation">4</a> is where we deal properly with why that’s <em>not</em> the same thing as causation.</p>
 <p>Either way, all we have here is a basic data display. While, as I showed previously, simply displaying data can be very powerful, it is still only essentially an ‘eyeball’ analysis, and different people might draw different conclusions here (we’ll discuss that later on).</p>
-<p>What we want to do, is have some sort of objective <strong>metric</strong> for the relationship, and for this, we have the <strong>correlation</strong> statistic.</p>
+<p>What we want to do, is have some sort of objective <strong>metric</strong> for the relationship, and for this, we have the <strong>correlation</strong> statistic. We met the idea of correlations in the last chapter, but here we can dig into them properly.</p>
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
@@ -342,7 +342,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>However, <strong>transformations</strong> of data are kind of a complicated topic though. In essence, what we are doing is changing the distribution of one (or more) of the variables, in a systematic way, in order to convert a non-linear relationship (which may be unable to be tested with methods like correlation and regression) into a linear one.</p>
 <p>There are many different types of transformations available to you, and the one you choose depends on the form of the nonlinearity. A <strong>log</strong> transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it’s not always obvious what exactly to do, and people often default to transforming <strong>any</strong> nonlinear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It’s not really that simple though, and I think we need to be a bit more logical and theory-driven on <strong>why</strong> we transform variables.</p>
 <p>In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a <strong>lot more</strong> to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could concievably lead to policy changes compared to the prior non-transformed analysis.</p>
-<p><strong>Even so</strong>, I have always had a slightly different possibility on my mind. In fact, it may be that there are <strong>two groups</strong> of country, low and high income, and different <strong>linear</strong> associations within those groups. That’s a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data…</p>
+<p><strong>Even so</strong>, I have always had a slightly different possibility on my mind. In fact, it may be that there are <strong>two distinct groups</strong> of country, low and high income, and different <strong>linear</strong> associations within those groups. That’s a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data…</p>
 <p>Maybe I’ll leave that for another day though.</p>
 <p>We can <strong>return to the slides</strong> for a bit more discussion.</p>
 </div>
