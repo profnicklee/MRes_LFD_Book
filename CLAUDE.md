@@ -49,7 +49,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 ```
 index.Rmd              Front matter + Chapter 1
 NN-*.Rmd               Chapter files (see map below)
-12-references.Rmd      References
+13-references.Rmd      References
 _bookdown.yml          book_filename, output_dir: "docs"
 _output.yml            gitbook config, TOC, edit link, download formats
 style.css, toc.css     Styling
@@ -63,32 +63,33 @@ docs/                  Committed build output — served by Pages
 
 **Chapter files are numbered one lower than the chapter they render as**, because `index.Rmd` renders as Chapter 1. Filename numbers exist only to force alphabetical ordering; `_bookdown.yml` has no `rmd_files:` entry and nothing reads them as chapter numbers.
 
-Nick's slides and spoken lecture references use the **rendered** numbers. Do not renumber files. Do not unnumber the `index.Rmd` heading to close the offset — that would shift every rendered number and invalidate two lectures' worth of slide references.
+Nick's slides and spoken lecture references use the **rendered** numbers. Do not renumber files further without checking with Nick first, and do not unnumber the `index.Rmd` heading to close the offset — that would shift every rendered number again. This table was last revised when `03-causation.Rmd` was inserted, deliberately shifting every rendered number from Ch 5 onward and invalidating slide references from Lecture 5 on; Nick accepted that cascade and is updating slide-deck references separately, week by week.
 
 | File | Renders as | Label | Lecture |
 |---|---|---|---|
 | `index.Rmd` | Ch 1 | — | — |
 | `01-intro.Rmd` | Ch 2 | `{#intro}` | 2 |
 | `02-Distributions.rmd` | Ch 3 | `{#norm-dist}` | 3 |
-| `03-assoc_rel.Rmd` | Ch 4 | `{#assoc-rel}` | 5 |
-| `04-estimation.Rmd` | Ch 5 | `{#uncertainty}` | 6, pt 1 |
-| `05-bootstrapping.Rmd` | Ch 6 | `{#bootstrap}` | 6, pt 2 |
-| `06-t-test.Rmd` | Ch 7 | `{#t-test}` | 6, pt 2 |
-| `07-probability.Rmd` | Ch 8 | `{#probability}` | 7, pt 1 |
-| `08-statistics.Rmd` | Ch 9 | `{#statistics}` | 7, pt 2 |
-| `09-H-Testing.Rmd` | Ch 10 | `{#H-testing}` | 8, pt 1 |
-| `10-ANOVA.Rmd` | Ch 11 | `{#ANOVA}` | 8, pt 2 |
-| `11-Issues_w_sig.Rmd` | Ch 12 | `{#Issues}` | 8 pt 3 + parts of 9 |
+| `03-causation.Rmd` | Ch 4 | `{#causation}` | 4 |
+| `04-assoc_rel.Rmd` | Ch 5 | `{#assoc-rel}` | 5 |
+| `05-estimation.Rmd` | Ch 6 | `{#uncertainty}` | 6, pt 1 |
+| `06-bootstrapping.Rmd` | Ch 7 | `{#bootstrap}` | 6, pt 2 |
+| `07-t-test.Rmd` | Ch 8 | `{#t-test}` | 6, pt 2 |
+| `08-probability.Rmd` | Ch 9 | `{#probability}` | 7, pt 1 |
+| `09-statistics.Rmd` | Ch 10 | `{#statistics}` | 7, pt 2 |
+| `10-H-Testing.Rmd` | Ch 11 | `{#H-testing}` | 8, pt 1 |
+| `11-ANOVA.Rmd` | Ch 12 | `{#ANOVA}` | 8, pt 2 |
+| `12-Issues_w_sig.Rmd` | Ch 13 | `{#Issues}` | 8 pt 3 + parts of 9 |
 
-Lectures 1 and 4 have no chapters. This is expected and stated to students in `index.Rmd`.
+Lecture 1 has no chapter. This is expected — `index.Rmd` tells students that chapter numbers don't map onto lecture numbers, since not every lecture has quantitative content. Lecture 4 ("What is a Cause and How do you Know?") used to have no chapter either, for the same reason, until `03-causation.Rmd` was added to cover it.
 
-**Always cross-reference with `\@ref(label)`, never a hardcoded chapter number.** Every chapter carries a label. `09-H-Testing.Rmd` already uses `\@ref(conf)` correctly — follow that pattern.
+**Always cross-reference with `\@ref(label)`, never a hardcoded chapter number.** Every chapter carries a label. `10-H-Testing.Rmd` already uses `\@ref(conf)` correctly (the `{#conf}` label itself lives in `09-statistics.Rmd`) — follow that pattern.
 
 ## Traps
 
 **Do not edit files in `ACTUAL_NOTE_CODE/`.** They are superseded 2023 drafts with hardcoded `D:/Dropbox/R_Files/Data/…` paths, close enough to the live chapters to be mistaken for them. They are scheduled for deletion. If they still exist, the live chapter is always the numbered file in the repo root.
 
-**Chapters share a single R session in the merged build.** Bookdown merges everything before knitting, so a chapter can depend on a library or object an earlier one loaded, and pass cleanly in the merged build while failing standalone — this is exactly how `05-bootstrapping.Rmd`'s missing `library(psych)` surfaced during task 3.3 (it relied on `03-assoc_rel.Rmd` having already loaded it). Do not assume a chapter is self-contained; verify with `rmarkdown::render()` on the single file, not only `bookdown::render_book()` on the whole book.
+**Chapters share a single R session in the merged build.** Bookdown merges everything before knitting, so a chapter can depend on a library or object an earlier one loaded, and pass cleanly in the merged build while failing standalone — this is exactly how `06-bootstrapping.Rmd`'s missing `library(psych)` surfaced during task 3.3 (it relied on `04-assoc_rel.Rmd`, then numbered `03-assoc_rel.Rmd`, having already loaded it). Do not assume a chapter is self-contained; verify with `rmarkdown::render()` on the single file, not only `bookdown::render_book()` on the whole book.
 
 **When a task's stated assumption doesn't match what the code actually does, stop and flag it rather than resolving it unilaterally** — a claimed seed, a claimed dependency, a claimed library, or anything else `revisions-2026.md` asserts as fact. This happened twice in the 2026 revision (the `assoc_rel` label's underscore bug, and `04-estimation.Rmd` turning out to have no seed despite the worklist assuming one), and both times the right call differed from what looked obvious at first glance.
 
@@ -96,7 +97,9 @@ Lectures 1 and 4 have no chapters. This is expected and stated to students in `i
 
 **Two data files are named after the Ed Sheeran example** (`SHEERAN_T.xlsx`, `SHEERAN_ANOVA.xlsx`). That example is being replaced. Name new data files after the construct, not the stimulus, so future swaps are prose edits.
 
-**Small sample sizes are deliberate.** The music/anger study uses n=15 per group specifically so that Chapter 12's power calculation shows it was underpowered. Never "improve" a sample size without checking what downstream analysis depends on it.
+**Small sample sizes are deliberate.** The music/anger study uses n=15 per group specifically so that Chapter 13's power calculation shows it was underpowered. Never "improve" a sample size without checking what downstream analysis depends on it.
+
+**No live embedded interactive widgets.** Task 2.8 removed an embedded Shiny app (`knitr::include_app()`) because it only ever wrote an iframe at render time — a successful book render said nothing about whether the app actually loaded for a reader, and it was already erroring in the browser by the time this was caught. Replaced with a self-contained static ggplot of the underlying formula, annotated with the specific values the app was used to illustrate. Follow that pattern for anything that might look like it wants a live widget — a static, annotated figure — rather than introducing a new embed dependency.
 
 ## Scope
 

@@ -24,7 +24,7 @@ Happy<-read_excel("Data/HappyGDP.xlsx", sheet = "2020")
 
 ```
 
-First, I can just double check the data by describing it. `describe()` is what I'll reach for throughout the book whenever I'm looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.
+I can just double check the data by describing it. `describe()` is what I'll reach for throughout the book whenever I'm looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.
 
 ```{r}
 describe(Happy)
@@ -42,13 +42,11 @@ Interpretation: there's seemingly an association here. As one variable increases
 
 It's worth noting that I have chosen to put GDPpc on the x-axis, which *implies* that the driver of Happiness is GDP. This replicates the way that most of the media articles that are regularly written on this kind of topic do it.
 
-Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis, because it's important that you do **NOT** draw any causal conclusion from this very basic scatterplot. Simple associations are *not* in any way conclusive evidence of any causality in the relationship, since there are many other things which could be going on that are impossible to tease out simply with a bivariate association seen on a scatterplot. For example, there could be a spurious relationship - what could cause *both* happiness and GDPpc to increase?
-
-Ideas? Could it simply be something like 'political stability'? Or something else?
+Nevertheless, this is just a scatterplot, so there is no real requirement to put any particular one of the variables on the x-axis — it's just a correlation, and Chapter \@ref(causation) is where we deal properly with why that's *not* the same thing as causation.
 
 Either way, all we have here is a basic data display. While, as I showed previously, simply displaying data can be very powerful, it is still only essentially an 'eyeball' analysis, and different people might draw different conclusions here (we'll discuss that later on).
 
-What we want to do, is have some sort of objective **metric** for the relationship, and for this, we have the **correlation** statistic.
+What we want to do, is have some sort of objective **metric** for the relationship, and for this, we have the **correlation** statistic. We met the idea of correlations in the last chapter, but here we can dig into them properly.
 
 ```{r}
 Assoc1 <- cor.test(Happy$Happiness, Happy$GDPpc,
@@ -85,7 +83,7 @@ describe(Happy)
 
 We can see there is a new variable now, GDPpc_log, which is the log transformed GDPpc variable - basically the original GDPpc variable multiplied by the natural logarithm.
 
-Of course, there are many other possible transforms. I touched on them earlier, in Chapter 2, and I'll elaborate a little more on it below, for now let's rerun the plot using GDPpc_log
+Of course, there are many other possible transforms. I touched on them earlier, in Chapter \@ref(intro), and I'll elaborate a little more on it below, for now let's rerun the plot using GDPpc_log
 
 ```{r}
 y <- Happy$Happiness
@@ -116,7 +114,7 @@ There are many different types of transformations available to you, and the one 
 
 In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a **lot more** to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could concievably lead to policy changes compared to the prior non-transformed analysis.
 
-**Even so**, I have always had a slightly different possibility on my mind. In fact, it may be that there are **two groups** of country, low and high income, and different **linear** associations within those groups. That's a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data...
+**Even so**, I have always had a slightly different possibility on my mind. In fact, it may be that there are **two distinct groups** of country, low and high income, and different **linear** associations within those groups. That's a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data...
 
 Maybe I'll leave that for another day though.
 
