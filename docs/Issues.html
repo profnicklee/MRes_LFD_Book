@@ -269,6 +269,15 @@ div.csl-indent {
 <li class="chapter" data-level="13.1" data-path="Issues.html"><a href="Issues.html#more-on-the-multiple-comparisons-problem"><i class="fa fa-check"></i><b>13.1</b> More on the Multiple Comparisons Problem</a></li>
 <li class="chapter" data-level="13.2" data-path="Issues.html"><a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season"><i class="fa fa-check"></i><b>13.2</b> The Bonferroni Correction: Rate of Change in Football Goals per Season</a></li>
 <li class="chapter" data-level="13.3" data-path="Issues.html"><a href="Issues.html#statistical-power-brief-demonstration"><i class="fa fa-check"></i><b>13.3</b> Statistical Power: Brief Demonstration</a></li>
+<li class="chapter" data-level="13.4" data-path="Issues.html"><a href="Issues.html#p-hacking-sim"><i class="fa fa-check"></i><b>13.4</b> How to find an effect that isn’t there</a></li>
+<li class="chapter" data-level="13.5" data-path="Issues.html"><a href="Issues.html#issues-reading"><i class="fa fa-check"></i><b>13.5</b> Reading the literature</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="Issues.html"><a href="Issues.html#where-youll-meet-this-2"><i class="fa fa-check"></i><b>13.5.1</b> Where you’ll meet this</a></li>
+<li class="chapter" data-level="13.5.2" data-path="Issues.html"><a href="Issues.html#the-connection-back-2"><i class="fa fa-check"></i><b>13.5.2</b> The connection back</a></li>
+<li class="chapter" data-level="13.5.3" data-path="Issues.html"><a href="Issues.html#questions-worth-asking-2"><i class="fa fa-check"></i><b>13.5.3</b> Questions worth asking</a></li>
+<li class="chapter" data-level="13.5.4" data-path="Issues.html"><a href="Issues.html#one-red-flag-2"><i class="fa fa-check"></i><b>13.5.4</b> One red flag</a></li>
+<li class="chapter" data-level="13.5.5" data-path="Issues.html"><a href="Issues.html#if-you-want-to-read-more-2"><i class="fa fa-check"></i><b>13.5.5</b> If you want to read more</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -418,7 +427,97 @@ div.csl-indent {
 ## NOTE: n is number in each group</code></pre>
 <p>That says I’d only have needed about 6 people per group for 80% power. That’s <em>fewer</em> than the 15 I actually used, not closer to it from above — a different, and slightly uncomfortable, lesson from the one I set out to teach.</p>
 <p>Here’s the honest reading. What I’ve just done — taking the effect size my own small sample happened to produce, and treating it as the ‘true’ population effect size for a power calculation — is a well-known bad practice, sometimes called <em>observed</em> or <em>post-hoc</em> power. Small samples give you very noisy estimates of the true effect size: a difference that looks huge in a sample of 15 per group could easily be a real, more modest effect combined with a slice of good luck in exactly this data. So this isn’t really evidence that a study of 15 would reliably detect an effect this size in general — it’s evidence that <em>this specific sample</em> turned up a strikingly large difference. The honest way to plan a study is to commit to a plausible effect size <strong>before</strong> you collect any data (which is what the moderate f = .25 assumption above was trying to do, arbitrary as it was), not to reverse-engineer one from a result you already have. If anything, this is itself a small demonstration of why “just check whether the effect size you found was big enough” isn’t a fix for a badly-powered study after the fact — the number you’d get depends entirely on which random sample you happened to draw, small samples especially.</p>
+</div>
+<div id="p-hacking-sim" class="section level2 hasAnchor" number="13.4">
+<h2><span class="header-section-number">13.4</span> How to find an effect that isn’t there<a href="Issues.html#p-hacking-sim" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>“p-hacking” is one of those terms that everyone has heard and nobody quite agrees on. If you walked around a business school asking what it means, you’d get a surprisingly wide range of answers. At one end it means deliberate cheating: running analyses until something works, and reporting only that. I think it’s important to separate that from something much more common and much more interesting, which is researchers who are doing their honest best and still end up somewhere they shouldn’t. This section is mostly about the second kind, because it’s the kind you’re most at risk of yourself.</p>
+<p>Let’s build it with a simulation. We’ll create a world in which the null hypothesis is <em>true</em>: two groups, A and B, that are genuinely no different on anything we measure. Then we’ll run 2,000 separate studies in that world.</p>
+<p>It’s worth being very clear about what that means, because the whole logic depends on it. These are not 2,000 tests run on one dataset. They are 2,000 completely independent studies, each with its own freshly collected data. Think of it as 2,000 different researchers around the world, each setting out to study the same question without knowing about any of the others. Each study has 20 people per group to start with, two outcome measures that are moderately related to each other (the way two measures of similar things usually are), and a yes/no background variable about each person.</p>
+<p>Let’s start with researchers who behave exactly as Chapter <a href="H-testing.html#H-testing">11</a> says they should. Each of them decides in advance to test outcome 1 with a single t-test, runs their study, and does exactly that: one study, one test. Because there is no real effect, any significant result is a false positive, and each researcher has a 5 percent chance of getting one. Across all 2,000 studies, that’s what we see: 5 percent of them “find” an effect. This is what p &lt; .05 actually promises. It can’t tell any individual researcher whether they are one of the unlucky ones. What it tells you is how often the procedure goes wrong across many independent studies like theirs.</p>
+<p>Now let’s give every researcher some flexibility, one choice at a time. Each of them still runs just one study, with one dataset. What changes is how many ways they’re allowed to analyse it. None of these choices is outrageous. Each one is the kind of thing you’ll find in published papers, often without comment.</p>
+<ul>
+<li><strong>Two outcomes.</strong> They measured two things, so why not check both, and their average? If any of the three is significant, that’s the finding.</li>
+<li><strong>A few more people.</strong> If the result is “nearly there,” it seems reasonable to collect another 10 per group and look again.</li>
+<li><strong>A control variable.</strong> Perhaps that background variable should be controlled for. Try it with and without.</li>
+<li><strong>Outliers.</strong> Some values look a bit extreme. Try the analysis with and without anyone more than two standard deviations from their group’s mean.</li>
+</ul>
+<p>After each new choice is added, we count how many of the 2,000 researchers can now find <em>some</em> path through their own data to p &lt; .05. Figure <a href="Issues.html#fig:p-hacking-sim">13.1</a> shows what happens.</p>
+<div class="figure"><span style="display:block;" id="fig:p-hacking-sim"></span>
+<img src="LFD_files/figure-html/p-hacking-sim-1.png" alt="How researcher flexibility inflates false positives. Each bar shows the percentage of independent simulated studies, all of an effect that does not exist, in which the researcher could find at least one analysis with p &lt; .05. Each bar adds one more analytic choice to those before it. The dashed line marks the 5 percent that p &lt; .05 is supposed to deliver." width="864" />
+<p class="caption">
+Figure 13.1: How researcher flexibility inflates false positives. Each bar shows the percentage of independent simulated studies, all of an effect that does not exist, in which the researcher could find at least one analysis with p &lt; .05. Each bar adds one more analytic choice to those before it. The dashed line marks the 5 percent that p &lt; .05 is supposed to deliver.
+</p>
+</div>
+<p>By the time all four choices are available, 32 percent of researchers studying an effect that doesn’t exist end up with a “significant” result. That’s roughly one study in three, from a procedure that is supposed to be wrong one time in 20.</p>
+<p>I want to draw three lessons from this.</p>
+<p><strong>First, no single step looks like cheating.</strong> Each choice, taken alone, is defensible, and some of them appear in textbooks as perfectly good practice. That’s precisely the problem. The rate climbs because the choices <em>combine</em>: each new fork in the road gives the data another chance to throw up something by luck. Notice, though, that these extra analyses are not new independent studies. They are different looks at the <em>same</em> data, so they tend to agree with each other. That’s why the rate climbs more slowly than the multiple comparisons formula earlier in this chapter would predict, because that formula assumes every test is independent. But it climbs all the same.</p>
+<p><strong>Second, the forks aren’t equal.</strong> Adding a control variable barely moved the rate here, while outlier removal roughly doubled it. Outliers are a genuinely hard case. I grew up in a survey tradition where variables ran from 1 to 5, so if you found a 55 it was a typo and you removed it without a second thought. But deciding what counts as an outlier <em>after</em> you’ve seen whether it helps your result is a very different thing. The honest question is always how the value came to exist, not whether the analysis looks better without it.</p>
+<p><strong>Third, and most important, you can’t see any of this from outside.</strong> The published paper from our last researcher would report one clean t-test with p = .03, and it would look exactly like a paper from one of our honest single-test researchers. The p-value itself isn’t wrong. The arithmetic is correct. But it answers the question “how surprising would this result be if it were the only test I ran?”, and it wasn’t the only test.</p>
+<p>This idea goes further than you might think. The statistician Andrew Gelman calls it the “garden of forking paths,” and it’s probably my favourite idea in this whole area <span class="citation">(<a href="#ref-gelman2014statistical">Gelman and Loken 2014</a>)</span>. His point is that a researcher doesn’t need to <em>try</em> lots of analyses for the problem to arise. It’s enough that they <em>would</em> have made different choices if the data had come out differently. Looking back from the end, every choice seems like the only logical one: this measure, this method, these outliers removed. But someone else starting from the same place might have walked a different path and found something else.</p>
+<p>Our simulation is also on the gentle side. The paper that made this problem famous used a slightly different set of four choices and found that combining them pushed the false-positive rate to around 61 percent <span class="citation">(<a href="#ref-simmons2011false">Simmons et al. 2011</a>)</span>. Real studies usually offer far more than four forks.</p>
+<p>The most effective remedy is to decide the path in advance and write it down. That’s what pre-registration does, and I’ll say more about how to read pre-registered work below.</p>
+</div>
+<div id="issues-reading" class="section level2 hasAnchor" number="13.5">
+<h2><span class="header-section-number">13.5</span> Reading the literature<a href="Issues.html#issues-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The simulation earlier in this chapter showed that you can’t see the forking paths from outside. As a reader, that’s the frustrating part. You’re handed the one path the authors walked, and it looks like the only one there was. But the paths leave traces, and once you know what to look for, you’ll start noticing them.</p>
+<div id="where-youll-meet-this-2" class="section level3 hasAnchor" number="13.5.1">
+<h3><span class="header-section-number">13.5.1</span> Where you’ll meet this<a href="Issues.html#where-youll-meet-this-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Lots of tests in one place.</strong> A typical results table in a management paper might test a dozen coefficients across four models. Count the tests. If there are 40 chances to find p &lt; .05 and the paper reports three significant results, that’s roughly what luck alone would produce. You met the formal version of this, the <em>familywise error rate</em>, earlier in this chapter, where running many comparisons raised the chance of at least one false positive. Forking paths are the same problem. The only difference is that the extra tests are hidden rather than printed in a table.</p>
+<p><strong>Sample sizes nobody explains.</strong> If a paper doesn’t say how its sample size was decided, you can’t rule out the “collect a few more” fork from our simulation. Good papers justify their sample size in advance, usually with a power analysis (earlier in this chapter). Odd numbers, or samples described as having been “extended,” are worth a second look.</p>
+<p><strong>Exclusions.</strong> Look for phrases like “after removing <em>n</em> cases,” “failed attention checks,” or “outliers were excluded.” None of these is wrong in itself. What matters is whether the rule was set before the results were known, and whether the main finding survives with the excluded cases put back in. Many good papers report both versions. When a paper reports only one, the question is worth asking.</p>
+<p><strong>Control variables that move around.</strong> If the set of controls changes from one model or table to the next without explanation, each change is a fork. In Chapter <a href="causation.html#causation">4</a> you saw that controls should be chosen for causal reasons. Controls that look chosen for their effect on the p-value are a different thing.</p>
+<p><strong>“Robustness checks.”</strong> These are often valuable, and some of the best work goes much further: a <em>specification curve</em> or <em>multiverse analysis</em> runs the analysis every reasonable way at once and shows how often the result holds <span class="citation">(<a href="#ref-simonsohn2020specification">Simonsohn et al. 2020</a>; <a href="#ref-steegen2016increasing">Steegen et al. 2016</a>)</span>. But ordinary robustness checks are also chosen by the authors, and you only see the ones that were reported. A robustness section in which every single check comes out the same way deserves a little gentle scepticism.</p>
+<p><strong>Hypotheses that fit a bit too perfectly.</strong> Sometimes the hypotheses in the introduction match the results a little too neatly, including an unexpected interaction or a subgroup effect presented as if it had been predicted all along. This has a name, <em>HARKing</em>: hypothesising after the results are known <span class="citation">(<a href="#ref-kerr1998harking">Kerr 1998</a>)</span>. You usually can’t prove it. But a highly specific prediction that nobody would have thought to make in advance is a clue.</p>
+<p><strong>Pre-registration and registered reports.</strong> A pre-registration is a time-stamped plan, usually on a site such as the Open Science Framework, setting out the hypotheses, sample size and analysis before any data are collected. A <em>registered report</em> goes one step further: the journal reviews the plan and agrees to publish whatever the results turn out to be. Both are among the most important developments in research practice in the last 15 years. As a reader, don’t just note that a study was pre-registered; go and look at the plan. Does the paper match it? Are any deviations disclosed and explained? A pre-registration that nobody checks is just a link. Also bear in mind that pre-registration fits experiments far more easily than it fits analyses of secondary data, so its absence isn’t a red flag on its own in many management fields.</p>
+</div>
+<div id="the-connection-back-2" class="section level3 hasAnchor" number="13.5.2">
+<h3><span class="header-section-number">13.5.2</span> The connection back<a href="Issues.html#the-connection-back-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Every fork gives chance another opportunity, and every p-value quietly assumes there was only one. That’s the whole of it. It’s the same logic as the multiple comparisons problem earlier in this chapter, and the same logic as the simulation above. What changes from paper to paper is only how visible the forks are.</p>
+</div>
+<div id="questions-worth-asking-2" class="section level3 hasAnchor" number="13.5.3">
+<h3><span class="header-section-number">13.5.3</span> Questions worth asking<a href="Issues.html#questions-worth-asking-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><strong>How many tests could they have run?</strong> Not just how many they report: think about the outcomes, subgroups, controls and exclusions they could have tried.</li>
+<li><strong>Was the sample size set in advance?</strong> Is there a power analysis, and was it done before data collection?</li>
+<li><strong>Are the exclusion rules justified, and does the result survive without them?</strong></li>
+<li><strong>If it was pre-registered, does the paper match the plan?</strong></li>
+<li><strong>Where do the key p-values sit?</strong> A single p = .04 is unremarkable. A paper whose every central result falls between .01 and .05 is a pattern worth noticing. Across many studies, genuine effects tend to produce a pile of very small p-values rather than a cluster just under the line <span class="citation">(<a href="#ref-simonsohn2014pcurve">Simonsohn et al. 2014</a>)</span>.</li>
+<li><strong>Would the story survive if the weakest result were removed?</strong></li>
+</ol>
+</div>
+<div id="one-red-flag-2" class="section level3 hasAnchor" number="13.5.4">
+<h3><span class="header-section-number">13.5.4</span> One red flag<a href="Issues.html#one-red-flag-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The too-perfect paper: every hypothesis supported, every key result just under .05, a sample size nobody explains, and a robustness section that agrees with everything. No single feature proves anything, and I’d hate you to treat honest researchers who got lucky as suspects. But put together, that profile is exactly what a walk through the garden of forking paths produces. Real data is messier than that, and papers that admit to some mess are, in my experience, often the ones you can trust most.</p>
+</div>
+<div id="if-you-want-to-read-more-2" class="section level3 hasAnchor" number="13.5.5">
+<h3><span class="header-section-number">13.5.5</span> If you want to read more<a href="Issues.html#if-you-want-to-read-more-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Gelman and Loken’s short article “The statistical crisis in science” <span class="citation">(<a href="#ref-gelman2014statistical">Gelman and Loken 2014</a>)</span> is the clearest statement of the forking-paths idea and is free to read online. For a book-length account of how these problems play out across science, and what’s being done about them, Stuart Ritchie’s <em>Science Fictions</em> <span class="citation">(<a href="#ref-ritchie2020science">Ritchie 2020</a>)</span> is accessible, fair and genuinely hard to put down.</p>
 
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-gelman2014statistical" class="csl-entry">
+Gelman, Andrew, and Eric Loken. 2014. <span>“The Statistical Crisis in Science.”</span> <em>American Scientist</em> 102 (6): 460–65.
+</div>
+<div id="ref-kerr1998harking" class="csl-entry">
+Kerr, Norbert L. 1998. <span>“<span>HARKing</span>: Hypothesizing After the Results Are Known.”</span> <em>Personality and Social Psychology Review</em> 2 (3): 196–217.
+</div>
+<div id="ref-ritchie2020science" class="csl-entry">
+Ritchie, Stuart. 2020. <em>Science Fictions: Exposing Fraud, Bias, Negligence and Hype in Science</em>. Bodley Head.
+</div>
+<div id="ref-simmons2011false" class="csl-entry">
+Simmons, Joseph P., Leif D. Nelson, and Uri Simonsohn. 2011. <span>“False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant.”</span> <em>Psychological Science</em> 22 (11): 1359–66. <a href="https://doi.org/10.1177/0956797611417632">https://doi.org/10.1177/0956797611417632</a>.
+</div>
+<div id="ref-simonsohn2014pcurve" class="csl-entry">
+Simonsohn, Uri, Leif D. Nelson, and Joseph P. Simmons. 2014. <span>“P-Curve: A Key to the File-Drawer.”</span> <em>Journal of Experimental Psychology: General</em> 143 (2): 534–47.
+</div>
+<div id="ref-simonsohn2020specification" class="csl-entry">
+Simonsohn, Uri, Joseph P. Simmons, and Leif D. Nelson. 2020. <span>“Specification Curve Analysis.”</span> <em>Nature Human Behaviour</em> 4: 1208–14.
+</div>
+<div id="ref-steegen2016increasing" class="csl-entry">
+Steegen, Sara, Francis Tuerlinckx, Andrew Gelman, and Wolf Vanpaemel. 2016. <span>“Increasing Transparency Through a Multiverse Analysis.”</span> <em>Perspectives on Psychological Science</em> 11 (5): 702–12.
 </div>
 </div>
             </section>

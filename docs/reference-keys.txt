@@ -1,6 +1,7 @@
 fig:risk-icon-array
 fig:selection-vs-confounding
 tab:unnamed-chunk-101
+fig:p-hacking-sim
 introduction-and-orientation
 intro
 risk
@@ -70,3 +71,10 @@ Issues
 more-on-the-multiple-comparisons-problem
 the-bonferroni-correction-rate-of-change-in-football-goals-per-season
 statistical-power-brief-demonstration
+p-hacking-sim
+issues-reading
+where-youll-meet-this-2
+the-connection-back-2
+questions-worth-asking-2
+one-red-flag-2
+if-you-want-to-read-more-2
