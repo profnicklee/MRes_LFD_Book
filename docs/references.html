@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-21" />
+<meta name="date" content="2026-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -159,15 +181,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="causation.html"><a href="causation.html#confounding"><i class="fa fa-check"></i><b>4.1</b> Confounding</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="causation.html"><a href="causation.html#the-cornfield-test"><i class="fa fa-check"></i><b>4.1.1</b> The Cornfield Test</a></li>
-<li class="chapter" data-level="4.1.2" data-path="causation.html"><a href="causation.html#the-everyday-version"><i class="fa fa-check"></i><b>4.1.2</b> The Everyday Version</a></li>
+<li class="chapter" data-level="4.1.2" data-path="causation.html"><a href="causation.html#confounding-demo"><i class="fa fa-check"></i><b>4.1.2</b> The Everyday Version</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="causation.html"><a href="causation.html#selection-bias"><i class="fa fa-check"></i><b>4.2</b> Selection Bias</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="causation.html"><a href="causation.html#all-the-data-isnt-all-the-data"><i class="fa fa-check"></i><b>4.2.1</b> All the Data Isn’t All the Data</a></li>
 <li class="chapter" data-level="4.2.2" data-path="causation.html"><a href="causation.html#manufacturing-a-relationship-from-nothing"><i class="fa fa-check"></i><b>4.2.2</b> Manufacturing a Relationship from Nothing</a></li>
+<li class="chapter" data-level="4.2.3" data-path="causation.html"><a href="causation.html#selection-feels-different"><i class="fa fa-check"></i><b>4.2.3</b> Why selection feels different</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
 <li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#the-power-of-randomisation"><i class="fa fa-check"></i><b>4.4</b> The Power of Randomisation</a></li>
+<li class="chapter" data-level="4.5" data-path="causation.html"><a href="causation.html#causation-reading"><i class="fa fa-check"></i><b>4.5</b> Reading the literature</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="causation.html"><a href="causation.html#where-youll-meet-this"><i class="fa fa-check"></i><b>4.5.1</b> Where you’ll meet this</a></li>
+<li class="chapter" data-level="4.5.2" data-path="causation.html"><a href="causation.html#the-connection-back"><i class="fa fa-check"></i><b>4.5.2</b> The connection back</a></li>
+<li class="chapter" data-level="4.5.3" data-path="causation.html"><a href="causation.html#questions-worth-asking"><i class="fa fa-check"></i><b>4.5.3</b> Questions worth asking</a></li>
+<li class="chapter" data-level="4.5.4" data-path="causation.html"><a href="causation.html#one-red-flag"><i class="fa fa-check"></i><b>4.5.4</b> One red flag</a></li>
+<li class="chapter" data-level="4.5.5" data-path="causation.html"><a href="causation.html#if-you-want-to-read-more"><i class="fa fa-check"></i><b>4.5.5</b> If you want to read more</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
 <ul>
@@ -258,6 +289,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Further, a number of open-access academic papers and other reports are cited or referred to in Chapters.</p>
 <p>Weblinks are provided for all sources mentioned above where possible. However, any direct queries can be emailed to me, in case I have missed something, or perhaps a URL no longer works.</p>
 
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Armstrong, J. Scott, and Terry S. Overton. 1977. <span>“Estimating Nonresponse Bias in Mail Surveys.”</span> <em>Journal of Marketing Research</em> 14 (3): 396–402.
+</div>
+<div class="csl-entry">
+Becker, Jan-Michael, Dorian Proksch, and Christian M. Ringle. 2022. <span>“Revisiting <span>Gaussian</span> Copulas to Handle Endogenous Regressors.”</span> <em>Journal of the Academy of Marketing Science</em> 50: 46–66.
+</div>
+<div class="csl-entry">
+Certo, S. Trevis, John R. Busenbark, Hyun-soo Woo, and Matthew Semadeni. 2016. <span>“Sample Selection Bias and <span>Heckman</span> Models in Strategic Management Research.”</span> <em>Strategic Management Journal</em> 37 (13): 2639–57. <a href="https://doi.org/10.1002/smj.2475">https://doi.org/10.1002/smj.2475</a>.
+</div>
+<div class="csl-entry">
+Cunningham, Scott. 2021. <em>Causal Inference: The Mixtape</em>. Yale University Press.
+</div>
+<div class="csl-entry">
+Heckman, James J. 1979. <span>“Sample Selection Bias as a Specification Error.”</span> <em>Econometrica</em> 47 (1): 153–61.
+</div>
+<div class="csl-entry">
+Huntington-Klein, Nick. 2025. <em>The Effect: An Introduction to Research Design and Causality</em>. 2nd ed. Chapman; Hall/CRC.
+</div>
+<div class="csl-entry">
+Lee, David S., Justin McCrary, Marcelo J. Moreira, and Jack Porter. 2020. <em>Valid t-Ratio Inference for <span>IV</span></em>. Working Paper 2010.05058. arXiv. <a href="https://arxiv.org/abs/2010.05058">https://arxiv.org/abs/2010.05058</a>.
+</div>
+<div class="csl-entry">
+Park, Sungho, and Sachin Gupta. 2012. <span>“Handling Endogenous Regressors by Joint Estimation Using Copulas.”</span> <em>Marketing Science</em> 31 (4): 567–86.
+</div>
+<div class="csl-entry">
+Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. Basic Books.
+</div>
+<div class="csl-entry">
+Petrin, Amil, and Kenneth Train. 2010. <span>“A Control Function Approach to Endogeneity in Consumer Choice Models.”</span> <em>Journal of Marketing Research</em> 47 (1): 3–13.
+</div>
+<div class="csl-entry">
+Wolfolds, Sarah E., and Jordan Siegel. 2019. <span>“Misaccounting for Endogeneity: The Peril of Relying on the <span>Heckman</span> Two-Step Method Without a Valid Instrument.”</span> <em>Strategic Management Journal</em> 40 (3): 432–62. <a href="https://doi.org/10.1002/smj.2995">https://doi.org/10.1002/smj.2995</a>.
+</div>
+</div>
 </div>
             </section>
 

@@ -1,3 +1,4 @@
+fig:selection-vs-confounding
 tab:unnamed-chunk-101
 introduction-and-orientation
 intro
@@ -11,12 +12,19 @@ what-actually-is-a-normal-distribution
 causation
 confounding
 the-cornfield-test
-the-everyday-version
+confounding-demo
 selection-bias
 all-the-data-isnt-all-the-data
 manufacturing-a-relationship-from-nothing
+selection-feels-different
 endogeneity
 the-power-of-randomisation
+causation-reading
+where-youll-meet-this
+the-connection-back
+questions-worth-asking
+one-red-flag
+if-you-want-to-read-more
 assoc-rel
 correlations-and-associations
 introducing-nonlinear-associations

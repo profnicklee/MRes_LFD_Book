@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-21" />
+<meta name="date" content="2026-09-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -124,6 +124,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 </style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -159,15 +181,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="causation.html"><a href="causation.html#confounding"><i class="fa fa-check"></i><b>4.1</b> Confounding</a>
 <ul>
 <li class="chapter" data-level="4.1.1" data-path="causation.html"><a href="causation.html#the-cornfield-test"><i class="fa fa-check"></i><b>4.1.1</b> The Cornfield Test</a></li>
-<li class="chapter" data-level="4.1.2" data-path="causation.html"><a href="causation.html#the-everyday-version"><i class="fa fa-check"></i><b>4.1.2</b> The Everyday Version</a></li>
+<li class="chapter" data-level="4.1.2" data-path="causation.html"><a href="causation.html#confounding-demo"><i class="fa fa-check"></i><b>4.1.2</b> The Everyday Version</a></li>
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="causation.html"><a href="causation.html#selection-bias"><i class="fa fa-check"></i><b>4.2</b> Selection Bias</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="causation.html"><a href="causation.html#all-the-data-isnt-all-the-data"><i class="fa fa-check"></i><b>4.2.1</b> All the Data Isn’t All the Data</a></li>
 <li class="chapter" data-level="4.2.2" data-path="causation.html"><a href="causation.html#manufacturing-a-relationship-from-nothing"><i class="fa fa-check"></i><b>4.2.2</b> Manufacturing a Relationship from Nothing</a></li>
+<li class="chapter" data-level="4.2.3" data-path="causation.html"><a href="causation.html#selection-feels-different"><i class="fa fa-check"></i><b>4.2.3</b> Why selection feels different</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="causation.html"><a href="causation.html#endogeneity"><i class="fa fa-check"></i><b>4.3</b> Endogeneity</a></li>
 <li class="chapter" data-level="4.4" data-path="causation.html"><a href="causation.html#the-power-of-randomisation"><i class="fa fa-check"></i><b>4.4</b> The Power of Randomisation</a></li>
+<li class="chapter" data-level="4.5" data-path="causation.html"><a href="causation.html#causation-reading"><i class="fa fa-check"></i><b>4.5</b> Reading the literature</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="causation.html"><a href="causation.html#where-youll-meet-this"><i class="fa fa-check"></i><b>4.5.1</b> Where you’ll meet this</a></li>
+<li class="chapter" data-level="4.5.2" data-path="causation.html"><a href="causation.html#the-connection-back"><i class="fa fa-check"></i><b>4.5.2</b> The connection back</a></li>
+<li class="chapter" data-level="4.5.3" data-path="causation.html"><a href="causation.html#questions-worth-asking"><i class="fa fa-check"></i><b>4.5.3</b> Questions worth asking</a></li>
+<li class="chapter" data-level="4.5.4" data-path="causation.html"><a href="causation.html#one-red-flag"><i class="fa fa-check"></i><b>4.5.4</b> One red flag</a></li>
+<li class="chapter" data-level="4.5.5" data-path="causation.html"><a href="causation.html#if-you-want-to-read-more"><i class="fa fa-check"></i><b>4.5.5</b> If you want to read more</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
 <ul>
@@ -276,8 +307,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Management research rarely reports risk ratios — you’ll see correlations and standardized regression coefficients instead. The same test still works: a correlation (or a standardized coefficient) plugs directly into <span class="math inline">\(RR \approx e^{0.91r}\)</span> (Mathur &amp; VanderWeele, 2020; VanderWeele, 2017), and from there, the same formula as above. Take r = 0.3 — a correlation many reviewers would treat as a genuinely strong finding. RR ≈ 1.31, E-value ≈ 1.96. A confounder barely stronger than the effect itself would fully explain it away. Compare that to smoking’s 17.5, and you get a real sense of how differently “solid” two published findings can actually be, even when both get called significant.</p>
 <p>It’s worth keeping this formula, because you’ll meet plenty of causal claims that don’t hold up nearly this well once you check. Next time a headline reports a relative risk — or a paper reports a correlation — this is the one-line test for how seriously to take it.</p>
 </div>
-<div id="the-everyday-version" class="section level3 hasAnchor" number="4.1.2">
-<h3><span class="header-section-number">4.1.2</span> The Everyday Version<a href="causation.html#the-everyday-version" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="confounding-demo" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> The Everyday Version<a href="causation.html#confounding-demo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You won’t often get to run an argument as tight as Cornfield’s yourself — it took decades, a real historical dataset, and the simple fact that nobody ever found the missing factor. But the everyday version of watching a confound do its work doesn’t need any of that. It shows up anywhere you have the data and don’t think to check.</p>
 <p>You’ve probably met the classic case already, possibly at a dinner party where someone was showing off. Across US cities, ice cream sales and murder rates rise and fall together — and not weakly, either. Plot one against the other and you’ll get a relationship strong enough that if you’d found it in your own data, you’d be drafting the abstract. This isn’t a made-up example either — Tyler Vigen’s <em>Spurious Correlations</em> project puts the real figure at r = 0.715 across US data from 1990–2021 (<a href="https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates" class="uri">https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates</a>).</p>
 <p>Nobody thinks ice cream causes murder. The obvious culprit is temperature: hot weather means more people buying ice cream, and — for reasons criminologists actually take seriously — more violent crime too. Ice cream and murder never talk to each other. They’re each just reacting to the same third thing.</p>
@@ -329,6 +360,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="LFD_files/figure-html/unnamed-chunk-49-1.png" alt="" width="672" /></p>
 <p>Among the people who get <em>hired</em>, though, they look negatively related — the highly skilled hires will tend to be the ones who scraped by on fit, and vice versa. If a manager later notices “our most technically brilliant hires are always the awkward ones” and starts wondering whether skill and personality genuinely trade off, they’re not wrong about the pattern they are seeing, they’re wrong about where it came from.</p>
 </div>
+<div id="selection-feels-different" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Why selection feels different<a href="causation.html#selection-feels-different" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Most people find confounding intuitive once it’s pointed out. There’s a culprit, a third variable you can name, like temperature, and the fix is to hold it steady. Selection feels different, and the feeling is right. In the NBA and hiring examples there is no culprit at all. Nothing in the population links height and skill, or skill and fit. The relationship was manufactured entirely by the filter that decided who we got to see.</p>
+<p>Here’s the way I find most helpful to think about it. Put the two kinds of demonstration side by side, which is what Figure <a href="causation.html#fig:selection-vs-confounding">4.1</a> does, with freshly simulated versions of each. In the ice cream example, looking <em>within</em> one band of temperature made a spurious relationship disappear. In the NBA example, looking <em>within</em> the group of people who made the league made a spurious relationship appear. Both times we did essentially the same thing, which was to look at a subset. The opposite results come from where the subsetting variable sits. Temperature is a common <em>cause</em> of ice cream sales and murders, and holding a common cause steady removes a fake link. Making the NBA is a common <em>consequence</em> of height and skill, and holding a common consequence steady creates one. If you read further, you’ll find this called a “collider,” and medics know one version of it as Berkson’s paradox.</p>
+<div class="figure"><span style="display:block;" id="fig:selection-vs-confounding"></span>
+<img src="LFD_files/figure-html/selection-vs-confounding-1.png" alt="The same move, opposite results. Left: looking within one band of a common cause (temperature) makes a spurious relationship disappear. Right: looking only at cases that passed a filter depending on both variables (making the league) makes a relationship appear from nothing. Grey: everyone. Blue: the subset." width="864" />
+<p class="caption">
+Figure 4.1: The same move, opposite results. Left: looking within one band of a common cause (temperature) makes a spurious relationship disappear. Right: looking only at cases that passed a filter depending on both variables (making the league) makes a relationship appear from nothing. Grey: everyone. Blue: the subset.
+</p>
+</div>
+<p>One uncomfortable implication follows directly. Holding a variable steady by <em>selecting</em> on it and holding it steady <em>statistically</em> are, for this purpose, the same move. So if a researcher “controls for” something that is itself a consequence of both X and Y, they manufacture a relationship in exactly the way the NBA filter did. More control variables are not automatically safer.</p>
+<p>It’s also worth knowing that “selection” gets used for two quite different problems. <strong>Selection into treatment</strong> is about who <em>chooses</em> the thing being studied. Suppose we’re back with the sales training from the start of this chapter, and the most motivated salespeople sign up, and motivated salespeople would have sold more anyway. That is really a confounding problem wearing a selection label, because motivation is the culprit. <strong>Selection into the sample</strong> is about who ends up in the data at all, and that’s the NBA problem, the one that genuinely behaves differently. Measuring more things doesn’t fix it, and neither does a bigger sample, because the distortion is built into who you’re looking at.</p>
+<p>Two clues give selection away. The first is a restricted range. If a variable’s spread in your data is noticeably narrower than it is in the population, something has filtered it, which is exactly the compressed cloud in the NBA plots. The second is a sample defined by an <em>outcome</em>: players who made the league, candidates who were hired. Whenever inclusion depends on how things turned out, it’s worth asking what the missing cases would look like, and whether adding them back would change the relationship.</p>
+</div>
 </div>
 <div id="endogeneity" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Endogeneity<a href="causation.html#endogeneity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -347,7 +392,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So confounding, reverse causation, and selection bias share something important: all three can manufacture a relationship — or hide one — without you doing anything wrong with your statistics. The correlation you calculate is correct. It’s the story you tell about why it’s there that goes wrong.</p>
 <p>There’s one design choice that neutralises confounding before you ever reach the analysis stage: randomisation. If who receives a treatment is decided by something like a coin flip, rather than by any pre-existing characteristic, then every confounder — measured or not, thought of or not — ends up, on average, equally represented on both sides of the comparison. Randomisation doesn’t remove confounders. It makes them irrelevant, because they can no longer line up systematically with which group you’re in.</p>
 <p>Hold onto that idea. A few chapters from now, you’ll meet a two-study design built around exactly this problem — and you’ll be equipped to see why the second study’s fix actually works before the book explains it.</p>
+</div>
+<div id="causation-reading" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Reading the literature<a href="causation.html#causation-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This chapter used deliberately simple tools: splitting data into bands, simulating populations, drawing scatter plots side by side. That was on purpose, because the ideas are hard enough without machinery getting in the way. But when you open a management journal, nobody is banding ice cream sales by temperature. What you’ll find instead, usually near the end of the method section, is a paragraph headed something like “Addressing endogeneity,” followed by a list of techniques you’ve probably never run and may never run. In the lecture I rattle off a few of these names partly to sound clever. Here I want to do something more useful than that.</p>
+<p>The aim is for you to read that paragraph with some confidence, even if you couldn’t do any of it yourself. There’s a trick to it. Almost every technique in there is an attempt to solve one of the three problems in this chapter: confounding, reverse causation, or selection. And every one of them works the same basic way. It swaps the assumption “nothing else is going on” for a different assumption that is hopefully easier to believe. So your job as a reader isn’t to check the maths. It’s to ask two questions: which problem is this aimed at, and what is it asking me to believe instead?</p>
+<div id="where-youll-meet-this" class="section level3 hasAnchor" number="4.5.1">
+<h3><span class="header-section-number">4.5.1</span> Where you’ll meet this<a href="causation.html#where-youll-meet-this" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It helps to sort the techniques into four families, because each family has one characteristic assumption, and that assumption is what you’re actually evaluating.</p>
+<p><strong>Family one: measure the confounder.</strong></p>
+<p><em>Control variables.</em> “Controlling for firm size, age and industry…” This is the stratification from Section <a href="causation.html#confounding-demo">4.1.2</a>, done inside an equation instead of by splitting into bands. It’s the same logic, and it has the same limit. It only deals with confounders that somebody thought of and then measured. The assumption is that nothing important is missing from the list, and the list is usually in a table you can check.</p>
+<p><em>Matching and propensity scores.</em> These build a comparison group that looks like the “treated” group on the variables that were measured. Papers often show a “balance table” to demonstrate how similar the groups are after matching. It sounds a lot like randomisation. It isn’t, because the balance only covers what was measured. It has the same limit as control variables, just wearing a better suit.</p>
+<p><strong>Family two: use structure in the data.</strong></p>
+<p><em>Fixed effects.</em> Here each firm, person or family is compared with itself. That removes everything stable about the unit, whether it was measured or not, which is genuinely powerful. A firm’s culture, a manager’s personality, a family’s genes: if it doesn’t change during the study, it’s gone. But fixed effects do nothing about things that <em>do</em> change over time, and those are often exactly the things you’d worry about.</p>
+<p><em>Difference-in-differences.</em> This compares how a treated group changed over time with how an untreated group changed. It relies on the two groups having been on parallel paths before anything happened. Good papers show you the pre-treatment trends so you can judge for yourself. If they don’t show you, ask why not.</p>
+<p><strong>Family three: find something that moves X from outside.</strong></p>
+<p><em>Instrumental variables (often “two-stage least squares” or 2SLS).</em> The idea is to find something that pushes X around but affects Y <em>only</em> through X. Confusingly, IV here means “instrumental variable,” not the “independent variable” I’ve been abbreviating the same way.</p>
+<p>Two things matter. First, the “only through X” part (the <em>exclusion restriction</em>) can’t be tested with the data. It has to be argued. So read the argument, and try hard to think of another route from the instrument to Y. Second, the instrument has to actually move X. Papers report a “first-stage F” to show this, usually against a rule of thumb of 10. You’ll recognise the pattern from Chapter <a href="H-testing.html#H-testing">11</a>: it’s a threshold, and thresholds are heuristics. More recent work suggests that for the usual significance test to behave as advertised, the F may need to be closer to 100 <span class="citation">(<a href="#ref-lee2020valid">Lee et al. 2020</a>)</span>. You don’t need to settle that argument. Just notice when a paper treats “F &gt; 10” as the end of the conversation.</p>
+<p><em>Control functions.</em> These are increasingly common, especially in marketing, and they’re easier to read than they sound <span class="citation">(<a href="#ref-petrin2010control">Petrin and Train 2010</a>)</span>. The researcher uses an instrument to predict X. They then take the part of X the instrument <em>couldn’t</em> predict (the residual) and add it to the main model as an extra variable. That leftover part is where the contamination lives. So a control function is, quite literally, a way of turning an unmeasured confounder into a control variable, which puts you right back on familiar ground from family one.</p>
+<p>In simple linear models it gives the same answer as 2SLS. Its appeal is that it still works in models where 2SLS gets awkward, such as models of which brand a customer chooses. The key point for you as a reader is that it is not an escape from the instrument. It rests on exactly the same exclusion restriction, so the same questions apply.</p>
+<p><em>Gaussian copulas.</em> These go one step further and need no instrument at all <span class="citation">(<a href="#ref-park2012handling">Park and Gupta 2012</a>)</span>. In practice most applications use a control-function version, adding a “copula term” to the model as an extra variable. What replaces the instrument is an assumption about the <em>shape</em> of X’s distribution. The method only works if X is clearly non-normal, and simulation work suggests X needs to be quite strongly skewed for the method to perform well in the sample sizes typical of management research <span class="citation">(<a href="#ref-becker2022revisiting">Becker et al. 2022</a>)</span>.</p>
+<p>This is where Chapter <a href="norm-dist.html#norm-dist">3</a> pays off. Many survey constructs are an average of several Likert items, and such averages will often be much closer to symmetrical than that. So check the descriptives table. If the variable being “corrected” looks roughly normal, the correction is standing on thin ice.</p>
+<p><strong>Family four: model who got into the sample.</strong></p>
+<p>This family deals with the second kind of selection from Section <a href="causation.html#selection-feels-different">4.2.3</a>, the filter problem. It’s worth knowing where that problem hides in management research, because papers rarely announce it. It shows up in who answers surveys (a 15 percent response rate means 85 percent of the story is missing), in which firms survived long enough to appear in a database, in which startups got through an investor’s gate, in which employees stayed at a firm rather than leaving, and in which studies got published. That last one is big enough to get its own treatment in Chapter <a href="Issues.html#Issues">13</a>.</p>
+<p>You’ll meet a handful of responses to it, and it helps to know one piece of vocabulary first. Papers distinguish <strong>selection on observables</strong>, where inclusion depends on things the researcher measured, from <strong>selection on unobservables</strong>, where it depends on things they didn’t. The first is the easier problem, and the methods for it carry the same assumption as family one. The second needs something stronger.</p>
+<p><em>Non-response checks.</em> In survey research the standard move, especially in marketing, is to compare early and late respondents, on the theory that late ones resemble the people who never replied <span class="citation">(<a href="#ref-armstrong1977estimating">Armstrong and Overton 1977</a>)</span>. A stronger version compares respondents with known figures for the whole population they were drawn from, such as firm size or sector from a database. Both are better than nothing. But the first leans heavily on its theory, and the second can only check the variables that happen to be available for everyone.</p>
+<p><em>Weighting.</em> This reweights the sample so that it matches the population on known characteristics, counting under-represented cases more heavily. It’s selection on observables, so it fixes only what it can see.</p>
+<p><em>Heckman models.</em> These are the ones you’ll see most often in strategy and management journals <span class="citation">(<a href="#ref-heckman1979sample">Heckman 1979</a>)</span>. They work in two stages. The first stage predicts <em>who gets into the sample</em>. From that it builds an extra variable, usually called the inverse Mills ratio or lambda, which is added to the main model as a correction. If that sounds familiar, it should: it’s the control-function idea from family three, applied to selection instead of to X. It also comes with the same catch. For the method to be trustworthy, the first stage needs at least one variable that affects <em>whether</em> a case is selected but not the outcome itself. That’s an exclusion restriction again. Without one, the correction rests almost entirely on the assumed shape of a statistical distribution, and it can do more harm than good. One review of strategy and organisation theory journals found that only about a third of papers using the method even claimed to have such a variable <span class="citation">(<a href="#ref-wolfolds2019misaccounting">Wolfolds and Siegel 2019</a>)</span>.</p>
+<p>Another review of Heckman models in strategy research found them used increasingly but inconsistently, and made three points worth carrying into any paper you read <span class="citation">(<a href="#ref-certo2016sample">Certo et al. 2016</a>)</span>. First, selection only biases the result you care about if X itself helps predict who got selected, so look at the first stage. Second, a significant lambda does not by itself show that selection bias exists. Third, Heckman addresses bias from the sample, not other sources of endogeneity, so it isn’t a general-purpose fix.</p>
+<p><em>Treatment-effects and switching models.</em> You’ll sometimes see Heckman invoked to deal with who <em>chose</em> a strategy, such as which firms entered a market or adopted a practice. That’s selection into treatment, which, as the chapter showed, is closer to confounding than to filtering. There are related models designed for exactly that case, usually labelled treatment-effects or endogenous switching models. When a paper says “we used a Heckman correction,” a useful first question is simply: selection into what?</p>
+<p><em>Bounds.</em> Occasionally, rather than correcting the estimate, a paper will report the range of values the true effect could plausibly take, given what’s missing. It’s rare in management and more common in economics. It’s also refreshingly honest when you do see it, because it shows you the size of what we don’t know rather than hiding it.</p>
+</div>
+<div id="the-connection-back" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> The connection back<a href="causation.html#the-connection-back" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>None of these is randomisation. Randomisation is the only design that breaks the link between X and <em>every</em> confounder, measured or unmeasured, without asking you to take anything else on trust. It does this on average across all the random assignments you might have got, not perfectly in any single sample. That’s why randomised studies still report balance and can still get unlucky.</p>
+<p>Everything on the list above is closer to randomisation by argument. That’s not a criticism. For most interesting questions in management you can’t randomise, and these methods are how serious people deal with that. But it does mean the quality of the argument is what you’re evaluating, not the name of the technique.</p>
+</div>
+<div id="questions-worth-asking" class="section level3 hasAnchor" number="4.5.3">
+<h3><span class="header-section-number">4.5.3</span> Questions worth asking<a href="causation.html#questions-worth-asking" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><strong>What verb are they using?</strong> Results sections say “is associated with.” Discussion sections have a habit of drifting into “drives,” “shapes” or “leads to.” Did the design earn that drift?</li>
+<li><strong>What’s the most obvious third variable?</strong> If you can think of one in thirty seconds, is it in the model? If it isn’t, did the authors say why?</li>
+<li><strong>Which family is their fix from, and what does that family assume?</strong> Did they argue for the assumption, or just name the method and move on?</li>
+<li><strong>Who is in the sample, and how did they get there?</strong> Is this selection into treatment (a confounding problem) or selection into the sample (a filter problem)? Was inclusion decided by an outcome? What would the missing cases look like?</li>
+<li><strong>Did the correction change anything?</strong> If the corrected and uncorrected estimates are nearly identical, that could mean endogeneity wasn’t a problem. It could equally mean the correction wasn’t strong enough to find it. Which reading do the authors choose, and what’s their evidence?</li>
+<li><strong>How strong would an unmeasured confounder need to be?</strong> You can ask the E-value question even if the authors never computed one.</li>
+</ol>
+</div>
+<div id="one-red-flag" class="section level3 hasAnchor" number="4.5.4">
+<h3><span class="header-section-number">4.5.4</span> One red flag<a href="causation.html#one-red-flag" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The endogeneity paragraph that reads like a ritual: one technique, one sentence, and “endogeneity was therefore not a concern.” Its most common form is a test. The control-function residual, the copula term or the Heckman lambda is “not significant,” and the authors conclude there’s no endogeneity. You already know from Chapter <a href="H-testing.html#H-testing">11</a> what’s wrong with that. A non-significant result is an absence of evidence, not evidence of absence. These tests can also be weak, especially with a feeble instrument or a barely skewed variable.</p>
+<p>My strong suspicion, and I say this as someone who has been on both ends of the review process, is that a lot of these paragraphs exist because a reviewer asked for them, not because the authors thought hard about their design. A check that the authors never expected to fail isn’t really a check. When you see one, go back to question 2 and do the thinking yourself.</p>
+</div>
+<div id="if-you-want-to-read-more" class="section level3 hasAnchor" number="4.5.5">
+<h3><span class="header-section-number">4.5.5</span> If you want to read more<a href="causation.html#if-you-want-to-read-more" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Two books do this properly and are written for people who want to understand the ideas rather than become econometricians. Both are free to read online. Scott Cunningham’s <em>Causal Inference: The Mixtape</em> <span class="citation">(<a href="#ref-cunningham2021mixtape">Cunningham 2021</a>)</span> covers every technique in this section with real examples and a good sense of humour. Nick Huntington-Klein’s <em>The Effect</em> <span class="citation">(<a href="#ref-huntingtonklein2025effect">Huntington-Klein 2025</a>)</span> is, if anything, gentler. Its first half builds the concepts almost without equations, and its treatment of colliders and selection is the clearest I know. If you’d rather start with something you can read on a train, Judea Pearl and Dana Mackenzie’s <em>The Book of Why</em> <span class="citation">(<a href="#ref-pearl2018book">Pearl and Mackenzie 2018</a>)</span> is a popular account of the same ideas, written by one of the people who developed them.</p>
+<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
+The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
+-->
 
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-armstrong1977estimating" class="csl-entry">
+Armstrong, J. Scott, and Terry S. Overton. 1977. <span>“Estimating Nonresponse Bias in Mail Surveys.”</span> <em>Journal of Marketing Research</em> 14 (3): 396–402.
+</div>
+<div id="ref-becker2022revisiting" class="csl-entry">
+Becker, Jan-Michael, Dorian Proksch, and Christian M. Ringle. 2022. <span>“Revisiting <span>Gaussian</span> Copulas to Handle Endogenous Regressors.”</span> <em>Journal of the Academy of Marketing Science</em> 50: 46–66.
+</div>
+<div id="ref-certo2016sample" class="csl-entry">
+Certo, S. Trevis, John R. Busenbark, Hyun-soo Woo, and Matthew Semadeni. 2016. <span>“Sample Selection Bias and <span>Heckman</span> Models in Strategic Management Research.”</span> <em>Strategic Management Journal</em> 37 (13): 2639–57. <a href="https://doi.org/10.1002/smj.2475">https://doi.org/10.1002/smj.2475</a>.
+</div>
+<div id="ref-cunningham2021mixtape" class="csl-entry">
+Cunningham, Scott. 2021. <em>Causal Inference: The Mixtape</em>. Yale University Press.
+</div>
+<div id="ref-heckman1979sample" class="csl-entry">
+Heckman, James J. 1979. <span>“Sample Selection Bias as a Specification Error.”</span> <em>Econometrica</em> 47 (1): 153–61.
+</div>
+<div id="ref-huntingtonklein2025effect" class="csl-entry">
+Huntington-Klein, Nick. 2025. <em>The Effect: An Introduction to Research Design and Causality</em>. 2nd ed. Chapman; Hall/CRC.
+</div>
+<div id="ref-lee2020valid" class="csl-entry">
+Lee, David S., Justin McCrary, Marcelo J. Moreira, and Jack Porter. 2020. <em>Valid t-Ratio Inference for <span>IV</span></em>. Working Paper 2010.05058. arXiv. <a href="https://arxiv.org/abs/2010.05058">https://arxiv.org/abs/2010.05058</a>.
+</div>
+<div id="ref-park2012handling" class="csl-entry">
+Park, Sungho, and Sachin Gupta. 2012. <span>“Handling Endogenous Regressors by Joint Estimation Using Copulas.”</span> <em>Marketing Science</em> 31 (4): 567–86.
+</div>
+<div id="ref-pearl2018book" class="csl-entry">
+Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. Basic Books.
+</div>
+<div id="ref-petrin2010control" class="csl-entry">
+Petrin, Amil, and Kenneth Train. 2010. <span>“A Control Function Approach to Endogeneity in Consumer Choice Models.”</span> <em>Journal of Marketing Research</em> 47 (1): 3–13.
+</div>
+<div id="ref-wolfolds2019misaccounting" class="csl-entry">
+Wolfolds, Sarah E., and Jordan Siegel. 2019. <span>“Misaccounting for Endogeneity: The Peril of Relying on the <span>Heckman</span> Two-Step Method Without a Valid Instrument.”</span> <em>Strategic Management Journal</em> 40 (3): 432–62. <a href="https://doi.org/10.1002/smj.2995">https://doi.org/10.1002/smj.2995</a>.
 </div>
 </div>
             </section>
