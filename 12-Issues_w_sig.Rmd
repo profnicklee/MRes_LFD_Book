@@ -265,3 +265,148 @@ pwr.anova.test(k=3,f=.84,sig.level=.05,power=.8)
 That says I'd only have needed about 6 people per group for 80% power. That's *fewer* than the 15 I actually used, not closer to it from above — a different, and slightly uncomfortable, lesson from the one I set out to teach.
 
 Here's the honest reading. What I've just done — taking the effect size my own small sample happened to produce, and treating it as the 'true' population effect size for a power calculation — is a well-known bad practice, sometimes called *observed* or *post-hoc* power. Small samples give you very noisy estimates of the true effect size: a difference that looks huge in a sample of 15 per group could easily be a real, more modest effect combined with a slice of good luck in exactly this data. So this isn't really evidence that a study of 15 would reliably detect an effect this size in general — it's evidence that *this specific sample* turned up a strikingly large difference. The honest way to plan a study is to commit to a plausible effect size **before** you collect any data (which is what the moderate f = .25 assumption above was trying to do, arbitrary as it was), not to reverse-engineer one from a result you already have. If anything, this is itself a small demonstration of why "just check whether the effect size you found was big enough" isn't a fix for a badly-powered study after the fact — the number you'd get depends entirely on which random sample you happened to draw, small samples especially.
+
+## How to find an effect that isn't there {#p-hacking-sim}
+
+```{r p-hacking-sim-setup, include=FALSE, cache=TRUE}
+set.seed(2026)
+
+# One simulated study in a world where the null is TRUE:
+# two groups, no real difference, 30 people per group available.
+make_study <- function(n_max = 30) {
+  n <- 2 * n_max
+  group <- rep(c("A", "B"), each = n_max)
+  y1 <- rnorm(n)                                   # outcome 1
+  y2 <- 0.5 * y1 + sqrt(1 - 0.5^2) * rnorm(n)      # outcome 2, correlated r = .5
+  covariate <- rbinom(n, 1, 0.5)                   # e.g. a yes/no background variable
+  data.frame(group, y1, y2, y_avg = (y1 + y2) / 2, covariate,
+             order = rep(1:n_max, times = 2))
+}
+
+p_value <- function(d, outcome, use_covariate, drop_outliers) {
+  d$y <- d[[outcome]]
+  if (drop_outliers) {
+    z <- ave(d$y, d$group, FUN = function(v) (v - mean(v)) / sd(v))
+    d <- d[abs(z) <= 2, ]
+  }
+  # A t-test of group, optionally adjusting for the covariate. This is exactly
+  # what lm() would report, computed directly so the simulation runs quickly.
+  X <- cbind(1, d$group == "B", if (use_covariate) d$covariate)
+  fit <- lm.fit(X, d$y)
+  df <- nrow(X) - ncol(X)
+  se <- sqrt(sum(fit$residuals^2) / df * solve(crossprod(X))[2, 2])
+  2 * pt(-abs(fit$coefficients[2] / se), df)
+}
+
+# Does ANY analysis the researcher is allowed to try give p < .05?
+any_significant <- function(d, flexibility) {
+  outcomes  <- if (flexibility >= 1) c("y1", "y2", "y_avg") else "y1"
+  sizes     <- if (flexibility >= 2) c(20, 30) else 20
+  covars    <- if (flexibility >= 3) c(FALSE, TRUE) else FALSE
+  outliers  <- if (flexibility >= 4) c(FALSE, TRUE) else FALSE
+  for (n in sizes) for (o in outcomes) for (cv in covars) for (ol in outliers) {
+    if (p_value(d[d$order <= n, ], o, cv, ol) < 0.05) return(TRUE)
+  }
+  FALSE
+}
+
+n_sims <- 2000
+n_sims_txt <- format(n_sims, big.mark = ",")
+pct <- function(x) paste(round(100 * x), "percent")   # for the text
+studies <- replicate(n_sims, make_study(), simplify = FALSE)
+labels <- c("One pre-planned test",
+            "+ choose between\ntwo outcomes",
+            "+ add more people\nif not significant",
+            "+ with or without\na control variable",
+            "+ with or without\n'outliers'")
+rates <- sapply(0:4, function(k) mean(sapply(studies, any_significant, flexibility = k)))
+
+phack <- data.frame(step = factor(labels, levels = labels), rate = rates)
+```
+
+"p-hacking" is one of those terms that everyone has heard and nobody quite agrees on. If you walked around a business school asking what it means, you'd get a surprisingly wide range of answers. At one end it means deliberate cheating: running analyses until something works, and reporting only that. I think it's important to separate that from something much more common and much more interesting, which is researchers who are doing their honest best and still end up somewhere they shouldn't. This section is mostly about the second kind, because it's the kind you're most at risk of yourself.
+
+Let's build it with a simulation. We'll create a world in which the null hypothesis is *true*: two groups, A and B, that are genuinely no different on anything we measure. Then we'll run `r n_sims_txt` separate studies in that world.
+
+It's worth being very clear about what that means, because the whole logic depends on it. These are not `r n_sims_txt` tests run on one dataset. They are `r n_sims_txt` completely independent studies, each with its own freshly collected data. Think of it as `r n_sims_txt` different researchers around the world, each setting out to study the same question without knowing about any of the others. Each study has 20 people per group to start with, two outcome measures that are moderately related to each other (the way two measures of similar things usually are), and a yes/no background variable about each person.
+
+Let's start with researchers who behave exactly as Chapter \@ref(H-testing) says they should. Each of them decides in advance to test outcome 1 with a single t-test, runs their study, and does exactly that: one study, one test. Because there is no real effect, any significant result is a false positive, and each researcher has a 5 percent chance of getting one. Across all `r n_sims_txt` studies, that's what we see: `r pct(phack$rate[1])` of them "find" an effect. This is what p < .05 actually promises. It can't tell any individual researcher whether they are one of the unlucky ones. What it tells you is how often the procedure goes wrong across many independent studies like theirs.
+
+Now let's give every researcher some flexibility, one choice at a time. Each of them still runs just one study, with one dataset. What changes is how many ways they're allowed to analyse it. None of these choices is outrageous. Each one is the kind of thing you'll find in published papers, often without comment.
+
+- **Two outcomes.** They measured two things, so why not check both, and their average? If any of the three is significant, that's the finding.
+- **A few more people.** If the result is "nearly there," it seems reasonable to collect another 10 per group and look again.
+- **A control variable.** Perhaps that background variable should be controlled for. Try it with and without.
+- **Outliers.** Some values look a bit extreme. Try the analysis with and without anyone more than two standard deviations from their group's mean.
+
+After each new choice is added, we count how many of the `r n_sims_txt` researchers can now find *some* path through their own data to p < .05. Figure \@ref(fig:p-hacking-sim) shows what happens.
+
+```{r p-hacking-sim, cache=TRUE, fig.cap="How researcher flexibility inflates false positives. Each bar shows the percentage of independent simulated studies, all of an effect that does not exist, in which the researcher could find at least one analysis with p < .05. Each bar adds one more analytic choice to those before it. The dashed line marks the 5 percent that p < .05 is supposed to deliver.", fig.width=9, fig.height=4.8}
+p <- ggplot(phack, aes(x = step, y = rate)) +
+  geom_col(fill = c("grey60", rep("#1f78b4", 4)), width = 0.7) +
+  geom_hline(yintercept = 0.05, linetype = "dashed", colour = "grey30") +
+  geom_text(aes(label = paste0(round(100 * rate), "%")), vjust = -0.5, size = 3.6) +
+  scale_y_continuous(labels = function(x) paste0(100 * x, "%"),
+                     limits = c(0, max(phack$rate) * 1.15), expand = c(0, 0)) +
+  labs(x = NULL, y = "Studies finding a 'significant' effect\n(when no effect exists)") +
+  theme_minimal(base_size = 11) +
+  theme(panel.grid.major.x = element_blank())
+p
+```
+
+By the time all four choices are available, `r pct(phack$rate[5])` of researchers studying an effect that doesn't exist end up with a "significant" result. That's roughly one study in three, from a procedure that is supposed to be wrong one time in 20.
+
+I want to draw three lessons from this.
+
+**First, no single step looks like cheating.** Each choice, taken alone, is defensible, and some of them appear in textbooks as perfectly good practice. That's precisely the problem. The rate climbs because the choices *combine*: each new fork in the road gives the data another chance to throw up something by luck. Notice, too, that these extra analyses are not new studies. Our `r n_sims_txt` researchers are independent of one another, but each researcher's forks are all different looks at the *same* data. That's part of what makes them so easy to walk down: each one feels like the same analysis done slightly differently, not like a fresh roll of the dice. But every fork is another chance for luck to produce p < .05, and those chances add up.
+
+**Second, the forks aren't equal.** Adding a control variable barely moved the rate here, while outlier removal roughly doubled it. Outliers are a genuinely hard case. I grew up in a survey tradition where variables ran from 1 to 5, so if you found a 55 it was a typo and you removed it without a second thought. But deciding what counts as an outlier *after* you've seen whether it helps your result is a very different thing. The honest question is always how the value came to exist, not whether the analysis looks better without it.
+
+**Third, and most important, you can't see any of this from outside.** The published paper from our last researcher would report one clean t-test with p = .03, and it would look exactly like a paper from one of our honest single-test researchers. The p-value itself isn't wrong. The arithmetic is correct. But it answers the question "how surprising would this result be if it were the only test I ran?", and it wasn't the only test.
+
+This idea goes further than you might think. The statistician Andrew Gelman calls it the "garden of forking paths," and it's probably my favourite idea in this whole area [@gelman2014statistical]. His point is that a researcher doesn't need to *try* lots of analyses for the problem to arise. It's enough that they *would* have made different choices if the data had come out differently. Looking back from the end, every choice seems like the only logical one: this measure, this method, these outliers removed. But someone else starting from the same place might have walked a different path and found something else.
+
+Our simulation is also on the gentle side. The paper that made this problem famous used a slightly different set of four choices and found that combining them pushed the false-positive rate to around 61 percent [@simmons2011false]. Real studies usually offer far more than four forks.
+
+The most effective remedy is to decide the path in advance and write it down. That's what pre-registration does, and I'll say more about how to read pre-registered work below.
+
+## Reading the literature {#issues-reading}
+
+The simulation earlier in this chapter showed that you can't see the forking paths from outside. As a reader, that's the frustrating part. You're handed the one path the authors walked, and it looks like the only one there was. But the paths leave traces, and once you know what to look for, you'll start noticing them.
+
+### Where you'll meet this
+
+**Lots of tests in one place.** A typical results table in a management paper might test a dozen coefficients across four models. Count the tests. If there are 40 chances to find p < .05 and the paper reports three significant results, that's roughly what luck alone would produce. You met the formal version of this, the *familywise error rate*, earlier in this chapter, where running many comparisons raised the chance of at least one false positive. Forking paths are the same problem. The only difference is that the extra tests are hidden rather than printed in a table.
+
+**Sample sizes nobody explains.** If a paper doesn't say how its sample size was decided, you can't rule out the "collect a few more" fork from our simulation. Good papers justify their sample size in advance, usually with a power analysis (earlier in this chapter). Odd numbers, or samples described as having been "extended," are worth a second look.
+
+**Exclusions.** Look for phrases like "after removing *n* cases," "failed attention checks," or "outliers were excluded." None of these is wrong in itself. What matters is whether the rule was set before the results were known, and whether the main finding survives with the excluded cases put back in. Many good papers report both versions. When a paper reports only one, the question is worth asking.
+
+**Control variables that move around.** If the set of controls changes from one model or table to the next without explanation, each change is a fork. In Chapter \@ref(causation) you saw that controls should be chosen for causal reasons. Controls that look chosen for their effect on the p-value are a different thing.
+
+**"Robustness checks."** These are often valuable, and some of the best work goes much further: a *specification curve* or *multiverse analysis* runs the analysis every reasonable way at once and shows how often the result holds [@simonsohn2020specification; @steegen2016increasing]. But ordinary robustness checks are also chosen by the authors, and you only see the ones that were reported. A robustness section in which every single check comes out the same way deserves a little gentle scepticism.
+
+**Hypotheses that fit a bit too perfectly.** Sometimes the hypotheses in the introduction match the results a little too neatly, including an unexpected interaction or a subgroup effect presented as if it had been predicted all along. This has a name, *HARKing*: hypothesising after the results are known [@kerr1998harking]. You usually can't prove it. But a highly specific prediction that nobody would have thought to make in advance is a clue.
+
+**Pre-registration and registered reports.** A pre-registration is a time-stamped plan, usually on a site such as the Open Science Framework, setting out the hypotheses, sample size and analysis before any data are collected. A *registered report* goes one step further: the journal reviews the plan and agrees to publish whatever the results turn out to be. Both are among the most important developments in research practice in the last 15 years. As a reader, don't just note that a study was pre-registered; go and look at the plan. Does the paper match it? Are any deviations disclosed and explained? A pre-registration that nobody checks is just a link. Also bear in mind that pre-registration fits experiments far more easily than it fits analyses of secondary data, so its absence isn't a red flag on its own in many management fields.
+
+### The connection back
+
+Every fork gives chance another opportunity, and every p-value quietly assumes there was only one. That's the whole of it. It's the same logic as the multiple comparisons problem earlier in this chapter, and the same logic as the simulation above. What changes from paper to paper is only how visible the forks are.
+
+### Questions worth asking
+
+1. **How many tests could they have run?** Not just how many they report: think about the outcomes, subgroups, controls and exclusions they could have tried.
+2. **Was the sample size set in advance?** Is there a power analysis, and was it done before data collection?
+3. **Are the exclusion rules justified, and does the result survive without them?**
+4. **If it was pre-registered, does the paper match the plan?**
+5. **Where do the key p-values sit?** A single p = .04 is unremarkable. A paper whose every central result falls between .01 and .05 is a pattern worth noticing. Across many studies, genuine effects tend to produce a pile of very small p-values rather than a cluster just under the line [@simonsohn2014pcurve].
+6. **Would the story survive if the weakest result were removed?**
+
+### One red flag
+
+The too-perfect paper: every hypothesis supported, every key result just under .05, a sample size nobody explains, and a robustness section that agrees with everything. No single feature proves anything, and I'd hate you to treat honest researchers who got lucky as suspects. But put together, that profile is exactly what a walk through the garden of forking paths produces. Real data is messier than that, and papers that admit to some mess are, in my experience, often the ones you can trust most.
+
+### If you want to read more
+
+Gelman and Loken's short article "The statistical crisis in science" [@gelman2014statistical] is the clearest statement of the forking-paths idea and is free to read online. For a book-length account of how these problems play out across science, and what's being done about them, Stuart Ritchie's *Science Fictions* [@ritchie2020science] is accessible, fair and genuinely hard to put down.

@@ -401,6 +401,8 @@ Not to be started until Parts One and Two are complete. Recorded now so the reas
 
 **Placement.** A section within Chapter 12. No new chapter, no renumbering.
 
+**Correction (added when 7.2 was actioned).** The "Source" note above is wrong: `12-Issues_w_sig.Rmd` (renders as Ch 13, label `{#Issues}`) did not already discuss p-hacking, the garden of forking paths, pre-registration or the power pose case in prose — none of those terms appeared anywhere in the chapter. What the chapter already covered was the multiple comparisons problem, the familywise error rate, the Bonferroni correction, and a power analysis demonstration. The p-hacking simulation and its reader section were written and inserted as wholly new material rather than as an addition to existing prose. The replication crisis and the power pose case specifically remain Lecture-9-only material, not yet in the book — flagged for Nick as a possible future addition, not actioned here.
+
 ---
 
 # Out of scope — flag to Nick, do not action

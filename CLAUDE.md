@@ -38,10 +38,10 @@ Preview locally — open `docs/index.html`, or run `servr::httw("docs")` in R fo
 
 Nick is not experienced with branching workflows. Be explicit about what you are doing and which branch you are on at every point.
 
-- All work happens on **`revisions-2026`**. `main` stays untouched.
+- Work happens one branch per part: **`revisions-2026-partN`** (e.g. `revisions-2026-part3`), branched from `main`. `main` stays untouched.
 - Pages serves from `main` + `docs/`, so the published 2025 book must keep serving until Nick approves a merge.
 - Merge to `main` **only** when Nick explicitly says so.
-- Commit in meaningful chunks with descriptive messages, so Nick can review and revert selectively. Not one large commit.
+- One commit per handover, with a descriptive message, so Nick can review and revert selectively.
 - `docs/` contains committed build output. If a merge conflicts in generated HTML, take either side and re-run `render_book`, then commit the fresh output. Never hand-resolve generated files.
 
 ## Repo structure

@@ -85,6 +85,65 @@ While we're at it, we'll also look at pie charts...
 
 ***Quick transition to MS Excel, then back to the slides...***
 
+## When the numbers mislead: relative and absolute risk {#risk}
+
+Everything so far in this chapter has been about pictures that mislead: axes that start in the wrong place, baselines chosen to flatter. The same trick works with numbers alone, and it's arguably more dangerous, because a number feels more objective than a picture. The example I use in the lecture is one I have a personal stake in.
+
+A few years ago a set of headlines did the rounds suggesting that bacon, ham and sausages belonged in the same bracket as cigarettes. The research behind the most recent wave was a good study, in a good journal, using the UK Biobank, a huge and genuinely excellent dataset [@bradbury2020diet]. Its headline finding was that each extra 25 grams of processed meat a day was associated with a 19 percent higher risk of bowel (colorectal) cancer. I ate a ham sandwich pretty much every day for years, and as a parent I wanted to know whether I should care what my kids ate. So I did what I think anyone reading research should do, and worked through it step by step.
+
+**First, is the amount realistic?** The authors helpfully translate 25 grams into about one rasher of bacon or one slice of ham. That's not an absurd dose like the ones behind some food scares. Plenty of people eat that much, so this is worth taking seriously.
+
+**Second, is it causal?** This is a correlational study, and Chapter \@ref(causation) will give you a whole toolkit for worrying about that. Maybe heavy processed-meat eaters also drink more, or move less, or eat fewer vegetables. The authors adjusted for a long list of such factors, and the association survived. More importantly, it sits within a much larger body of evidence that led the International Agency for Research on Cancer to classify processed meat as a cause of bowel cancer [@bouvard2015carcinogenicity]. So let's accept that the link is probably real.
+
+**Third, 19 percent of what?** This is the question the headlines skipped. A 19 percent increase is a *relative* risk: it tells you how much your existing risk goes up, not what your risk is. To turn it into something you can use, you need the *base rate*. In the UK, roughly 1 in 17 men and 1 in 20 women will be diagnosed with bowel cancer in their lifetime [@cruk2026bowel], so call it about 6 in every 100 people. Add 19 percent to 6 and you get a little over 7. In *absolute* terms, then, the extra daily slice moves you from about 6 in 100 to about 7 in 100, as Figure \@ref(fig:risk-icon-array) shows.
+
+```{r risk-icon-array, fig.cap="The same result in absolute terms. Each dot is one person. A 19 percent increase in relative risk moves bowel cancer from about 6 in 100 people to about 7 in 100: one extra case (orange). Figures are rounded; see text.", fig.width=8, fig.height=4.8}
+grid <- expand.grid(col = 1:10, row = 1:10)
+grid$person <- (grid$row - 1) * 10 + grid$col
+
+panel_a <- "Baseline:\nabout 6 in 100 get bowel cancer"
+panel_b <- "With an extra 25 g of processed meat a day:\nabout 7 in 100"
+
+risk_data <- rbind(
+  data.frame(grid, panel = panel_a,
+             status = ifelse(grid$person <= 6, "Would get bowel cancer anyway", "No bowel cancer")),
+  data.frame(grid, panel = panel_b,
+             status = ifelse(grid$person <= 6, "Would get bowel cancer anyway",
+                      ifelse(grid$person == 7, "Extra case", "No bowel cancer")))
+)
+risk_data$panel  <- factor(risk_data$panel, levels = c(panel_a, panel_b))
+risk_data$status <- factor(risk_data$status,
+                           levels = c("Would get bowel cancer anyway", "Extra case", "No bowel cancer"))
+
+p <- ggplot(risk_data, aes(col, -row, colour = status)) +
+  geom_point(size = 5) +
+  scale_colour_manual(values = c("Would get bowel cancer anyway" = "#1f78b4",
+                                 "Extra case" = "#e66101",
+                                 "No bowel cancer" = "grey85"),
+                      name = NULL) +
+  facet_wrap(~ panel) +
+  scale_x_continuous(expand = expansion(add = 0.8)) +
+  scale_y_continuous(expand = expansion(add = 0.8)) +
+  coord_equal() +
+  theme_void(base_size = 11) +
+  theme(legend.position = "bottom",
+        strip.text = element_text(face = "bold", margin = margin(t = 6, b = 6)),
+        panel.background = element_rect(fill = "grey97", colour = "grey80"),
+        panel.spacing = unit(2.5, "lines"))
+
+p
+```
+
+Notice the language trap here. The risk went up by 19 *percent*, but by only about one *percentage point*. Both statements are true. Mixing them up is one of the most common errors in the whole of quantitative reporting, and you'll see it made by journalists, managers, and, I'm sorry to say, academics.
+
+Another way to say the same thing is to ask how many people would need to eat that extra slice for one extra case to appear. You might expect the answer to be 100, since we went from about 6 to about 7 in every 100. But the 7 was rounded. Nineteen percent of 6 is about 1.1, so the true figure is nearer 7.1 in 100, which means a little more than one extra case per 100 people. Turn that around, and it takes only about 90 people, each eating an extra slice of ham every day for the rest of their lives, for us to expect roughly one extra case of bowel cancer among them. (Epidemiologists call this the "number needed to harm.") That's a rough translation. It stretches a result from about six years of follow-up across a lifetime, and it treats the population's average risk as everyone's starting point. But it is the right order of magnitude, and it tells you far more than "19 percent" does.
+
+**Fourth, why the comparison with cigarettes?** Processed meat and tobacco sit in the same IARC category. But that category describes how *strong the evidence* is that something causes cancer, not how *large* the risk is [@iarc2015qa]. For smoking, the numbers are in a different universe. Roughly 1 in 100 lifelong non-smokers in the UK will get lung cancer, compared with more than 20 in 100 people who smoke a pack a day [@smc2015expert]. That's a relative risk of around 20, which, as you'll see in Chapter \@ref(causation), is the kind of number that is very hard to explain away by confounding. Nineteen percent is a relative risk of 1.19.
+
+**Finally, whose risk is it?** Here it's worth holding two ideas at once. For me, one extra case per 90 or so lifelong ham-eaters is a small risk, and I'm entitled to weigh it against how much I like a ham sandwich. The numbers can't tell me how to make that trade. But across a whole country, small individual risks add up: Cancer Research UK estimates that around 13 percent of UK bowel cancer cases are caused by eating processed meat [@cruk2026bowel]. "Trivial for me" and "important for public health" can both be true, and a lot of confused arguments come from people talking about one while the other person is thinking about the other.
+
+It's also worth knowing that an average can hide a lot. In the Biobank study, the association with processed meat showed up in men but not in women. A single headline number describes a population, not a person, and certainly not you.
+
 ## Summarizing Data with Numbers
 
 Above, we simply plotted a single variable of interest, and showed that some very basic changes to how it was displayed had the potential to 'lead' the reader to different conclusions. Even that simple tweaking is a powerful way to change opinion, and used in the wrong way can be very misleading.
@@ -333,4 +392,48 @@ ggplot(GDP,aes(x="", y=GDP2020))+geom_violin()
 In fact, we can use the log transform to revisit some of our COVID data back in EXCEL...
 
 ***Quick transition to MS Excel, then back to slides...***
+
+## Reading the literature {#intro-reading}
+
+The bacon example comes from medicine, but the trap it illustrates is everywhere in management research. Almost every effect you'll read about is reported *relative to something*, and the something is often left out, buried in a table, or never mentioned at all.
+
+### Where you'll meet this
+
+**Ratios.** Three ratios turn up again and again in papers, usually from models predicting whether something happens: an employee leaves, a firm adopts a practice, a customer churns. They're easy to confuse, so it's worth separating them.
+
+- A *relative risk* (or *risk ratio*) compares probabilities. If 50 percent of one group leave and 40 percent of another, the relative risk is 50 ÷ 40 = 1.25. The first group is a quarter more likely to leave.
+- An *odds ratio* compares odds instead. The odds of something are the chance it happens divided by the chance it doesn't. A 40 percent chance of leaving is odds of 40 to 60, or 0.67, and a 50 percent chance is odds of 50 to 50, or 1. The odds ratio is 1 ÷ 0.67 = 1.5. Odds ratios are what logistic regression, the most common model for yes/no outcomes, produces naturally, which is why you'll see so many of them.
+- A *hazard ratio* compares how quickly something happens. It comes from models that follow people or firms over time, and it asks: among those it hasn't happened to yet, how much faster does it happen in one group than the other, at any given moment? The bacon figure earlier in this chapter was actually a hazard ratio.
+
+All three are relative numbers, so all three need a base rate before they mean anything. A hazard ratio of 1.5 for employee turnover means one thing if the baseline is 30 percent a year and something much smaller if it's 1 percent.
+
+Odds ratios need one extra warning. When the outcome is rare, an odds ratio and a relative risk are almost the same, which is why people swap them freely. When the outcome is common, which many management outcomes are, the odds ratio exaggerates. You've just seen it happen: the same turnover figures give a relative risk of 1.25 but an odds ratio of 1.5. The number that sounds bigger is usually the one that gets reported [@zhang1998relative].
+
+**Percent versus percentage points.** Conversion rates, response rates, market shares and turnover rates are all percentages already, so changes in them can be described either way. A conversion rate going from 2 to 3 percent is a one-point increase and a 50 percent increase. Both are true, and a paper (or a consultant's slide deck) will usually pick whichever sounds better for the argument being made.
+
+**Percentage effects from models.** When a model uses the logarithm of an outcome such as sales or salary, its coefficients are usually read as percentage changes. They're relative by construction, so the same question applies: a percentage of what? A 10 percent sales uplift means something very different for a corner shop than for a supermarket chain.
+
+**Standardised effect sizes.** Cohen's *d* and standardised regression coefficients express an effect relative to the spread of the data rather than in its natural units. They have real uses, and you'll meet them properly in Chapter \@ref(t-test). But they share the weakness of all relative numbers: a "medium" standardised effect can be large or trivial in pounds, days or customers. Good papers translate back into natural units. It's worth noticing when they don't.
+
+**Pictures in papers.** Everything earlier in this chapter applies to journal figures too. Watch especially for bar charts of means on a 1-to-7 rating scale whose axis starts at 4, and for interaction plots where two lines diverge dramatically across a range of barely a scale point.
+
+### The connection back
+
+A truncated axis and a relative risk are the same trick. Each shows you a comparison with its anchor removed. The axis hides where zero is, and the relative risk hides the base rate. The defence is identical in both cases: go and find the anchor before you decide how impressed to be.
+
+### Questions worth asking
+
+1. **Is this a relative or an absolute number?** If it's relative, where is the base rate?
+2. **Percent or percentage points?** Which one did the authors choose to put in the abstract, and why?
+3. **Is it an odds ratio for a common outcome?** If so, the effect is probably smaller than it sounds.
+4. **What does it mean in natural units?** Pounds, days, people, customers. If the authors never say, can you work it out from their descriptives table?
+5. **Whose risk is this?** An average across a population can hide groups where the effect is much larger, and groups where it's absent. And a small effect on each person can still add up to a large effect across a population, or the other way round.
+
+### One red flag
+
+The abstract that reports only the relative effect: "increased the likelihood of turnover by 50 percent," with the base rate nowhere in sight. It's not always an attempt to mislead, since journal word limits are real. But authors know which framing sounds more impressive, and a paper whose headline number only works without its anchor is telling you something. Go to the descriptives, find the base rate, and do the arithmetic from this chapter yourself. It rarely takes more than a minute.
+
+### If you want to read more
+
+David Spiegelhalter's *The Art of Statistics* [@spiegelhalter2019art] is the best general book I know on reading numbers sensibly, and it was Spiegelhalter's explanation of the bacon story that first got me thinking about it properly. Gerd Gigerenzer's *Reckoning with Risk* [@gigerenzer2002reckoning] is older but still the classic on why relative risks mislead, and on how much clearer things get once you switch to natural frequencies like "7 in 100."
 

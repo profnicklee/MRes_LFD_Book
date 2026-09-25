@@ -26,7 +26,47 @@ This book is essentially a 'live' document, meaning that it is finalised for eac
 
 The current year is `r format(Sys.Date(), "%Y")`, and the book is currently *in progress for `r format(Sys.Date(), "%Y")`.*
 
-Please enjoy the book, and learn from it. 
+## How this book works {#how-this-book-works}
+
+### What this book is for
+
+This book goes with the Warwick Business School *Learning From Data (and) Science* module, and its aim is the same as the module's. It isn't trying to turn you into a statistician. It's trying to help you understand what data can and can't tell us, and what good quantitative research looks like.
+
+It's not impossible that some of you will never run a regression in your own research, and that's fine. But whether or not you do, you'll for sure read hundreds of papers that do. If all you can do with a quantitative paper is read the introduction, the hypotheses and the conclusions, you have no real way of knowing whether to trust those conclusions. I want you to finish this module able to form a genuinely informed opinion about quantitative work. And if you arrived afraid of numbers, I want you to leave not afraid of them. A little bit suspicious of them is fine. Healthy, even.
+
+### How it fits with the lectures
+
+The book is a companion to the lectures, not a replacement for them. The chapters broadly follow the order of the sessions, and at several points a chapter will hand you back to the slides, because some ideas work better as a conversation in the room than on the page. The book, in turn, does things the lectures can't. It slows down, works through examples step by step, and goes further in places where an hour in a lecture theatre isn't enough.
+
+The chapters move from describing the world with data, and the many ways that description can mislead, through causation and relationships, to uncertainty and estimation, then to comparing groups and testing hypotheses. They finish with what goes wrong in quantitative research, and how we might do better.
+
+### How the chapters work
+
+A few principles run through the whole book, and it helps to know them in advance.
+
+**Why before how.** Wherever there's a decision to make, such as which test to use or whether a hypothesis should be one- or two-tailed, I explain the reasoning *before* the calculation, not in the middle of it. The arithmetic is rarely the hard part. Knowing what you're doing, and why, is.
+
+**Simple methods, on purpose.** Each chapter teaches its core idea through the simplest method that will do the job. That's not because the simple methods are what you'll meet in the literature (often they aren't), but because the ideas are hard enough without complicated machinery getting in the way. The same handful of ideas sits underneath almost everything more advanced.
+
+**Simulation.** Many chapters build a small artificial world in which we know the truth, and then show what a method does in it. That's how, later in the book, I'll show you a relationship being manufactured out of nothing, and a "significant" effect being found where none exists. When you know the right answer in advance, you can see exactly what a method gets right and what it gets wrong.
+
+**Real analysis, out of sight.** Every analysis in the book is real, and runs live in R each time the book is built. But I've kept the code out of view. This is not a programming course, and what matters here is what the results mean, not how to produce them.
+
+**Honesty about the tools.** You'll notice I'm often critical of how statistics gets used in practice: significance stars, treating p < .05 as a finish line, "marginally significant" results. That's deliberate. Many of the conventions in quantitative research are habits rather than laws, and you'll be a better researcher, and a better reader of research, if you can tell the difference.
+
+### A note on the numbers
+
+Because the simulations run afresh every time the book is built, the numbers in the book won't always match the ones on the lecture slides. That isn't a mistake. The same process, run again, gives a slightly different answer, and understanding why is one of the most important ideas in the whole module.
+
+### Reading the literature
+
+Several chapters end with a section called **Reading the literature**, and more will be added as the book develops. These sections take the chapter's core idea and show you where it turns up in published research, including in methods well beyond anything this book covers. The aim is that when you meet an odds ratio, a control function or a pre-registration in a paper, you'll know what it's claiming, which core idea it rests on, and what questions to ask of it. You won't be able to run these methods after reading these sections, and that isn't the point. You'll be able to read them with some confidence, which for most of you is what will matter.
+
+### Further reading and references
+
+Chapters often end with a few suggestions for further reading, chosen for people who want to understand the ideas rather than become specialists. One book has had a particularly big influence on how I teach much of this material: David Spiegelhalter's *The Art of Statistics* [@spiegelhalter2019art]. If you read one book alongside this one, that I didn't write myself [@lee2008doing], make it that. Each chapter also lists the references it cites at its end, so you can follow up anything that interests you.
+
+Please enjoy the book, and learn from it.
 
 Feel free to email me with any questions or comments: nick.lee@wbs.ac.uk
 
