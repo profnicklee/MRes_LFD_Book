@@ -3,6 +3,7 @@ fig:selection-vs-confounding
 tab:unnamed-chunk-101
 fig:p-hacking-sim
 introduction-and-orientation
+how-this-book-works
 intro
 risk
 summarizing-data-with-numbers

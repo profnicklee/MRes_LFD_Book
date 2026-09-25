@@ -122,17 +122,21 @@ p <- ggplot(risk_data, aes(col, -row, colour = status)) +
                                  "No bowel cancer" = "grey85"),
                       name = NULL) +
   facet_wrap(~ panel) +
+  scale_x_continuous(expand = expansion(add = 0.8)) +
+  scale_y_continuous(expand = expansion(add = 0.8)) +
   coord_equal() +
   theme_void(base_size = 11) +
   theme(legend.position = "bottom",
-        strip.text = element_text(face = "bold", margin = margin(b = 6)))
+        strip.text = element_text(face = "bold", margin = margin(t = 6, b = 6)),
+        panel.background = element_rect(fill = "grey97", colour = "grey80"),
+        panel.spacing = unit(2.5, "lines"))
 
 p
 ```
 
 Notice the language trap here. The risk went up by 19 *percent*, but by only about one *percentage point*. Both statements are true. Mixing them up is one of the most common errors in the whole of quantitative reporting, and you'll see it made by journalists, managers, and, I'm sorry to say, academics.
 
-Another way to say the same thing is this. If about 90 people each ate an extra slice of ham every day for the rest of their lives, we'd expect roughly one extra case of bowel cancer among them. That's a rough translation. It stretches a result from about six years of follow-up across a lifetime, and it treats the population's average risk as everyone's starting point. But it is the right order of magnitude, and it tells you far more than "19 percent" does.
+Another way to say the same thing is to ask how many people would need to eat that extra slice for one extra case to appear. You might expect the answer to be 100, since we went from about 6 to about 7 in every 100. But the 7 was rounded. Nineteen percent of 6 is about 1.1, so the true figure is nearer 7.1 in 100, which means a little more than one extra case per 100 people. Turn that around, and it takes only about 90 people, each eating an extra slice of ham every day for the rest of their lives, for us to expect roughly one extra case of bowel cancer among them. (Epidemiologists call this the "number needed to harm.") That's a rough translation. It stretches a result from about six years of follow-up across a lifetime, and it treats the population's average risk as everyone's starting point. But it is the right order of magnitude, and it tells you far more than "19 percent" does.
 
 **Fourth, why the comparison with cigarettes?** Processed meat and tobacco sit in the same IARC category. But that category describes how *strong the evidence* is that something causes cancer, not how *large* the risk is [@iarc2015qa]. For smoking, the numbers are in a different universe. Roughly 1 in 100 lifelong non-smokers in the UK will get lung cancer, compared with more than 20 in 100 people who smoke a pack a day [@smc2015expert]. That's a relative risk of around 20, which, as you'll see in Chapter \@ref(causation), is the kind of number that is very hard to explain away by confounding. Nineteen percent is a relative risk of 1.19.
 
@@ -395,9 +399,15 @@ The bacon example comes from medicine, but the trap it illustrates is everywhere
 
 ### Where you'll meet this
 
-**Ratios.** Relative risks, *odds ratios* and *hazard ratios* all appear in management papers, usually from models predicting whether something happens: an employee leaves, a firm adopts a practice, a customer churns. Every one of them is a relative number, so every one of them needs a base rate before it means anything. A hazard ratio of 1.5 for employee turnover means one thing if the baseline is 30 percent a year and something much smaller if it's 1 percent.
+**Ratios.** Three ratios turn up again and again in papers, usually from models predicting whether something happens: an employee leaves, a firm adopts a practice, a customer churns. They're easy to confuse, so it's worth separating them.
 
-Odds ratios need extra care. When the outcome is rare, an odds ratio and a relative risk are almost the same, which is why people swap them freely. When the outcome is common, which many management outcomes are, the odds ratio exaggerates. Suppose turnover is 40 percent in one group and 50 percent in another. The relative risk is 1.25: the second group is a quarter more likely to leave. The odds ratio is 1.5. Same data, and the number that sounds 50 percent bigger is the one that gets reported [@zhang1998relative].
+- A *relative risk* (or *risk ratio*) compares probabilities. If 50 percent of one group leave and 40 percent of another, the relative risk is 50 ÷ 40 = 1.25. The first group is a quarter more likely to leave.
+- An *odds ratio* compares odds instead. The odds of something are the chance it happens divided by the chance it doesn't. A 40 percent chance of leaving is odds of 40 to 60, or 0.67, and a 50 percent chance is odds of 50 to 50, or 1. The odds ratio is 1 ÷ 0.67 = 1.5. Odds ratios are what logistic regression, the most common model for yes/no outcomes, produces naturally, which is why you'll see so many of them.
+- A *hazard ratio* compares how quickly something happens. It comes from models that follow people or firms over time, and it asks: among those it hasn't happened to yet, how much faster does it happen in one group than the other, at any given moment? The bacon figure earlier in this chapter was actually a hazard ratio.
+
+All three are relative numbers, so all three need a base rate before they mean anything. A hazard ratio of 1.5 for employee turnover means one thing if the baseline is 30 percent a year and something much smaller if it's 1 percent.
+
+Odds ratios need one extra warning. When the outcome is rare, an odds ratio and a relative risk are almost the same, which is why people swap them freely. When the outcome is common, which many management outcomes are, the odds ratio exaggerates. You've just seen it happen: the same turnover figures give a relative risk of 1.25 but an odds ratio of 1.5. The number that sounds bigger is usually the one that gets reported [@zhang1998relative].
 
 **Percent versus percentage points.** Conversion rates, response rates, market shares and turnover rates are all percentages already, so changes in them can be described either way. A conversion rate going from 2 to 3 percent is a one-point increase and a 50 percent increase. Both are true, and a paper (or a consultant's slide deck) will usually pick whichever sounds better for the argument being made.
 

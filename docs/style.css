@@ -1,6 +1,15 @@
-p.caption {
-  color: #777;
+/* Separate figure captions clearly from body text */
+div.figure, figure {
+  margin: 1.5em 0 2.5em 0;
+}
+p.caption, figcaption {
   margin-top: 10px;
+  font-size: 0.9em;
+  font-style: italic;
+  color: #555;
+  padding-bottom: 0.8em;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 1.5em;
 }
 p code {
   white-space: inherit;

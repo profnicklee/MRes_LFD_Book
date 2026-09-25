@@ -26,7 +26,15 @@ This book is essentially a 'live' document, meaning that it is finalised for eac
 
 The current year is `r format(Sys.Date(), "%Y")`, and the book is currently *in progress for `r format(Sys.Date(), "%Y")`.*
 
-Please enjoy the book, and learn from it. 
+## How this book works {#how-this-book-works}
+
+Most chapters follow the same basic pattern. Each one takes a core idea, such as what a correlation really tells you, why a p-value is so easily misread, or how a relationship can be manufactured out of nothing, and teaches it through the simplest method that will do the job. Often that means a simulation: rather than asking you to take a claim on trust, I build a small world where we know the truth and show you what the method does in it. The R code is there for you to run and change. You'll learn far more by breaking it than by reading it.
+
+Simple methods are deliberate. Most of you will spend far more of your careers *reading* quantitative research than doing it, and the papers you read will use methods much more complicated than anything in this book. The good news is that those methods rest on the same handful of core ideas. So several chapters end with a section called **Reading the literature**, and more will be added as the book develops. These sections take the chapter's core idea and show you where it turns up in published research, including in methods the book doesn't teach you to run, so that when you meet an odds ratio, a control function or a pre-registration in a paper, you'll know what it's claiming and what to ask about it. Each one ends with a few suggestions for further reading, chosen for people who want to understand the ideas rather than become specialists.
+
+Finally, each chapter lists the references it cites at its end, so you can follow up anything that interests you.
+
+Please enjoy the book, and learn from it.
 
 Feel free to email me with any questions or comments: nick.lee@wbs.ac.uk
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-23" />
+<meta name="date" content="2026-09-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -163,7 +163,10 @@ div.csl-indent {
 <li><a href="./">WBS MRes: Learning From Data</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Orientation</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#how-this-book-works"><i class="fa fa-check"></i><b>1.1</b> How this book works</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#risk"><i class="fa fa-check"></i><b>2.1</b> When the numbers mislead: relative and absolute risk</a></li>
@@ -450,7 +453,7 @@ Figure 13.1: How researcher flexibility inflates false positives. Each bar shows
 </div>
 <p>By the time all four choices are available, 32 percent of researchers studying an effect that doesn’t exist end up with a “significant” result. That’s roughly one study in three, from a procedure that is supposed to be wrong one time in 20.</p>
 <p>I want to draw three lessons from this.</p>
-<p><strong>First, no single step looks like cheating.</strong> Each choice, taken alone, is defensible, and some of them appear in textbooks as perfectly good practice. That’s precisely the problem. The rate climbs because the choices <em>combine</em>: each new fork in the road gives the data another chance to throw up something by luck. Notice, though, that these extra analyses are not new independent studies. They are different looks at the <em>same</em> data, so they tend to agree with each other. That’s why the rate climbs more slowly than the multiple comparisons formula earlier in this chapter would predict, because that formula assumes every test is independent. But it climbs all the same.</p>
+<p><strong>First, no single step looks like cheating.</strong> Each choice, taken alone, is defensible, and some of them appear in textbooks as perfectly good practice. That’s precisely the problem. The rate climbs because the choices <em>combine</em>: each new fork in the road gives the data another chance to throw up something by luck. Notice, too, that these extra analyses are not new studies. Our 2,000 researchers are independent of one another, but each researcher’s forks are all different looks at the <em>same</em> data. That’s part of what makes them so easy to walk down: each one feels like the same analysis done slightly differently, not like a fresh roll of the dice. But every fork is another chance for luck to produce p &lt; .05, and those chances add up.</p>
 <p><strong>Second, the forks aren’t equal.</strong> Adding a control variable barely moved the rate here, while outlier removal roughly doubled it. Outliers are a genuinely hard case. I grew up in a survey tradition where variables ran from 1 to 5, so if you found a 55 it was a typo and you removed it without a second thought. But deciding what counts as an outlier <em>after</em> you’ve seen whether it helps your result is a very different thing. The honest question is always how the value came to exist, not whether the analysis looks better without it.</p>
 <p><strong>Third, and most important, you can’t see any of this from outside.</strong> The published paper from our last researcher would report one clean t-test with p = .03, and it would look exactly like a paper from one of our honest single-test researchers. The p-value itself isn’t wrong. The arithmetic is correct. But it answers the question “how surprising would this result be if it were the only test I ran?”, and it wasn’t the only test.</p>
 <p>This idea goes further than you might think. The statistician Andrew Gelman calls it the “garden of forking paths,” and it’s probably my favourite idea in this whole area <span class="citation">(<a href="#ref-gelman2014statistical">Gelman and Loken 2014</a>)</span>. His point is that a researcher doesn’t need to <em>try</em> lots of analyses for the problem to arise. It’s enough that they <em>would</em> have made different choices if the data had come out differently. Looking back from the end, every choice seems like the only logical one: this measure, this method, these outliers removed. But someone else starting from the same place might have walked a different path and found something else.</p>
