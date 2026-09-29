@@ -463,3 +463,7 @@ The too-perfect paper: every hypothesis supported, every key result just under .
 ### If you want to read more
 
 Gelman and Loken's short article "The statistical crisis in science" [@gelman2014statistical] is the clearest statement of the forking-paths idea and is free to read online. For a book-length account of how these problems play out across science, and what's being done about them, Stuart Ritchie's *Science Fictions* [@ritchie2020science] is accessible, fair and genuinely hard to put down.
+
+<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
+The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
+-->

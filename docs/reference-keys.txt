@@ -72,6 +72,12 @@ salary-ztest
 premier-league-goals-and-the-poisson-distribution-1
 correlation-significance-tests
 regression-significance-tests
+H-testing-reading
+where-youll-meet-this-2
+the-connection-back-2
+questions-worth-asking-2
+one-red-flag-2
+if-you-want-to-read-more-2
 ANOVA
 post-hoc-testing
 Issues
@@ -87,8 +93,8 @@ why-i-tell-this-story-differently-now
 what-this-means-when-you-read
 the-forks-nobody-sees
 issues-reading
-where-youll-meet-this-2
-the-connection-back-2
-questions-worth-asking-2
-one-red-flag-2
-if-you-want-to-read-more-2
+where-youll-meet-this-3
+the-connection-back-3
+questions-worth-asking-3
+one-red-flag-3
+if-you-want-to-read-more-3

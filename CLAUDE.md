@@ -55,7 +55,7 @@ Budget is roughly 600–900 words, and up to about 1,500 for heavy chapters. Cau
 
 The reader-guide appendix is planned but not yet built. When it is, use `# (APPENDIX) Appendix {-}` so that it is lettered and no chapters renumber, and organise it in the order a paper is read.
 
-Existing models: Ch 2 `{#intro-reading}`, Ch 4 `{#causation-reading}`, Ch 13 `{#issues-reading}`.
+Existing models: Ch 2 `{#intro-reading}`, Ch 4 `{#causation-reading}`, Ch 11 `{#H-testing-reading}`, Ch 13 `{#issues-reading}`.
 
 ## Simulation and figure conventions
 
@@ -124,7 +124,7 @@ Nick's slides and spoken lecture references use the **rendered** numbers. Do not
 |---|---|---|---|
 | `index.Rmd` | Ch 1 | — | — |
 | `01-intro.Rmd` | Ch 2 | `{#intro}` | 2 |
-| `02-Distributions.rmd` | Ch 3 | `{#norm-dist}` | 3 |
+| `02-Distributions.Rmd` | Ch 3 | `{#norm-dist}` | 3 |
 | `03-causation.Rmd` | Ch 4 | `{#causation}` | 4 |
 | `04-assoc_rel.Rmd` | Ch 5 | `{#assoc-rel}` | 5 |
 | `05-estimation.Rmd` | Ch 6 | `{#uncertainty}` | 6, pt 1 |
