@@ -284,6 +284,4 @@ Watch for a double standard. The same paper that calls p = .08 "marginal support
 
 Two short papers this time. The American Statistical Association's statement on p-values [@wasserstein2016asa] is the closest thing statistics has to an official position on what a p-value can and can't tell you. It's free to read online and only a few pages long. For something closer to home, the *Strategic Management Journal* editorial that dropped the stars [@bettis2016creating] makes the same case for management research. It includes a thought experiment about three junior scholars studying the same hypothesis that I suspect will feel uncomfortably familiar.
 
-<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
-The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
--->
+A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \@ref(reader-guide).

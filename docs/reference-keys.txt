@@ -134,3 +134,10 @@ the-connection-back-9
 questions-worth-asking-9
 one-red-flag-9
 if-you-want-to-read-more-9
+reader-guide
+design-and-sample
+measures
+descriptives-and-correlations
+main-results
+robustness
+discussion-and-claims

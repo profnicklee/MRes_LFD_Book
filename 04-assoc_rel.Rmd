@@ -336,6 +336,4 @@ Look along the rows of Table 1 for two variables the paper treats as different t
 
 Paul Spector's "Method variance in organizational research: Truth or urban legend?" [@spector2006method] is a short, sceptical and very readable look at how common method variance became a reflex rather than a question. And, at the risk of immodesty, Graham Hooley and I wrote about how coefficient alpha, and the .70 threshold that goes with it, became something close to mythology in marketing research [@lee2005evolution].
 
-<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
-The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
--->
+A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \@ref(reader-guide).

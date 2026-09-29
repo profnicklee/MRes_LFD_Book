@@ -47,13 +47,13 @@ Template:
 4. Questions worth asking: judgement questions, never a tick-box checklist (the book argues against ritual statistics, so the checklist must not become a new ritual)
 5. One red flag
 6. If you want to read more: one or two sources chosen for this audience
-7. Pointer to the reader-guide appendix (commented out until the appendix exists)
+7. Pointer to the reader-guide appendix, as the final paragraph: "A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \@ref(reader-guide)." Any new or changed reader-section questions must also be reflected in the appendix.
 
 Budget is roughly 600–900 words, and up to about 1,500 for heavy chapters. Causation is the accepted longer exception.
 
 **Conceptual explanation belongs in the chapter body.** Reader sections focus on the methods readers will meet in papers. If a reader section needs a conceptual explanation to work, put that explanation in the body and link to it.
 
-The reader-guide appendix is planned but not yet built. When it is, use `# (APPENDIX) Appendix {-}` so that it is lettered and no chapters renumber, and organise it in the order a paper is read.
+The reader-guide appendix is `14-reader-guide.Rmd` (`{#reader-guide}`, lettered via `# (APPENDIX) Appendix {-}`). It condenses the reader-section questions into a 30-item checklist in paper order (design and sample, measures, descriptives and correlations, main results, robustness, discussion and claims), each linking to the relevant `-reading` sections. It currently builds after `13-references.Rmd` because of alphabetical file order; chapter and appendix order is to be revisited in Part Five.
 
 Existing models: Ch 2 `{#intro-reading}`, Ch 3 `{#norm-dist-reading}`, Ch 4 `{#causation-reading}`, Ch 5 `{#assoc-rel-reading}`, Ch 7 `{#bootstrap-reading}`, Ch 8 `{#t-test-reading}`, Ch 10 `{#statistics-reading}`, Ch 11 `{#H-testing-reading}`, Ch 12 `{#ANOVA-reading}`, Ch 13 `{#issues-reading}`.
 

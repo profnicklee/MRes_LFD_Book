@@ -273,6 +273,4 @@ Check the descriptives for a standard deviation that's bigger than the mean, on 
 
 Geoff Norman's "Likert scales, levels of measurement and the 'laws' of statistics" [@norman2010likert] is a short, punchy defence of using ordinary statistical methods on survey data. It takes the arguments against head on, so you can judge for yourself. It'll equip you for the next time a reviewer, or a supervisor, tells you that you can't take the mean of a Likert scale.
 
-<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
-The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
--->
+A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \@ref(reader-guide).
