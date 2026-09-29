@@ -159,7 +159,7 @@ Population SD = 40000
 
 I will also assume that the population distribution is *normal*. That is, the distribution of all business and management Ph.D. starting salaries is shaped like a bell curve - the normal distribution (remember birth weights from the last chapter). This is a reasonable assumption in my view, given the features of the phenomena we are investigating.
 
-The important thing to remember is not really the population distribution of salaries (which is just used here to simulate the population), but the *sampling distribution of the means*. Remember, the central limit theorem shows us that **whatever the shape of the population distribution we are sampling from**, the sampling distribution of the means will take the form of a normal distribution, with a mean of the population mean.
+The important thing to remember is not really the population distribution of salaries (which is just used here to simulate the population), but the *sampling distribution of the means*. Remember, the central limit theorem shows us that **whatever the shape of the population distribution we are sampling from**, the sampling distribution of the means will be centred on the population mean, and will get closer and closer to a normal distribution as the sample size grows. With small samples from a very lopsided population the approximation can be rough, but it often kicks in surprisingly quickly, as the 20-person uniform population above showed with samples of just 2.
 
 So, below, I will simulate the population, and then calculate 100 confidence intervals for 4 different sample sizes (5, 10, 42, 100), to demonstrate two things:
 
@@ -260,7 +260,7 @@ junk <- lapply(c(5,10,42,100), function(N){
 
 So, you can see that the confidence intervals for each of the 100 samples at a given sample size all cluster around the mean, but are wider as sample size is lower. That makes sense intuitively.
 
-Looking specifically at our example N of 42, we can estimate which one of the 100 that might be, and see how the CI for sample means of about that size does include the real population mean of 165. You can also see there are a number of coloured CIs which do **not** include the sample mean. This shows how to interpret a CI.
+Looking specifically at our example N of 42, we can estimate which one of the 100 that might be, and see how the CI for sample means of about that size does include the real population mean of 165. You can also see there are a number of coloured CIs which do **not** include the population mean. This shows how to interpret a CI.
 
 Specifically, **your actual sample** is one of a very large amount of possible samples from the population (here we took 100 but we could have taken many more). The CI calculation essentially creates a CI with the width so that, out of 100 random samples, approximately 95 will actually contain the *true population mean*.
 
@@ -339,4 +339,44 @@ p
 So, we can see that the 1999-2000 season, and the 2009-10 seasons exceed our z values, making them significantly different from the seasons before.
 
 Of course, we could do z-tests for any combination of two seasons, if we had a good reason. You can see on the ONS website they do this for different years' murder rates to make a point.
+
+## Reading the literature {#statistics-reading}
+
+Every estimate in a paper comes with a measure of how uncertain it is, even if it's tucked away in brackets or buried in a footnote. This chapter, and Chapter \@ref(uncertainty) before it, showed where that uncertainty comes from: the sample you happen to have is one of a huge number you could have drawn, and each would have given a slightly different answer. The standard error is a measure of how much estimates would vary across those possible samples, and a confidence interval is built from it. Once you can read those two numbers properly, a surprising amount of a results section opens up.
+
+### Where you'll meet this
+
+**Numbers in brackets.** In most regression tables each estimate has a second number underneath it in brackets. It's usually the standard error, but it can be the t-value, and occasionally it's a confidence interval, so check the table note. If it's a standard error, you can build a rough 95% confidence interval yourself: the estimate plus or minus about two standard errors. That takes a few seconds, and it tells you much more than a row of stars does. An estimate of 0.30 with a standard error of 0.14 is "significant," but its interval runs from roughly 0.02 to 0.58, so the data are consistent with an effect that's barely there and with one that's nearly twice as large as the estimate.
+
+**Confidence intervals on estimates.** More and more papers report intervals directly. Read them the way the simulation in Section \@ref(conf) taught you: as the output of a procedure that captures the true value in about 95 of every 100 samples, not as a range that the true value is 95% certain to be in. In practice the useful questions are simple. How wide is it? Does it include values that would be too small to matter? Does it include values that would be implausibly large? A wide interval that only just excludes zero is a much weaker finding than its p-value suggests.
+
+**Error bars in figures.** Bar charts and line plots often carry error bars, and they're one of the most misread things in any paper. First, find out what the bars are. They could be standard deviations, standard errors or confidence intervals, and a surprising number of figures don't say. Standard-error bars are only about half the length of 95% confidence intervals, so the same data can look far more or far less convincing depending on which was chosen. Second, be careful with overlap. Two 95% intervals that overlap can still come from a difference that's statistically significant. In fact, for two independent groups the intervals can overlap by up to about half of one arm and the difference will still have p of around .05 [@cumming2005inference]. You saw this in this chapter's football example: the intervals for consecutive seasons overlapped, yet the z-tests found two significant changes.
+
+**Clustered and robust standard errors.** Every standard error you've met in this book assumes that each observation is an independent draw, like the ping-pong balls in the lecture. Much management data isn't like that. Employees are nested in teams and firms, firms appear year after year in a panel, and observations within the same cluster tend to resemble each other. When that happens, the data contain less independent information than the sample size suggests, and ordinary standard errors come out too small. *Clustered standard errors* correct for this. They change the uncertainty, not the estimates themselves. As a reader, ask what the observations were clustered by, and whether that matches how the data were actually collected. Also ask how many clusters there were. With only a handful, such as a few industries or a dozen countries, even clustered standard errors can be too small [@cameron2015practitioner]. You'll also see *robust* (or "heteroskedasticity-robust") standard errors, which deal with a different problem: spread in the data that isn't constant. They're not a substitute for clustering.
+
+**What a standard error doesn't cover.** A standard error measures one thing: how much an estimate would bounce around across random samples from the same population. It says nothing about whether the sample was random in the first place, whether the people who answered differ from those who didn't, or whether the measures capture what they claim to. Those are the "inference gaps" from Chapter \@ref(uncertainty), and many of them are the selection problems from Chapter \@ref(causation). That doesn't make intervals from non-random samples meaningless. It means they describe the precision of the estimate under an assumption, and the gap between that assumption and reality isn't in the interval.
+
+### The connection back
+
+Every standard error in every paper is a compressed version of the simulations in this chapter. Imagine all the samples you could have drawn; the standard error is how spread out their estimates would be, and a confidence interval is a way of turning that spread into a range. Both depend on the samples being random and independent, which is exactly what clustering and non-random sampling call into question.
+
+### Questions worth asking
+
+1. **What's in the brackets?** Standard errors, t-values, or something else?
+2. **What range of values is the estimate consistent with?** Does that range include effects too small to matter?
+3. **Are the observations really independent?** If not, were the standard errors clustered, at what level, and how many clusters were there?
+4. **In the figures, what are the error bars?** Is any claim about differences based on whether the bars overlap?
+5. **What sources of error does the interval leave out?**
+
+### One red flag
+
+"The confidence intervals overlapped, so there was no difference." This conclusion turns up in text and in figures alike, often with error bars that aren't even labelled. Overlap isn't the test. Two 95% intervals can overlap substantially and the difference between them can still be significant, and a figure with standard-error bars can make a trivial difference look convincing. If a paper's argument depends on how two sets of error bars look, the authors should have tested the difference itself, as Chapter \@ref(H-testing) will argue more generally.
+
+### If you want to read more
+
+Geoff Cumming and Sue Finch's "Inference by eye" [@cumming2005inference] is a short paper about reading confidence intervals and error bars in figures. It's full of pictures, and it will change the way you look at every bar chart you see from now on.
+
+<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
+The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
+-->
 
