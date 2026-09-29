@@ -98,6 +98,12 @@ one-red-flag-5
 if-you-want-to-read-more-5
 ANOVA
 post-hoc-testing
+ANOVA-reading
+where-youll-meet-this-6
+the-connection-back-6
+questions-worth-asking-6
+one-red-flag-6
+if-you-want-to-read-more-6
 Issues
 more-on-the-multiple-comparisons-problem
 the-bonferroni-correction-rate-of-change-in-football-goals-per-season
@@ -111,8 +117,8 @@ why-i-tell-this-story-differently-now
 what-this-means-when-you-read
 the-forks-nobody-sees
 issues-reading
-where-youll-meet-this-6
-the-connection-back-6
-questions-worth-asking-6
-one-red-flag-6
-if-you-want-to-read-more-6
+where-youll-meet-this-7
+the-connection-back-7
+questions-worth-asking-7
+one-red-flag-7
+if-you-want-to-read-more-7

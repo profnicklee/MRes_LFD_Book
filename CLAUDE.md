@@ -55,7 +55,7 @@ Budget is roughly 600–900 words, and up to about 1,500 for heavy chapters. Cau
 
 The reader-guide appendix is planned but not yet built. When it is, use `# (APPENDIX) Appendix {-}` so that it is lettered and no chapters renumber, and organise it in the order a paper is read.
 
-Existing models: Ch 2 `{#intro-reading}`, Ch 4 `{#causation-reading}`, Ch 5 `{#assoc-rel-reading}`, Ch 8 `{#t-test-reading}`, Ch 10 `{#statistics-reading}`, Ch 11 `{#H-testing-reading}`, Ch 13 `{#issues-reading}`.
+Existing models: Ch 2 `{#intro-reading}`, Ch 4 `{#causation-reading}`, Ch 5 `{#assoc-rel-reading}`, Ch 8 `{#t-test-reading}`, Ch 10 `{#statistics-reading}`, Ch 11 `{#H-testing-reading}`, Ch 12 `{#ANOVA-reading}`, Ch 13 `{#issues-reading}`.
 
 Ch 6 and Ch 9 have no reader sections: Ch 6 folds into Ch 10, Ch 9 into Ch 11.
 
