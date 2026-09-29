@@ -15,7 +15,7 @@ library(dplyr)
 library(psych)
 ```
 
-This Chapter relates to the second part of Lecture 6.In this chapter, you will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.
+This Chapter relates to the second part of Lecture 6. In this chapter, you will learn the core concepts of bootstrapping. That is, creating synthetic sampling distributions through multiple resampling (with replacement) of a single sample.
 
 The basic process is fairly simple, once you have your original sample, and has the following characteristics:
 
@@ -55,7 +55,7 @@ We know the median and mean, but we have no real indication of the uncertainty i
 
 In order to estimate that information, we will eventually use the bootstrap method. For now, we are just going to demonstrate the basic idea.
 
-So, what we do now is draw *another random sample of 50*. However, we don't draw it from the population, we instad draw the new sample of 50 **from our existing sample of 50**.
+So, what we do now is draw *another random sample of 50*. However, we don't draw it from the population, we instead draw the new sample of 50 **from our existing sample of 50**.
 
 That sounds weird to many people, and at first they often say 'but how can it be different from your original 50??'. The trick is that each time we draw a data point, we *replace* it back, so we are always drawing our sample from the full 50. This is called *sampling with replacement*.
 
@@ -314,5 +314,41 @@ conf_ints
 
 ```
 
-It's worth reflecting on exactly what these conflidence intervals mean, and to do so, we can move **back to the slides...**
+It's worth reflecting on exactly what these confidence intervals mean, and to do so, we can move **back to the slides...**
+
+## Reading the literature {#bootstrap-reading}
+
+You'll find bootstrapping in management papers in a few places, such as confidence intervals for statistics that have no convenient formula, and robustness checks. But by far the most common is *mediation analysis*: testing whether X affects Y *through* some mediator M. If a paper claims that transformational leadership raises performance by increasing employees' engagement, or that a promotion boosts sales by changing how customers see the brand, it will almost certainly report a bootstrapped confidence interval for an "indirect effect." This book doesn't teach mediation, but you can read those results with what this chapter has already given you.
+
+### Where you'll meet this
+
+**The indirect effect.** A simple mediation model has two links: X to M (usually called *a*) and M to Y, holding X constant (*b*). The indirect effect is the product of the two, a × b. The trouble is that the sampling distribution of a product of two estimates is usually skewed rather than normal, so the older, formula-based tests of it are unreliable. The bootstrap gets round that exactly as this chapter did: resample the data thousands of times, calculate a × b in each resample, and take the middle 95% of those values as the confidence interval. So when a paper reports an indirect effect of 0.12 with a 95% bootstrap confidence interval of 0.04 to 0.21, based on 5,000 resamples, you know precisely what was done. The interval excludes zero, so the indirect effect is significant. Its width tells you how precisely it has been estimated, just as with any other interval.
+
+**What the bootstrap fixes, and what it doesn't.** The bootstrap solves a statistical problem: getting an honest interval for a quantity with an awkward distribution. It does nothing about the much bigger problem, which is that a mediation claim is a causal claim about *two* links. Even if X was randomly assigned in an experiment, M wasn't, so the link from M to Y is exposed to every confounding problem in Chapter \@ref(causation) [@bullock2010mechanism]. And the bootstrap can't create information the sample doesn't contain. It resamples the data you have, so a small or unrepresentative sample stays small and unrepresentative however many times you resample it, as Researcher 1's sample of 10 showed.
+
+**"Full" and "partial" mediation.** Older papers, and some newer ones, follow a set of steps from Baron and Kenny [@baron1986moderator], which among other things required a significant overall effect of X on Y before mediation could even be tested. That requirement is now widely rejected, and so is the habit of classifying results as "full" or "partial" mediation depending on whether the direct effect of X on Y remains significant [@zhao2010reconsidering]. Whether it does depends heavily on sample size, so "full mediation" is often just another way of saying "not enough data to detect the direct effect." One further point from the same authors connects straight to the red flag in Section \@ref(assoc-rel-reading). A mediator that isn't clearly distinct from X or from Y will appear to "fully mediate" almost automatically, so check its correlations in Table 1.
+
+### The connection back
+
+A bootstrapped indirect effect is this chapter's procedure applied to one particular number. Everything the chapter showed about bootstrap intervals applies: they describe the uncertainty that comes from sampling, they get narrower as the sample grows, and they rely entirely on the original sample being a fair picture of the population. What they can't tell you is whether the causal story connecting X, M and Y is true.
+
+### Questions worth asking
+
+1. **What is the causal story, link by link?** What does the design do to support each link, and in particular the link from M to Y?
+2. **Were X, M and Y measured at different times, or all at once?** If all at once, why should we believe the order the paper proposes?
+3. **How was the indirect effect tested?** With a bootstrap confidence interval, or with an older test?
+4. **How wide is the interval?** Does it include indirect effects too small to matter?
+5. **Is "full mediation" doing any real work?** Or would a larger sample have found a direct effect too?
+
+### One red flag
+
+Beware the single-survey mediation model. One questionnaire, completed by one person at one moment, measures three constructs, and the paper arranges them as X → M → Y with a bootstrapped indirect effect as its headline result. The statistics can't tell you which way round the arrows go: the same data are usually fitted just as well by rearranging the three variables into a different order, and the choice of order came from the theory, not the data. Add the common-method concerns from Chapter \@ref(assoc-rel), and a significant indirect effect in a design like this tells you very little about mechanism. It may still be the best evidence available, but it should be presented as consistent with the proposed process, not as a demonstration of it.
+
+### If you want to read more
+
+Xinshu Zhao, John Lynch and Qimei Chen's "Reconsidering Baron and Kenny" [@zhao2010reconsidering] was written for consumer researchers as a non-technical guide to what mediation analysis can and can't show. It remains the most useful short account I know, and it will save you from several common mistakes if you ever run one yourself.
+
+<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
+The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
+-->
 
