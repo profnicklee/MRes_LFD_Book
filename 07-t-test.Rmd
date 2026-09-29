@@ -57,7 +57,7 @@ Before we get to the code, it's worth pausing on what we're actually bootstrappi
 
 The raw mean difference — a bit over 1.5 points on our seven-point irritation scale — is perfectly interpretable in its own right: it's a real number in the actual units the scale was measured in. But its size alone tells us nothing about how impressed we should be by it, because that depends entirely on the scale we happened to use and how much natural variation there already is in irritation scores. A difference of "1.5 points" is enormous on a scale that barely moves and unremarkable on one that swings wildly.
 
-This is the same problem as the standardised versus unstandardised regression estimates back in Section \@ref(assoc-rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can't be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does the same job here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference is impressively large or just noise.
+This is the same problem as the standardised versus unstandardised regression estimates back in Section \@ref(assoc-rel). An unstandardised coefficient is interpretable in real-world units — cigarettes, miles cycled — but can't be compared across variables measured on different scales; standardising puts everything onto a common footing. The t-statistic does something similar here: it takes the mean difference and re-expresses it relative to how much variability and how much data we have, which is what lets us judge whether a given difference stands out from the noise. It isn't quite the same thing as standardising, though, and I'll come back to why at the end of this section.
 
 ```{r}
 
@@ -94,6 +94,26 @@ percentile_ci
 Cool, so it seems that the Christmas-music group displayed more irritation. The confidence interval for the t-statistic does not contain 0, so it supports the idea that there is a real difference here. The interval is quite wide though - because of our small sample size. In a later Chapter we'll return to this issue of what confidence intervals actually mean.
 
 I'll be honest: in a purely bootstrap context like this one, that standardisation step can feel like an unnecessary detour. We didn't need the t to reach our conclusion — the conclusion was always going to be "does the confidence interval contain zero or not", and that would have been exactly as true if we'd bootstrapped the raw mean difference directly instead. The t only really earns its keep once we start relying on known probability distributions rather than brute-force resampling, which is where we're headed in the next chapter. For now, take it as scaffolding for what's coming rather than something bootstrapping strictly requires.
+
+```{r t-test-cohens-d, include=FALSE}
+irrit_means <- tapply(ED_IND$IRRIT, ED_IND$GROUP, mean)
+irrit_sds   <- tapply(ED_IND$IRRIT, ED_IND$GROUP, sd)
+irrit_ns    <- table(ED_IND$GROUP)
+irrit_sp    <- sqrt(((irrit_ns[["Silence"]] - 1) * irrit_sds[["Silence"]]^2 +
+                     (irrit_ns[["Christmas"]] - 1) * irrit_sds[["Christmas"]]^2) /
+                    (sum(irrit_ns) - 2))
+irrit_d     <- (irrit_means[["Christmas"]] - irrit_means[["Silence"]]) / irrit_sp
+irrit_d_label <- ifelse(abs(irrit_d) >= 0.8, "large",
+                   ifelse(abs(irrit_d) >= 0.5, "medium",
+                     ifelse(abs(irrit_d) >= 0.2, "small", "smaller than small")))
+irrit_n_per_group <- min(irrit_ns)
+```
+
+There's one more way of putting that difference on a common footing, and it's the one you'll meet most often in published papers. The t-statistic divides the mean difference by its standard error, and the standard error shrinks as the sample grows. That makes t good at answering "does this difference stand out from the noise?" but not "how big is it?" Run exactly the same study with ten times as many people, get exactly the same difference, and the t would be roughly three times larger.
+
+*Cohen's d* answers the second question. It divides the mean difference by the standard deviation of the irritation scores themselves, pooled across the two groups, so it tells you how many standard deviations apart the groups ended up. Unlike t, it doesn't grow just because the sample does. For our study, d is `r round(irrit_d, 2)`: the Christmas-music group finished about `r round(irrit_d, 1)` standard deviations more irritated than the silence group. It's a direct cousin of the standardised regression coefficients in Chapter \@ref(assoc-rel): the same idea in a different setting.
+
+You'll often see d described using Jacob Cohen's labels, where 0.2 is "small," 0.5 "medium" and 0.8 "large." By those labels ours is `r irrit_d_label`. But Cohen offered them as a convention for use when nothing better suggests itself [@cohen1988statistical], and they've since hardened into exactly the kind of rule this book keeps warning about. Two cautions apply to our own number, too. First, with only `r irrit_n_per_group` people per group, it's a noisy estimate, and as you'll see in Chapter \@ref(Issues), big-looking effects from small samples deserve particular scepticism. Second, like any standardised effect, d tells you nothing about whether the difference matters in practice. For that you have to go back to the original units, which here means a difference of `r round(irrit_means[["Christmas"]] - irrit_means[["Silence"]], 1)` points on a seven-point scale.
 
 ## Paired-Sample T-test
 
@@ -192,3 +212,38 @@ Marvelous. We can see that the results from both variants of this test suggest t
 Not surprised — but remember the design question from the start of the chapter: this rise, on its own, doesn't tell us the *music* did it, because the boring task alone could have produced some of it. That's exactly what the independent-samples comparison above was for, and it agrees — the Christmas-music group ended up more irritated than the silence group who did the identical task.
 
 But there's a limit to what even that comparison can tell us. All I've actually shown is that background music of *some* kind moves irritation more than no music at all — I haven't shown there's anything special about *Christmas* music specifically, as opposed to background music in general. The design as it stands can't separate "background music is irritating" from "Christmas music in particular is irritating," because silence is the only comparison group I have. That's a real limitation, not a minor caveat, and it's exactly the question Chapter \@ref(ANOVA) picks up, with a third group added to settle it. It's also exactly the confounding problem from Chapter \@ref(causation): background music and Christmas music are tangled together in this design, so I can't yet credit one over the other.
+
+## Reading the literature {#t-test-reading}
+
+Comparing two groups is the simplest design there is, and it turns up in management papers far more often than the phrase "t-test" does. Sometimes you'll see a t-test reported as such, usually in an experiment comparing a treatment with a control. Much more often, the comparison is hiding inside a regression as a single coefficient. Either way, the questions from this chapter apply: what exactly is being compared with what, how big is the difference, and could something other than the treatment have produced it?
+
+### Where you'll meet this
+
+**Reported t-tests.** In experimental papers you'll see something like t(58) = 2.41, p = .019. The number in brackets is the degrees of freedom, which for two independent groups is the total sample size minus two. If it's a decimal, such as t(41.7), the authors have used *Welch's t-test*, which doesn't assume the two groups are equally variable. That's a good sign rather than an oddity: there's a strong case for using Welch's version by default [@delacre2017why].
+
+**Group differences as regression coefficients.** A classic t-test comparing two groups gives exactly the same answer as a regression with a single *dummy variable*, coded 1 for one group and 0 for the other. The coefficient on the dummy is the difference between the two group means, and its t-value is the t-test. So when a paper reports a coefficient for "female," "family firm" or "treated," it's telling you the difference between two group means, adjusted for whatever else is in the model. Two things follow. First, you need to know which group was coded 0, because the coefficient is always relative to that *reference category*: flip the coding and the sign flips. With more than two categories, such as industries or regions, every coefficient compares one category with the one left out, and the choice of which to leave out decides which comparisons you get to see. Second, "adjusted for" is doing a lot of work, for all the reasons in Chapter \@ref(causation).
+
+**Cohen's d and its relatives.** You'll also meet *Hedges' g*, which applies a small correction that matters in small samples. It's fine to read the two as essentially the same thing. The trap is in before-and-after designs like the paired test in this chapter. There, d can be calculated by dividing by the standard deviation of the *differences* rather than of the scores. When people's before and after scores are strongly related, as they usually are, that standard deviation is small, and the resulting d can be much larger than an independent-groups d for the same difference [@lakens2013calculating]. So a d from a within-person study isn't necessarily comparable with one from a between-groups study, and a paper comparing its effect with "typical" effects elsewhere should say which kind it calculated. And like every standardised effect, d needs translating back into natural units before you know whether it matters, as Section \@ref(intro-reading) argued.
+
+### The connection back
+
+Every group comparison in a paper, whether it's labelled a t-test or hidden in a coefficient, comes down to the two questions this chapter asked about the Christmas music study. Is the difference bigger than chance alone would produce? And is the comparison group the right one, so that the difference can be put down to the thing the authors say caused it? Statistics can answer the first question. Only the design can answer the second.
+
+### Questions worth asking
+
+1. **What exactly is being compared with what?** Which group is the reference category?
+2. **What would the comparison group need to be to rule out the most obvious alternative explanation?** Is it?
+3. **How big is the difference in the original units, as well as in standard deviations?**
+4. **If it's a within-person design, how was the effect size calculated?** Is it being compared with effects calculated the same way?
+
+### One red flag
+
+Beware the before-and-after study with no comparison group. A training programme, an incentive scheme or a culture initiative is introduced, scores are measured before and after, and they go up. The paired test is significant, and the paper concludes that the intervention worked. But as the Christmas music study showed, a rise from before to after can't tell you on its own what caused it. People change over time anyway, organisations change around them, and those who start with unusually low scores tend to score closer to average next time regardless. Without a group that went through the same period without the intervention, the rise describes what happened. It doesn't explain it.
+
+### If you want to read more
+
+Daniël Lakens's primer on calculating and reporting effect sizes [@lakens2013calculating] is free to read online, practical, and especially good on the different versions of d and when each one is appropriate. It's written for researchers rather than readers, but it's the clearest account I know of what the numbers in an effect-size table actually mean.
+
+<!-- APPENDIX POINTER: uncomment once the reader-guide appendix exists.
+The questions in this section also appear, in the order you'd meet them when reading a paper, in Appendix \@ref(reader-guide).
+-->
