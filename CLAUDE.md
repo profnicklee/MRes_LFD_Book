@@ -95,7 +95,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 - **Report before committing**: placement, render results, cross-references, citations, and anything that didn't match the handover. Wait for Nick's go-ahead.
 - One commit per handover, with a descriptive message, so Nick can review and revert selectively.
 - **Merging a part branch.**
-  1. Do a clean full render and commit the fresh `docs/` before the merge.
+  1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it.
   2. Nick merges on GitHub using "Create a merge commit", not squash, so the per-handover commits stay revertible.
   3. After the merge, pull `main`, tag the result `v2026-partN`, and push the tag.
   4. Delete the branch with `git branch -d` and `git push origin --delete`. Use `-d`, never `-D`, so git refuses if anything is unmerged.
@@ -107,6 +107,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 index.Rmd              Front matter + Chapter 1
 NN-*.Rmd               Chapter files (see map below)
 13-references.Rmd      References
+14-reader-guide.Rmd    Appendix A: reader's checklist ({#reader-guide})
 _bookdown.yml          book_filename, output_dir: "docs"
 _output.yml            gitbook config, TOC, edit link, download formats
 style.css, toc.css     Styling
