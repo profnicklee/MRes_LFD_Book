@@ -370,6 +370,59 @@ Our simulation is also on the gentle side. The paper that made this problem famo
 
 The most effective remedy is to decide the path in advance and write it down. That's what pre-registration does, and I'll say more about how to read pre-registered work below.
 
+## What happens next: the power pose story {#power-pose}
+
+The simulation shows how a result can assemble itself out of noise. What it can't show is what happens to that result once it leaves the lab. For that, I want to tell you a real story. I've taught it for years, and I feel rather differently about it now than when I started.
+
+### The finding
+
+In 2010, Dana Carney, Amy Cuddy and Andy Yap published a study in *Psychological Science*, one of psychology's top journals [@carney2010power]. Forty-two people were randomly assigned to hold either two expansive, "high-power" poses, such as leaning back with your hands behind your head, or two contractive, "low-power" poses, for one minute each. Compared with the low-power group, the high-power posers showed higher testosterone and lower cortisol, took more risks in a gambling task, and said they felt more powerful. Two minutes of posture, in other words, apparently changed your hormones and your behaviour.
+
+You can see why that caught on, especially in business schools. If standing like a superhero before a job interview or a big presentation made you more confident and more willing to take risks, every manager, and every MBA student, would want to know about it. Cuddy's 2012 TED talk on the research became one of the most-watched TED talks ever. I actually noticed the craze before I knew where it came from. At the 2015 Conservative Party conference, a line of senior politicians were photographed in the same odd, wide-legged stance, and I remember thinking that nobody stands like that unless someone has told them to.
+
+### Why it was always going to be checked
+
+Now look at the study through the eyes of someone who has just read the rest of this chapter. Forty-two people split across two conditions is almost exactly the size of the studies in our simulation. The claim was surprising: that a minute or two of posture changes your hormones. It measured several different outcomes. And it appeared in a top journal and became spectacularly famous.
+
+If you set out to design the study most likely to be a false positive, and then the study most likely to be checked, you'd struggle to beat it. Fame matters here. Scrutiny follows something like a power law: the more attention a finding gets, the more people go looking at how it was produced. Power posing became famous at exactly the moment researchers started doing that looking.
+
+### What happened next
+
+In 2015, a team led by Eva Ranehill ran the study again with 200 participants, nearly five times the original sample. Their experimenter didn't know which condition each participant was in [@ranehill2015assessing]. People who held the high-power poses still said they felt more powerful. But there was no effect on testosterone, on cortisol, or on any of three behavioural tasks. The original authors replied that the new study differed in important ways, such as holding the poses for longer. That's a fair point to make about any replication that isn't exact.
+
+Then, in 2016, something almost unheard of happened. Dana Carney, the paper's lead author, posted a statement on her website saying she no longer believed power pose effects were real [@carney2016position]. She was clear that the data were real, and nobody has suggested otherwise. But she set out, point by point, how the analysis had been done. If you've just read the simulation, the list will look very familiar:
+
+- Participants were run in batches, and the effect was checked along the way before deciding whether to run more. At the time, she wrote, this felt less like p-hacking than like saving money.
+- A few participants were excluded, and an outlier was removed from the hormone analyses but not from the others.
+- Several questions about feeling powerful were asked, and the ones that "worked" were reported.
+- For risk-taking, two versions of the same test gave p = .052 and p = .05, and the smaller one was reported.
+
+Those are our simulation's "a few more people", "outliers" and "two outcomes" forks, plus one we didn't simulate: choosing between two tests of the same thing after seeing both results. None of them would have looked like cheating at the time. She also noted that the experimenters knew the hypothesis. And she pointed out that people who won the gambling task received extra money, while winning itself is known to raise testosterone, so the hormone result may have had nothing to do with posture.
+
+The argument didn't end there. A p-curve analysis of 33 power posing studies, a method I'll describe in the reading section below, found no evidence of real effects on outcomes beyond feelings of power [@simmons2017power]. Cuddy and colleagues replied with a larger set of studies that included those feelings, and reached the opposite conclusion [@cuddy2018pcurving]. In 2017 a journal devoted a special issue to pre-registered replications. Taken together, they found essentially no effect on behaviour or hormones, but a consistent effect on how powerful people *say* they feel [@jonas2017power]. That's roughly where things stand: posture may well change how powerful you feel, but the original claims about hormones and behaviour haven't survived.
+
+### Why I tell this story differently now
+
+When I first taught this case, I thought it was funny. Over the years I've come to feel increasingly sorry for Amy Cuddy in particular. She became the public face of the finding and took the brunt of what followed, and some of it was far from civil. Yet nothing in the original study was unusual for its time. Running participants until the result looks good, trying a few measures, picking the more favourable test: these were ordinary practice, and hardly anyone thought of them as problems. I'm quite sure that in their position, at that time, I'd have done the same.
+
+What should have happened is simple. A surprising result from 42 people should have been a reason to run the study again, bigger, before telling the world. But almost nobody did that in 2010. Journals didn't ask for it, reviewers didn't ask for it, and every incentive pointed the other way. Would a top journal publish that study today without asking for a replication first? Probably not, and that's a fair measure of how much has changed.
+
+Power posing wasn't an isolated case. In 2015 a large collaboration tried to repeat 100 published psychology studies, and only about a third produced a significant result the second time [@osc2015estimating]. Power posing is simply the clearest example of the pattern, and the one with the most dramatic arc.
+
+### What this means when you read
+
+The lesson for you as a reader isn't that psychology is rubbish, or that small studies are worthless. It's that a single surprising result from a small sample is an interesting hypothesis, not a finding, however good the journal.
+
+There's also a simple way to see how fragile such a result is. Remember the confidence-interval simulation in Section \@ref(conf), where around 5 in every 100 intervals missed the true value purely by chance? (One of the sample sizes there was 42, as it happens.) A lucky small-sample study is one of those. Its interval sits clear of zero, but only just, and it's wide enough to include effects too small to matter to anyone. A p-value just under .05 hides all of that. The interval shows it.
+
+### The forks nobody sees
+
+There's one more part of this I want to raise, because I think it's the next frontier and almost nobody talks about it. Pre-registration protects you from the forking paths you might walk yourself. It does very little about the ones reviewers send you down.
+
+It's common to receive a revise-and-resubmit asking you to rethink your theory, reanalyse your data, or test something new. You then face a real dilemma. You can report the new analysis honestly, as something added at a reviewer's request. Or you can rewrite the paper as if you'd planned it all along. You know you shouldn't, but it often produces a cleaner paper that's more likely to be accepted. Reviewers also frequently tell you what they expect you to find, and people who know what they're supposed to find are more likely to find it, even without meaning to. The result is that many clean-looking published papers may be some way away from the papers that were originally submitted, and a reader has no way of knowing. One study tracked 142 management PhD theses into print, and found the ratio of supported to unsupported hypotheses more than doubled along the way [@oboyle2017chrysalis]. How much of that was reviewers rather than authors, nobody can say, which is rather the point.
+
+Some journals are trying to fix this. When we had a paper under review at *The Leadership Quarterly*, we were offered the chance to submit a plan for the revision, with publication guaranteed whatever the results. We took it. We still got rejected. But I'd love to see that become normal.
+
 ## Reading the literature {#issues-reading}
 
 The simulation earlier in this chapter showed that you can't see the forking paths from outside. As a reader, that's the frustrating part. You're handed the one path the authors walked, and it looks like the only one there was. But the paths leave traces, and once you know what to look for, you'll start noticing them.

@@ -79,6 +79,13 @@ more-on-the-multiple-comparisons-problem
 the-bonferroni-correction-rate-of-change-in-football-goals-per-season
 statistical-power-brief-demonstration
 p-hacking-sim
+power-pose
+the-finding
+why-it-was-always-going-to-be-checked
+what-happened-next
+why-i-tell-this-story-differently-now
+what-this-means-when-you-read
+the-forks-nobody-sees
 issues-reading
 where-youll-meet-this-2
 the-connection-back-2

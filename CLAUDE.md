@@ -34,7 +34,7 @@ These override generic textbook convention wherever the two conflict.
 
 11. **Personal stories come only from Nick.** Anecdotes and first-person claims must come from his lectures or from what he has said directly. Never invent them to fit the voice. Mentions of family need his explicit approval.
 
-12. **Real papers are cited, not critiqued by name.** Where a passage illustrates bad practice, the example (a reporting snippet, a set of figures) is invented and presented as illustrative.
+12. **Real papers are cited; critique by name is reserved for verifiable case studies.** Where a passage illustrates bad practice in general, the example (a reporting snippet, a set of figures) is invented and presented as illustrative. Real people and papers may be named only in agreed case studies where the account is verifiable, fair and factual, with every claim traceable to a cited primary source (for example, the power pose section `{#power-pose}` in `12-Issues_w_sig.Rmd`). Such cases describe what happened and what the people involved have said; they do not speculate about motives.
 
 ## Reading-the-literature sections
 
