@@ -83,6 +83,8 @@ bookdown::render_book('index.Rmd', 'bookdown::gitbook')
 
 Preview locally — open `docs/index.html`, or run `servr::httw("docs")` in R for an exact replica of the published site with working search. **Do not deploy.**
 
+**The PDF is a separate build**, offered as a download from the site, so rebuild it before every merge: `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')` (XeLaTeX). `preamble.tex` sets `\tracinglostchars=3`, so any character the font lacks stops the build rather than silently vanishing. The fix is a `newunicodechar` mapping in `preamble.tex`, not a prose edit. When auditing characters, check the generated `docs/LFD.tex` as well as the `.Rmd` files: R output (for example skimr's sparkline histograms) introduces characters that appear in no source file. A standalone `pdf_book` render empties `docs/reference-keys.txt`. Restore it with `git checkout -- docs/reference-keys.txt` before committing, and never commit it empty.
+
 ## Git
 
 Nick is not experienced with branching workflows. Be explicit about what you are doing and which branch you are on at every point.
@@ -95,7 +97,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 - **Report before committing**: placement, render results, cross-references, citations, and anything that didn't match the handover. Wait for Nick's go-ahead.
 - One commit per handover, with a descriptive message, so Nick can review and revert selectively.
 - **Merging a part branch.**
-  1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it.
+  1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it. This "clean full render" covers both targets: `bookdown::gitbook` and `bookdown::pdf_book` — rebuild the PDF too, not just the HTML.
   2. Nick merges on GitHub using "Create a merge commit", not squash, so the per-handover commits stay revertible.
   3. After the merge, pull `main`, tag the result `v2026-partN`, and push the tag.
   4. Delete the branch with `git branch -d` and `git push origin --delete`. Use `-d`, never `-D`, so git refuses if anything is unmerged.

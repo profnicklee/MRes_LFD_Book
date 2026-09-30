@@ -132,6 +132,25 @@
     }%
   }%
 }
+
+% --- Glyphs missing from Latin Modern (Part 5.1) ---------------------
+% XeLaTeX silently drops any character the font lacks. Make that a hard
+% error, so a new symbol breaks the build instead of vanishing from the
+% PDF. To fix such an error, add a mapping below; don't edit the prose.
+\tracinglostchars=3
+\usepackage{newunicodechar}
+\newunicodechar{η}{\ensuremath{\eta}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+% skimr sparkline histograms (U+2581--U+2588): draw as rules of 1/8 steps
+\newcommand{\sparkbar}[1]{\rule{0.42em}{#1}\kern0.08em}
+\newunicodechar{▁}{\sparkbar{0.1em}}
+\newunicodechar{▂}{\sparkbar{0.2em}}
+\newunicodechar{▃}{\sparkbar{0.3em}}
+\newunicodechar{▄}{\sparkbar{0.4em}}
+\newunicodechar{▅}{\sparkbar{0.5em}}
+\newunicodechar{▆}{\sparkbar{0.6em}}
+\newunicodechar{▇}{\sparkbar{0.7em}}
+\newunicodechar{█}{\sparkbar{0.8em}}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
