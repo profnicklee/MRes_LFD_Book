@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 11 Classical Statistical Hypothesis Testing | WBS MRes: Learning From Data</title>
+  <title>A A Checklist for Reading Quantitative Papers | WBS MRes: Learning From Data</title>
   <meta name="description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 11 Classical Statistical Hypothesis Testing | WBS MRes: Learning From Data" />
+  <meta property="og:title" content="A A Checklist for Reading Quantitative Papers | WBS MRes: Learning From Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   <meta name="github-repo" content="profnicklee/MRes_LFD_Book" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 11 Classical Statistical Hypothesis Testing | WBS MRes: Learning From Data" />
+  <meta name="twitter:title" content="A A Checklist for Reading Quantitative Papers | WBS MRes: Learning From Data" />
   
   <meta name="twitter:description" content="This book contains the examples and notes for the WBS MRes Learning From Data Course." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="statistics.html"/>
-<link rel="next" href="ANOVA.html"/>
+<link rel="prev" href="references.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -386,292 +386,243 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="H-testing" class="section level1 hasAnchor" number="11">
-<h1><span class="header-section-number">Chapter 11</span> Classical Statistical Hypothesis Testing<a href="H-testing.html#H-testing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This Chapter relates to the first part of Lecture 8, and contains some (re)worked examples from earlier chapters / lessons, focusing specifically on the hypothesis testing aspect of them.</p>
-<div id="salary-ztest" class="section level2 hasAnchor" number="11.1">
-<h2><span class="header-section-number">11.1</span> Testing a Real Hypothesis: Are WBS PhD Salaries Different?<a href="H-testing.html#salary-ztest" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Back in Section <a href="statistics.html#conf">10.2</a> we used the WBS PhD graduate salary data — 42 graduates, mean starting salary $170,000, standard deviation $46,617.4 — to build a confidence interval. That was useful, but it didn’t actually answer the question I cared about when I started looking at this data: can I claim, in the PhD program prospectus, that WBS graduates earn more than graduates elsewhere?</p>
-<p>A confidence interval alone doesn’t let me say that. It tells me something about precision, not about a comparison. To make a comparison I need a number to compare against, and I need to state, in advance, how different my sample would have to be before I’m willing to call it a real difference rather than the ordinary noise you’d expect from any sample of 42 people.</p>
-<p>That comparison number is my null hypothesis, and I didn’t invent it out of thin air. The American Marketing Association runs a doctoral special interest group, and every year they survey new marketing PhD graduates about starting salary and send me the results — mostly, I suspect, to depress me about what I earned in my first job. The most recent figure was US$145,000. It’s not a perfect number (a proper job would involve going round every PhD director in the business school and averaging across fields), but it’s a real, defensible estimate of “what graduates elsewhere earn”, which is exactly what a null hypothesis needs to be.</p>
-<ul>
-<li><strong>Null hypothesis:</strong> the average starting salary of WBS PhD graduates is not different from US$145,000.</li>
-<li><strong>Sample:</strong> 42 WBS graduates, sample mean $170,000, sample SD $46,617.4 — the same sample as Section <a href="statistics.html#conf">10.2</a>.</li>
-</ul>
-<p>Before doing any calculation, there’s a decision to make, and it’s the decision that usually gets made by accident, halfway through the arithmetic, once everyone’s attention is already used up. Did I hypothesize a direction? I could have framed the alternative as directional — WBS graduates earn <em>more</em> than $145,000 — or non-directional — WBS graduates earn a <em>different</em> amount, which could be more or less. A directional hypothesis is the stronger claim, and it has to be committed to in advance, not read off the result after the fact.</p>
-<p>Here’s the honest version: privately, of course I was expecting WBS graduates to earn more. But my null hypothesis, as written, was “not different from $145,000”, which commits me to the non-directional alternative whatever I was quietly hoping. I didn’t encode the direction I actually believed in, so I don’t get to use it. That’s not me being pedantic about my own case for the sake of the example — it’s the actual mechanism. A lot of people hypothesize a direction in their head and then run a two-tailed test anyway, mostly because no one ever made them sit down and decide properly. Here, the test is two-tailed.</p>
-<p>With that settled, the arithmetic is almost an anticlimax. What I want to know is: if the population mean really is $145,000, how far away — in standardised units — is my observed sample mean of $170,000?</p>
-<pre><code>## [1] 3.475495</code></pre>
-<p>Same standardisation logic as everywhere else in this book: take what I observed, subtract what I’d expect under the null, divide by how much variation sampling alone would produce. The effect is to redraw the whole problem on a scale where the null sits at zero, and my sample mean lands wherever it lands. A z of around 3.5 means my sample mean is roughly three and a half standard errors out from where the null says it should be — well beyond the 1.96 we’ve used as our 95% cutoff elsewhere.</p>
-<pre><code>## [1] 0.0005099124</code></pre>
-<p>That p-value — somewhere around 0.0005, about 1 in 2,000 — means: <em>if</em> the null is true, the probability of drawing a sample of 42 with a mean this far out, in either direction, is about 1 in 2,000. It does not mean there’s a 1-in-2,000 chance the null is true. A p-value says nothing about the probability of any hypothesis. It’s a statement about how surprising the data would be under an assumption, not a verdict on the assumption.</p>
-<p>So, do I reject the null? This is a judgement, not a law of nature. Nothing about this p-value compels a conclusion — I could, in principle, decide this is just an unusually extreme sample from a population that really does average $145,000, and nothing in the maths would stop me. What I actually do, like almost everyone else, is apply a cutoff — conventionally p &lt; 0.05 — and treat anything below it as evidence against the null. That cutoff exists because people like rules, not because 0.05 has any special status in nature. Here the data are miles past any conventional threshold, so the call is easy. It won’t always be, and when it isn’t, the arithmetic still won’t make the decision for you.</p>
-<p><strong>Directional vs non-directional, side by side:</strong></p>
-<table>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>One-tailed (directional)</th>
-<th>Two-tailed (non-directional)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Alternative hypothesis</td>
-<td>States a direction — e.g. “bigger than $145,000”</td>
-<td>States only “different from $145,000”</td>
-</tr>
-<tr class="even">
-<td>Must be decided</td>
-<td>Before looking at the data</td>
-<td>Before looking at the data</td>
-</tr>
-<tr class="odd">
-<td>Relationship between the p-values</td>
-<td>Half the two-tailed p, for the same z</td>
-<td>Double the one-tailed p, for the same z</td>
-</tr>
-<tr class="even">
-<td>This example</td>
-<td>Not what I actually committed to</td>
-<td>What I actually committed to</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="premier-league-goals-and-the-poisson-distribution-1" class="section level2 hasAnchor" number="11.2">
-<h2><span class="header-section-number">11.2</span> Premier League Goals and the Poisson Distribution<a href="H-testing.html#premier-league-goals-and-the-poisson-distribution-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this section, we are not really worried about the <em>actual</em> goals or anything like that. What we are concerned about is formally testing the hypothesis that Premier League goals per game actually do follow a Poisson distribution. To do this, we will use what is called a <strong>chi-square</strong> test, which uses the chi-square statistic.</p>
-<p>Chi-square is a fantastically versatile statistic, which is often used to compare tables of observations. Commonly, we compare a table of observed events with a table of events that we would expect if the null hypothesis were true in the population. The chi-square value is the measure of the difference between observed and expected counts in the table. We can use it here to compare the amount of goals we actually did observe in the 21-22 season, with those that we would <em>expect</em> to observe if the goals per game really do follow a Poisson distribution.</p>
-<p>Again, much of the idea and code for this section comes from: <a href="https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html" class="uri">https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html</a></p>
-<p>The data comes from: <a href="https://www.football-data.co.uk/englandm.php" class="uri">https://www.football-data.co.uk/englandm.php</a> and is the EPL results for 21-22 Season, with a new column of Total Goals (TOTG) created by me in Excel.</p>
-<pre><code>## # A tibble: 6 × 107
-##   Div   Date                Time                HomeTeam   AwayTeam   FTHG  FTAG
-##   &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 E0    2021-08-13 00:00:00 1899-12-31 20:00:00 Brentford  Arsenal       2     0
-## 2 E0    2021-08-14 00:00:00 1899-12-31 12:30:00 Man United Leeds         5     1
-## 3 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Burnley    Brighton      1     2
-## 4 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Chelsea    Crystal …     3     0
-## 5 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Everton    Southamp…     3     1
-## 6 E0    2021-08-14 00:00:00 1899-12-31 15:00:00 Leicester  Wolves        1     0
-## # ℹ 100 more variables: TOTG &lt;dbl&gt;, FTR &lt;chr&gt;, HTHG &lt;dbl&gt;, HTAG &lt;dbl&gt;,
-## #   HTR &lt;chr&gt;, Referee &lt;chr&gt;, HS &lt;dbl&gt;, AS &lt;dbl&gt;, HST &lt;dbl&gt;, AST &lt;dbl&gt;,
-## #   HF &lt;dbl&gt;, AF &lt;dbl&gt;, HC &lt;dbl&gt;, AC &lt;dbl&gt;, HY &lt;dbl&gt;, AY &lt;dbl&gt;, HR &lt;dbl&gt;,
-## #   AR &lt;dbl&gt;, B365H &lt;dbl&gt;, B365D &lt;dbl&gt;, B365A &lt;dbl&gt;, BWH &lt;dbl&gt;, BWD &lt;dbl&gt;,
-## #   BWA &lt;dbl&gt;, IWH &lt;dbl&gt;, IWD &lt;dbl&gt;, IWA &lt;dbl&gt;, PSH &lt;dbl&gt;, PSD &lt;dbl&gt;,
-## #   PSA &lt;dbl&gt;, WHH &lt;dbl&gt;, WHD &lt;dbl&gt;, WHA &lt;dbl&gt;, VCH &lt;dbl&gt;, VCD &lt;dbl&gt;,
-## #   VCA &lt;dbl&gt;, MaxH &lt;dbl&gt;, MaxD &lt;dbl&gt;, MaxA &lt;dbl&gt;, AvgH &lt;dbl&gt;, AvgD &lt;dbl&gt;, …</code></pre>
-<pre><code>##    Length     Class      Mode 
-##       380 character character</code></pre>
-<p>The above is a quick way of calculating / checking the total number of games if you don’t know already.</p>
-<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##   0.000   2.000   3.000   2.818   4.000   9.000</code></pre>
-<pre><code>## [1] 1071</code></pre>
-<p>First, let’s create a table of all the matches with different numbers of goals, just as we did in Chapter <a href="probability.html#probability">9</a>.</p>
-<pre><code>## # A tibble: 9 × 2
-##    TOTG ActualMatches
-##   &lt;dbl&gt;         &lt;int&gt;
-## 1     0            22
-## 2     1            65
-## 3     2            88
-## 4     3            81
-## 5     4            60
-## 6     5            43
-## 7     6            17
-## 8     7             3
-## 9     9             1</code></pre>
-<p>Here, we have a problem. The chi-square test has a condition that the expected values in every column will be greater than 5, and as we go down the Poisson probabilities (i.e. for higher total goals), it is clear that this will start to become a problem for us.</p>
-<p>The solution is simple, we combine the numbers for larger numbers of goals into a single ‘x and above’ variable. Here, let’s do it for 6 goals and above.</p>
-<p>To do so, we first need to create a new table, where the values for 6 and above are combined into a new row.</p>
-<pre><code>## # A tibble: 7 × 2
-##   TOTG      ActualMatches
-##   &lt;chr&gt;             &lt;int&gt;
-## 1 0                    22
-## 2 1                    65
-## 3 2                    88
-## 4 3                    81
-## 5 4                    60
-## 6 5                    43
-## 7 6 or more            21</code></pre>
-<p>Now we can create the Poisson distribution for the relevant mean, which means we first need to create the stats…</p>
-<pre><code>##  min Q1 median Q3 max     mean       sd   n missing
-##    0  2      3  4   9 2.818421 1.626359 380       0</code></pre>
-<p>Below is some code which will help us to create the distributions and also check them.</p>
-<pre><code>## [1] 2.818421</code></pre>
-<pre><code>## [1] 2.645042</code></pre>
-<p>As we saw in Chapter <a href="probability.html#probability">9</a>, while for a Poisson distribution these should be exactly the same, we decided that they were good enough to be going on with.</p>
-<p>So, let’s actually check this formally with the Chi-square test.</p>
-<p>We do so by first creating a table of the Poisson probabilities for x or fewer goals, for the Poisson with a mean of 2.818 (i.e. the variable MeanGoals)</p>
-<pre><code>##     PoisProb
-## 1 0.05970013
-## 2 0.16826011
-## 3 0.23711392
-## 4 0.22276228
-## 5 0.15695948
-## 6 0.08847558
-## 7 0.04156024</code></pre>
-<p>This allows us to make some predictions of what we could expect.</p>
-<p>Remembering again that there are 380 games in a season, we can see that there is a 0.16 chance of seeing 4 goals in a game, which equates to 380 x 0.16 = 60.8 games we would expect to see in a season with 4 goals.</p>
-<p>We can check this out by creating a new table comparing actual with predicted values…</p>
-<pre><code>##        TOTG ActualMatches   PoisProb ExpectedMatches
-## 1         0            22 0.05970013              23
-## 2         1            65 0.16826011              64
-## 3         2            88 0.23711392              90
-## 4         3            81 0.22276228              85
-## 5         4            60 0.15695948              60
-## 6         5            43 0.08847558              34
-## 7 6 or more            21 0.04156024              16</code></pre>
-<p>This looks quite frighteningly close up until you get to the 5 row. It will be interesting to see how we go with a formal chi-square test.</p>
-<pre><code>## 
-##  Chi-squared test for given probabilities
-## 
-## data:  NewGoalsTable$ActualMatches
-## X-squared = 4.2244, df = 6, p-value = 0.6463</code></pre>
-<p>The P-value here is actually 0.64. This suggests that there is not a significant difference between the distribution of the actual goals, and that which would be expected if they did follow a Poisson distribution.</p>
-<p>Notice what that sentence does and doesn’t say. It says the goals data are consistent with a Poisson distribution. It doesn’t say they <em>are</em> Poisson. A p-value of 0.64 means that data like these would be unsurprising if goals followed a Poisson distribution, but plenty of other distributions we didn’t test might fit them just as well. Failing to reject a null is not the same as showing it’s true. Absence of evidence is not evidence of absence. That might sound like pedantry, but it matters enormously when you read papers, because one of the most common moves in published research is to run a test, find nothing, and conclude that nothing is there: no bias, no difference between the groups, no problem. With a small sample, a test can easily fail to detect even a large effect. If you want to claim that something is absent, you need a test designed to show that, and I’ll come back to what that looks like at the end of this chapter.</p>
-</div>
-<div id="correlation-significance-tests" class="section level2 hasAnchor" number="11.3">
-<h2><span class="header-section-number">11.3</span> Correlation Significance Tests<a href="H-testing.html#correlation-significance-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here, we revisit our correlation between GDP per capita, and Happiness metrics, which I pulled from Our Word in Data:</p>
-<pre><code>##    Country            Happiness         GDPpc             Pop           
-##  Length:249         Min.   :2.400   Min.   :   731   Min.   :8.090e+02  
-##  Class :character   1st Qu.:4.670   1st Qu.:  4917   1st Qu.:4.153e+05  
-##  Mode  :character   Median :5.530   Median : 12655   Median :5.596e+06  
-##                     Mean   :5.492   Mean   : 20464   Mean   :5.918e+07  
-##                     3rd Qu.:6.260   3rd Qu.: 30100   3rd Qu.:2.421e+07  
-##                     Max.   :7.820   Max.   :112557   Max.   :4.663e+09  
-##                     NA&#39;s   :96      NA&#39;s   :52       NA&#39;s   :7</code></pre>
-<pre><code>## # A tibble: 6 × 4
-##   Country        Happiness GDPpc      Pop
-##   &lt;chr&gt;              &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;
-## 1 Afghanistan         2.4   1971 38972236
-## 2 Albania             5.2  13192  2866850
-## 3 Algeria             5.12 10735 43451668
-## 4 American Samoa     NA       NA    46216
-## 5 Andorra            NA       NA    77723
-## 6 Angola             NA     6110 33428490</code></pre>
-<p>Let’s not worry about plotting the data, and go straight to the correlation:</p>
-<pre><code>## 
-##  Pearson&#39;s product-moment correlation
-## 
-## data:  x and y
-## t = 13.502, df = 146, p-value &lt; 2.2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.6636288 0.8092331
-## sample estimates:
-##      cor 
-## 0.745184</code></pre>
-<p>Here are our results. The estimate is a correlation, and we test that using the <strong>t statistic</strong>. The <em>t-value</em> is simply the estimate divided by the standard error (which we can’t see in this output), and is interpreted essentially as ‘how far from 0 is the estimate, in standard errors’.</p>
-<p>The <em>p</em>-value for t is very very small, and obviously less than 0.05.</p>
-<p>Conclusion - reject null hypothesis, accept alternative hypothesis (as always, pending better evidence).</p>
-<p>Importantly, this does not mean that the <strong>true correlation in the population</strong> is 0.745, simply that it is <em>very unlikely to be zero</em>.</p>
-<p>We can then look at our estimate of 0.745, and - even better - our confidence interval (see Section <a href="statistics.html#conf">10.2</a> for information on how to interpret confidence intervals), to gain some indication of the likely true correlation in the population.</p>
-</div>
-<div id="regression-significance-tests" class="section level2 hasAnchor" number="11.4">
-<h2><span class="header-section-number">11.4</span> Regression Significance Tests<a href="H-testing.html#regression-significance-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The process to asses the significance of regression estimates is very very similar to that for correlations. Let’s revisit the heart disease data set we used earlier, in Chapter <a href="assoc-rel.html#assoc-rel">5</a>.</p>
-<pre><code>##       ...1           biking          smoking        heart.disease    
-##  Min.   :  1.0   Min.   : 1.119   Min.   : 0.5259   Min.   : 0.5519  
-##  1st Qu.:125.2   1st Qu.:20.205   1st Qu.: 8.2798   1st Qu.: 6.5137  
-##  Median :249.5   Median :35.824   Median :15.8146   Median :10.3853  
-##  Mean   :249.5   Mean   :37.788   Mean   :15.4350   Mean   :10.1745  
-##  3rd Qu.:373.8   3rd Qu.:57.853   3rd Qu.:22.5689   3rd Qu.:13.7240  
-##  Max.   :498.0   Max.   :74.907   Max.   :29.9467   Max.   :20.4535</code></pre>
-<pre><code>## # A tibble: 6 × 4
-##    ...1 biking smoking heart.disease
-##   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
-## 1     1  30.8    10.9          11.8 
-## 2     2  65.1     2.22          2.85
-## 3     3   1.96   17.6          17.2 
-## 4     4  44.8     2.80          6.82
-## 5     5  69.4    16.0           4.06
-## 6     6  54.4    29.3           9.55</code></pre>
-<p>Let’s go straight to the multiple regression model.</p>
-<pre><code>## 
-## Call:
-## lm(formula = heart.disease ~ biking + smoking, data = Heart)
-## 
-## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -2.1789 -0.4463  0.0362  0.4422  1.9331 
-## 
-## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 14.984658   0.080137  186.99   &lt;2e-16 ***
-## biking      -0.200133   0.001366 -146.53   &lt;2e-16 ***
-## smoking      0.178334   0.003539   50.39   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.654 on 495 degrees of freedom
-## Multiple R-squared:  0.9796, Adjusted R-squared:  0.9795 
-## F-statistic: 1.19e+04 on 2 and 495 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>We interpret these just as we did the correlation significance tests.</p>
-<p>The t-value is large, and the <em>p</em>-value (two-tailed) is small.</p>
-<p>Interestingly, here we are given ‘stars’ for the different levels of significance, so to some extent the software is doing some decision making for you. To be honest, I always caution against relying solely on looking for ‘stars’ (it’s actually a bit of a running joke amongst the people who have known me a long time that I once told an entire class in the 1990s to ‘just look for the stars’). That’s because the actual significance or not decision is based on the critical value and one- or two-tailed decision. The software often makes an assumption of 0.05 critical value for <em>p</em>, two-tailed, and calculates the ‘stars’ based on that. Sometimes that can conflict with the decision you have made yourself about what should be significant or not. That can trip you up if you didn’t know to change these values in the software package.</p>
-<p>Further, it also sort of entrenches the idea that things can be ‘more’ or ‘less’ statistically significant. Take a look at the results above, you’ll see 3 stars represents a significance of ‘0’, and 2 stars represents ‘0.001’, boring old ‘0.05’ only gets a single star, and ‘0.1’ gets a dot. I’m not a fan here because this encourages the analyst to post-hoc make decisions about ‘marginally’ significant, or ‘very’ significant. These concepts do not actually exist in real statistical theory. Instead, you decide your critical value <strong><em>a priori</em></strong>, and you either pass or fail it. As Yoda may have said if he was a statistician, “Pass or do not pass. There is no marginally significant”.</p>
-<p>Am I perfect? No. Specifically, do any of my papers use the language of ‘marginal’ significance? Sure, I bet you could find them. I am never a fan though, and I can promise you I argued about it at the time!</p>
-</div>
-<div id="H-testing-reading" class="section level2 hasAnchor" number="11.5">
-<h2><span class="header-section-number">11.5</span> Reading the literature<a href="H-testing.html#H-testing-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Hypothesis tests are the basic currency of quantitative management research. Almost every number that matters in a results section arrives with a test attached, and you’ve now done one of those tests by hand. That’s the good news: the machinery in a published paper is the same machinery as in the salary example. The less good news is that papers use it in ways this chapter wouldn’t recommend, and the conventions of reporting make those ways look completely normal. (What happens when a paper runs lots of tests at once is a problem of its own, which Chapter <a href="Issues.html#Issues">13</a> takes on.)</p>
-<div id="where-youll-meet-this-7" class="section level3 hasAnchor" number="11.5.1">
-<h3><span class="header-section-number">11.5.1</span> Where you’ll meet this<a href="H-testing.html#where-youll-meet-this-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>The coefficient table.</strong> Each row usually gives an estimate and a standard error, often in parentheses underneath, along with some combination of a t-value, a p-value and stars. The t-value is exactly the salary calculation: the estimate, minus what the null says it should be, divided by its standard error. In a regression table the null is almost always that the coefficient is zero, and it’s almost never written down. That’s worth noticing, because zero isn’t always the comparison that matters. If a theory predicts that one effect is bigger than another, testing each of them against zero doesn’t test the theory.</p>
-<p><strong>Stars and daggers.</strong> Everything I said earlier in this chapter about stars applies to papers, with one addition: the thresholds aren’t standard, so always read the note under the table. Some journals use a dagger (†) or a plus sign for p &lt; .10, which quietly adds a fourth grade of significance. Some have gone the other way. In 2016 the editors of the <em>Strategic Management Journal</em> announced that they would no longer accept papers reporting cut-off levels of significance. They asked instead for standard errors or exact p-values without asterisks, and for an explicit discussion of effect sizes <span class="citation">(<a href="#ref-bettis2016creating">Bettis et al. 2016</a>)</span>. So a table with exact p-values and no stars isn’t a less rigorous paper. It may well be a more rigorous one.</p>
-<p><strong>“Marginally significant” and its relatives.</strong> “Approached significance,” “trended towards significance,” “directional support.” You know my view of these. The threshold was supposed to be chosen before the data arrived, and this language exists to rescue a result that failed it.</p>
-<p><strong>A difference that was never tested.</strong> This is one of the most common errors in published research, and one of the hardest to spot. A paper finds that an effect is significant in one group, say manufacturing firms, but not in another, say service firms, and concludes that the effect differs between them. That doesn’t follow. A coefficient with p = .03 and one with p = .20 can be almost exactly the same size; one of them just has a bigger standard error. To claim that two effects differ, you need a test of the difference itself, usually an interaction term. The title of Gelman and Stern’s paper on this says it all: the difference between “significant” and “not significant” is not itself statistically significant <span class="citation">(<a href="#ref-gelman2006difference">Gelman and Stern 2006</a>)</span>.</p>
-<p><strong>“No effect.”</strong> This is the other half of the same problem. As the Premier League example earlier in this chapter showed, a non-significant result means the data weren’t surprising under the null. It doesn’t mean the null is true. Yet papers routinely treat non-significance as proof of absence: the groups didn’t differ, the control variable didn’t matter, non-response bias wasn’t a concern. Where a paper genuinely needs to show that something is absent or negligible, there are tests designed for exactly that. The most common are <em>equivalence tests</em>, which ask whether an effect is smaller than a pre-specified amount that would matter in practice <span class="citation">(<a href="#ref-lakens2017equivalence">Lakens 2017</a>)</span>. You’ll rarely see them in management journals, which is precisely why a “no difference” claim is worth questioning.</p>
-<p><strong>Very large samples.</strong> Many management papers use firm-level or employee-level databases with tens of thousands of observations. Standard errors shrink as samples grow, so in data that size even tiny effects come out as significant. The p-value then tells you very little, and the size of the estimate tells you nearly everything. The question from Section <a href="intro.html#intro-reading">2.6</a> applies with full force: what does this mean in natural units?</p>
-<p><strong>One-tailed tests.</strong> Occasionally a paper reports one-tailed tests. That’s legitimate if, as in the salary example, the direction was committed to in advance. Be more wary when one-tailed tests turn up only for results whose two-tailed p-value would have fallen between .05 and .10. Halving the p-value is the entire effect of the switch.</p>
-<p><strong>Counts.</strong> You’ll often meet outcomes that are counts: patents filed, acquisitions made, alliances formed. These are usually modelled with <em>Poisson regression</em> or its more flexible cousin, <em>negative binomial regression</em>. Poisson regression assumes the counts behave like the Premier League goals in this chapter, and in particular that their variance equals their mean. Business counts are usually more spread out than that (the term is <em>overdispersed</em>), which is why negative binomial models are so common: they relax that assumption. Their coefficients are often reported as <em>rate ratios</em>, and like every ratio in Section <a href="intro.html#intro-reading">2.6</a>, a rate ratio needs a base rate before it means anything.</p>
-</div>
-<div id="the-connection-back-7" class="section level3 hasAnchor" number="11.5.2">
-<h3><span class="header-section-number">11.5.2</span> The connection back<a href="H-testing.html#the-connection-back-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Every p-value in every table is the salary calculation. There’s an estimate, a null that usually goes unstated, a standard error, and a threshold that should have been chosen before anyone looked. Stars, daggers and adjectives are decoration on top of that. Strip them away, and the questions are always the same: compared with what, how big, and how sure?</p>
-</div>
-<div id="questions-worth-asking-7" class="section level3 hasAnchor" number="11.5.3">
-<h3><span class="header-section-number">11.5.3</span> Questions worth asking<a href="H-testing.html#questions-worth-asking-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="reader-guide" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">A</span> A Checklist for Reading Quantitative Papers<a href="reader-guide.html#reader-guide" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Every chapter in this book ends with a section on reading the literature, and each of those ends with a handful of questions. This appendix gathers them into one checklist, arranged in the order you’d meet things when reading a paper rather than the order the book teaches them. Where several chapters asked versions of the same question, I’ve merged them. Each question points back to the sections where the ideas behind it are explained.</p>
+<p>Two warnings before you use it. First, not every question applies to every paper: an experiment raises different issues from an archival study, and you should skip whatever doesn’t fit. Second, this isn’t a scoring sheet. A paper can fail several of these questions and still be the best available evidence on something important. The point is to know what a paper has actually shown, not to hunt for reasons to dismiss it.</p>
+<div id="design-and-sample" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">A.1</span> Design and sample<a href="reader-guide.html#design-and-sample" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
-<li><strong>What’s the null for this estimate?</strong> Is zero really the comparison that matters for the theory?</li>
-<li><strong>How big is the effect, in units someone would care about?</strong> This matters most when the sample is large.</li>
-<li><strong>When the authors claim two effects differ, did they test the difference?</strong> Or did they compare one significant result with one non-significant result?</li>
-<li><strong>When they claim something doesn’t matter, what’s the evidence?</strong> Is it anything more than a non-significant p-value?</li>
-<li><strong>Were the thresholds set in advance, and applied the same way throughout?</strong> Check the table notes, and check whether any tests were one-tailed.</li>
-<li><strong>If you covered up the stars, would you tell the same story?</strong> Read only the estimates and standard errors, and see whether your conclusions change.</li>
+<li><strong>What is the causal claim, link by link?</strong> For each link, what does the design do to support it? (Sections <a href="causation.html#causation-reading">4.5</a>, <a href="bootstrap.html#bootstrap-reading">7.3</a>)</li>
+<li><strong>What is being compared with what?</strong> Is the comparison group the one needed to rule out the most obvious alternative explanation, or is it a before-and-after with no comparison at all? (Section <a href="t-test.html#t-test-reading">8.4</a>)</li>
+<li><strong>What’s the most obvious third variable?</strong> If you can think of one in thirty seconds, is it dealt with? (Section <a href="causation.html#causation-reading">4.5</a>)</li>
+<li><strong>Who is in the sample, and how did they get there?</strong> Is this selection into treatment or selection into the sample? What would the missing cases look like? (Sections <a href="causation.html#causation-reading">4.5</a>, <a href="statistics.html#statistics-reading">10.4</a>)</li>
+<li><strong>Was the sample size set in advance?</strong> Is there a power analysis done before data collection, and how many cases are in each group or cell? (Sections <a href="Issues.html#issues-reading">13.6</a>, <a href="ANOVA.html#ANOVA-reading">12.2</a>)</li>
+<li><strong>If the study was pre-registered, does the paper match the plan?</strong> (Section <a href="Issues.html#issues-reading">13.6</a>)</li>
+<li><strong>When, and from whom, was each variable measured?</strong> If the predictor, mediator and outcome come from the same respondent at the same moment, what did the design do about common method variance, and why should we believe the proposed order? (Sections <a href="assoc-rel.html#assoc-rel-reading">5.6</a>, <a href="bootstrap.html#bootstrap-reading">7.3</a>)</li>
+<li><strong>Are the observations really independent?</strong> If not, were the standard errors clustered, at what level, and across how many clusters? (Section <a href="statistics.html#statistics-reading">10.4</a>)</li>
 </ol>
 </div>
-<div id="one-red-flag-7" class="section level3 hasAnchor" number="11.5.4">
-<h3><span class="header-section-number">11.5.4</span> One red flag<a href="H-testing.html#one-red-flag-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Watch for a double standard. The same paper that calls p = .08 “marginal support” for a hypothesis will often call p = .08 on a comparison of groups “no significant difference.” The second case usually arises when the authors want the groups to be the same, for example in a check that treatment and control groups were comparable, or that early and late respondents didn’t differ. The threshold has moved to wherever it helps the argument. I doubt it’s usually deliberate; it’s what wanting a result does to anyone’s judgement, mine included. But once you’ve spotted it, you know which way the whole paper leans.</p>
+<div id="measures" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">A.2</span> Measures<a href="reader-guide.html#measures" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="9" style="list-style-type: decimal">
+<li><strong>What do we know about each measure, apart from its alpha?</strong> (Section <a href="assoc-rel.html#assoc-rel-reading">5.6</a>)</li>
+<li><strong>Are the constructs the paper treats as different actually different?</strong> Look for correlations in Table 1 that approach the measures’ reliabilities, and for mediators that are barely distinct from X or Y. (Sections <a href="assoc-rel.html#assoc-rel-reading">5.6</a>, <a href="bootstrap.html#bootstrap-reading">7.3</a>)</li>
+<li><strong>Which variables were logged or otherwise transformed?</strong> How does that change what their coefficients mean, and what was done about zeros? (Section <a href="norm-dist.html#norm-dist-reading">3.3</a>)</li>
+</ol>
 </div>
-<div id="if-you-want-to-read-more-7" class="section level3 hasAnchor" number="11.5.5">
-<h3><span class="header-section-number">11.5.5</span> If you want to read more<a href="H-testing.html#if-you-want-to-read-more-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Two short papers this time. The American Statistical Association’s statement on p-values <span class="citation">(<a href="#ref-wasserstein2016asa">Wasserstein and Lazar 2016</a>)</span> is the closest thing statistics has to an official position on what a p-value can and can’t tell you. It’s free to read online and only a few pages long. For something closer to home, the <em>Strategic Management Journal</em> editorial that dropped the stars <span class="citation">(<a href="#ref-bettis2016creating">Bettis et al. 2016</a>)</span> makes the same case for management research. It includes a thought experiment about three junior scholars studying the same hypothesis that I suspect will feel uncomfortably familiar.</p>
-<p>A condensed version of these questions, combined with those from the other chapters and arranged in the order you’d meet them when reading a paper, is in Appendix <a href="reader-guide.html#reader-guide">A</a>.</p>
+<div id="descriptives-and-correlations" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">A.3</span> Descriptives and correlations<a href="reader-guide.html#descriptives-and-correlations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="12" style="list-style-type: decimal">
+<li><strong>Is the mean a sensible summary of each variable, and is there enough variation to work with?</strong> Compare the mean with the median, the minimum and maximum, and the scale’s limits. Be wary of a standard deviation bigger than the mean on a variable that can’t be negative. If normality is discussed, is it the right thing (usually the residuals) that’s being checked? (Section <a href="norm-dist.html#norm-dist-reading">3.3</a>)</li>
+<li><strong>Do the key variables actually correlate in Table 1?</strong> If not, how do the authors explain a significant effect in the regression? (Section <a href="assoc-rel.html#assoc-rel-reading">5.6</a>)</li>
+<li><strong>Which predictors are strongly correlated with each other?</strong> Do the authors claim to have separated their effects, and how convincingly? (Section <a href="assoc-rel.html#assoc-rel-reading">5.6</a>)</li>
+</ol>
+</div>
+<div id="main-results" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">A.4</span> Main results<a href="reader-guide.html#main-results" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="15" style="list-style-type: decimal">
+<li><strong>What does each number in the table represent?</strong> What’s in the brackets? Are the coefficients standardised? What’s the null, which is usually zero and usually unstated, and which group is the reference category? (Sections <a href="statistics.html#statistics-reading">10.4</a>, <a href="H-testing.html#H-testing-reading">11.5</a>, <a href="t-test.html#t-test-reading">8.4</a>)</li>
+<li><strong>How big is the effect, in units someone would care about?</strong> Is it relative or absolute? Is it in percent or percentage points? Is it an odds ratio for a common outcome? This matters most when the sample is large. (Sections <a href="intro.html#intro-reading">2.6</a>, <a href="t-test.html#t-test-reading">8.4</a>, <a href="H-testing.html#H-testing-reading">11.5</a>)</li>
+<li><strong>What range of values is the estimate consistent with?</strong> Does the interval include effects too small to matter? (Sections <a href="statistics.html#statistics-reading">10.4</a>, <a href="bootstrap.html#bootstrap-reading">7.3</a>)</li>
+<li><strong>Which effect size is reported, and how was it calculated?</strong> Is it compared only with effects calculated the same way? (Sections <a href="t-test.html#t-test-reading">8.4</a>, <a href="ANOVA.html#ANOVA-reading">12.2</a>)</li>
+<li><strong>Were the significance thresholds set in advance, and applied the same way throughout?</strong> Check the table notes and look for one-tailed tests. (Section <a href="H-testing.html#H-testing-reading">11.5</a>)</li>
+<li><strong>If you covered up the stars, would you tell the same story?</strong> And where do the key p-values sit? A paper whose every central result falls between .01 and .05 is a pattern worth noticing. (Sections <a href="H-testing.html#H-testing-reading">11.5</a>, <a href="Issues.html#issues-reading">13.6</a>)</li>
+<li><strong>Is there an interaction, and is it read correctly?</strong> Are main effects, or lower-order coefficients in a regression, interpreted as if the interaction weren’t there? Does an effect reverse, or just get smaller? Is there a plot of simple effects or simple slopes? (Section <a href="ANOVA.html#ANOVA-reading">12.2</a>)</li>
+<li><strong>In a hierarchical regression, what went in first?</strong> Would the story change if the order changed? (Section <a href="assoc-rel.html#assoc-rel-reading">5.6</a>)</li>
+<li><strong>For mediation, how was the indirect effect tested?</strong> Was it a bootstrap interval or an older test? Is “full mediation” doing any real work? (Section <a href="bootstrap.html#bootstrap-reading">7.3</a>)</li>
+</ol>
+</div>
+<div id="robustness" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">A.5</span> Robustness<a href="reader-guide.html#robustness" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="24" style="list-style-type: decimal">
+<li><strong>How many tests could the authors have run?</strong> Count the outcomes, subgroups, controls and exclusions they could have tried, not just the ones they report. (Section <a href="Issues.html#issues-reading">13.6</a>)</li>
+<li><strong>Are the exclusion rules justified?</strong> Does the result survive without them? (Section <a href="Issues.html#issues-reading">13.6</a>)</li>
+<li><strong>If endogeneity was corrected for, what does the correction assume, and did it change anything?</strong> How strong would an unmeasured confounder need to be to explain the result away? (Section <a href="causation.html#causation-reading">4.5</a>)</li>
+<li><strong>Would the story survive if the weakest result were removed?</strong> (Section <a href="Issues.html#issues-reading">13.6</a>)</li>
+</ol>
+</div>
+<div id="discussion-and-claims" class="section level2 hasAnchor" number="14.6">
+<h2><span class="header-section-number">A.6</span> Discussion and claims<a href="reader-guide.html#discussion-and-claims" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol start="28" style="list-style-type: decimal">
+<li><strong>What verb are the authors using?</strong> Did the design earn the drift from “is associated with” to “drives”? (Section <a href="causation.html#causation-reading">4.5</a>)</li>
+<li><strong>When the authors claim that two effects differ, or that something doesn’t matter, did they test it?</strong> A significant result beside a non-significant one isn’t a tested difference. Overlapping error bars aren’t a test either. And a non-significant p-value isn’t evidence of absence. (Sections <a href="H-testing.html#H-testing-reading">11.5</a>, <a href="statistics.html#statistics-reading">10.4</a>)</li>
+<li><strong>Whose effect is this?</strong> An average can hide groups where the effect is much larger, and groups where it’s absent. A small effect on each person can still add up across a population, or the other way round. (Section <a href="intro.html#intro-reading">2.6</a>)</li>
+</ol>
 
-</div>
-</div>
-</div>
-<h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-bettis2016creating" class="csl-entry">
+<div class="csl-entry">
+Armstrong, J. Scott, and Terry S. Overton. 1977. <span>“Estimating Nonresponse Bias in Mail Surveys.”</span> <em>Journal of Marketing Research</em> 14 (3): 396–402.
+</div>
+<div class="csl-entry">
+Baron, Reuben M., and David A. Kenny. 1986. <span>“The Moderator–Mediator Variable Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical Considerations.”</span> <em>Journal of Personality and Social Psychology</em> 51 (6): 1173–82. <a href="https://doi.org/10.1037/0022-3514.51.6.1173">https://doi.org/10.1037/0022-3514.51.6.1173</a>.
+</div>
+<div class="csl-entry">
+Becker, Jan-Michael, Dorian Proksch, and Christian M. Ringle. 2022. <span>“Revisiting <span>Gaussian</span> Copulas to Handle Endogenous Regressors.”</span> <em>Journal of the Academy of Marketing Science</em> 50: 46–66.
+</div>
+<div class="csl-entry">
 Bettis, Richard A., Sendil Ethiraj, Alfonso Gambardella, Constance Helfat, and Will Mitchell. 2016. <span>“Creating Repeatable Cumulative Knowledge in Strategic Management.”</span> <em>Strategic Management Journal</em> 37 (2): 257–61. <a href="https://doi.org/10.1002/smj.2477">https://doi.org/10.1002/smj.2477</a>.
 </div>
-<div id="ref-gelman2006difference" class="csl-entry">
+<div class="csl-entry">
+<span class="nocase">Bouvard, Véronique, Dana Loomis, Kathryn Z. Guyton, et al.</span> 2015. <span>“Carcinogenicity of Consumption of Red and Processed Meat.”</span> <em>The Lancet Oncology</em> 16 (16): 1599–600.
+</div>
+<div class="csl-entry">
+Bradbury, Kathryn E., Neil Murphy, and Timothy J. Key. 2020. <span>“Diet and Colorectal Cancer in <span>UK Biobank</span>: A Prospective Study.”</span> <em>International Journal of Epidemiology</em> 49 (1): 246–58. <a href="https://doi.org/10.1093/ije/dyz064">https://doi.org/10.1093/ije/dyz064</a>.
+</div>
+<div class="csl-entry">
+Bullock, John G., Donald P. Green, and Shang E. Ha. 2010. <span>“Yes, but What’s the Mechanism? (Don’t Expect an Easy Answer).”</span> <em>Journal of Personality and Social Psychology</em> 98 (4): 550–58. <a href="https://doi.org/10.1037/a0018933">https://doi.org/10.1037/a0018933</a>.
+</div>
+<div class="csl-entry">
+Cameron, A. Colin, and Douglas L. Miller. 2015. <span>“A Practitioner’s Guide to Cluster-Robust Inference.”</span> <em>Journal of Human Resources</em> 50 (2): 317–72. <a href="https://doi.org/10.3368/jhr.50.2.317">https://doi.org/10.3368/jhr.50.2.317</a>.
+</div>
+<div class="csl-entry">
+Cancer Research UK. 2026. <em>Bowel Cancer Risk</em>. <a href="https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/bowel-cancer/risk-factors" class="uri">Https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/bowel-cancer/risk-factors</a>.
+</div>
+<div class="csl-entry">
+Carney, Dana R. 2016. <em>My Position on <span>“Power Poses”</span></em>. <a href="https://faculty.haas.berkeley.edu/dana_carney/pdf_my%20position%20on%20power%20poses.pdf" class="uri">Https://faculty.haas.berkeley.edu/dana_carney/pdf_my%20position%20on%20power%20poses.pdf</a>.
+</div>
+<div class="csl-entry">
+Carney, Dana R., Amy J. C. Cuddy, and Andy J. Yap. 2010. <span>“Power Posing: Brief Nonverbal Displays Affect Neuroendocrine Levels and Risk Tolerance.”</span> <em>Psychological Science</em> 21 (10): 1363–68. <a href="https://doi.org/10.1177/0956797610383437">https://doi.org/10.1177/0956797610383437</a>.
+</div>
+<div class="csl-entry">
+Certo, S. Trevis, John R. Busenbark, Hyun-soo Woo, and Matthew Semadeni. 2016. <span>“Sample Selection Bias and <span>Heckman</span> Models in Strategic Management Research.”</span> <em>Strategic Management Journal</em> 37 (13): 2639–57. <a href="https://doi.org/10.1002/smj.2475">https://doi.org/10.1002/smj.2475</a>.
+</div>
+<div class="csl-entry">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. 2nd ed. Lawrence Erlbaum Associates.
+</div>
+<div class="csl-entry">
+Cuddy, Amy J. C., S. Jack Schultz, and Nathan E. Fosse. 2018. <span>“<span>P</span>-Curving a More Comprehensive Body of Research on Postural Feedback Reveals Clear Evidential Value for Power-Posing Effects: Reply to <span>Simmons</span> and <span>Simonsohn</span> (2017).”</span> <em>Psychological Science</em> 29 (4): 656–66. <a href="https://doi.org/10.1177/0956797617746749">https://doi.org/10.1177/0956797617746749</a>.
+</div>
+<div class="csl-entry">
+Cumming, Geoff, and Sue Finch. 2005. <span>“Inference by Eye: Confidence Intervals and How to Read Pictures of Data.”</span> <em>American Psychologist</em> 60 (2): 170–80. <a href="https://doi.org/10.1037/0003-066X.60.2.170">https://doi.org/10.1037/0003-066X.60.2.170</a>.
+</div>
+<div class="csl-entry">
+Cunningham, Scott. 2021. <em>Causal Inference: The Mixtape</em>. Yale University Press.
+</div>
+<div class="csl-entry">
+Delacre, Marie, Daniël Lakens, and Christophe Leys. 2017. <span>“Why Psychologists Should by Default Use <span class="nocase">Welch’s</span> t-Test Instead of <span class="nocase">Student’s</span> t-Test.”</span> <em>International Review of Social Psychology</em> 30 (1): 92–101. <a href="https://doi.org/10.5334/irsp.82">https://doi.org/10.5334/irsp.82</a>.
+</div>
+<div class="csl-entry">
+Echambadi, Raj, and James D. Hess. 2007. <span>“Mean-Centering Does Not Alleviate Collinearity Problems in Moderated Multiple Regression Models.”</span> <em>Marketing Science</em> 26 (3): 438–45. <a href="https://doi.org/10.1287/mksc.1060.0263">https://doi.org/10.1287/mksc.1060.0263</a>.
+</div>
+<div class="csl-entry">
+Gelman, Andrew, and Eric Loken. 2014. <span>“The Statistical Crisis in Science.”</span> <em>American Scientist</em> 102 (6): 460–65.
+</div>
+<div class="csl-entry">
 Gelman, Andrew, and Hal Stern. 2006. <span>“The Difference Between <span>‘Significant’</span> and <span>‘Not Significant’</span> Is Not Itself Statistically Significant.”</span> <em>The American Statistician</em> 60 (4): 328–31. <a href="https://doi.org/10.1198/000313006X152649">https://doi.org/10.1198/000313006X152649</a>.
 </div>
-<div id="ref-lakens2017equivalence" class="csl-entry">
+<div class="csl-entry">
+Gigerenzer, Gerd. 2002. <em>Reckoning with Risk: Learning to Live with Uncertainty</em>. Allen Lane.
+</div>
+<div class="csl-entry">
+Heckman, James J. 1979. <span>“Sample Selection Bias as a Specification Error.”</span> <em>Econometrica</em> 47 (1): 153–61.
+</div>
+<div class="csl-entry">
+Huntington-Klein, Nick. 2025. <em>The Effect: An Introduction to Research Design and Causality</em>. 2nd ed. Chapman; Hall/CRC.
+</div>
+<div class="csl-entry">
+International Agency for Research on Cancer. 2015. <em>Cancer: Carcinogenicity of the Consumption of Red Meat and Processed Meat</em>. <a href="https://www.who.int/news-room/questions-and-answers/item/cancer-carcinogenicity-of-the-consumption-of-red-meat-and-processed-meat" class="uri">Https://www.who.int/news-room/questions-and-answers/item/cancer-carcinogenicity-of-the-consumption-of-red-meat-and-processed-meat</a>.
+</div>
+<div class="csl-entry">
+Irwin, Julie R., and Gary H. McClelland. 2001. <span>“Misleading Heuristics and Moderated Multiple Regression Models.”</span> <em>Journal of Marketing Research</em> 38 (1): 100–109. <a href="https://doi.org/10.1509/jmkr.38.1.100.18835">https://doi.org/10.1509/jmkr.38.1.100.18835</a>.
+</div>
+<div class="csl-entry">
+<span class="nocase">Jonas, Kai J., Joseph Cesario, Madeliene Alger, et al.</span> 2017. <span>“Power Poses – Where Do We Stand?”</span> <em>Comprehensive Results in Social Psychology</em> 2 (1): 139–41. <a href="https://doi.org/10.1080/23743603.2017.1342447">https://doi.org/10.1080/23743603.2017.1342447</a>.
+</div>
+<div class="csl-entry">
+Kalnins, Arturs, and Kendall Praitis Hill. 2025. <span>“Additional Caution Regarding Rules of Thumb for Variance Inflation Factors: Extending <span>O’Brien</span> to the Context of Specification Error.”</span> <em>Quality &amp; Quantity</em> 59 (Suppl 1): 291–314. <a href="https://doi.org/10.1007/s11135-024-01980-0">https://doi.org/10.1007/s11135-024-01980-0</a>.
+</div>
+<div class="csl-entry">
+Kerr, Norbert L. 1998. <span>“<span>HARKing</span>: Hypothesizing After the Results Are Known.”</span> <em>Personality and Social Psychology Review</em> 2 (3): 196–217.
+</div>
+<div class="csl-entry">
+Lakens, Daniël. 2013. <span>“Calculating and Reporting Effect Sizes to Facilitate Cumulative Science: A Practical Primer for t-Tests and <span>ANOVAs</span>.”</span> <em>Frontiers in Psychology</em> 4: 863. <a href="https://doi.org/10.3389/fpsyg.2013.00863">https://doi.org/10.3389/fpsyg.2013.00863</a>.
+</div>
+<div class="csl-entry">
 Lakens, Daniël. 2017. <span>“Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses.”</span> <em>Social Psychological and Personality Science</em> 8 (4): 355–62. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>.
 </div>
-<div id="ref-wasserstein2016asa" class="csl-entry">
+<div class="csl-entry">
+Lee, David S., Justin McCrary, Marcelo J. Moreira, and Jack Porter. 2020. <em>Valid t-Ratio Inference for <span>IV</span></em>. Working Paper 2010.05058. arXiv. <a href="https://arxiv.org/abs/2010.05058">https://arxiv.org/abs/2010.05058</a>.
+</div>
+<div class="csl-entry">
+Lee, Nick, and Graham Hooley. 2005. <span>“The Evolution of <span>‘Classical Mythology’</span> Within Marketing Measure Development.”</span> <em>European Journal of Marketing</em> 39 (3/4): 365–85. <a href="https://doi.org/10.1108/03090560510581827">https://doi.org/10.1108/03090560510581827</a>.
+</div>
+<div class="csl-entry">
+Lee, Nick, and Ian Lings. 2008. <em>Doing Business Research: A Guide to Theory and Practice</em>. Sage.
+</div>
+<div class="csl-entry">
+Norman, Geoff. 2010. <span>“Likert Scales, Levels of Measurement and the <span>‘Laws’</span> of Statistics.”</span> <em>Advances in Health Sciences Education</em> 15 (5): 625–32. <a href="https://doi.org/10.1007/s10459-010-9222-y">https://doi.org/10.1007/s10459-010-9222-y</a>.
+</div>
+<div class="csl-entry">
+O’Boyle, Jr., Ernest Hugh, George Christopher Banks, and Erik Gonzalez-Mulé. 2017. <span>“The Chrysalis Effect: How Ugly Initial Results Metamorphosize into Beautiful Articles.”</span> <em>Journal of Management</em> 43 (2): 376–99. <a href="https://doi.org/10.1177/0149206314527133">https://doi.org/10.1177/0149206314527133</a>.
+</div>
+<div class="csl-entry">
+O’Brien, Robert M. 2007. <span>“A Caution Regarding Rules of Thumb for Variance Inflation Factors.”</span> <em>Quality &amp; Quantity</em> 41 (5): 673–90. <a href="https://doi.org/10.1007/s11135-006-9018-6">https://doi.org/10.1007/s11135-006-9018-6</a>.
+</div>
+<div class="csl-entry">
+Open Science Collaboration. 2015. <span>“Estimating the Reproducibility of Psychological Science.”</span> <em>Science</em> 349 (6251): aac4716. <a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a>.
+</div>
+<div class="csl-entry">
+Park, Sungho, and Sachin Gupta. 2012. <span>“Handling Endogenous Regressors by Joint Estimation Using Copulas.”</span> <em>Marketing Science</em> 31 (4): 567–86.
+</div>
+<div class="csl-entry">
+Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New Science of Cause and Effect</em>. Basic Books.
+</div>
+<div class="csl-entry">
+Petrin, Amil, and Kenneth Train. 2010. <span>“A Control Function Approach to Endogeneity in Consumer Choice Models.”</span> <em>Journal of Marketing Research</em> 47 (1): 3–13.
+</div>
+<div class="csl-entry">
+Podsakoff, Philip M., Scott B. MacKenzie, Jeong-Yeon Lee, and Nathan P. Podsakoff. 2003. <span>“Common Method Biases in Behavioral Research: A Critical Review of the Literature and Recommended Remedies.”</span> <em>Journal of Applied Psychology</em> 88 (5): 879–903. <a href="https://doi.org/10.1037/0021-9010.88.5.879">https://doi.org/10.1037/0021-9010.88.5.879</a>.
+</div>
+<div class="csl-entry">
+Ranehill, Eva, Anna Dreber, Magnus Johannesson, Susanne Leiberg, Sunhae Sul, and Roberto A. Weber. 2015. <span>“Assessing the Robustness of Power Posing: No Effect on Hormones and Risk Tolerance in a Large Sample of Men and Women.”</span> <em>Psychological Science</em> 26 (5): 653–56. <a href="https://doi.org/10.1177/0956797614553946">https://doi.org/10.1177/0956797614553946</a>.
+</div>
+<div class="csl-entry">
+Ritchie, Stuart. 2020. <em>Science Fictions: Exposing Fraud, Bias, Negligence and Hype in Science</em>. Bodley Head.
+</div>
+<div class="csl-entry">
+Science Media Centre. 2015. <em>Expert Reaction to <span>IARC</span> Classification of Processed Meat as <span>“Carcinogenic to Humans”</span> and Red Meat as <span>“Probably Carcinogenic to Humans”</span></em>. <a href="https://www.sciencemediacentre.org/xpert-reaction-to-iarc-classification-of-processed-meat-as-carcinogenic-to-humans-group-1-and-red-meat-as-probably-carcinogenic-to-humans-group-2a/" class="uri">Https://www.sciencemediacentre.org/xpert-reaction-to-iarc-classification-of-processed-meat-as-carcinogenic-to-humans-group-1-and-red-meat-as-probably-carcinogenic-to-humans-group-2a/</a>.
+</div>
+<div class="csl-entry">
+Siemsen, Enno, Aleda Roth, and Pedro Oliveira. 2010. <span>“Common Method Bias in Regression Models with Linear, Quadratic, and Interaction Effects.”</span> <em>Organizational Research Methods</em> 13 (3): 456–76. <a href="https://doi.org/10.1177/1094428109351241">https://doi.org/10.1177/1094428109351241</a>.
+</div>
+<div class="csl-entry">
+Simmons, Joseph P., Leif D. Nelson, and Uri Simonsohn. 2011. <span>“False-Positive Psychology: Undisclosed Flexibility in Data Collection and Analysis Allows Presenting Anything as Significant.”</span> <em>Psychological Science</em> 22 (11): 1359–66. <a href="https://doi.org/10.1177/0956797611417632">https://doi.org/10.1177/0956797611417632</a>.
+</div>
+<div class="csl-entry">
+Simmons, Joseph P., and Uri Simonsohn. 2017. <span>“Power Posing: <span>P</span>-Curving the Evidence.”</span> <em>Psychological Science</em> 28 (5): 687–93. <a href="https://doi.org/10.1177/0956797616658563">https://doi.org/10.1177/0956797616658563</a>.
+</div>
+<div class="csl-entry">
+Simonsohn, Uri, Leif D. Nelson, and Joseph P. Simmons. 2014. <span>“P-Curve: A Key to the File-Drawer.”</span> <em>Journal of Experimental Psychology: General</em> 143 (2): 534–47.
+</div>
+<div class="csl-entry">
+Simonsohn, Uri, Joseph P. Simmons, and Leif D. Nelson. 2020. <span>“Specification Curve Analysis.”</span> <em>Nature Human Behaviour</em> 4: 1208–14.
+</div>
+<div class="csl-entry">
+Spector, Paul E. 2006. <span>“Method Variance in Organizational Research: Truth or Urban Legend?”</span> <em>Organizational Research Methods</em> 9 (2): 221–32. <a href="https://doi.org/10.1177/1094428105284955">https://doi.org/10.1177/1094428105284955</a>.
+</div>
+<div class="csl-entry">
+Spiegelhalter, David. 2019. <em>The Art of Statistics: Learning from Data</em>. Pelican.
+</div>
+<div class="csl-entry">
+Steegen, Sara, Francis Tuerlinckx, Andrew Gelman, and Wolf Vanpaemel. 2016. <span>“Increasing Transparency Through a Multiverse Analysis.”</span> <em>Perspectives on Psychological Science</em> 11 (5): 702–12.
+</div>
+<div class="csl-entry">
 Wasserstein, Ronald L., and Nicole A. Lazar. 2016. <span>“The <span>ASA</span>’s Statement on p-Values: Context, Process, and Purpose.”</span> <em>The American Statistician</em> 70 (2): 129–33. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>.
+</div>
+<div class="csl-entry">
+Wolfolds, Sarah E., and Jordan Siegel. 2019. <span>“Misaccounting for Endogeneity: The Peril of Relying on the <span>Heckman</span> Two-Step Method Without a Valid Instrument.”</span> <em>Strategic Management Journal</em> 40 (3): 432–62. <a href="https://doi.org/10.1002/smj.2995">https://doi.org/10.1002/smj.2995</a>.
+</div>
+<div class="csl-entry">
+Wright, Malcolm, and J. Scott Armstrong. 2008. <span>“The Ombudsman: Verification of Citations: Fawlty Towers of Knowledge?”</span> <em>Interfaces</em> 38 (2): 125–32. <a href="https://doi.org/10.1287/inte.1070.0317">https://doi.org/10.1287/inte.1070.0317</a>.
+</div>
+<div class="csl-entry">
+Zhang, Jun, and Kai F. Yu. 1998. <span>“What’s the Relative Risk? <span>A</span> Method of Correcting the Odds Ratio in Cohort Studies of Common Outcomes.”</span> <em>JAMA</em> 280 (19): 1690–91.
+</div>
+<div class="csl-entry">
+Zhao, Xinshu, John G. Lynch Jr., and Qimei Chen. 2010. <span>“Reconsidering <span>Baron</span> and <span>Kenny</span>: Myths and Truths about Mediation Analysis.”</span> <em>Journal of Consumer Research</em> 37 (2): 197–206. <a href="https://doi.org/10.1086/651257">https://doi.org/10.1086/651257</a>.
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -679,8 +630,8 @@ Wasserstein, Ronald L., and Nicole A. Lazar. 2016. <span>“The <span>ASA</span>
           </div>
         </div>
       </div>
-<a href="statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ANOVA.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="references.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -711,7 +662,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/profnicklee/MRes_LFD_Book/edit/main/10-H-Testing.Rmd",
+    "link": "https://github.com/profnicklee/MRes_LFD_Book/edit/main/14-reader-guide.Rmd",
     "text": "Edit"
   },
   "history": {

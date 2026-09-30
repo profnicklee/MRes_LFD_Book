@@ -34,7 +34,7 @@ These override generic textbook convention wherever the two conflict.
 
 11. **Personal stories come only from Nick.** Anecdotes and first-person claims must come from his lectures or from what he has said directly. Never invent them to fit the voice. Mentions of family need his explicit approval.
 
-12. **Real papers are cited, not critiqued by name.** Where a passage illustrates bad practice, the example (a reporting snippet, a set of figures) is invented and presented as illustrative.
+12. **Real papers are cited; critique by name is reserved for verifiable case studies.** Where a passage illustrates bad practice in general, the example (a reporting snippet, a set of figures) is invented and presented as illustrative. Real people and papers may be named only in agreed case studies where the account is verifiable, fair and factual, with every claim traceable to a cited primary source (for example, the power pose section `{#power-pose}` in `12-Issues_w_sig.Rmd`). Such cases describe what happened and what the people involved have said; they do not speculate about motives.
 
 ## Reading-the-literature sections
 
@@ -47,15 +47,17 @@ Template:
 4. Questions worth asking: judgement questions, never a tick-box checklist (the book argues against ritual statistics, so the checklist must not become a new ritual)
 5. One red flag
 6. If you want to read more: one or two sources chosen for this audience
-7. Pointer to the reader-guide appendix (commented out until the appendix exists)
+7. Pointer to the reader-guide appendix, as the final paragraph: "A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \@ref(reader-guide)." Any new or changed reader-section questions must also be reflected in the appendix.
 
 Budget is roughly 600–900 words, and up to about 1,500 for heavy chapters. Causation is the accepted longer exception.
 
 **Conceptual explanation belongs in the chapter body.** Reader sections focus on the methods readers will meet in papers. If a reader section needs a conceptual explanation to work, put that explanation in the body and link to it.
 
-The reader-guide appendix is planned but not yet built. When it is, use `# (APPENDIX) Appendix {-}` so that it is lettered and no chapters renumber, and organise it in the order a paper is read.
+The reader-guide appendix is `14-reader-guide.Rmd` (`{#reader-guide}`, lettered via `# (APPENDIX) Appendix {-}`). It condenses the reader-section questions into a 30-item checklist in paper order (design and sample, measures, descriptives and correlations, main results, robustness, discussion and claims), each linking to the relevant `-reading` sections. It currently builds after `13-references.Rmd` because of alphabetical file order; chapter and appendix order is to be revisited in Part Five.
 
-Existing models: Ch 2 `{#intro-reading}`, Ch 4 `{#causation-reading}`, Ch 13 `{#issues-reading}`.
+Existing models: Ch 2 `{#intro-reading}`, Ch 3 `{#norm-dist-reading}`, Ch 4 `{#causation-reading}`, Ch 5 `{#assoc-rel-reading}`, Ch 7 `{#bootstrap-reading}`, Ch 8 `{#t-test-reading}`, Ch 10 `{#statistics-reading}`, Ch 11 `{#H-testing-reading}`, Ch 12 `{#ANOVA-reading}`, Ch 13 `{#issues-reading}`.
+
+Ch 6 and Ch 9 have no reader sections: Ch 6 folds into Ch 10, Ch 9 into Ch 11.
 
 ## Simulation and figure conventions
 
@@ -93,7 +95,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 - **Report before committing**: placement, render results, cross-references, citations, and anything that didn't match the handover. Wait for Nick's go-ahead.
 - One commit per handover, with a descriptive message, so Nick can review and revert selectively.
 - **Merging a part branch.**
-  1. Do a clean full render and commit the fresh `docs/` before the merge.
+  1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it.
   2. Nick merges on GitHub using "Create a merge commit", not squash, so the per-handover commits stay revertible.
   3. After the merge, pull `main`, tag the result `v2026-partN`, and push the tag.
   4. Delete the branch with `git branch -d` and `git push origin --delete`. Use `-d`, never `-D`, so git refuses if anything is unmerged.
@@ -105,6 +107,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 index.Rmd              Front matter + Chapter 1
 NN-*.Rmd               Chapter files (see map below)
 13-references.Rmd      References
+14-reader-guide.Rmd    Appendix A: reader's checklist ({#reader-guide})
 _bookdown.yml          book_filename, output_dir: "docs"
 _output.yml            gitbook config, TOC, edit link, download formats
 style.css, toc.css     Styling
@@ -124,7 +127,7 @@ Nick's slides and spoken lecture references use the **rendered** numbers. Do not
 |---|---|---|---|
 | `index.Rmd` | Ch 1 | — | — |
 | `01-intro.Rmd` | Ch 2 | `{#intro}` | 2 |
-| `02-Distributions.rmd` | Ch 3 | `{#norm-dist}` | 3 |
+| `02-Distributions.Rmd` | Ch 3 | `{#norm-dist}` | 3 |
 | `03-causation.Rmd` | Ch 4 | `{#causation}` | 4 |
 | `04-assoc_rel.Rmd` | Ch 5 | `{#assoc-rel}` | 5 |
 | `05-estimation.Rmd` | Ch 6 | `{#uncertainty}` | 6, pt 1 |

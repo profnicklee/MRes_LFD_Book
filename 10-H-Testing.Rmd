@@ -179,6 +179,8 @@ TOTGChisq
 
 The P-value here is actually 0.64. This suggests that there is not a significant difference between the distribution of the actual goals, and that which would be expected if they did follow a Poisson distribution.
 
+Notice what that sentence does and doesn't say. It says the goals data are consistent with a Poisson distribution. It doesn't say they *are* Poisson. A p-value of 0.64 means that data like these would be unsurprising if goals followed a Poisson distribution, but plenty of other distributions we didn't test might fit them just as well. Failing to reject a null is not the same as showing it's true. Absence of evidence is not evidence of absence. That might sound like pedantry, but it matters enormously when you read papers, because one of the most common moves in published research is to run a test, find nothing, and conclude that nothing is there: no bias, no difference between the groups, no problem. With a small sample, a test can easily fail to detect even a large effect. If you want to claim that something is absent, you need a test designed to show that, and I'll come back to what that looks like at the end of this chapter.
+
 ## Correlation Significance Tests
 
 Here, we revisit our correlation between GDP per capita, and Happiness metrics, which I pulled from Our Word in Data:
@@ -238,3 +240,48 @@ Interestingly, here we are given 'stars' for the different levels of significanc
 Further, it also sort of entrenches the idea that things can be 'more' or 'less' statistically significant. Take a look at the results above, you'll see 3 stars represents a significance of '0', and 2 stars represents '0.001', boring old '0.05' only gets a single star, and '0.1' gets a dot. I'm not a fan here because this encourages the analyst to post-hoc make decisions about 'marginally' significant, or 'very' significant. These concepts do not actually exist in real statistical theory. Instead, you decide your critical value ***a priori***, and you either pass or fail it. As Yoda may have said if he was a statistician, "Pass or do not pass. There is no marginally significant".
 
 Am I perfect? No. Specifically, do any of my papers use the language of 'marginal' significance? Sure, I bet you could find them. I am never a fan though, and I can promise you I argued about it at the time!
+
+## Reading the literature {#H-testing-reading}
+
+Hypothesis tests are the basic currency of quantitative management research. Almost every number that matters in a results section arrives with a test attached, and you've now done one of those tests by hand. That's the good news: the machinery in a published paper is the same machinery as in the salary example. The less good news is that papers use it in ways this chapter wouldn't recommend, and the conventions of reporting make those ways look completely normal. (What happens when a paper runs lots of tests at once is a problem of its own, which Chapter \@ref(Issues) takes on.)
+
+### Where you'll meet this
+
+**The coefficient table.** Each row usually gives an estimate and a standard error, often in parentheses underneath, along with some combination of a t-value, a p-value and stars. The t-value is exactly the salary calculation: the estimate, minus what the null says it should be, divided by its standard error. In a regression table the null is almost always that the coefficient is zero, and it's almost never written down. That's worth noticing, because zero isn't always the comparison that matters. If a theory predicts that one effect is bigger than another, testing each of them against zero doesn't test the theory.
+
+**Stars and daggers.** Everything I said earlier in this chapter about stars applies to papers, with one addition: the thresholds aren't standard, so always read the note under the table. Some journals use a dagger (†) or a plus sign for p < .10, which quietly adds a fourth grade of significance. Some have gone the other way. In 2016 the editors of the *Strategic Management Journal* announced that they would no longer accept papers reporting cut-off levels of significance. They asked instead for standard errors or exact p-values without asterisks, and for an explicit discussion of effect sizes [@bettis2016creating]. So a table with exact p-values and no stars isn't a less rigorous paper. It may well be a more rigorous one.
+
+**"Marginally significant" and its relatives.** "Approached significance," "trended towards significance," "directional support." You know my view of these. The threshold was supposed to be chosen before the data arrived, and this language exists to rescue a result that failed it.
+
+**A difference that was never tested.** This is one of the most common errors in published research, and one of the hardest to spot. A paper finds that an effect is significant in one group, say manufacturing firms, but not in another, say service firms, and concludes that the effect differs between them. That doesn't follow. A coefficient with p = .03 and one with p = .20 can be almost exactly the same size; one of them just has a bigger standard error. To claim that two effects differ, you need a test of the difference itself, usually an interaction term. The title of Gelman and Stern's paper on this says it all: the difference between "significant" and "not significant" is not itself statistically significant [@gelman2006difference].
+
+**"No effect."** This is the other half of the same problem. As the Premier League example earlier in this chapter showed, a non-significant result means the data weren't surprising under the null. It doesn't mean the null is true. Yet papers routinely treat non-significance as proof of absence: the groups didn't differ, the control variable didn't matter, non-response bias wasn't a concern. Where a paper genuinely needs to show that something is absent or negligible, there are tests designed for exactly that. The most common are *equivalence tests*, which ask whether an effect is smaller than a pre-specified amount that would matter in practice [@lakens2017equivalence]. You'll rarely see them in management journals, which is precisely why a "no difference" claim is worth questioning.
+
+**Very large samples.** Many management papers use firm-level or employee-level databases with tens of thousands of observations. Standard errors shrink as samples grow, so in data that size even tiny effects come out as significant. The p-value then tells you very little, and the size of the estimate tells you nearly everything. The question from Section \@ref(intro-reading) applies with full force: what does this mean in natural units?
+
+**One-tailed tests.** Occasionally a paper reports one-tailed tests. That's legitimate if, as in the salary example, the direction was committed to in advance. Be more wary when one-tailed tests turn up only for results whose two-tailed p-value would have fallen between .05 and .10. Halving the p-value is the entire effect of the switch.
+
+**Counts.** You'll often meet outcomes that are counts: patents filed, acquisitions made, alliances formed. These are usually modelled with *Poisson regression* or its more flexible cousin, *negative binomial regression*. Poisson regression assumes the counts behave like the Premier League goals in this chapter, and in particular that their variance equals their mean. Business counts are usually more spread out than that (the term is *overdispersed*), which is why negative binomial models are so common: they relax that assumption. Their coefficients are often reported as *rate ratios*, and like every ratio in Section \@ref(intro-reading), a rate ratio needs a base rate before it means anything.
+
+### The connection back
+
+Every p-value in every table is the salary calculation. There's an estimate, a null that usually goes unstated, a standard error, and a threshold that should have been chosen before anyone looked. Stars, daggers and adjectives are decoration on top of that. Strip them away, and the questions are always the same: compared with what, how big, and how sure?
+
+### Questions worth asking
+
+1. **What's the null for this estimate?** Is zero really the comparison that matters for the theory?
+2. **How big is the effect, in units someone would care about?** This matters most when the sample is large.
+3. **When the authors claim two effects differ, did they test the difference?** Or did they compare one significant result with one non-significant result?
+4. **When they claim something doesn't matter, what's the evidence?** Is it anything more than a non-significant p-value?
+5. **Were the thresholds set in advance, and applied the same way throughout?** Check the table notes, and check whether any tests were one-tailed.
+6. **If you covered up the stars, would you tell the same story?** Read only the estimates and standard errors, and see whether your conclusions change.
+
+### One red flag
+
+Watch for a double standard. The same paper that calls p = .08 "marginal support" for a hypothesis will often call p = .08 on a comparison of groups "no significant difference." The second case usually arises when the authors want the groups to be the same, for example in a check that treatment and control groups were comparable, or that early and late respondents didn't differ. The threshold has moved to wherever it helps the argument. I doubt it's usually deliberate; it's what wanting a result does to anyone's judgement, mine included. But once you've spotted it, you know which way the whole paper leans.
+
+### If you want to read more
+
+Two short papers this time. The American Statistical Association's statement on p-values [@wasserstein2016asa] is the closest thing statistics has to an official position on what a p-value can and can't tell you. It's free to read online and only a few pages long. For something closer to home, the *Strategic Management Journal* editorial that dropped the stars [@bettis2016creating] makes the same case for management research. It includes a thought experiment about three junior scholars studying the same hypothesis that I suspect will feel uncomfortably familiar.
+
+A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \@ref(reader-guide).

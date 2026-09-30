@@ -5,10 +5,6 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 ```
 
 
-```{r}
-library(moments)
-```
-
 This chapter supplements the content in Lecture 3.
 
 ## A Simple Demonstration of the Normal Distribution
@@ -74,10 +70,16 @@ birth.sd=sqrt( sum(n*(mids-birth.mean)^2)/N)
 print(birth.mean) # note as a sense check this mean tallies broadly with that reported in the media around that time which is around 7lb 8oz - 3401g. Slight neg skew expected here I guess due to the mids calculation.
 print(birth.sd)
 
-# just for my own info
-skewness(weights)
-kurtosis(weights)
+# skewness and kurtosis of the grouped birthweight distribution
+# (computed from bin midpoints and counts, like birth.mean and birth.sd above;
+# the previous version computed them on the bin boundaries in 'weights' by mistake)
+birth.skew = sum(n*(mids-birth.mean)^3)/N/birth.sd^3
+birth.kurt = sum(n*(mids-birth.mean)^4)/N/birth.sd^4
+print(birth.skew)
+print(birth.kurt)
 ```
+
+Two of those numbers need a word of explanation, because you'll meet them in the descriptives of almost every quantitative paper. *Skewness* measures how lopsided a distribution is. A perfectly symmetrical distribution, like the normal, has a skewness of zero. Birthweights come out at `r round(birth.skew, 2)`. That's negative, meaning the distribution has a longer tail on the left, the lighter side, than on the right. That makes sense: babies born early can be very much lighter than average, while babies much heavier than average are rare. *Kurtosis* is about the tails, meaning how much of the distribution sits a long way from the mean compared with a normal distribution. The normal distribution has a kurtosis of 3, and ours is `r round(birth.kurt, 2)`, so birthweights have somewhat heavier tails than a normal distribution would. (Some software reports *excess* kurtosis instead, which subtracts the 3 so that a normal distribution scores zero, so always check which you're looking at.) Neither number is dramatic, and as you'll see in a moment, the normal distribution still does a respectable job of describing these data. But it isn't a perfect description, and the skewness tells you which way it departs.
 
 Next, I will calculate the estimated proportion of low birthweight babies using a normal distribution approximation, and see if it tallies OK with the figure that is taken from the distribution of 6.6%
 
@@ -148,7 +150,7 @@ lines(c(xw,xw),yrange,col="red",lwd=2)
 
 Below, I will chart the normal distribution with Standard Deviations.
 
-Mathematically, around 95% of the area under the chart is between -2 and +2 SDs, and 99.8% between -3 and +3 SDs
+Mathematically, around 95% of the area under the chart is between -2 and +2 SDs, and 99.7% between -3 and +3 SDs
 
 Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occuring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
 
@@ -237,3 +239,38 @@ polygon(c(x1,x1[nx:1]),c(rep(0,nx), y1[nx:1]),col="red",density=10)
 text(2000,70000,"Proportion\n below\n 2500 gms\n = 7.2%",cex=0.75)
 text(3400,70000,"Proportion\n below\n 3912 gms\n = 83.6%",cex=0.75)
 ```
+
+## Reading the literature {#norm-dist-reading}
+
+Most quantitative papers include a table of descriptive statistics: a mean and a standard deviation for every variable, sometimes with minimums, maximums, medians or skewness. It usually sits alongside the correlations in Table 1, and it's usually skipped. The normal distribution in this chapter is the benchmark that makes that table readable. A mean and a standard deviation summarise a normal distribution almost perfectly. The further a variable is from normal, the less those two numbers tell you, and the more carefully you need to read them.
+
+### Where you'll meet this
+
+**Survey scales.** Many management variables are averages of several Likert items, such as "strongly disagree" (1) to "strongly agree" (7). There's a long-running argument about whether it's legitimate to take means of these at all, since the gaps between the response options needn't be equal. In practice, averages of several items usually behave well enough for the standard methods [@norman2010likert], but it's worth reading the numbers in terms of the scale. A mean of 4 on a 1–7 scale could mean that everyone chose the neutral midpoint, or that half the sample strongly agreed and half strongly disagreed, and only the standard deviation will tell you which. Watch for means close to either end of the scale. A mean of 6.3 on a 1–7 scale, with a small standard deviation, means almost everyone gave nearly the same answer. There's then very little variation for any other variable to explain, and correlations with that variable will be weaker than the underlying relationship because the range is so restricted.
+
+**Skewed business variables.** Plenty of the variables in management research are nothing like normal. Firm size, sales, executive pay, patents and citations are typically *right-skewed*: most firms are small, and a few are enormous. For variables like these the mean is dragged upwards by the largest cases and can be a poor guide to a typical firm. Where a paper reports both the mean and the median, compare them; a mean far above the median is the signature of right skew.
+
+**Logged variables.** Because of that skew, papers often analyse the logarithm of a variable, as you'll see Chapter \@ref(assoc-rel) do with GDP. The log pulls in the long right tail, and it changes what a coefficient means. When the predictor is logged, its coefficient describes the effect of a *proportional* change: roughly, a 1% increase in X goes with a change of the coefficient divided by 100 in Y. When the outcome is logged too, the coefficient becomes an *elasticity*: a 1% increase in X goes with a change of roughly the coefficient, in per cent, in Y. So check the variable descriptions for "ln" or "log" before interpreting any coefficient. Also check what was done about zeros, which can't be logged. Many papers add 1 to every value first, and with count variables full of zeros, that choice can matter.
+
+**Normality checks.** Papers sometimes report that variables were tested for normality and found wanting, or not. Two things are worth knowing. First, what ordinary regression actually assumes is roughly normal *errors* (residuals), not normally distributed variables. A skewed predictor isn't a problem in itself. Second, in large samples formal tests of normality will flag departures far too small to matter. Skewness and kurtosis figures, or a plot, usually tell you more than a significance test does. Chapter \@ref(causation) shows one place where the shape of a distribution matters a great deal: some endogeneity corrections only work if the variable is clearly non-normal.
+
+### The connection back
+
+The normal distribution in this chapter isn't something real data have to follow. It's a reference point. Birthweights sit close to it, which is why the mean, standard deviation and normal curve described them so well and predicted the low-birthweight proportion reasonably well. Much business data sits far from it. The descriptives table is where you find out which kind of variable you're dealing with, and therefore how much to trust its mean and standard deviation.
+
+### Questions worth asking
+
+1. **Is the mean a sensible summary of this variable?** Compare it with the median, the minimum and maximum, and the scale's limits.
+2. **Is there enough variation for the analysis to find anything?** A scale where everyone answered much the same can't correlate strongly with anything.
+3. **Which variables were logged?** How does that change what their coefficients mean?
+4. **When normality is discussed, is it the right thing that's being checked?**
+
+### One red flag
+
+Check the descriptives for a standard deviation that's bigger than the mean, on a variable that can't be negative, such as revenue, employees or pay. A mean of 450 and a standard deviation of 1,200 means the distribution is extremely right-skewed: a handful of very large cases are pulling both numbers upwards. If the paper then puts that variable into a regression untransformed, those few cases may be driving the results. That's not necessarily wrong, but the paper should say so, and ideally show what happens without them.
+
+### If you want to read more
+
+Geoff Norman's "Likert scales, levels of measurement and the 'laws' of statistics" [@norman2010likert] is a short, punchy defence of using ordinary statistical methods on survey data. It takes the arguments against head on, so you can judge for yourself. It'll equip you for the next time a reviewer, or a supervisor, tells you that you can't take the mean of a Likert scale.
+
+A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \@ref(reader-guide).

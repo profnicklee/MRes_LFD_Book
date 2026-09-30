@@ -1,0 +1,55 @@
+# (APPENDIX) Appendix {-}
+
+# A Checklist for Reading Quantitative Papers {#reader-guide}
+
+Every chapter in this book ends with a section on reading the literature, and each of those ends with a handful of questions. This appendix gathers them into one checklist, arranged in the order you'd meet things when reading a paper rather than the order the book teaches them. Where several chapters asked versions of the same question, I've merged them. Each question points back to the sections where the ideas behind it are explained.
+
+Two warnings before you use it. First, not every question applies to every paper: an experiment raises different issues from an archival study, and you should skip whatever doesn't fit. Second, this isn't a scoring sheet. A paper can fail several of these questions and still be the best available evidence on something important. The point is to know what a paper has actually shown, not to hunt for reasons to dismiss it.
+
+## Design and sample
+
+1. **What is the causal claim, link by link?** For each link, what does the design do to support it? (Sections \@ref(causation-reading), \@ref(bootstrap-reading))
+2. **What is being compared with what?** Is the comparison group the one needed to rule out the most obvious alternative explanation, or is it a before-and-after with no comparison at all? (Section \@ref(t-test-reading))
+3. **What's the most obvious third variable?** If you can think of one in thirty seconds, is it dealt with? (Section \@ref(causation-reading))
+4. **Who is in the sample, and how did they get there?** Is this selection into treatment or selection into the sample? What would the missing cases look like? (Sections \@ref(causation-reading), \@ref(statistics-reading))
+5. **Was the sample size set in advance?** Is there a power analysis done before data collection, and how many cases are in each group or cell? (Sections \@ref(issues-reading), \@ref(ANOVA-reading))
+6. **If the study was pre-registered, does the paper match the plan?** (Section \@ref(issues-reading))
+7. **When, and from whom, was each variable measured?** If the predictor, mediator and outcome come from the same respondent at the same moment, what did the design do about common method variance, and why should we believe the proposed order? (Sections \@ref(assoc-rel-reading), \@ref(bootstrap-reading))
+8. **Are the observations really independent?** If not, were the standard errors clustered, at what level, and across how many clusters? (Section \@ref(statistics-reading))
+
+## Measures
+
+9. **What do we know about each measure, apart from its alpha?** (Section \@ref(assoc-rel-reading))
+10. **Are the constructs the paper treats as different actually different?** Look for correlations in Table 1 that approach the measures' reliabilities, and for mediators that are barely distinct from X or Y. (Sections \@ref(assoc-rel-reading), \@ref(bootstrap-reading))
+11. **Which variables were logged or otherwise transformed?** How does that change what their coefficients mean, and what was done about zeros? (Section \@ref(norm-dist-reading))
+
+## Descriptives and correlations
+
+12. **Is the mean a sensible summary of each variable, and is there enough variation to work with?** Compare the mean with the median, the minimum and maximum, and the scale's limits. Be wary of a standard deviation bigger than the mean on a variable that can't be negative. If normality is discussed, is it the right thing (usually the residuals) that's being checked? (Section \@ref(norm-dist-reading))
+13. **Do the key variables actually correlate in Table 1?** If not, how do the authors explain a significant effect in the regression? (Section \@ref(assoc-rel-reading))
+14. **Which predictors are strongly correlated with each other?** Do the authors claim to have separated their effects, and how convincingly? (Section \@ref(assoc-rel-reading))
+
+## Main results
+
+15. **What does each number in the table represent?** What's in the brackets? Are the coefficients standardised? What's the null, which is usually zero and usually unstated, and which group is the reference category? (Sections \@ref(statistics-reading), \@ref(H-testing-reading), \@ref(t-test-reading))
+16. **How big is the effect, in units someone would care about?** Is it relative or absolute? Is it in percent or percentage points? Is it an odds ratio for a common outcome? This matters most when the sample is large. (Sections \@ref(intro-reading), \@ref(t-test-reading), \@ref(H-testing-reading))
+17. **What range of values is the estimate consistent with?** Does the interval include effects too small to matter? (Sections \@ref(statistics-reading), \@ref(bootstrap-reading))
+18. **Which effect size is reported, and how was it calculated?** Is it compared only with effects calculated the same way? (Sections \@ref(t-test-reading), \@ref(ANOVA-reading))
+19. **Were the significance thresholds set in advance, and applied the same way throughout?** Check the table notes and look for one-tailed tests. (Section \@ref(H-testing-reading))
+20. **If you covered up the stars, would you tell the same story?** And where do the key p-values sit? A paper whose every central result falls between .01 and .05 is a pattern worth noticing. (Sections \@ref(H-testing-reading), \@ref(issues-reading))
+21. **Is there an interaction, and is it read correctly?** Are main effects, or lower-order coefficients in a regression, interpreted as if the interaction weren't there? Does an effect reverse, or just get smaller? Is there a plot of simple effects or simple slopes? (Section \@ref(ANOVA-reading))
+22. **In a hierarchical regression, what went in first?** Would the story change if the order changed? (Section \@ref(assoc-rel-reading))
+23. **For mediation, how was the indirect effect tested?** Was it a bootstrap interval or an older test? Is "full mediation" doing any real work? (Section \@ref(bootstrap-reading))
+
+## Robustness
+
+24. **How many tests could the authors have run?** Count the outcomes, subgroups, controls and exclusions they could have tried, not just the ones they report. (Section \@ref(issues-reading))
+25. **Are the exclusion rules justified?** Does the result survive without them? (Section \@ref(issues-reading))
+26. **If endogeneity was corrected for, what does the correction assume, and did it change anything?** How strong would an unmeasured confounder need to be to explain the result away? (Section \@ref(causation-reading))
+27. **Would the story survive if the weakest result were removed?** (Section \@ref(issues-reading))
+
+## Discussion and claims
+
+28. **What verb are the authors using?** Did the design earn the drift from "is associated with" to "drives"? (Section \@ref(causation-reading))
+29. **When the authors claim that two effects differ, or that something doesn't matter, did they test it?** A significant result beside a non-significant one isn't a tested difference. Overlapping error bars aren't a test either. And a non-significant p-value isn't evidence of absence. (Sections \@ref(H-testing-reading), \@ref(statistics-reading))
+30. **Whose effect is this?** An average can hide groups where the effect is much larger, and groups where it's absent. A small effect on each person can still add up across a population, or the other way round. (Section \@ref(intro-reading))
