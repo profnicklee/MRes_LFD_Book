@@ -104,7 +104,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 - One commit per handover, with a descriptive message, so Nick can review and revert selectively.
 - **Merging a part branch.**
   1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it. This "clean full render" covers both targets: `bookdown::gitbook` and `bookdown::pdf_book` — rebuild the PDF too, not just the HTML.
-  2. Nick merges on GitHub using "Create a merge commit", not squash, so the per-handover commits stay revertible.
+  2. **Nick opens the pull request and merges it on GitHub himself**, using "Create a merge commit", not squash, so the per-handover commits stay revertible. When a branch is ready, stop and report. Don't create pull requests or compare links unless Nick asks.
   3. After the merge, pull `main`, tag the result `v2026-partN`, and push the tag.
   4. Delete the branch with `git branch -d` and `git push origin --delete`. Use `-d`, never `-D`, so git refuses if anything is unmerged.
 - `docs/` contains committed build output. If a merge conflicts in generated HTML, take either side and re-run `render_book`, then commit the fresh output. Never hand-resolve generated files.
