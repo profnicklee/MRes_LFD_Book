@@ -151,6 +151,14 @@
 \newunicodechar{▆}{\sparkbar{0.6em}}
 \newunicodechar{▇}{\sparkbar{0.7em}}
 \newunicodechar{█}{\sparkbar{0.8em}}
+
+% --- References in the PDF ToC and bookmarks (Part 5.3) ---------------
+% natbib's \bibsection sets the bibliography's unnumbered heading; by
+% default it doesn't add a ToC/bookmark entry. tocbibind patches
+% \bibsection (when natbib is loaded) to add one. nottoc/notlot/notlof
+% suppress the ToC/LoF/LoT entries tocbibind would otherwise also add
+% for themselves -- we only want the bibliography entry.
+\usepackage[nottoc,notlot,notlof]{tocbibind}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -166,7 +174,7 @@
 
 \title{WBS MRes: Learning From Data}
 \author{Professor Nick Lee}
-\date{2026-09-30}
+\date{2026-10-01}
 
 \begin{document}
 \maketitle
@@ -3923,14 +3931,6 @@ Gelman and Loken's short article ``The statistical crisis in science'' \citep{ge
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
-When creating this book, I have used data from numerous publicly-available sources. I have also sometimes used code from publicly-available repositories and websites.
-
-All sources are cited at the place they are used, within each chapter, rather than being compiled into a single reference list here.
-
-Further, a number of open-access academic papers and other reports are cited or referred to in Chapters.
-
-Weblinks are provided for all sources mentioned above where possible. However, any direct queries can be emailed to me, in case I have missed something, or perhaps a URL no longer works.
-
 \appendix
 
 
@@ -4047,6 +4047,7 @@ Two warnings before you use it. First, not every question applies to every paper
   \textbf{Whose effect is this?} An average can hide groups where the effect is much larger, and groups where it's absent. A small effect on each person can still add up across a population, or the other way round. (Section \ref{intro-reading})
 \end{enumerate}
 
-\bibliography{book.bib,packages.bib}
+\renewcommand\bibname{References}
+\bibliography{book.bib}
 
 \end{document}

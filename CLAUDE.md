@@ -53,7 +53,7 @@ Budget is roughly 600–900 words, and up to about 1,500 for heavy chapters. Cau
 
 **Conceptual explanation belongs in the chapter body.** Reader sections focus on the methods readers will meet in papers. If a reader section needs a conceptual explanation to work, put that explanation in the body and link to it.
 
-The reader-guide appendix is `14-reader-guide.Rmd` (`{#reader-guide}`, lettered via `# (APPENDIX) Appendix {-}`). It condenses the reader-section questions into a 30-item checklist in paper order (design and sample, measures, descriptives and correlations, main results, robustness, discussion and claims), each linking to the relevant `-reading` sections. It currently builds after `13-references.Rmd` because of alphabetical file order; chapter and appendix order is to be revisited in Part Five.
+The reader-guide appendix is `13-reader-guide.Rmd` (`{#reader-guide}`, lettered via `# (APPENDIX) Appendix {-}`). It condenses the reader-section questions into a 30-item checklist in paper order (design and sample, measures, descriptives and correlations, main results, robustness, discussion and claims), each linking to the relevant `-reading` sections. It builds before `14-references.Rmd`, so the References page is last.
 
 Existing models: Ch 2 `{#intro-reading}`, Ch 3 `{#norm-dist-reading}`, Ch 4 `{#causation-reading}`, Ch 5 `{#assoc-rel-reading}`, Ch 7 `{#bootstrap-reading}`, Ch 8 `{#t-test-reading}`, Ch 10 `{#statistics-reading}`, Ch 11 `{#H-testing-reading}`, Ch 12 `{#ANOVA-reading}`, Ch 13 `{#issues-reading}`.
 
@@ -72,6 +72,7 @@ Ch 6 and Ch 9 have no reader sections: Ch 6 folds into Ch 10, Ch 9 into Ch 11.
 - **Verify technical claims as well as citations.** Compressed one-line descriptions of methods are where errors creep in.
 - **Check every new reference against a primary source** before it is committed. Flag anything unverified to Nick at the stop point.
 - **Web sources** carry an access date.
+- **Cite with `[@key]`, never hard-coded.** A source counts as cited only when the text cites it by key: that is what puts it in the chapter's own reference list and in the consolidated list on the References page. Hard-coded author–year citations and uncited named sources are not allowed. A `book.bib` entry that nothing cites by key produces nothing in the book, so at every stop point list any keys not cited by key anywhere and report them. "Verified by grep" means grepping for the `[@key]` form.
 
 ## Build
 
@@ -84,6 +85,8 @@ bookdown::render_book('index.Rmd', 'bookdown::gitbook')
 Preview locally — open `docs/index.html`, or run `servr::httw("docs")` in R for an exact replica of the published site with working search. **Do not deploy.**
 
 **The PDF is a separate build**, offered as a download from the site, so rebuild it before every merge: `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')` (XeLaTeX). `preamble.tex` sets `\tracinglostchars=3`, so any character the font lacks stops the build rather than silently vanishing. The fix is a `newunicodechar` mapping in `preamble.tex`, not a prose edit. When auditing characters, check the generated `docs/LFD.tex` as well as the `.Rmd` files: R output (for example skimr's sparkline histograms) introduces characters that appear in no source file. A standalone `pdf_book` render empties `docs/reference-keys.txt`. Restore it with `git checkout -- docs/reference-keys.txt` before committing, and never commit it empty.
+
+In the PDF, natbib prints one consolidated bibliography, titled References, after the appendix. Per-chapter lists exist only in the HTML.
 
 ## Git
 
@@ -108,12 +111,12 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 ```
 index.Rmd              Front matter + Chapter 1
 NN-*.Rmd               Chapter files (see map below)
-13-references.Rmd      References
-14-reader-guide.Rmd    Appendix A: reader's checklist ({#reader-guide})
+13-reader-guide.Rmd    Appendix A: reader's checklist ({#reader-guide})
+14-references.Rmd      References (HTML only; consolidated reference list)
 _bookdown.yml          book_filename, output_dir: "docs"
 _output.yml            gitbook config, TOC, edit link, download formats
 style.css, toc.css     Styling
-book.bib, packages.bib Bibliography
+book.bib               Bibliography
 preamble.tex           LaTeX preamble (pdf_book only)
 Data/                  All .xlsx data files
 docs/                  Committed build output — served by Pages
