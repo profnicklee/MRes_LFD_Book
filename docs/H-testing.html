@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-29" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,6 +129,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -355,7 +356,6 @@ div.csl-indent {
 <li class="chapter" data-level="13.6.5" data-path="Issues.html"><a href="Issues.html#if-you-want-to-read-more-9"><i class="fa fa-check"></i><b>13.6.5</b> If you want to read more</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="reader-guide.html"><a href="reader-guide.html"><i class="fa fa-check"></i><b>A</b> A Checklist for Reading Quantitative Papers</a>
 <ul>
@@ -366,6 +366,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.5" data-path="reader-guide.html"><a href="reader-guide.html#robustness"><i class="fa fa-check"></i><b>A.5</b> Robustness</a></li>
 <li class="chapter" data-level="A.6" data-path="reader-guide.html"><a href="reader-guide.html#discussion-and-claims"><i class="fa fa-check"></i><b>A.6</b> Discussion and claims</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -449,7 +450,7 @@ div.csl-indent {
 <p>In this section, we are not really worried about the <em>actual</em> goals or anything like that. What we are concerned about is formally testing the hypothesis that Premier League goals per game actually do follow a Poisson distribution. To do this, we will use what is called a <strong>chi-square</strong> test, which uses the chi-square statistic.</p>
 <p>Chi-square is a fantastically versatile statistic, which is often used to compare tables of observations. Commonly, we compare a table of observed events with a table of events that we would expect if the null hypothesis were true in the population. The chi-square value is the measure of the difference between observed and expected counts in the table. We can use it here to compare the amount of goals we actually did observe in the 21-22 season, with those that we would <em>expect</em> to observe if the goals per game really do follow a Poisson distribution.</p>
 <p>Again, much of the idea and code for this section comes from: <a href="https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html" class="uri">https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html</a></p>
-<p>The data comes from: <a href="https://www.football-data.co.uk/englandm.php" class="uri">https://www.football-data.co.uk/englandm.php</a> and is the EPL results for 21-22 Season, with a new column of Total Goals (TOTG) created by me in Excel.</p>
+<p>The data are the EPL results for the 2021–22 season, from Football-Data.co.uk <span class="citation">(<a href="#ref-football-data-epl">n.d.</a>)</span>, with a new column of Total Goals (TOTG) created by me in Excel.</p>
 <pre><code>## # A tibble: 6 × 107
 ##   Div   Date                Time                HomeTeam   AwayTeam   FTHG  FTAG
 ##   &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -624,10 +625,10 @@ div.csl-indent {
 <div id="where-youll-meet-this-7" class="section level3 hasAnchor" number="11.5.1">
 <h3><span class="header-section-number">11.5.1</span> Where you’ll meet this<a href="H-testing.html#where-youll-meet-this-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>The coefficient table.</strong> Each row usually gives an estimate and a standard error, often in parentheses underneath, along with some combination of a t-value, a p-value and stars. The t-value is exactly the salary calculation: the estimate, minus what the null says it should be, divided by its standard error. In a regression table the null is almost always that the coefficient is zero, and it’s almost never written down. That’s worth noticing, because zero isn’t always the comparison that matters. If a theory predicts that one effect is bigger than another, testing each of them against zero doesn’t test the theory.</p>
-<p><strong>Stars and daggers.</strong> Everything I said earlier in this chapter about stars applies to papers, with one addition: the thresholds aren’t standard, so always read the note under the table. Some journals use a dagger (†) or a plus sign for p &lt; .10, which quietly adds a fourth grade of significance. Some have gone the other way. In 2016 the editors of the <em>Strategic Management Journal</em> announced that they would no longer accept papers reporting cut-off levels of significance. They asked instead for standard errors or exact p-values without asterisks, and for an explicit discussion of effect sizes <span class="citation">(<a href="#ref-bettis2016creating">Bettis et al. 2016</a>)</span>. So a table with exact p-values and no stars isn’t a less rigorous paper. It may well be a more rigorous one.</p>
+<p><strong>Stars and daggers.</strong> Everything I said earlier in this chapter about stars applies to papers, with one addition: the thresholds aren’t standard, so always read the note under the table. Some journals use a dagger (†) or a plus sign for p &lt; .10, which quietly adds a fourth grade of significance. Some have gone the other way. In 2016 the editors of the <em>Strategic Management Journal</em> announced that they would no longer accept papers reporting cut-off levels of significance. They asked instead for standard errors or exact p-values without asterisks, and for an explicit discussion of effect sizes <span class="citation">(<a href="#ref-bettis2016creating">Bettis et al., 2016</a>)</span>. So a table with exact p-values and no stars isn’t a less rigorous paper. It may well be a more rigorous one.</p>
 <p><strong>“Marginally significant” and its relatives.</strong> “Approached significance,” “trended towards significance,” “directional support.” You know my view of these. The threshold was supposed to be chosen before the data arrived, and this language exists to rescue a result that failed it.</p>
-<p><strong>A difference that was never tested.</strong> This is one of the most common errors in published research, and one of the hardest to spot. A paper finds that an effect is significant in one group, say manufacturing firms, but not in another, say service firms, and concludes that the effect differs between them. That doesn’t follow. A coefficient with p = .03 and one with p = .20 can be almost exactly the same size; one of them just has a bigger standard error. To claim that two effects differ, you need a test of the difference itself, usually an interaction term. The title of Gelman and Stern’s paper on this says it all: the difference between “significant” and “not significant” is not itself statistically significant <span class="citation">(<a href="#ref-gelman2006difference">Gelman and Stern 2006</a>)</span>.</p>
-<p><strong>“No effect.”</strong> This is the other half of the same problem. As the Premier League example earlier in this chapter showed, a non-significant result means the data weren’t surprising under the null. It doesn’t mean the null is true. Yet papers routinely treat non-significance as proof of absence: the groups didn’t differ, the control variable didn’t matter, non-response bias wasn’t a concern. Where a paper genuinely needs to show that something is absent or negligible, there are tests designed for exactly that. The most common are <em>equivalence tests</em>, which ask whether an effect is smaller than a pre-specified amount that would matter in practice <span class="citation">(<a href="#ref-lakens2017equivalence">Lakens 2017</a>)</span>. You’ll rarely see them in management journals, which is precisely why a “no difference” claim is worth questioning.</p>
+<p><strong>A difference that was never tested.</strong> This is one of the most common errors in published research, and one of the hardest to spot. A paper finds that an effect is significant in one group, say manufacturing firms, but not in another, say service firms, and concludes that the effect differs between them. That doesn’t follow. A coefficient with p = .03 and one with p = .20 can be almost exactly the same size; one of them just has a bigger standard error. To claim that two effects differ, you need a test of the difference itself, usually an interaction term. The title of Gelman and Stern’s paper on this says it all: the difference between “significant” and “not significant” is not itself statistically significant <span class="citation">(<a href="#ref-gelman2006difference">Gelman &amp; Stern, 2006</a>)</span>.</p>
+<p><strong>“No effect.”</strong> This is the other half of the same problem. As the Premier League example earlier in this chapter showed, a non-significant result means the data weren’t surprising under the null. It doesn’t mean the null is true. Yet papers routinely treat non-significance as proof of absence: the groups didn’t differ, the control variable didn’t matter, non-response bias wasn’t a concern. Where a paper genuinely needs to show that something is absent or negligible, there are tests designed for exactly that. The most common are <em>equivalence tests</em>, which ask whether an effect is smaller than a pre-specified amount that would matter in practice <span class="citation">(<a href="#ref-lakens2017equivalence">Lakens, 2017</a>)</span>. You’ll rarely see them in management journals, which is precisely why a “no difference” claim is worth questioning.</p>
 <p><strong>Very large samples.</strong> Many management papers use firm-level or employee-level databases with tens of thousands of observations. Standard errors shrink as samples grow, so in data that size even tiny effects come out as significant. The p-value then tells you very little, and the size of the estimate tells you nearly everything. The question from Section <a href="intro.html#intro-reading">2.6</a> applies with full force: what does this mean in natural units?</p>
 <p><strong>One-tailed tests.</strong> Occasionally a paper reports one-tailed tests. That’s legitimate if, as in the salary example, the direction was committed to in advance. Be more wary when one-tailed tests turn up only for results whose two-tailed p-value would have fallen between .05 and .10. Halving the p-value is the entire effect of the switch.</p>
 <p><strong>Counts.</strong> You’ll often meet outcomes that are counts: patents filed, acquisitions made, alliances formed. These are usually modelled with <em>Poisson regression</em> or its more flexible cousin, <em>negative binomial regression</em>. Poisson regression assumes the counts behave like the Premier League goals in this chapter, and in particular that their variance equals their mean. Business counts are usually more spread out than that (the term is <em>overdispersed</em>), which is why negative binomial models are so common: they relax that assumption. Their coefficients are often reported as <em>rate ratios</em>, and like every ratio in Section <a href="intro.html#intro-reading">2.6</a>, a rate ratio needs a base rate before it means anything.</p>
@@ -653,25 +654,28 @@ div.csl-indent {
 </div>
 <div id="if-you-want-to-read-more-7" class="section level3 hasAnchor" number="11.5.5">
 <h3><span class="header-section-number">11.5.5</span> If you want to read more<a href="H-testing.html#if-you-want-to-read-more-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Two short papers this time. The American Statistical Association’s statement on p-values <span class="citation">(<a href="#ref-wasserstein2016asa">Wasserstein and Lazar 2016</a>)</span> is the closest thing statistics has to an official position on what a p-value can and can’t tell you. It’s free to read online and only a few pages long. For something closer to home, the <em>Strategic Management Journal</em> editorial that dropped the stars <span class="citation">(<a href="#ref-bettis2016creating">Bettis et al. 2016</a>)</span> makes the same case for management research. It includes a thought experiment about three junior scholars studying the same hypothesis that I suspect will feel uncomfortably familiar.</p>
+<p>Two short papers this time. The American Statistical Association’s statement on p-values <span class="citation">(<a href="#ref-wasserstein2016asa">Wasserstein &amp; Lazar, 2016</a>)</span> is the closest thing statistics has to an official position on what a p-value can and can’t tell you. It’s free to read online and only a few pages long. For something closer to home, the <em>Strategic Management Journal</em> editorial that dropped the stars <span class="citation">(<a href="#ref-bettis2016creating">Bettis et al., 2016</a>)</span> makes the same case for management research. It includes a thought experiment about three junior scholars studying the same hypothesis that I suspect will feel uncomfortably familiar.</p>
 <p>A condensed version of these questions, combined with those from the other chapters and arranged in the order you’d meet them when reading a paper, is in Appendix <a href="reader-guide.html#reader-guide">A</a>.</p>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-bettis2016creating" class="csl-entry">
-Bettis, Richard A., Sendil Ethiraj, Alfonso Gambardella, Constance Helfat, and Will Mitchell. 2016. <span>“Creating Repeatable Cumulative Knowledge in Strategic Management.”</span> <em>Strategic Management Journal</em> 37 (2): 257–61. <a href="https://doi.org/10.1002/smj.2477">https://doi.org/10.1002/smj.2477</a>.
+Bettis, R. A., Ethiraj, S., Gambardella, A., Helfat, C., &amp; Mitchell, W. (2016). Creating repeatable cumulative knowledge in strategic management. <em>Strategic Management Journal</em>, <em>37</em>(2), 257–261. <a href="https://doi.org/10.1002/smj.2477">https://doi.org/10.1002/smj.2477</a>
+</div>
+<div id="ref-football-data-epl" class="csl-entry">
+Football-Data.co.uk. (n.d.). <em><span>England</span> football results betting odds: Premiership results and betting odds</em>. Retrieved October 1, 2026, from <a href="https://www.football-data.co.uk/englandm.php">https://www.football-data.co.uk/englandm.php</a>
 </div>
 <div id="ref-gelman2006difference" class="csl-entry">
-Gelman, Andrew, and Hal Stern. 2006. <span>“The Difference Between <span>‘Significant’</span> and <span>‘Not Significant’</span> Is Not Itself Statistically Significant.”</span> <em>The American Statistician</em> 60 (4): 328–31. <a href="https://doi.org/10.1198/000313006X152649">https://doi.org/10.1198/000313006X152649</a>.
+Gelman, A., &amp; Stern, H. (2006). The difference between <span>“significant”</span> and <span>“not significant”</span> is not itself statistically significant. <em>The American Statistician</em>, <em>60</em>(4), 328–331. <a href="https://doi.org/10.1198/000313006X152649">https://doi.org/10.1198/000313006X152649</a>
 </div>
 <div id="ref-lakens2017equivalence" class="csl-entry">
-Lakens, Daniël. 2017. <span>“Equivalence Tests: A Practical Primer for t Tests, Correlations, and Meta-Analyses.”</span> <em>Social Psychological and Personality Science</em> 8 (4): 355–62. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>.
+Lakens, D. (2017). Equivalence tests: A practical primer for t tests, correlations, and meta-analyses. <em>Social Psychological and Personality Science</em>, <em>8</em>(4), 355–362. <a href="https://doi.org/10.1177/1948550617697177">https://doi.org/10.1177/1948550617697177</a>
 </div>
 <div id="ref-wasserstein2016asa" class="csl-entry">
-Wasserstein, Ronald L., and Nicole A. Lazar. 2016. <span>“The <span>ASA</span>’s Statement on p-Values: Context, Process, and Purpose.”</span> <em>The American Statistician</em> 70 (2): 129–33. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>.
+Wasserstein, R. L., &amp; Lazar, N. A. (2016). The <span>ASA</span>’s statement on p-values: Context, process, and purpose. <em>The American Statistician</em>, <em>70</em>(2), 129–133. <a href="https://doi.org/10.1080/00031305.2016.1154108">https://doi.org/10.1080/00031305.2016.1154108</a>
 </div>
 </div>
             </section>

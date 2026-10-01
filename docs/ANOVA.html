@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-29" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,6 +129,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -355,7 +356,6 @@ div.csl-indent {
 <li class="chapter" data-level="13.6.5" data-path="Issues.html"><a href="Issues.html#if-you-want-to-read-more-9"><i class="fa fa-check"></i><b>13.6.5</b> If you want to read more</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="reader-guide.html"><a href="reader-guide.html"><i class="fa fa-check"></i><b>A</b> A Checklist for Reading Quantitative Papers</a>
 <ul>
@@ -366,6 +366,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.5" data-path="reader-guide.html"><a href="reader-guide.html#robustness"><i class="fa fa-check"></i><b>A.5</b> Robustness</a></li>
 <li class="chapter" data-level="A.6" data-path="reader-guide.html"><a href="reader-guide.html#discussion-and-claims"><i class="fa fa-check"></i><b>A.6</b> Discussion and claims</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -455,9 +456,9 @@ div.csl-indent {
 <div id="where-youll-meet-this-8" class="section level3 hasAnchor" number="12.2.1">
 <h3><span class="header-section-number">12.2.1</span> Where you’ll meet this<a href="ANOVA.html#where-youll-meet-this-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>The F-test.</strong> Results are usually reported as something like F(2, 42) = 15.31, p &lt; .001. The first number in brackets is the degrees of freedom for the groups (the number of groups minus one) and the second is for the error, which is roughly the total sample size minus the number of groups. So you can work backwards from the brackets to the sample size, which is worth doing when a paper is vague about how many people were in each condition. As in this chapter, a significant F only tells you that the groups aren’t all the same. It doesn’t tell you which ones differ, which is what the follow-up comparisons are for.</p>
-<p><strong>Eta-squared and its relatives.</strong> The effect size in this chapter was generalised eta-squared, the proportion of the variation in the outcome explained by group membership. With one factor, that’s the same idea as R² in a regression. Papers also report plain eta-squared (η²) and, very often, <em>partial</em> eta-squared (η²p). In a one-factor design they’re all the same number. In a factorial design they’re not. Partial eta-squared leaves the other factors’ effects out of the denominator, so it’s usually larger, and partial eta-squareds from different designs can’t be compared directly with each other <span class="citation">(<a href="#ref-lakens2013calculating">Lakens 2013</a>)</span>. You’ll also see .01, .06 and .14 described as small, medium and large, and those labels deserve the same scepticism as Cohen’s labels for d in Chapter <a href="t-test.html#t-test">8</a>.</p>
+<p><strong>Eta-squared and its relatives.</strong> The effect size in this chapter was generalised eta-squared, the proportion of the variation in the outcome explained by group membership. With one factor, that’s the same idea as R² in a regression. Papers also report plain eta-squared (η²) and, very often, <em>partial</em> eta-squared (η²p). In a one-factor design they’re all the same number. In a factorial design they’re not. Partial eta-squared leaves the other factors’ effects out of the denominator, so it’s usually larger, and partial eta-squareds from different designs can’t be compared directly with each other <span class="citation">(<a href="#ref-lakens2013calculating">Lakens, 2013</a>)</span>. You’ll also see .01, .06 and .14 described as small, medium and large, and those labels deserve the same scepticism as Cohen’s labels for d in Chapter <a href="t-test.html#t-test">8</a>.</p>
 <p><strong>Factorial designs and interactions.</strong> In a 2 × 2 design, say a price promotion (yes or no) crossed with brand familiarity (known or unknown brand), the analysis gives two <em>main effects</em> and one <em>interaction</em>. The main effect of the promotion is its average effect across both kinds of brand. The interaction asks whether the promotion’s effect is different for known and unknown brands. When there’s a real interaction, the main effects can be badly misleading: a promotion that helps unknown brands and does nothing for known ones has a positive “main effect” that describes neither. So when a paper reports an interaction, the main effects deserve much less attention than they usually get, and the <em>simple effects</em> (the effect of one factor at each level of the other) deserve much more. It also matters what shape the interaction takes. An effect that reverses direction is a very different finding from one that merely shrinks, and shrinking interactions in particular need far larger samples to detect reliably than most experiments have.</p>
-<p><strong>Interactions in regression.</strong> The same idea appears in survey papers as <em>moderation</em>: a regression with X, Z and their product X × Z. Two things commonly go wrong in reading these. First, once the product term is in the model, the coefficients on X and Z aren’t main effects any more. The coefficient on X is the effect of X when Z equals zero, which may be a meaningless value, such as a firm with zero employees. That’s one reason papers <em>centre</em> their variables (subtract the mean), which makes zero mean “average.” Second, papers often claim that centring was done to reduce multicollinearity. It doesn’t: centring changes how the lower-order coefficients are interpreted, but it leaves the precision of the estimates and the test of the interaction exactly as they were <span class="citation">(<a href="#ref-echambadi2007mean">Echambadi and Hess 2007</a>)</span>. Look for a plot or table of <em>simple slopes</em>, which shows the effect of X at a few chosen values of Z. Without one, it’s very hard to tell what an interaction actually means.</p>
+<p><strong>Interactions in regression.</strong> The same idea appears in survey papers as <em>moderation</em>: a regression with X, Z and their product X × Z. Two things commonly go wrong in reading these. First, once the product term is in the model, the coefficients on X and Z aren’t main effects any more. The coefficient on X is the effect of X when Z equals zero, which may be a meaningless value, such as a firm with zero employees. That’s one reason papers <em>centre</em> their variables (subtract the mean), which makes zero mean “average.” Second, papers often claim that centring was done to reduce multicollinearity. It doesn’t: centring changes how the lower-order coefficients are interpreted, but it leaves the precision of the estimates and the test of the interaction exactly as they were <span class="citation">(<a href="#ref-echambadi2007mean">Echambadi &amp; Hess, 2007</a>)</span>. Look for a plot or table of <em>simple slopes</em>, which shows the effect of X at a few chosen values of Z. Without one, it’s very hard to tell what an interaction actually means.</p>
 </div>
 <div id="the-connection-back-8" class="section level3 hasAnchor" number="12.2.2">
 <h3><span class="header-section-number">12.2.2</span> The connection back<a href="ANOVA.html#the-connection-back-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -479,22 +480,22 @@ div.csl-indent {
 </div>
 <div id="if-you-want-to-read-more-8" class="section level3 hasAnchor" number="12.2.5">
 <h3><span class="header-section-number">12.2.5</span> If you want to read more<a href="ANOVA.html#if-you-want-to-read-more-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Julie Irwin and Gary McClelland’s “Misleading heuristics and moderated multiple regression models” <span class="citation">(<a href="#ref-irwin2001misleading">Irwin and McClelland 2001</a>)</span> is written for marketing researchers and goes through the most common mistakes in reading and reporting interactions, including the ones above. It’s a little more technical than most of the readings I’ve suggested, but it’s short, and it’s the paper I’d give anyone about to test a moderation hypothesis.</p>
+<p>Julie Irwin and Gary McClelland’s “Misleading heuristics and moderated multiple regression models” <span class="citation">(<a href="#ref-irwin2001misleading">Irwin &amp; McClelland, 2001</a>)</span> is written for marketing researchers and goes through the most common mistakes in reading and reporting interactions, including the ones above. It’s a little more technical than most of the readings I’ve suggested, but it’s short, and it’s the paper I’d give anyone about to test a moderation hypothesis.</p>
 <p>A condensed version of these questions, combined with those from the other chapters and arranged in the order you’d meet them when reading a paper, is in Appendix <a href="reader-guide.html#reader-guide">A</a>.</p>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-echambadi2007mean" class="csl-entry">
-Echambadi, Raj, and James D. Hess. 2007. <span>“Mean-Centering Does Not Alleviate Collinearity Problems in Moderated Multiple Regression Models.”</span> <em>Marketing Science</em> 26 (3): 438–45. <a href="https://doi.org/10.1287/mksc.1060.0263">https://doi.org/10.1287/mksc.1060.0263</a>.
+Echambadi, R., &amp; Hess, J. D. (2007). Mean-centering does not alleviate collinearity problems in moderated multiple regression models. <em>Marketing Science</em>, <em>26</em>(3), 438–445. <a href="https://doi.org/10.1287/mksc.1060.0263">https://doi.org/10.1287/mksc.1060.0263</a>
 </div>
 <div id="ref-irwin2001misleading" class="csl-entry">
-Irwin, Julie R., and Gary H. McClelland. 2001. <span>“Misleading Heuristics and Moderated Multiple Regression Models.”</span> <em>Journal of Marketing Research</em> 38 (1): 100–109. <a href="https://doi.org/10.1509/jmkr.38.1.100.18835">https://doi.org/10.1509/jmkr.38.1.100.18835</a>.
+Irwin, J. R., &amp; McClelland, G. H. (2001). Misleading heuristics and moderated multiple regression models. <em>Journal of Marketing Research</em>, <em>38</em>(1), 100–109. <a href="https://doi.org/10.1509/jmkr.38.1.100.18835">https://doi.org/10.1509/jmkr.38.1.100.18835</a>
 </div>
 <div id="ref-lakens2013calculating" class="csl-entry">
-Lakens, Daniël. 2013. <span>“Calculating and Reporting Effect Sizes to Facilitate Cumulative Science: A Practical Primer for t-Tests and <span>ANOVAs</span>.”</span> <em>Frontiers in Psychology</em> 4: 863. <a href="https://doi.org/10.3389/fpsyg.2013.00863">https://doi.org/10.3389/fpsyg.2013.00863</a>.
+Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and <span>ANOVAs</span>. <em>Frontiers in Psychology</em>, <em>4</em>, 863. <a href="https://doi.org/10.3389/fpsyg.2013.00863">https://doi.org/10.3389/fpsyg.2013.00863</a>
 </div>
 </div>
             </section>

@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-29" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,6 +129,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -355,7 +356,6 @@ div.csl-indent {
 <li class="chapter" data-level="13.6.5" data-path="Issues.html"><a href="Issues.html#if-you-want-to-read-more-9"><i class="fa fa-check"></i><b>13.6.5</b> If you want to read more</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="reader-guide.html"><a href="reader-guide.html"><i class="fa fa-check"></i><b>A</b> A Checklist for Reading Quantitative Papers</a>
 <ul>
@@ -366,6 +366,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.5" data-path="reader-guide.html"><a href="reader-guide.html#robustness"><i class="fa fa-check"></i><b>A.5</b> Robustness</a></li>
 <li class="chapter" data-level="A.6" data-path="reader-guide.html"><a href="reader-guide.html#discussion-and-claims"><i class="fa fa-check"></i><b>A.6</b> Discussion and claims</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -423,7 +424,7 @@ div.csl-indent {
 <p>Given there are n=20 values in the population, there are k=190 possible combinations of two values.</p>
 <p>Note: This is not the same as bootstrapping - we are <em>not</em> sampling with replacement here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.</p>
 <p>Remember the ping-pong balls I used in class to demonstrate!</p>
-<p>Let’s do it - the code below is adapted from a GeeksforGeeks tutorial: <a href="https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/" class="uri">https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/</a></p>
+<p>Let’s do it - the calculation below is adapted from a GeeksforGeeks tutorial: <a href="https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/" class="uri">https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/</a></p>
 <pre><code>## [1] &quot;Every Possible Combination of the 20 Income Values&quot;</code></pre>
 <pre><code>##         [,1]  [,2]
 ##   [1,]  5600  6000
@@ -668,7 +669,7 @@ div.csl-indent {
 </div>
 <div id="rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> Rate of Change in Football Goals per Season<a href="statistics.html#rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this example, I’ll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I’ll continue on with my football goals example from Chapter <a href="probability.html#probability">9</a>. Here, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
+<p>In this example, I’ll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I’ll continue on with my football goals example from Chapter <a href="probability.html#probability">9</a>. Here, I’m using data from footballhistory.org <span class="citation">(<a href="#ref-footballhistory-epl">n.d.</a>)</span>.</p>
 <p>I hand-entered this into a spreadsheet, and calculated the additional stuff.</p>
 <pre><code>## # A tibble: 6 × 7
 ##   Season  Games Goals   GPG    SE Lower95CI Upper95CI
@@ -684,10 +685,9 @@ div.csl-indent {
 <p><img src="LFD_files/figure-html/unnamed-chunk-138-1.png" alt="" width="672" /></p>
 <p>From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic.</p>
 <p>The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.</p>
-<p>In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter <a href="probability.html#probability">9</a>: <a href="https://www.premierleague.com/news/4016793" class="uri">https://www.premierleague.com/news/4016793</a></p>
-<p>This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which <em>directly tests the hypothesis</em> that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.</p>
-<p>See: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides</a></p>
-<p>The z-test is simply explained in the linked article from the BMJ: <a href="https://www.bmj.com/content/332/7552/1256" class="uri">https://www.bmj.com/content/332/7552/1256</a></p>
+<p>In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter <a href="probability.html#probability">9</a> <span class="citation">(<a href="#ref-pl-goals-news">2024</a>)</span>.</p>
+<p>This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test <span class="citation">(<a href="#ref-ons-homicide-2016">Office for National Statistics, 2017</a>)</span>, which <em>directly tests the hypothesis</em> that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.</p>
+<p>The z-test is simply explained in a short BMJ article <span class="citation">(<a href="#ref-pocock2006simplest">Pocock, 2006</a>)</span>.</p>
 <p>It links us nicely to the next lesson, because it is aiming to test a <em>specific hypothesis</em> that the difference is zero…</p>
 <p>If you open the data file below, you can see I have calculated the z-test results for the difference between each season, year-on-year.</p>
 <pre><code>## # A tibble: 6 × 9
@@ -712,8 +712,8 @@ div.csl-indent {
 <h3><span class="header-section-number">10.4.1</span> Where you’ll meet this<a href="statistics.html#where-youll-meet-this-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Numbers in brackets.</strong> In most regression tables each estimate has a second number underneath it in brackets. It’s usually the standard error, but it can be the t-value, and occasionally it’s a confidence interval, so check the table note. If it’s a standard error, you can build a rough 95% confidence interval yourself: the estimate plus or minus about two standard errors. That takes a few seconds, and it tells you much more than a row of stars does. An estimate of 0.30 with a standard error of 0.14 is “significant,” but its interval runs from roughly 0.02 to 0.58, so the data are consistent with an effect that’s barely there and with one that’s nearly twice as large as the estimate.</p>
 <p><strong>Confidence intervals on estimates.</strong> More and more papers report intervals directly. Read them the way the simulation in Section <a href="statistics.html#conf">10.2</a> taught you: as the output of a procedure that captures the true value in about 95 of every 100 samples, not as a range that the true value is 95% certain to be in. In practice the useful questions are simple. How wide is it? Does it include values that would be too small to matter? Does it include values that would be implausibly large? A wide interval that only just excludes zero is a much weaker finding than its p-value suggests.</p>
-<p><strong>Error bars in figures.</strong> Bar charts and line plots often carry error bars, and they’re one of the most misread things in any paper. First, find out what the bars are. They could be standard deviations, standard errors or confidence intervals, and a surprising number of figures don’t say. Standard-error bars are only about half the length of 95% confidence intervals, so the same data can look far more or far less convincing depending on which was chosen. Second, be careful with overlap. Two 95% intervals that overlap can still come from a difference that’s statistically significant. In fact, for two independent groups the intervals can overlap by up to about half of one arm and the difference will still have p of around .05 <span class="citation">(<a href="#ref-cumming2005inference">Cumming and Finch 2005</a>)</span>. You saw this in this chapter’s football example: the intervals for consecutive seasons overlapped, yet the z-tests found two significant changes.</p>
-<p><strong>Clustered and robust standard errors.</strong> Every standard error you’ve met in this book assumes that each observation is an independent draw, like the ping-pong balls in the lecture. Much management data isn’t like that. Employees are nested in teams and firms, firms appear year after year in a panel, and observations within the same cluster tend to resemble each other. When that happens, the data contain less independent information than the sample size suggests, and ordinary standard errors come out too small. <em>Clustered standard errors</em> correct for this. They change the uncertainty, not the estimates themselves. As a reader, ask what the observations were clustered by, and whether that matches how the data were actually collected. Also ask how many clusters there were. With only a handful, such as a few industries or a dozen countries, even clustered standard errors can be too small <span class="citation">(<a href="#ref-cameron2015practitioner">Cameron and Miller 2015</a>)</span>. You’ll also see <em>robust</em> (or “heteroskedasticity-robust”) standard errors, which deal with a different problem: spread in the data that isn’t constant. They’re not a substitute for clustering.</p>
+<p><strong>Error bars in figures.</strong> Bar charts and line plots often carry error bars, and they’re one of the most misread things in any paper. First, find out what the bars are. They could be standard deviations, standard errors or confidence intervals, and a surprising number of figures don’t say. Standard-error bars are only about half the length of 95% confidence intervals, so the same data can look far more or far less convincing depending on which was chosen. Second, be careful with overlap. Two 95% intervals that overlap can still come from a difference that’s statistically significant. In fact, for two independent groups the intervals can overlap by up to about half of one arm and the difference will still have p of around .05 <span class="citation">(<a href="#ref-cumming2005inference">Cumming &amp; Finch, 2005</a>)</span>. You saw this in this chapter’s football example: the intervals for consecutive seasons overlapped, yet the z-tests found two significant changes.</p>
+<p><strong>Clustered and robust standard errors.</strong> Every standard error you’ve met in this book assumes that each observation is an independent draw, like the ping-pong balls in the lecture. Much management data isn’t like that. Employees are nested in teams and firms, firms appear year after year in a panel, and observations within the same cluster tend to resemble each other. When that happens, the data contain less independent information than the sample size suggests, and ordinary standard errors come out too small. <em>Clustered standard errors</em> correct for this. They change the uncertainty, not the estimates themselves. As a reader, ask what the observations were clustered by, and whether that matches how the data were actually collected. Also ask how many clusters there were. With only a handful, such as a few industries or a dozen countries, even clustered standard errors can be too small <span class="citation">(<a href="#ref-cameron2015practitioner">Cameron &amp; Miller, 2015</a>)</span>. You’ll also see <em>robust</em> (or “heteroskedasticity-robust”) standard errors, which deal with a different problem: spread in the data that isn’t constant. They’re not a substitute for clustering.</p>
 <p><strong>What a standard error doesn’t cover.</strong> A standard error measures one thing: how much an estimate would bounce around across random samples from the same population. It says nothing about whether the sample was random in the first place, whether the people who answered differ from those who didn’t, or whether the measures capture what they claim to. Those are the “inference gaps” from Chapter <a href="uncertainty.html#uncertainty">6</a>, and many of them are the selection problems from Chapter <a href="causation.html#causation">4</a>. That doesn’t make intervals from non-random samples meaningless. It means they describe the precision of the estimate under an assumption, and the gap between that assumption and reality isn’t in the interval.</p>
 </div>
 <div id="the-connection-back-6" class="section level3 hasAnchor" number="10.4.2">
@@ -736,19 +736,31 @@ div.csl-indent {
 </div>
 <div id="if-you-want-to-read-more-6" class="section level3 hasAnchor" number="10.4.5">
 <h3><span class="header-section-number">10.4.5</span> If you want to read more<a href="statistics.html#if-you-want-to-read-more-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Geoff Cumming and Sue Finch’s “Inference by eye” <span class="citation">(<a href="#ref-cumming2005inference">Cumming and Finch 2005</a>)</span> is a short paper about reading confidence intervals and error bars in figures. It’s full of pictures, and it will change the way you look at every bar chart you see from now on.</p>
+<p>Geoff Cumming and Sue Finch’s “Inference by eye” <span class="citation">(<a href="#ref-cumming2005inference">Cumming &amp; Finch, 2005</a>)</span> is a short paper about reading confidence intervals and error bars in figures. It’s full of pictures, and it will change the way you look at every bar chart you see from now on.</p>
 <p>A condensed version of these questions, combined with those from the other chapters and arranged in the order you’d meet them when reading a paper, is in Appendix <a href="reader-guide.html#reader-guide">A</a>.</p>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-cameron2015practitioner" class="csl-entry">
-Cameron, A. Colin, and Douglas L. Miller. 2015. <span>“A Practitioner’s Guide to Cluster-Robust Inference.”</span> <em>Journal of Human Resources</em> 50 (2): 317–72. <a href="https://doi.org/10.3368/jhr.50.2.317">https://doi.org/10.3368/jhr.50.2.317</a>.
+Cameron, A. C., &amp; Miller, D. L. (2015). A practitioner’s guide to cluster-robust inference. <em>Journal of Human Resources</em>, <em>50</em>(2), 317–372. <a href="https://doi.org/10.3368/jhr.50.2.317">https://doi.org/10.3368/jhr.50.2.317</a>
 </div>
 <div id="ref-cumming2005inference" class="csl-entry">
-Cumming, Geoff, and Sue Finch. 2005. <span>“Inference by Eye: Confidence Intervals and How to Read Pictures of Data.”</span> <em>American Psychologist</em> 60 (2): 170–80. <a href="https://doi.org/10.1037/0003-066X.60.2.170">https://doi.org/10.1037/0003-066X.60.2.170</a>.
+Cumming, G., &amp; Finch, S. (2005). Inference by eye: Confidence intervals and how to read pictures of data. <em>American Psychologist</em>, <em>60</em>(2), 170–180. <a href="https://doi.org/10.1037/0003-066X.60.2.170">https://doi.org/10.1037/0003-066X.60.2.170</a>
+</div>
+<div id="ref-footballhistory-epl" class="csl-entry">
+<span class="nocase">footballhistory.org</span>. (n.d.). <em><span>Premier</span> <span>League</span> – goals and statistics</em>. Retrieved October 1, 2026, from <a href="https://www.footballhistory.org/league/premier-league-statistics.html">https://www.footballhistory.org/league/premier-league-statistics.html</a>
+</div>
+<div id="ref-ons-homicide-2016" class="csl-entry">
+Office for National Statistics. (2017, February 9). <em>Focus on violent crime and sexual offences, <span>England</span> and <span>Wales</span>: Year ending <span>March</span> 2016 – homicide</em>. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide">https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide</a>
+</div>
+<div id="ref-pocock2006simplest" class="csl-entry">
+Pocock, S. J. (2006). The simplest statistical test: How to check for a difference between treatments. <em>BMJ</em>, <em>332</em>(7552), 1256. <a href="https://doi.org/10.1136/bmj.332.7552.1256">https://doi.org/10.1136/bmj.332.7552.1256</a>
+</div>
+<div id="ref-pl-goals-news" class="csl-entry">
+Premier League. (2024, May 19). <em>The numbers that show this has been a season like no other</em>. <a href="https://www.premierleague.com/news/4016793">https://www.premierleague.com/news/4016793</a>
 </div>
 </div>
             </section>

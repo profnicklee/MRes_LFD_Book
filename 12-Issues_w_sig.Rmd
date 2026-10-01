@@ -29,7 +29,7 @@ In this section, I'll provide some visualizations which can help us to understan
 
 However, it's worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.
 
-First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.
+First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: <https://stats.stackexchange.com/q/143424>.
 
 ```{r}
 #UGLY BASE R CODE BELOW. Note that this is not fully thought through and may contain unnecessary code. Code taken from https://stats.stackexchange.com/q/143424 and modified by me
@@ -174,7 +174,7 @@ For example, in the Christmas-music post-hoc tests in Chapter \@ref(ANOVA), we u
 
 ## The Bonferroni Correction: Rate of Change in Football Goals per Season
 
-Here, I will expand on the football goals rate-of-change example from Chapter \@ref(statistics), to incorporate corrections for the multiple comparisons problem. Again, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+Here, I will expand on the football goals rate-of-change example from Chapter \@ref(statistics), to incorporate corrections for the multiple comparisons problem. Again, I'm using data from footballhistory.org [-@footballhistory-epl].
 
 I'm building on the z-test table from the end of Chapter \@ref(statistics). But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
 
@@ -232,7 +232,7 @@ But, as I suggested above, that might not always be the best idea. Indeed, if yo
 
 What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be *no false positives*. Therefore, in such a situation you would be *increasing the chances of a false negative* by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?
 
-For example, Thomas Perneger's 1998 paper in the BMJ is scathing about the Bonferroni adjustment. Take a look at <https://www.bmj.com/content/316/7139/1236.full>
+For example, Thomas Perneger's [-@perneger1998] paper in the BMJ is scathing about the Bonferroni adjustment.
 
 Mind you, I am not saying that's the final word, just that there are multiple perspectives on the issues!
 

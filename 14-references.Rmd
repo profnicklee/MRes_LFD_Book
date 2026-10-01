@@ -1,0 +1,13 @@
+```{r, results='asis', echo=FALSE}
+if (knitr::is_html_output()) {
+  cat("
+# References {-}
+
+Every source cited in this book is listed below. Each chapter also ends with its own list of the sources it cites, so if you're following something up from a particular chapter, that's the quicker place to look.
+
+Where a chapter builds on code written by someone else, it says so, with a link, at the point where the code is used. If a link has stopped working, or you think I've missed a credit, please email me at nick.lee@wbs.ac.uk.
+
+<div id=\"refs\"></div>
+")
+}
+```

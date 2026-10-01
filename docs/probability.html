@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-29" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,6 +129,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -355,7 +356,6 @@ div.csl-indent {
 <li class="chapter" data-level="13.6.5" data-path="Issues.html"><a href="Issues.html#if-you-want-to-read-more-9"><i class="fa fa-check"></i><b>13.6.5</b> If you want to read more</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="reader-guide.html"><a href="reader-guide.html"><i class="fa fa-check"></i><b>A</b> A Checklist for Reading Quantitative Papers</a>
 <ul>
@@ -366,6 +366,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.5" data-path="reader-guide.html"><a href="reader-guide.html#robustness"><i class="fa fa-check"></i><b>A.5</b> Robustness</a></li>
 <li class="chapter" data-level="A.6" data-path="reader-guide.html"><a href="reader-guide.html#discussion-and-claims"><i class="fa fa-check"></i><b>A.6</b> Discussion and claims</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -389,11 +390,12 @@ div.csl-indent {
 <div id="probability" class="section level1 hasAnchor" number="9">
 <h1><span class="header-section-number">Chapter 9</span> Introduction to Probability<a href="probability.html#probability" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>This Chapter provides examples and additional content for the first part of Lesson 7.</p>
-<p>In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainy of our estimates, and from there we can begin to draw inferences from the sample to the population.</p>
+<p>In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainty of our estimates, and from there we can begin to draw inferences from the sample to the population.</p>
 <div id="simulating-coin-flips" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> Simulating Coin Flips<a href="probability.html#simulating-coin-flips" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The first thing we’ll do is simulate 5000 fair coin flips.</p>
 <p>Remember, this is another random process, so results will differ each time slightly</p>
+<p>The simulation is taken almost verbatim from a post by Philip Grosse on RPubs: <a href="https://rpubs.com/pgrosse/545948" class="uri">https://rpubs.com/pgrosse/545948</a>.</p>
 <pre><code>##   Heads Trial Cum_Heads Pct_Heads
 ## 1     0     1         0 0.0000000
 ## 2     1     2         1 0.5000000
@@ -409,7 +411,7 @@ div.csl-indent {
 <div id="premier-league-goals-and-the-poisson-distribution" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> Premier League Goals and the Poisson Distribution<a href="probability.html#premier-league-goals-and-the-poisson-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Note, much of the inspiration and code for this section comes from: <a href="https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html" class="uri">https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html</a></p>
-<p>The data comes from: <a href="https://www.football-data.co.uk/englandm.php" class="uri">https://www.football-data.co.uk/englandm.php</a> and is the EPL results for 21-22 Season</p>
+<p>The data are the EPL results for the 2021–22 season, from Football-Data.co.uk <span class="citation">(<a href="#ref-football-data-epl">n.d.</a>)</span>.</p>
 <pre><code>## # A tibble: 6 × 107
 ##   Div   Date                Time                HomeTeam   AwayTeam   FTHG  FTAG
 ##   &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -531,12 +533,21 @@ div.csl-indent {
 <ol style="list-style-type: decimal">
 <li><p>The probabilities suggest we are well overdue one, unless there has been something fundamentally changing about the distribution of premier league goal.</p></li>
 <li><p>The sort of change would logically need to be a reduction of average goals scored per game, which would change the mean of the Poisson distribution, reducing the probabilities of a 9-goal game.</p></li>
-<li><p>However, the average goals per game is actually <strong><em>increasing</em></strong>, according to the statistics - and you can check out the following to confirm this: <a href="https://www.premierleague.com/news/4016793" class="uri">https://www.premierleague.com/news/4016793</a></p></li>
+<li><p>However, the average goals per game is actually <strong><em>increasing</em></strong>, according to the Premier League’s own figures <span class="citation">(<a href="#ref-pl-goals-news">2024</a>)</span>.</p></li>
 <li><p>So, one could also draw the conclusion that the Poisson distribution is no longer a good fit - but this could be checked, and I would guess this isn’t the case (you can check yourself).</p></li>
 </ol>
 <p>Interesting.</p>
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
+<div id="ref-football-data-epl" class="csl-entry">
+Football-Data.co.uk. (n.d.). <em><span>England</span> football results betting odds: Premiership results and betting odds</em>. Retrieved October 1, 2026, from <a href="https://www.football-data.co.uk/englandm.php">https://www.football-data.co.uk/englandm.php</a>
+</div>
+<div id="ref-pl-goals-news" class="csl-entry">
+Premier League. (2024, May 19). <em>The numbers that show this has been a season like no other</em>. <a href="https://www.premierleague.com/news/4016793">https://www.premierleague.com/news/4016793</a>
 </div>
 </div>
             </section>

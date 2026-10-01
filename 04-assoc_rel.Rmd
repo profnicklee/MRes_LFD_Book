@@ -15,9 +15,9 @@ This chapter supplements the content in Lecture 5.
 
 ## Correlations and Associations
 
-First, let's look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data.
+First, let's look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data [-@owid].
 
-You can explore their work here: <https://ourworldindata.org/>
+Their site is well worth exploring in its own right.
 
 ```{r}
 Happy<-read_excel("Data/HappyGDP.xlsx", sheet = "2020")
@@ -181,7 +181,7 @@ This is obviously viable to the extent we can justify the relationship, and also
 
 ## Multiple Regression
 
-Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: <https://www.scribbr.com/statistics/linear-regression-in-r/>
+Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from Scribbr's guide to linear regression in R [@scribbr-regression].
 
 Remember, this is **simulated data** not real data.
 

@@ -15,13 +15,15 @@ library(dplyr)
 
 This Chapter provides examples and additional content for the first part of Lesson 7.
 
-In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainy of our estimates, and from there we can begin to draw inferences from the sample to the population.
+In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainty of our estimates, and from there we can begin to draw inferences from the sample to the population.
 
 ## Simulating Coin Flips
 
 The first thing we'll do is simulate 5000 fair coin flips.
 
 Remember, this is another random process, so results will differ each time slightly
+
+The simulation is taken almost verbatim from a post by Philip Grosse on RPubs: <https://rpubs.com/pgrosse/545948>.
 
 ```{r}
 #Note: This is virtually copied verbatim from: <https://rpubs.com/pgrosse/545948>
@@ -64,7 +66,7 @@ In other words, for a fair coin toss sequence, the trials (tosses) are *independ
 
 Note, much of the inspiration and code for this section comes from: <https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html>
 
-The data comes from: <https://www.football-data.co.uk/englandm.php> and is the EPL results for 21-22 Season
+The data are the EPL results for the 2021–22 season, from Football-Data.co.uk [-@football-data-epl].
 
 ```{r}
 EPL<-read_excel("Data/EPL21-22.xlsx")
@@ -229,7 +231,7 @@ This is interesting. At this point (30 September, 2025) I find it tempting to pu
 
 2. The sort of change would logically need to be a reduction of average goals scored per game, which would change the mean of the Poisson distribution, reducing the probabilities of a 9-goal game.
 
-3. However, the average goals per game is actually ***increasing***, according to the statistics - and you can check out the following to confirm this: https://www.premierleague.com/news/4016793
+3. However, the average goals per game is actually ***increasing***, according to the Premier League's own figures [-@pl-goals-news].
 
 4. So, one could also draw the conclusion that the Poisson distribution is no longer a good fit - but this could be checked, and I would guess this isn't the case (you can check yourself).
 

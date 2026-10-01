@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-29" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,6 +129,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -355,7 +356,6 @@ div.csl-indent {
 <li class="chapter" data-level="13.6.5" data-path="Issues.html"><a href="Issues.html#if-you-want-to-read-more-9"><i class="fa fa-check"></i><b>13.6.5</b> If you want to read more</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="reader-guide.html"><a href="reader-guide.html"><i class="fa fa-check"></i><b>A</b> A Checklist for Reading Quantitative Papers</a>
 <ul>
@@ -366,6 +366,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.5" data-path="reader-guide.html"><a href="reader-guide.html#robustness"><i class="fa fa-check"></i><b>A.5</b> Robustness</a></li>
 <li class="chapter" data-level="A.6" data-path="reader-guide.html"><a href="reader-guide.html#discussion-and-claims"><i class="fa fa-check"></i><b>A.6</b> Discussion and claims</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -653,8 +654,8 @@ div.csl-indent {
 <div id="where-youll-meet-this-4" class="section level3 hasAnchor" number="7.3.1">
 <h3><span class="header-section-number">7.3.1</span> Where you’ll meet this<a href="bootstrap.html#where-youll-meet-this-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>The indirect effect.</strong> A simple mediation model has two links: X to M (usually called <em>a</em>) and M to Y, holding X constant (<em>b</em>). The indirect effect is the product of the two, a × b. The trouble is that the sampling distribution of a product of two estimates is usually skewed rather than normal, so the older, formula-based tests of it are unreliable. The bootstrap gets round that exactly as this chapter did: resample the data thousands of times, calculate a × b in each resample, and take the middle 95% of those values as the confidence interval. So when a paper reports an indirect effect of 0.12 with a 95% bootstrap confidence interval of 0.04 to 0.21, based on 5,000 resamples, you know precisely what was done. The interval excludes zero, so the indirect effect is significant. Its width tells you how precisely it has been estimated, just as with any other interval.</p>
-<p><strong>What the bootstrap fixes, and what it doesn’t.</strong> The bootstrap solves a statistical problem: getting an honest interval for a quantity with an awkward distribution. It does nothing about the much bigger problem, which is that a mediation claim is a causal claim about <em>two</em> links. Even if X was randomly assigned in an experiment, M wasn’t, so the link from M to Y is exposed to every confounding problem in Chapter <a href="causation.html#causation">4</a> <span class="citation">(<a href="#ref-bullock2010mechanism">Bullock et al. 2010</a>)</span>. And the bootstrap can’t create information the sample doesn’t contain. It resamples the data you have, so a small or unrepresentative sample stays small and unrepresentative however many times you resample it, as Researcher 1’s sample of 10 showed.</p>
-<p><strong>“Full” and “partial” mediation.</strong> Older papers, and some newer ones, follow a set of steps from Baron and Kenny <span class="citation">(<a href="#ref-baron1986moderator">Baron and Kenny 1986</a>)</span>, which among other things required a significant overall effect of X on Y before mediation could even be tested. That requirement is now widely rejected, and so is the habit of classifying results as “full” or “partial” mediation depending on whether the direct effect of X on Y remains significant <span class="citation">(<a href="#ref-zhao2010reconsidering">Zhao et al. 2010</a>)</span>. Whether it does depends heavily on sample size, so “full mediation” is often just another way of saying “not enough data to detect the direct effect.” One further point from the same authors connects straight to the red flag in Section <a href="assoc-rel.html#assoc-rel-reading">5.6</a>. A mediator that isn’t clearly distinct from X or from Y will appear to “fully mediate” almost automatically, so check its correlations in Table 1.</p>
+<p><strong>What the bootstrap fixes, and what it doesn’t.</strong> The bootstrap solves a statistical problem: getting an honest interval for a quantity with an awkward distribution. It does nothing about the much bigger problem, which is that a mediation claim is a causal claim about <em>two</em> links. Even if X was randomly assigned in an experiment, M wasn’t, so the link from M to Y is exposed to every confounding problem in Chapter <a href="causation.html#causation">4</a> <span class="citation">(<a href="#ref-bullock2010mechanism">Bullock et al., 2010</a>)</span>. And the bootstrap can’t create information the sample doesn’t contain. It resamples the data you have, so a small or unrepresentative sample stays small and unrepresentative however many times you resample it, as Researcher 1’s sample of 10 showed.</p>
+<p><strong>“Full” and “partial” mediation.</strong> Older papers, and some newer ones, follow a set of steps from Baron and Kenny <span class="citation">(<a href="#ref-baron1986moderator">Baron &amp; Kenny, 1986</a>)</span>, which among other things required a significant overall effect of X on Y before mediation could even be tested. That requirement is now widely rejected, and so is the habit of classifying results as “full” or “partial” mediation depending on whether the direct effect of X on Y remains significant <span class="citation">(<a href="#ref-zhao2010reconsidering">Zhao et al., 2010</a>)</span>. Whether it does depends heavily on sample size, so “full mediation” is often just another way of saying “not enough data to detect the direct effect.” One further point from the same authors connects straight to the red flag in Section <a href="assoc-rel.html#assoc-rel-reading">5.6</a>. A mediator that isn’t clearly distinct from X or from Y will appear to “fully mediate” almost automatically, so check its correlations in Table 1.</p>
 </div>
 <div id="the-connection-back-4" class="section level3 hasAnchor" number="7.3.2">
 <h3><span class="header-section-number">7.3.2</span> The connection back<a href="bootstrap.html#the-connection-back-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -676,22 +677,22 @@ div.csl-indent {
 </div>
 <div id="if-you-want-to-read-more-4" class="section level3 hasAnchor" number="7.3.5">
 <h3><span class="header-section-number">7.3.5</span> If you want to read more<a href="bootstrap.html#if-you-want-to-read-more-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Xinshu Zhao, John Lynch and Qimei Chen’s “Reconsidering Baron and Kenny” <span class="citation">(<a href="#ref-zhao2010reconsidering">Zhao et al. 2010</a>)</span> was written for consumer researchers as a non-technical guide to what mediation analysis can and can’t show. It remains the most useful short account I know, and it will save you from several common mistakes if you ever run one yourself.</p>
+<p>Xinshu Zhao, John Lynch and Qimei Chen’s “Reconsidering Baron and Kenny” <span class="citation">(<a href="#ref-zhao2010reconsidering">Zhao et al., 2010</a>)</span> was written for consumer researchers as a non-technical guide to what mediation analysis can and can’t show. It remains the most useful short account I know, and it will save you from several common mistakes if you ever run one yourself.</p>
 <p>A condensed version of these questions, combined with those from the other chapters and arranged in the order you’d meet them when reading a paper, is in Appendix <a href="reader-guide.html#reader-guide">A</a>.</p>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-baron1986moderator" class="csl-entry">
-Baron, Reuben M., and David A. Kenny. 1986. <span>“The Moderator–Mediator Variable Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical Considerations.”</span> <em>Journal of Personality and Social Psychology</em> 51 (6): 1173–82. <a href="https://doi.org/10.1037/0022-3514.51.6.1173">https://doi.org/10.1037/0022-3514.51.6.1173</a>.
+Baron, R. M., &amp; Kenny, D. A. (1986). The moderator–mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations. <em>Journal of Personality and Social Psychology</em>, <em>51</em>(6), 1173–1182. <a href="https://doi.org/10.1037/0022-3514.51.6.1173">https://doi.org/10.1037/0022-3514.51.6.1173</a>
 </div>
 <div id="ref-bullock2010mechanism" class="csl-entry">
-Bullock, John G., Donald P. Green, and Shang E. Ha. 2010. <span>“Yes, but What’s the Mechanism? (Don’t Expect an Easy Answer).”</span> <em>Journal of Personality and Social Psychology</em> 98 (4): 550–58. <a href="https://doi.org/10.1037/a0018933">https://doi.org/10.1037/a0018933</a>.
+Bullock, J. G., Green, D. P., &amp; Ha, S. E. (2010). Yes, but what’s the mechanism? (Don’t expect an easy answer). <em>Journal of Personality and Social Psychology</em>, <em>98</em>(4), 550–558. <a href="https://doi.org/10.1037/a0018933">https://doi.org/10.1037/a0018933</a>
 </div>
 <div id="ref-zhao2010reconsidering" class="csl-entry">
-Zhao, Xinshu, John G. Lynch Jr., and Qimei Chen. 2010. <span>“Reconsidering <span>Baron</span> and <span>Kenny</span>: Myths and Truths about Mediation Analysis.”</span> <em>Journal of Consumer Research</em> 37 (2): 197–206. <a href="https://doi.org/10.1086/651257">https://doi.org/10.1086/651257</a>.
+Zhao, X., Lynch, J. G., Jr., &amp; Chen, Q. (2010). Reconsidering <span>Baron</span> and <span>Kenny</span>: Myths and truths about mediation analysis. <em>Journal of Consumer Research</em>, <em>37</em>(2), 197–206. <a href="https://doi.org/10.1086/651257">https://doi.org/10.1086/651257</a>
 </div>
 </div>
             </section>

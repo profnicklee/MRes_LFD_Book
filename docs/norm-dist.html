@@ -23,7 +23,7 @@
 <meta name="author" content="Professor Nick Lee" />
 
 
-<meta name="date" content="2026-09-29" />
+<meta name="date" content="2026-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,6 +129,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -355,7 +356,6 @@ div.csl-indent {
 <li class="chapter" data-level="13.6.5" data-path="Issues.html"><a href="Issues.html#if-you-want-to-read-more-9"><i class="fa fa-check"></i><b>13.6.5</b> If you want to read more</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="reader-guide.html"><a href="reader-guide.html"><i class="fa fa-check"></i><b>A</b> A Checklist for Reading Quantitative Papers</a>
 <ul>
@@ -366,6 +366,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.5" data-path="reader-guide.html"><a href="reader-guide.html#robustness"><i class="fa fa-check"></i><b>A.5</b> Robustness</a></li>
 <li class="chapter" data-level="A.6" data-path="reader-guide.html"><a href="reader-guide.html#discussion-and-claims"><i class="fa fa-check"></i><b>A.6</b> Discussion and claims</a></li>
 </ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -392,13 +393,12 @@ div.csl-indent {
 <div id="a-simple-demonstration-of-the-normal-distribution" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> A Simple Demonstration of the Normal Distribution<a href="norm-dist.html#a-simple-demonstration-of-the-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s consider the ‘empirical distribution’, which is the pattern your data set makes.</p>
-<p>Let’s consider UK births in 2020 for our example, since they’re a subject close to my heart (my first child was born in 2020).</p>
-<p>Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g ‘bins’.</p>
-<p>Source: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data</a></p>
+<p>Let’s consider births in England and Wales in 2020 for our example, since they’re a subject close to my heart (my first child was born in 2020).</p>
+<p>Looking online, one can pull down the distribution of birthweights in England and Wales in 2020, available from the ONS website, and which are reported in 500g ‘bins’ <span class="citation">(<a href="#ref-ons-births-2020">Office for National Statistics, 2021</a>)</span>.</p>
 <p>We can use these numbers to create a chart</p>
 <p>(please note, the code I use for the demonstrations in this lesson is mostly modified from David Spiegelhalter’s originals, available on his Github page, with some of my own bits and bobs and new data…)</p>
 <p>Spiegelhalter’s Github can be found here: <a href="https://github.com/dspiegel29/ArtofStatistics" class="uri">https://github.com/dspiegel29/ArtofStatistics</a></p>
-<p>The first thing I want to do is create a data set that accurately reflects the ONS distribution of UK birthweights in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.</p>
+<p>The first thing I want to do is create a data set that accurately reflects the ONS distribution of birthweights in England and Wales in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="norm-dist.html#cb6-1" tabindex="-1"></a>weights<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1500</span>, <span class="dv">2000</span>, <span class="dv">2500</span>, <span class="dv">3000</span>, <span class="dv">3500</span>, <span class="dv">4000</span>, <span class="dv">4500</span>,<span class="dv">5000</span>,<span class="dv">5500</span>) <span class="co">#modified</span></span>
 <span id="cb6-2"><a href="norm-dist.html#cb6-2" tabindex="-1"></a><span class="co">#categories from 2020 UK Data</span></span>
 <span id="cb6-3"><a href="norm-dist.html#cb6-3" tabindex="-1"></a>mids<span class="ot">=</span>weights<span class="dv">-250</span> <span class="co"># Note the DS original is +250, but this does not work for UK</span></span>
@@ -451,7 +451,7 @@ div.csl-indent {
 <p>Mathematically, around 95% of the area under the chart is between -2 and +2 SDs, and 99.7% between -3 and +3 SDs</p>
 <p>Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occuring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.</p>
 <p>We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594</p>
-<p>So, it is 95% probable that a random baby born in the UK in 2020 will weigh between 2189.745 and 4500.781g</p>
+<p>So, it is 95% probable that a random baby born in England and Wales in 2020 will weigh between 2189.745 and 4500.781g</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-34-1.png" alt="" width="672" /></p>
 <p>We can calculate how many SDs Monty’s weight was above the mean by calculating the z-score for his weight of 3912g.</p>
 <p>To do so, let’s return to the slide deck and see the calculation.</p>
@@ -472,7 +472,7 @@ div.csl-indent {
 <p>Most quantitative papers include a table of descriptive statistics: a mean and a standard deviation for every variable, sometimes with minimums, maximums, medians or skewness. It usually sits alongside the correlations in Table 1, and it’s usually skipped. The normal distribution in this chapter is the benchmark that makes that table readable. A mean and a standard deviation summarise a normal distribution almost perfectly. The further a variable is from normal, the less those two numbers tell you, and the more carefully you need to read them.</p>
 <div id="where-youll-meet-this-1" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Where you’ll meet this<a href="norm-dist.html#where-youll-meet-this-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Survey scales.</strong> Many management variables are averages of several Likert items, such as “strongly disagree” (1) to “strongly agree” (7). There’s a long-running argument about whether it’s legitimate to take means of these at all, since the gaps between the response options needn’t be equal. In practice, averages of several items usually behave well enough for the standard methods <span class="citation">(<a href="#ref-norman2010likert">Norman 2010</a>)</span>, but it’s worth reading the numbers in terms of the scale. A mean of 4 on a 1–7 scale could mean that everyone chose the neutral midpoint, or that half the sample strongly agreed and half strongly disagreed, and only the standard deviation will tell you which. Watch for means close to either end of the scale. A mean of 6.3 on a 1–7 scale, with a small standard deviation, means almost everyone gave nearly the same answer. There’s then very little variation for any other variable to explain, and correlations with that variable will be weaker than the underlying relationship because the range is so restricted.</p>
+<p><strong>Survey scales.</strong> Many management variables are averages of several Likert items, such as “strongly disagree” (1) to “strongly agree” (7). There’s a long-running argument about whether it’s legitimate to take means of these at all, since the gaps between the response options needn’t be equal. In practice, averages of several items usually behave well enough for the standard methods <span class="citation">(<a href="#ref-norman2010likert">Norman, 2010</a>)</span>, but it’s worth reading the numbers in terms of the scale. A mean of 4 on a 1–7 scale could mean that everyone chose the neutral midpoint, or that half the sample strongly agreed and half strongly disagreed, and only the standard deviation will tell you which. Watch for means close to either end of the scale. A mean of 6.3 on a 1–7 scale, with a small standard deviation, means almost everyone gave nearly the same answer. There’s then very little variation for any other variable to explain, and correlations with that variable will be weaker than the underlying relationship because the range is so restricted.</p>
 <p><strong>Skewed business variables.</strong> Plenty of the variables in management research are nothing like normal. Firm size, sales, executive pay, patents and citations are typically <em>right-skewed</em>: most firms are small, and a few are enormous. For variables like these the mean is dragged upwards by the largest cases and can be a poor guide to a typical firm. Where a paper reports both the mean and the median, compare them; a mean far above the median is the signature of right skew.</p>
 <p><strong>Logged variables.</strong> Because of that skew, papers often analyse the logarithm of a variable, as you’ll see Chapter <a href="assoc-rel.html#assoc-rel">5</a> do with GDP. The log pulls in the long right tail, and it changes what a coefficient means. When the predictor is logged, its coefficient describes the effect of a <em>proportional</em> change: roughly, a 1% increase in X goes with a change of the coefficient divided by 100 in Y. When the outcome is logged too, the coefficient becomes an <em>elasticity</em>: a 1% increase in X goes with a change of roughly the coefficient, in per cent, in Y. So check the variable descriptions for “ln” or “log” before interpreting any coefficient. Also check what was done about zeros, which can’t be logged. Many papers add 1 to every value first, and with count variables full of zeros, that choice can matter.</p>
 <p><strong>Normality checks.</strong> Papers sometimes report that variables were tested for normality and found wanting, or not. Two things are worth knowing. First, what ordinary regression actually assumes is roughly normal <em>errors</em> (residuals), not normally distributed variables. A skewed predictor isn’t a problem in itself. Second, in large samples formal tests of normality will flag departures far too small to matter. Skewness and kurtosis figures, or a plot, usually tell you more than a significance test does. Chapter <a href="causation.html#causation">4</a> shows one place where the shape of a distribution matters a great deal: some endogeneity corrections only work if the variable is clearly non-normal.</p>
@@ -496,16 +496,19 @@ div.csl-indent {
 </div>
 <div id="if-you-want-to-read-more-1" class="section level3 hasAnchor" number="3.3.5">
 <h3><span class="header-section-number">3.3.5</span> If you want to read more<a href="norm-dist.html#if-you-want-to-read-more-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Geoff Norman’s “Likert scales, levels of measurement and the ‘laws’ of statistics” <span class="citation">(<a href="#ref-norman2010likert">Norman 2010</a>)</span> is a short, punchy defence of using ordinary statistical methods on survey data. It takes the arguments against head on, so you can judge for yourself. It’ll equip you for the next time a reviewer, or a supervisor, tells you that you can’t take the mean of a Likert scale.</p>
+<p>Geoff Norman’s “Likert scales, levels of measurement and the ‘laws’ of statistics” <span class="citation">(<a href="#ref-norman2010likert">Norman, 2010</a>)</span> is a short, punchy defence of using ordinary statistical methods on survey data. It takes the arguments against head on, so you can judge for yourself. It’ll equip you for the next time a reviewer, or a supervisor, tells you that you can’t take the mean of a Likert scale.</p>
 <p>A condensed version of these questions, combined with those from the other chapters and arranged in the order you’d meet them when reading a paper, is in Appendix <a href="reader-guide.html#reader-guide">A</a>.</p>
 
 </div>
 </div>
 </div>
 <h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0" line-spacing="2">
 <div id="ref-norman2010likert" class="csl-entry">
-Norman, Geoff. 2010. <span>“Likert Scales, Levels of Measurement and the <span>‘Laws’</span> of Statistics.”</span> <em>Advances in Health Sciences Education</em> 15 (5): 625–32. <a href="https://doi.org/10.1007/s10459-010-9222-y">https://doi.org/10.1007/s10459-010-9222-y</a>.
+Norman, G. (2010). Likert scales, levels of measurement and the <span>“laws”</span> of statistics. <em>Advances in Health Sciences Education</em>, <em>15</em>(5), 625–632. <a href="https://doi.org/10.1007/s10459-010-9222-y">https://doi.org/10.1007/s10459-010-9222-y</a>
+</div>
+<div id="ref-ons-births-2020" class="csl-entry">
+Office for National Statistics. (2021, October 14). <em>Births in <span>England</span> and <span>Wales</span>: 2020</em>. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020</a>
 </div>
 </div>
             </section>

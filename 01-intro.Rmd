@@ -17,13 +17,9 @@ This Chapter is designed to work with Lecture 2.
 
 Here, I will demonstrate a number of important concepts about data displays and descriptions.
 
-First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
+First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center [-@jhu-crc] as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
 
-<https://coronavirus.jhu.edu/>
-
-However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their github:
-
-<https://github.com/CSSEGISandData/COVID-19>
+However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their GitHub [@jhu-csse-covid19].
 
 However, I do think it would be quite hard to recreate the exact snapshot in time of the data set we are using here.
 
@@ -138,7 +134,7 @@ Notice the language trap here. The risk went up by 19 *percent*, but by only abo
 
 Another way to say the same thing is to ask how many people would need to eat that extra slice for one extra case to appear. You might expect the answer to be 100, since we went from about 6 to about 7 in every 100. But the 7 was rounded. Nineteen percent of 6 is about 1.1, so the true figure is nearer 7.1 in 100, which means a little more than one extra case per 100 people. Turn that around, and it takes only about 90 people, each eating an extra slice of ham every day for the rest of their lives, for us to expect roughly one extra case of bowel cancer among them. (Epidemiologists call this the "number needed to harm.") That's a rough translation. It stretches a result from about six years of follow-up across a lifetime, and it treats the population's average risk as everyone's starting point. But it is the right order of magnitude, and it tells you far more than "19 percent" does.
 
-**Fourth, why the comparison with cigarettes?** Processed meat and tobacco sit in the same IARC category. But that category describes how *strong the evidence* is that something causes cancer, not how *large* the risk is [@iarc2015qa]. For smoking, the numbers are in a different universe. Roughly 1 in 100 lifelong non-smokers in the UK will get lung cancer, compared with more than 20 in 100 people who smoke a pack a day [@smc2015expert]. That's a relative risk of around 20, which, as you'll see in Chapter \@ref(causation), is the kind of number that is very hard to explain away by confounding. Nineteen percent is a relative risk of 1.19.
+**Fourth, why the comparison with cigarettes?** Processed meat and tobacco sit in the same IARC category. But that category describes how *strong the evidence* is that something causes cancer, not how *large* the risk is [@iarc2015qa]. For smoking, the numbers are in a different universe. Roughly 1 in 100 lifelong non-smokers in the UK will get lung cancer, compared with more than 20 in 100 people who smoke a pack a day, as David Spiegelhalter pointed out at the time [@smc2015expert]. That's a relative risk of around 20, which, as you'll see in Chapter \@ref(causation), is the kind of number that is very hard to explain away by confounding. Nineteen percent is a relative risk of 1.19.
 
 **Finally, whose risk is it?** Here it's worth holding two ideas at once. For me, one extra case per 90 or so lifelong ham-eaters is a small risk, and I'm entitled to weigh it against how much I like a ham sandwich. The numbers can't tell me how to make that trade. But across a whole country, small individual risks add up: Cancer Research UK estimates that around 13 percent of UK bowel cancer cases are caused by eating processed meat [@cruk2026bowel]. "Trivial for me" and "important for public health" can both be true, and a lot of confused arguments come from people talking about one while the other person is thinking about the other.
 
@@ -251,7 +247,7 @@ bp + geom_jitter(color="black", size=0.4, alpha=0.9)
 
 ```
 
-So, we can see here that most of the data is clustered towards the bottom of the range - i.e. very low GDPph. This is of course the same conclusion as the historgram allowed us to draw. But, the box plot also gives us plenty of *other* information about the variable.
+So, we can see here that most of the data is clustered towards the bottom of the range - i.e. very low GDPph. This is of course the same conclusion as the histogram allowed us to draw. But, the box plot also gives us plenty of *other* information about the variable.
 
 Even so, while box plots are nice, they can also obscure important facts about the distribution. Adding the jitter helps, but there are other ways to display this type of data that make the distribution more obvious.
 
@@ -280,44 +276,31 @@ data %>%
 
 ```
 
-That's all very well, but as we know, this can obsure the distribution. So, let's add jitter:
+That's all very well, but as we know, this can obscure the distribution. So, let's add jitter:
 
 ```{r}
-
-
-# create a dataset
-data <- data.frame(
-  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
-  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
-)
 
 # Plot
 data %>%
   ggplot( aes(x=name, y=value, fill=name)) +
     geom_boxplot() +
     scale_fill_viridis(discrete = TRUE, alpha=0.6) +
-    geom_jitter(color="black", size=0.4, alpha=0.9) 
+    geom_jitter(color="black", size=0.4, alpha=0.9)
 
 ```
 
 Well, look at that. B has what is called a *bimodal* distribution.
 
-Lets look at what is called a **violin plot** to emphasize this:
+Let's look at what is called a **violin plot** to emphasize this:
 
 ```{r}
-
-# create a dataset
-data <- data.frame(
-  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
-  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
-)
 
 # Plot
 data %>%
   ggplot( aes(x=name, y=value, fill=name)) +
     geom_violin() +
-    scale_fill_viridis(discrete = TRUE, alpha=0.6) 
-    
+    scale_fill_viridis(discrete = TRUE, alpha=0.6)
+
 
 ```
 
@@ -327,18 +310,11 @@ Another way to visualize this is with **ridges**, which basically compare the di
 
 ```{r}
 
-
-# create a dataset
-data <- data.frame(
-  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
-  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
-)
-
 # Plot
 data %>%
   ggplot( aes(x=value, y=name, fill=name)) +
     geom_density_ridges()
-    
+
 
 ```
 

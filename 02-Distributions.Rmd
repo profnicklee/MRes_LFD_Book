@@ -11,11 +11,9 @@ This chapter supplements the content in Lecture 3.
 
 First, let's consider the 'empirical distribution', which is the pattern your data set makes.
 
-Let's consider UK births in 2020 for our example, since they're a subject close to my heart (my first child was born in 2020).
+Let's consider births in England and Wales in 2020 for our example, since they're a subject close to my heart (my first child was born in 2020).
 
-Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g 'bins'.
-
-Source: https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data
+Looking online, one can pull down the distribution of birthweights in England and Wales in 2020, available from the ONS website, and which are reported in 500g 'bins' [@ons-births-2020].
 
 We can use these numbers to create a chart
 
@@ -23,7 +21,7 @@ We can use these numbers to create a chart
 
 Spiegelhalter's Github can be found here: https://github.com/dspiegel29/ArtofStatistics
 
-The first thing I want to do is create a data set that accurately reflects the ONS distribution of UK birthweights in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.
+The first thing I want to do is create a data set that accurately reflects the ONS distribution of birthweights in England and Wales in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.
 
 
 ```{r, echo=TRUE}
@@ -156,7 +154,7 @@ Now, another way to think about this is that the area under the normal curve rep
 
 We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594
 
-So, it is 95% probable that a random baby born in the UK in 2020 will weigh between 2189.745 and 4500.781g
+So, it is 95% probable that a random baby born in England and Wales in 2020 will weigh between 2189.745 and 4500.781g
 
 ```{r}
 # (b)   plot with sds  

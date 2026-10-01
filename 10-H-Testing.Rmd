@@ -73,7 +73,7 @@ Chi-square is a fantastically versatile statistic, which is often used to compar
 
 Again, much of the idea and code for this section comes from: <https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html>
 
-The data comes from: <https://www.football-data.co.uk/englandm.php> and is the EPL results for 21-22 Season, with a new column of Total Goals (TOTG) created by me in Excel.
+The data are the EPL results for the 2021–22 season, from Football-Data.co.uk [-@football-data-epl], with a new column of Total Goals (TOTG) created by me in Excel.
 
 ```{r}
 EPL<-read_excel("Data/EPL21-22.xlsx")

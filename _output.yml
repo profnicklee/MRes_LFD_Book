@@ -12,6 +12,7 @@ bookdown::pdf_book:
   includes:
     in_header: preamble.tex
   latex_engine: xelatex
-  citation_package: natbib
+  citation_package: default
   keep_tex: yes
+  pandoc_args: ["--metadata", "reference-section-title=References"]
 bookdown::bs4_book: default

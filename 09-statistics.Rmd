@@ -76,7 +76,7 @@ Note: This is not the same as bootstrapping - we are *not* sampling with replace
 
 Remember the ping-pong balls I used in class to demonstrate!
 
-Let's do it - the code below is adapted from a GeeksforGeeks tutorial: <https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/>
+Let's do it - the calculation below is adapted from a GeeksforGeeks tutorial: <https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/>
 
 ```{r}
 ##code modified from: https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/
@@ -270,7 +270,7 @@ One thing to remember though is the 'law of large numbers' here. You might notic
 
 ## Rate of Change in Football Goals per Season
 
-In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \@ref(probability). Here, I'm using data from <https://www.footballhistory.org/league/premier-league-statistics.html>
+In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \@ref(probability). Here, I'm using data from footballhistory.org [-@footballhistory-epl].
 
 I hand-entered this into a spreadsheet, and calculated the additional stuff.
 
@@ -304,13 +304,11 @@ From this chart, and looking at the data itself, we can see that the 95% Interva
 
 The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.
 
-In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \@ref(probability): https://www.premierleague.com/news/4016793
+In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \@ref(probability) [-@pl-goals-news].
 
-This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which *directly tests the hypothesis* that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
+This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test [@ons-homicide-2016], which *directly tests the hypothesis* that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
 
-See: <https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides>
-
-The z-test is simply explained in the linked article from the BMJ: <https://www.bmj.com/content/332/7552/1256>
+The z-test is simply explained in a short BMJ article [@pocock2006simplest].
 
 It links us nicely to the next lesson, because it is aiming to test a *specific hypothesis* that the difference is zero...
 

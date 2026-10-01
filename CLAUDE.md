@@ -16,6 +16,8 @@ These override generic textbook convention wherever the two conflict.
 
 2. **Numerical differences between book and slides are intentional.** Simulation chapters reseed on every render, so the numbers legitimately differ from the lecture slides. Never "fix" this. `05-estimation.Rmd` (Ch 6) and the "How this book works" section in `index.Rmd` already flag it to students. Refer to files by name, not chapter number, so the reference can't drift after renumbering.
 
+   Because simulations aren't seeded, some figures change on every render: Ch 2's simulated box, violin and ridge plots, and every `geom_jitter` plot, for example. In a scoped commit, restore changed figure PNGs from `HEAD` unless the commit changed the chunk that draws them. The clean full render before a merge commits them all. Never add a seed to stop this churn.
+
 3. **Acknowledge scepticism rather than deflecting it.** When students challenge something — bootstrapping, arbitrary thresholds, the nil hypothesis — the honest, self-aware answer builds more credibility than a defensive one. If a step genuinely is a bit redundant, say so.
 
 4. **Decision rules are heuristics, not laws.** The book is consistently critical of `p < 0.05` fetishism, significance stars, and "marginally significant". Do not soften this into conventional hedging. Do not add "however, the 0.05 threshold is widely accepted" style qualifications.
@@ -53,7 +55,7 @@ Budget is roughly 600–900 words, and up to about 1,500 for heavy chapters. Cau
 
 **Conceptual explanation belongs in the chapter body.** Reader sections focus on the methods readers will meet in papers. If a reader section needs a conceptual explanation to work, put that explanation in the body and link to it.
 
-The reader-guide appendix is `14-reader-guide.Rmd` (`{#reader-guide}`, lettered via `# (APPENDIX) Appendix {-}`). It condenses the reader-section questions into a 30-item checklist in paper order (design and sample, measures, descriptives and correlations, main results, robustness, discussion and claims), each linking to the relevant `-reading` sections. It currently builds after `13-references.Rmd` because of alphabetical file order; chapter and appendix order is to be revisited in Part Five.
+The reader-guide appendix is `13-reader-guide.Rmd` (`{#reader-guide}`, lettered via `# (APPENDIX) Appendix {-}`). It condenses the reader-section questions into a 30-item checklist in paper order (design and sample, measures, descriptives and correlations, main results, robustness, discussion and claims), each linking to the relevant `-reading` sections. It builds before `14-references.Rmd`, so the References page is last.
 
 Existing models: Ch 2 `{#intro-reading}`, Ch 3 `{#norm-dist-reading}`, Ch 4 `{#causation-reading}`, Ch 5 `{#assoc-rel-reading}`, Ch 7 `{#bootstrap-reading}`, Ch 8 `{#t-test-reading}`, Ch 10 `{#statistics-reading}`, Ch 11 `{#H-testing-reading}`, Ch 12 `{#ANOVA-reading}`, Ch 13 `{#issues-reading}`.
 
@@ -71,7 +73,9 @@ Ch 6 and Ch 9 have no reader sections: Ch 6 folds into Ch 10, Ch 9 into Ch 11.
 
 - **Verify technical claims as well as citations.** Compressed one-line descriptions of methods are where errors creep in.
 - **Check every new reference against a primary source** before it is committed. Flag anything unverified to Nick at the stop point.
-- **Web sources** carry an access date.
+- **Web sources** record an access date in `urldate`. Web sources are `@online`, with `url` (never `howpublished = {\url{…}}`) and `urldate`. APA 7 prints a retrieval date only where the style calls for one. Undated sources omit `year`; the style prints "n.d.". APA sentence-cases titles, so brace-protect each proper noun and acronym individually (`{England}`, `{NBA}`). Neither `note` nor `annote` prints under apa.csl. Keep internal material in `annote`. Anything readers need goes in a field the style prints (for example a full `date` for web pages and news items) or in the prose.
+- **Cite with `[@key]`, never hard-coded.** A source counts as cited only when the text cites it by key: that is what puts it in the chapter's own reference list and in the consolidated list on the References page. Hard-coded author–year citations and uncited named sources are not allowed. A `book.bib` entry that nothing cites by key produces nothing in the book, so at every stop point list any keys not cited by key anywhere and report them. "Verified by grep" means grepping for citation keys in all pandoc forms (`[@key]`, `[-@key]` and narrative `@key`), not for author names.
+- **When the prose names a source's author immediately before citing it, use `[-@key]`** so the name isn't printed twice.
 
 ## Build
 
@@ -82,6 +86,10 @@ bookdown::render_book('index.Rmd', 'bookdown::gitbook')
 **Nothing is done until the book builds.** Chapters run live R against files in `Data/`, so a change that reads correctly can still fail at knit time. Always render before committing.
 
 Preview locally — open `docs/index.html`, or run `servr::httw("docs")` in R for an exact replica of the published site with working search. **Do not deploy.**
+
+**The PDF is a separate build**, offered as a download from the site, so rebuild it before every merge: `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')` (XeLaTeX). `preamble.tex` sets `\tracinglostchars=3`, so any character the font lacks stops the build rather than silently vanishing. The fix is a `newunicodechar` mapping in `preamble.tex`, not a prose edit. When auditing characters, check the generated `docs/LFD.tex` as well as the `.Rmd` files: R output (for example skimr's sparkline histograms) introduces characters that appear in no source file.
+
+Both formats use pandoc citeproc with `apa.csl` (APA 7th, vendored from the CSL styles repository at commit `32078ede`). The PDF prints one consolidated References chapter after the appendix; its heading comes from `reference-section-title`, set in `pdf_book`'s `pandoc_args`. Per-chapter lists exist only in the HTML. **Render `pdf_book` first and `gitbook` last.** The PDF render empties `docs/reference-keys.txt`, and the gitbook render regenerates it.
 
 ## Git
 
@@ -95,7 +103,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 - **Report before committing**: placement, render results, cross-references, citations, and anything that didn't match the handover. Wait for Nick's go-ahead.
 - One commit per handover, with a descriptive message, so Nick can review and revert selectively.
 - **Merging a part branch.**
-  1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it.
+  1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it. This "clean full render" covers both targets: `bookdown::gitbook` and `bookdown::pdf_book` — rebuild the PDF too, not just the HTML.
   2. Nick merges on GitHub using "Create a merge commit", not squash, so the per-handover commits stay revertible.
   3. After the merge, pull `main`, tag the result `v2026-partN`, and push the tag.
   4. Delete the branch with `git branch -d` and `git push origin --delete`. Use `-d`, never `-D`, so git refuses if anything is unmerged.
@@ -106,12 +114,12 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 ```
 index.Rmd              Front matter + Chapter 1
 NN-*.Rmd               Chapter files (see map below)
-13-references.Rmd      References
-14-reader-guide.Rmd    Appendix A: reader's checklist ({#reader-guide})
+13-reader-guide.Rmd    Appendix A: reader's checklist ({#reader-guide})
+14-references.Rmd      References (HTML only; consolidated reference list)
 _bookdown.yml          book_filename, output_dir: "docs"
 _output.yml            gitbook config, TOC, edit link, download formats
 style.css, toc.css     Styling
-book.bib, packages.bib Bibliography
+book.bib               Bibliography
 preamble.tex           LaTeX preamble (pdf_book only)
 Data/                  All .xlsx data files
 docs/                  Committed build output — served by Pages
