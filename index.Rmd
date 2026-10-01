@@ -6,8 +6,7 @@ site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book
 bibliography: [book.bib]
-biblio-style: apalike
-biblio-title: References
+csl: apa.csl
 link-citations: yes
 github-repo: profnicklee/MRes_LFD_Book
 description: "This book contains the examples and notes for the WBS MRes Learning From Data Course."

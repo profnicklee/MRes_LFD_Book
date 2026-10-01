@@ -71,7 +71,7 @@ Ch 6 and Ch 9 have no reader sections: Ch 6 folds into Ch 10, Ch 9 into Ch 11.
 
 - **Verify technical claims as well as citations.** Compressed one-line descriptions of methods are where errors creep in.
 - **Check every new reference against a primary source** before it is committed. Flag anything unverified to Nick at the stop point.
-- **Web sources** carry an access date. Web sources carry both `note = {Accessed D Month YYYY}` and `urldate = {YYYY-MM-DD}`. The PDF (natbib apalike) prints the `note`. The HTML's default Chicago author-date CSL prints neither, so access dates currently appear only in the PDF; changing the HTML citation style is an open item.
+- **Web sources** carry an access date. Web sources are `@online`, with `url` (never `howpublished = {\url{…}}`) and `urldate`. APA 7 prints a retrieval date only where the style calls for one. Undated sources omit `year`; the style prints "n.d.". APA sentence-cases titles, so brace-protect each proper noun and acronym individually (`{England}`, `{NBA}`). Neither `note` nor `annote` prints under apa.csl. Keep internal material in `annote`. Anything readers need goes in a field the style prints (for example a full `date` for web pages and news items) or in the prose.
 - **Cite with `[@key]`, never hard-coded.** A source counts as cited only when the text cites it by key: that is what puts it in the chapter's own reference list and in the consolidated list on the References page. Hard-coded author–year citations and uncited named sources are not allowed. A `book.bib` entry that nothing cites by key produces nothing in the book, so at every stop point list any keys not cited by key anywhere and report them. "Verified by grep" means grepping for the `[@key]` form.
 - **When the prose names a source's author immediately before citing it, use `[-@key]`** so the name isn't printed twice.
 
@@ -85,9 +85,9 @@ bookdown::render_book('index.Rmd', 'bookdown::gitbook')
 
 Preview locally — open `docs/index.html`, or run `servr::httw("docs")` in R for an exact replica of the published site with working search. **Do not deploy.**
 
-**The PDF is a separate build**, offered as a download from the site, so rebuild it before every merge: `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')` (XeLaTeX). `preamble.tex` sets `\tracinglostchars=3`, so any character the font lacks stops the build rather than silently vanishing. The fix is a `newunicodechar` mapping in `preamble.tex`, not a prose edit. When auditing characters, check the generated `docs/LFD.tex` as well as the `.Rmd` files: R output (for example skimr's sparkline histograms) introduces characters that appear in no source file. A standalone `pdf_book` render empties `docs/reference-keys.txt`. Restore it with `git checkout -- docs/reference-keys.txt` before committing, and never commit it empty.
+**The PDF is a separate build**, offered as a download from the site, so rebuild it before every merge: `bookdown::render_book('index.Rmd', 'bookdown::pdf_book')` (XeLaTeX). `preamble.tex` sets `\tracinglostchars=3`, so any character the font lacks stops the build rather than silently vanishing. The fix is a `newunicodechar` mapping in `preamble.tex`, not a prose edit. When auditing characters, check the generated `docs/LFD.tex` as well as the `.Rmd` files: R output (for example skimr's sparkline histograms) introduces characters that appear in no source file.
 
-In the PDF, natbib prints one consolidated bibliography, titled References, after the appendix. Per-chapter lists exist only in the HTML.
+Both formats use pandoc citeproc with `apa.csl` (APA 7th, vendored from the CSL styles repository at commit `32078ede`). The PDF prints one consolidated References chapter after the appendix; its heading comes from `reference-section-title`, set in `pdf_book`'s `pandoc_args`. Per-chapter lists exist only in the HTML. **Render `pdf_book` first and `gitbook` last.** The PDF render empties `docs/reference-keys.txt`, and the gitbook render regenerates it.
 
 ## Git
 

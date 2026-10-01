@@ -102,11 +102,42 @@
 % Set default figure placement to htbp
 \def\fps@figure{htbp}
 \makeatother
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\usepackage[]{natbib}
-\bibliographystyle{apalike}
 \usepackage{booktabs}
 \usepackage{amsthm}
 \makeatletter
@@ -151,14 +182,6 @@
 \newunicodechar{▆}{\sparkbar{0.6em}}
 \newunicodechar{▇}{\sparkbar{0.7em}}
 \newunicodechar{█}{\sparkbar{0.8em}}
-
-% --- References in the PDF ToC and bookmarks (Part 5.3) ---------------
-% natbib's \bibsection sets the bibliography's unnumbered heading; by
-% default it doesn't add a ToC/bookmark entry. tocbibind patches
-% \bibsection (when natbib is loaded) to add one. nottoc/notlot/notlof
-% suppress the ToC/LoF/LoT entries tocbibind would otherwise also add
-% for themselves -- we only want the bibliography entry.
-\usepackage[nottoc,notlot,notlof]{tocbibind}
 \usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
@@ -235,7 +258,7 @@ Several chapters end with a section called \textbf{Reading the literature}, and 
 
 \subsection{Further reading and references}\label{further-reading-and-references}
 
-Chapters often end with a few suggestions for further reading, chosen for people who want to understand the ideas rather than become specialists. One book has had a particularly big influence on how I teach much of this material: David Spiegelhalter's \emph{The Art of Statistics} \citep{spiegelhalter2019art}. If you read one book alongside this one, that I didn't write myself \citep{lee2008doing}, make it that. Each chapter also lists the references it cites at its end, so you can follow up anything that interests you.
+Chapters often end with a few suggestions for further reading, chosen for people who want to understand the ideas rather than become specialists. One book has had a particularly big influence on how I teach much of this material: David Spiegelhalter's \emph{The Art of Statistics} (\citeproc{ref-spiegelhalter2019art}{Spiegelhalter, 2019}). If you read one book alongside this one, that I didn't write myself (\citeproc{ref-lee2008doing}{N. Lee \& Lings, 2008}), make it that. Each chapter also lists the references it cites at its end, so you can follow up anything that interests you.
 
 Please enjoy the book, and learn from it.
 
@@ -247,9 +270,9 @@ This Chapter is designed to work with Lecture 2.
 
 Here, I will demonstrate a number of important concepts about data displays and descriptions.
 
-First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center \citeyearpar{jhu-crc} as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
+First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center (\citeproc{ref-jhu-crc}{n.d.}) as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
 
-However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their GitHub \citep{jhu-csse-covid19}.
+However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their GitHub (\citeproc{ref-jhu-csse-covid19}{Johns Hopkins University Center for Systems Science and Engineering, 2023}).
 
 However, I do think it would be quite hard to recreate the exact snapshot in time of the data set we are using here.
 
@@ -295,13 +318,13 @@ While we're at it, we'll also look at pie charts\ldots{}
 
 Everything so far in this chapter has been about pictures that mislead: axes that start in the wrong place, baselines chosen to flatter. The same trick works with numbers alone, and it's arguably more dangerous, because a number feels more objective than a picture. The example I use in the lecture is one I have a personal stake in.
 
-A few years ago a set of headlines did the rounds suggesting that bacon, ham and sausages belonged in the same bracket as cigarettes. The research behind the most recent wave was a good study, in a good journal, using the UK Biobank, a huge and genuinely excellent dataset \citep{bradbury2020diet}. Its headline finding was that each extra 25 grams of processed meat a day was associated with a 19 percent higher risk of bowel (colorectal) cancer. I ate a ham sandwich pretty much every day for years, and as a parent I wanted to know whether I should care what my kids ate. So I did what I think anyone reading research should do, and worked through it step by step.
+A few years ago a set of headlines did the rounds suggesting that bacon, ham and sausages belonged in the same bracket as cigarettes. The research behind the most recent wave was a good study, in a good journal, using the UK Biobank, a huge and genuinely excellent dataset (\citeproc{ref-bradbury2020diet}{Bradbury et al., 2020}). Its headline finding was that each extra 25 grams of processed meat a day was associated with a 19 percent higher risk of bowel (colorectal) cancer. I ate a ham sandwich pretty much every day for years, and as a parent I wanted to know whether I should care what my kids ate. So I did what I think anyone reading research should do, and worked through it step by step.
 
 \textbf{First, is the amount realistic?} The authors helpfully translate 25 grams into about one rasher of bacon or one slice of ham. That's not an absurd dose like the ones behind some food scares. Plenty of people eat that much, so this is worth taking seriously.
 
-\textbf{Second, is it causal?} This is a correlational study, and Chapter \ref{causation} will give you a whole toolkit for worrying about that. Maybe heavy processed-meat eaters also drink more, or move less, or eat fewer vegetables. The authors adjusted for a long list of such factors, and the association survived. More importantly, it sits within a much larger body of evidence that led the International Agency for Research on Cancer to classify processed meat as a cause of bowel cancer \citep{bouvard2015carcinogenicity}. So let's accept that the link is probably real.
+\textbf{Second, is it causal?} This is a correlational study, and Chapter \ref{causation} will give you a whole toolkit for worrying about that. Maybe heavy processed-meat eaters also drink more, or move less, or eat fewer vegetables. The authors adjusted for a long list of such factors, and the association survived. More importantly, it sits within a much larger body of evidence that led the International Agency for Research on Cancer to classify processed meat as a cause of bowel cancer (\citeproc{ref-bouvard2015carcinogenicity}{{Bouvard et al.}, 2015}). So let's accept that the link is probably real.
 
-\textbf{Third, 19 percent of what?} This is the question the headlines skipped. A 19 percent increase is a \emph{relative} risk: it tells you how much your existing risk goes up, not what your risk is. To turn it into something you can use, you need the \emph{base rate}. In the UK, roughly 1 in 17 men and 1 in 20 women will be diagnosed with bowel cancer in their lifetime \citep{cruk2026bowel}, so call it about 6 in every 100 people. Add 19 percent to 6 and you get a little over 7. In \emph{absolute} terms, then, the extra daily slice moves you from about 6 in 100 to about 7 in 100, as Figure \ref{fig:risk-icon-array} shows.
+\textbf{Third, 19 percent of what?} This is the question the headlines skipped. A 19 percent increase is a \emph{relative} risk: it tells you how much your existing risk goes up, not what your risk is. To turn it into something you can use, you need the \emph{base rate}. In the UK, roughly 1 in 17 men and 1 in 20 women will be diagnosed with bowel cancer in their lifetime (\citeproc{ref-cruk2026bowel}{Cancer Research UK, 2026}), so call it about 6 in every 100 people. Add 19 percent to 6 and you get a little over 7. In \emph{absolute} terms, then, the extra daily slice moves you from about 6 in 100 to about 7 in 100, as Figure \ref{fig:risk-icon-array} shows.
 
 \begin{figure}
 \centering
@@ -313,9 +336,9 @@ Notice the language trap here. The risk went up by 19 \emph{percent}, but by onl
 
 Another way to say the same thing is to ask how many people would need to eat that extra slice for one extra case to appear. You might expect the answer to be 100, since we went from about 6 to about 7 in every 100. But the 7 was rounded. Nineteen percent of 6 is about 1.1, so the true figure is nearer 7.1 in 100, which means a little more than one extra case per 100 people. Turn that around, and it takes only about 90 people, each eating an extra slice of ham every day for the rest of their lives, for us to expect roughly one extra case of bowel cancer among them. (Epidemiologists call this the ``number needed to harm.'') That's a rough translation. It stretches a result from about six years of follow-up across a lifetime, and it treats the population's average risk as everyone's starting point. But it is the right order of magnitude, and it tells you far more than ``19 percent'' does.
 
-\textbf{Fourth, why the comparison with cigarettes?} Processed meat and tobacco sit in the same IARC category. But that category describes how \emph{strong the evidence} is that something causes cancer, not how \emph{large} the risk is \citep{iarc2015qa}. For smoking, the numbers are in a different universe. Roughly 1 in 100 lifelong non-smokers in the UK will get lung cancer, compared with more than 20 in 100 people who smoke a pack a day \citep{smc2015expert}. That's a relative risk of around 20, which, as you'll see in Chapter \ref{causation}, is the kind of number that is very hard to explain away by confounding. Nineteen percent is a relative risk of 1.19.
+\textbf{Fourth, why the comparison with cigarettes?} Processed meat and tobacco sit in the same IARC category. But that category describes how \emph{strong the evidence} is that something causes cancer, not how \emph{large} the risk is (\citeproc{ref-iarc2015qa}{International Agency for Research on Cancer, 2015}). For smoking, the numbers are in a different universe. Roughly 1 in 100 lifelong non-smokers in the UK will get lung cancer, compared with more than 20 in 100 people who smoke a pack a day, as David Spiegelhalter pointed out at the time (\citeproc{ref-smc2015expert}{Science Media Centre, 2015}). That's a relative risk of around 20, which, as you'll see in Chapter \ref{causation}, is the kind of number that is very hard to explain away by confounding. Nineteen percent is a relative risk of 1.19.
 
-\textbf{Finally, whose risk is it?} Here it's worth holding two ideas at once. For me, one extra case per 90 or so lifelong ham-eaters is a small risk, and I'm entitled to weigh it against how much I like a ham sandwich. The numbers can't tell me how to make that trade. But across a whole country, small individual risks add up: Cancer Research UK estimates that around 13 percent of UK bowel cancer cases are caused by eating processed meat \citep{cruk2026bowel}. ``Trivial for me'' and ``important for public health'' can both be true, and a lot of confused arguments come from people talking about one while the other person is thinking about the other.
+\textbf{Finally, whose risk is it?} Here it's worth holding two ideas at once. For me, one extra case per 90 or so lifelong ham-eaters is a small risk, and I'm entitled to weigh it against how much I like a ham sandwich. The numbers can't tell me how to make that trade. But across a whole country, small individual risks add up: Cancer Research UK estimates that around 13 percent of UK bowel cancer cases are caused by eating processed meat (\citeproc{ref-cruk2026bowel}{Cancer Research UK, 2026}). ``Trivial for me'' and ``important for public health'' can both be true, and a lot of confused arguments come from people talking about one while the other person is thinking about the other.
 
 It's also worth knowing that an average can hide a lot. In the Biobank study, the association with processed meat showed up in men but not in women. A single headline number describes a population, not a person, and certainly not you.
 
@@ -494,7 +517,7 @@ The bacon example comes from medicine, but the trap it illustrates is everywhere
 
 All three are relative numbers, so all three need a base rate before they mean anything. A hazard ratio of 1.5 for employee turnover means one thing if the baseline is 30 percent a year and something much smaller if it's 1 percent.
 
-Odds ratios need one extra warning. When the outcome is rare, an odds ratio and a relative risk are almost the same, which is why people swap them freely. When the outcome is common, which many management outcomes are, the odds ratio exaggerates. You've just seen it happen: the same turnover figures give a relative risk of 1.25 but an odds ratio of 1.5. The number that sounds bigger is usually the one that gets reported \citep{zhang1998relative}.
+Odds ratios need one extra warning. When the outcome is rare, an odds ratio and a relative risk are almost the same, which is why people swap them freely. When the outcome is common, which many management outcomes are, the odds ratio exaggerates. You've just seen it happen: the same turnover figures give a relative risk of 1.25 but an odds ratio of 1.5. The number that sounds bigger is usually the one that gets reported (\citeproc{ref-zhang1998relative}{Zhang \& Yu, 1998}).
 
 \textbf{Percent versus percentage points.} Conversion rates, response rates, market shares and turnover rates are all percentages already, so changes in them can be described either way. A conversion rate going from 2 to 3 percent is a one-point increase and a 50 percent increase. Both are true, and a paper (or a consultant's slide deck) will usually pick whichever sounds better for the argument being made.
 
@@ -531,7 +554,7 @@ The abstract that reports only the relative effect: ``increased the likelihood o
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more}
 
-David Spiegelhalter's \emph{The Art of Statistics} \citep{spiegelhalter2019art} is the best general book I know on reading numbers sensibly, and it was Spiegelhalter's explanation of the bacon story that first got me thinking about it properly. Gerd Gigerenzer's \emph{Reckoning with Risk} \citep{gigerenzer2002reckoning} is older but still the classic on why relative risks mislead, and on how much clearer things get once you switch to natural frequencies like ``7 in 100.''
+David Spiegelhalter's \emph{The Art of Statistics} (\citeproc{ref-spiegelhalter2019art}{Spiegelhalter, 2019}) is the best general book I know on reading numbers sensibly, and it was Spiegelhalter's explanation of the bacon story that first got me thinking about it properly. Gerd Gigerenzer's \emph{Reckoning with Risk} (\citeproc{ref-gigerenzer2002reckoning}{Gigerenzer, 2002}) is older but still the classic on why relative risks mislead, and on how much clearer things get once you switch to natural frequencies like ``7 in 100.''
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -545,7 +568,7 @@ First, let's consider the `empirical distribution', which is the pattern your da
 
 Let's consider births in England and Wales in 2020 for our example, since they're a subject close to my heart (my first child was born in 2020).
 
-Looking online, one can pull down the distribution of birthweights in England and Wales in 2020, available from the ONS website, and which are reported in 500g `bins' \citep{ons-births-2020}.
+Looking online, one can pull down the distribution of birthweights in England and Wales in 2020, available from the ONS website, and which are reported in 500g `bins' (\citeproc{ref-ons-births-2020}{Office for National Statistics, 2021}).
 
 We can use these numbers to create a chart
 
@@ -702,7 +725,7 @@ Most quantitative papers include a table of descriptive statistics: a mean and a
 
 \subsection{Where you'll meet this}\label{where-youll-meet-this-1}
 
-\textbf{Survey scales.} Many management variables are averages of several Likert items, such as ``strongly disagree'' (1) to ``strongly agree'' (7). There's a long-running argument about whether it's legitimate to take means of these at all, since the gaps between the response options needn't be equal. In practice, averages of several items usually behave well enough for the standard methods \citep{norman2010likert}, but it's worth reading the numbers in terms of the scale. A mean of 4 on a 1--7 scale could mean that everyone chose the neutral midpoint, or that half the sample strongly agreed and half strongly disagreed, and only the standard deviation will tell you which. Watch for means close to either end of the scale. A mean of 6.3 on a 1--7 scale, with a small standard deviation, means almost everyone gave nearly the same answer. There's then very little variation for any other variable to explain, and correlations with that variable will be weaker than the underlying relationship because the range is so restricted.
+\textbf{Survey scales.} Many management variables are averages of several Likert items, such as ``strongly disagree'' (1) to ``strongly agree'' (7). There's a long-running argument about whether it's legitimate to take means of these at all, since the gaps between the response options needn't be equal. In practice, averages of several items usually behave well enough for the standard methods (\citeproc{ref-norman2010likert}{Norman, 2010}), but it's worth reading the numbers in terms of the scale. A mean of 4 on a 1--7 scale could mean that everyone chose the neutral midpoint, or that half the sample strongly agreed and half strongly disagreed, and only the standard deviation will tell you which. Watch for means close to either end of the scale. A mean of 6.3 on a 1--7 scale, with a small standard deviation, means almost everyone gave nearly the same answer. There's then very little variation for any other variable to explain, and correlations with that variable will be weaker than the underlying relationship because the range is so restricted.
 
 \textbf{Skewed business variables.} Plenty of the variables in management research are nothing like normal. Firm size, sales, executive pay, patents and citations are typically \emph{right-skewed}: most firms are small, and a few are enormous. For variables like these the mean is dragged upwards by the largest cases and can be a poor guide to a typical firm. Where a paper reports both the mean and the median, compare them; a mean far above the median is the signature of right skew.
 
@@ -735,7 +758,7 @@ Check the descriptives for a standard deviation that's bigger than the mean, on 
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-1}
 
-Geoff Norman's ``Likert scales, levels of measurement and the `laws' of statistics'' \citep{norman2010likert} is a short, punchy defence of using ordinary statistical methods on survey data. It takes the arguments against head on, so you can judge for yourself. It'll equip you for the next time a reviewer, or a supervisor, tells you that you can't take the mean of a Likert scale.
+Geoff Norman's ``Likert scales, levels of measurement and the `laws' of statistics'' (\citeproc{ref-norman2010likert}{Norman, 2010}) is a short, punchy defence of using ordinary statistical methods on survey data. It takes the arguments against head on, so you can judge for yourself. It'll equip you for the next time a reviewer, or a supervisor, tells you that you can't take the mean of a Likert scale.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -763,21 +786,21 @@ By the late 1950s, the evidence linking smoking to lung cancer was overwhelming 
 
 And yet Ronald Fisher --- one of the most important statisticians who ever lived, a genuine giant of the field --- spent his final years arguing, in print, that this proved nothing about causation. His alternative: some unmeasured (e.g.~genetic) factor might make a person both more likely to smoke \emph{and} more likely to develop lung cancer. That would mean no causal arrow between smoking and cancer at all --- just two effects of the same hidden cause. Fisher wasn't a crank. He was applying a rule this whole chapter is going to keep insisting on: correlation isn't causation, and a third variable can produce exactly this pattern. He was right that it \emph{could}.
 
-Jerome Cornfield's answer wasn't to argue Fisher's logic was wrong, because it wasn't. But to ask a sharper question: \emph{how big would this hidden factor have to be?} For a confounder to fully explain away a ninefold relationship, it isn't enough for it to be loosely associated with smoking and loosely associated with cancer. It has to be at least as strongly tied to smoking as smoking is to cancer, \emph{and} at least as strongly tied to cancer as smoking is to cancer \citep{cornfield1959}. Both bars, not one. Let's look at this visually.
+Jerome Cornfield's answer wasn't to argue Fisher's logic was wrong, because it wasn't. But to ask a sharper question: \emph{how big would this hidden factor have to be?} For a confounder to fully explain away a ninefold relationship, it isn't enough for it to be loosely associated with smoking and loosely associated with cancer. It has to be at least as strongly tied to smoking as smoking is to cancer, \emph{and} at least as strongly tied to cancer as smoking is to cancer (\citeproc{ref-cornfield1959}{Cornfield et al., 1959}). Both bars, not one. Let's look at this visually.
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-39-1.pdf}}
 
 Below and to the left of both dashed lines, a candidate confounder simply can't do the job --- it isn't strongly enough tied to \emph{both} smoking and cancer to produce a ninefold relationship on its own. Above and to the right of both, it isn't mathematically ruled out --- but now you have to actually name a real factor that's this strongly linked to becoming a smoker \emph{and} this strongly linked to cancer, independently of smoking itself.
 
-Here's what happens when you actually go looking. The closest thing to Fisher's hypothesised factor that modern genetics has found is a variant near the \emph{CHRNA5} nicotine-receptor gene: three independent genome-wide studies linked it to roughly a 30\% increase in lung cancer risk (RR ≈ 1.3). A related genetic marker had separately been linked to nicotine dependence \citep{saccone2007nicotine}, but \citet{amos2008genetics} found only weak, inconsistent evidence that their own variant affects smoking behaviour directly --- and, in their UK sample, no elevated cancer risk at all among people who'd never smoked, hinting the gene's effect may run specifically through smoking rather than sit independently upstream of it, in the way a genuine confounder would need to. Even on the most generous reading then, it's real and replicated, but still nowhere near either bar.
+Here's what happens when you actually go looking. The closest thing to Fisher's hypothesised factor that modern genetics has found is a variant near the \emph{CHRNA5} nicotine-receptor gene: three independent genome-wide studies linked it to roughly a 30\% increase in lung cancer risk (RR ≈ 1.3). A related genetic marker had separately been linked to nicotine dependence (\citeproc{ref-saccone2007nicotine}{Saccone et al., 2007}), but Amos et al. (\citeproc{ref-amos2008genetics}{2008}) found only weak, inconsistent evidence that their own variant affects smoking behaviour directly --- and, in their UK sample, no elevated cancer risk at all among people who'd never smoked, hinting the gene's effect may run specifically through smoking rather than sit independently upstream of it, in the way a genuine confounder would need to. Even on the most generous reading then, it's real and replicated, but still nowhere near either bar.
 
-Radon gas is a genuine lung cancer risk factor --- high residential exposure raises risk by roughly 50--60\% \citep[RR ≈ 1.5--1.6, see][]{radon-pooled-analysis} --- but has essentially no relationship to who smokes (RR ≈ 1). Occupational asbestos exposure lands in almost the same place: RR ≈ 1.6 for lung cancer \citep{asbestos-meta-analysis}, no meaningful link to smoking status. Heavy drinking is the mirror image --- heavy drinkers are roughly four times more likely to smoke than light or non-drinkers \citep[RR ≈ 4, see][]{garnett-cox-2022-alcohol-smoking} --- but alcohol's own independent effect on lung cancer, once smoking is separated out, is essentially null \citep[RR ≈ 1.1, not statistically significant, see][]{alcohol-lung-cancer-null-2011}. Four real, well-studied factors, marked on the plot above, four different ways of falling short. Not one of them gets remotely close to doing the job Fisher's argument needed. The point isn't that clearing both bars is impossible. It's that nobody, in over sixty years, has ever produced a real candidate that gets close.
+Radon gas is a genuine lung cancer risk factor --- high residential exposure raises risk by roughly 50--60\% (RR ≈ 1.5--1.6, see \citeproc{ref-radon-pooled-analysis}{Heinzl et al., 2024}) --- but has essentially no relationship to who smokes (RR ≈ 1). Occupational asbestos exposure lands in almost the same place: RR ≈ 1.6 for lung cancer (\citeproc{ref-asbestos-meta-analysis}{Goodman et al., 1999}), no meaningful link to smoking status. Heavy drinking is the mirror image --- heavy drinkers are roughly four times more likely to smoke than light or non-drinkers (RR ≈ 4, see \citeproc{ref-garnett-cox-2022-alcohol-smoking}{Garnett et al., 2022}) --- but alcohol's own independent effect on lung cancer, once smoking is separated out, is essentially null (RR ≈ 1.1, not statistically significant, see \citeproc{ref-alcohol-lung-cancer-null-2011}{Bagnardi et al., 2011}). Four real, well-studied factors, marked on the plot above, four different ways of falling short. Not one of them gets remotely close to doing the job Fisher's argument needed. The point isn't that clearing both bars is impossible. It's that nobody, in over sixty years, has ever produced a real candidate that gets close.
 
 Nobody has ever found that factor. Fisher never named one. The argument didn't kill the possibility of confounding --- it just showed exactly what confounding would need to look like, and let the silence answer the rest.
 
-This kind of reasoning got a name and a formula decades after Cornfield: the E-value \citep{vanderweele2017evalue}, the minimum strength a confounder would need with both the exposure and the outcome to fully explain an observed relationship away, on its own --- one number instead of two bars to check. It's simple enough to work out yourself: \(E = RR + \sqrt{RR(RR-1)}\). Run the smoking figure through it: \(E = 9 + \sqrt{9 \times 8} \approx 17.5\). Notice that's higher than 9 --- the precise version of Cornfield's argument sets the bar even further out of reach than his own simplified statement did.
+This kind of reasoning got a name and a formula decades after Cornfield: the E-value (\citeproc{ref-vanderweele2017evalue}{VanderWeele \& Ding, 2017}), the minimum strength a confounder would need with both the exposure and the outcome to fully explain an observed relationship away, on its own --- one number instead of two bars to check. It's simple enough to work out yourself: \(E = RR + \sqrt{RR(RR-1)}\). Run the smoking figure through it: \(E = 9 + \sqrt{9 \times 8} \approx 17.5\). Notice that's higher than 9 --- the precise version of Cornfield's argument sets the bar even further out of reach than his own simplified statement did.
 
-Management research rarely reports risk ratios --- you'll see correlations and standardized regression coefficients instead. The same test still works: a correlation (or a standardized coefficient) plugs directly into \(RR \approx e^{0.91r}\) \citep{mathur2020conversion, vanderweele2017sqrt}, and from there, the same formula as above. Take r = 0.3 --- a correlation many reviewers would treat as a genuinely strong finding. RR ≈ 1.31, E-value ≈ 1.96. A confounder barely stronger than the effect itself would fully explain it away. Compare that to smoking's 17.5, and you get a real sense of how differently ``solid'' two published findings can actually be, even when both get called significant.
+Management research rarely reports risk ratios --- you'll see correlations and standardized regression coefficients instead. The same test still works: a correlation (or a standardized coefficient) plugs directly into \(RR \approx e^{0.91r}\) (\citeproc{ref-mathur2020conversion}{Mathur \& VanderWeele, 2020}; \citeproc{ref-vanderweele2017sqrt}{VanderWeele, 2017}), and from there, the same formula as above. Take r = 0.3 --- a correlation many reviewers would treat as a genuinely strong finding. RR ≈ 1.31, E-value ≈ 1.96. A confounder barely stronger than the effect itself would fully explain it away. Compare that to smoking's 17.5, and you get a real sense of how differently ``solid'' two published findings can actually be, even when both get called significant.
 
 It's worth keeping this formula, because you'll meet plenty of causal claims that don't hold up nearly this well once you check. Next time a headline reports a relative risk --- or a paper reports a correlation --- this is the one-line test for how seriously to take it.
 
@@ -785,7 +808,7 @@ It's worth keeping this formula, because you'll meet plenty of causal claims tha
 
 You won't often get to run an argument as tight as Cornfield's yourself --- it took decades, a real historical dataset, and the simple fact that nobody ever found the missing factor. But the everyday version of watching a confound do its work doesn't need any of that. It shows up anywhere you have the data and don't think to check.
 
-You've probably met the classic case already, possibly at a dinner party where someone was showing off. Across US cities, ice cream sales and murder rates rise and fall together --- and not weakly, either. Plot one against the other and you'll get a relationship strong enough that if you'd found it in your own data, you'd be drafting the abstract. This isn't a made-up example either --- Tyler Vigen's \emph{Spurious Correlations} project puts the real figure at r = 0.715 across US data from 1990--2021 \citep{vigen-icecream}.
+You've probably met the classic case already, possibly at a dinner party where someone was showing off. Across US cities, ice cream sales and murder rates rise and fall together --- and not weakly, either. Plot one against the other and you'll get a relationship strong enough that if you'd found it in your own data, you'd be drafting the abstract. This isn't a made-up example either --- Tyler Vigen's \emph{Spurious Correlations} project puts the real figure at r = 0.715 across US data from 1990--2021 (\citeproc{ref-vigen-icecream}{Vigen, 2021}).
 
 Nobody thinks ice cream causes murder. The obvious culprit is temperature: hot weather means more people buying ice cream, and --- for reasons criminologists actually take seriously --- more violent crime too. Ice cream and murder never talk to each other. They're each just reacting to the same third thing.
 
@@ -837,11 +860,11 @@ Here's the plainest version, and can happen right in your classroom. If I ask ev
 
 That much is intuitive once it's pointed out --- nobody's surprised that a self-selected sample is biased. What catches people out is the belief that this problem goes away once you stop sampling and start using ``all the data.'' A lot of big-data enthusiasm rests on exactly that idea: no sample, no sampling bias, done.
 
-Here's why I don't buy it. A 2013 study \citep{grinberg2013} analysed millions of geotagged Twitter and Foursquare posts to track real-world activity through Hurricane Sandy --- genuinely all the check-in data available, not a survey, not a sample. Their headline finding: a spike in nightlife check-ins right after the storm passed, which they read as people celebrating having made it through. Taken at face value, that's a nice, tidy story, and the paper reports it as evidence their method was picking up something real.
+Here's why I don't buy it. A 2013 study (\citeproc{ref-grinberg2013}{Grinberg et al., 2013}) analysed millions of geotagged Twitter and Foursquare posts to track real-world activity through Hurricane Sandy --- genuinely all the check-in data available, not a survey, not a sample. Their headline finding: a spike in nightlife check-ins right after the storm passed, which they read as people celebrating having made it through. Taken at face value, that's a nice, tidy story, and the paper reports it as evidence their method was picking up something real.
 
 Read it a little more suspiciously, though, and a different story is sitting right there in the same dataset. Check-in activity --- on both platforms --- comes overwhelmingly from wherever population density and phone connectivity are highest. During Sandy, that wasn't evenly distributed across New York at all: swathes of Lower Manhattan lost power outright, but Midtown and Upper Manhattan largely didn't, while the outer boroughs and the Long Island shoreline --- hit hardest by flooding and the longest power outages --- simply went dark and stopped generating data almost entirely. ``All the data'' quietly became ``all the data from the people whose phones still worked,'' and the people whose phones still worked were disproportionately the ones for whom Sandy had been the least disruptive. A ``celebration'' spike and ``the sample skewed toward people having a comparatively normal night'' would look identical in a dataset built this way --- and only one of those explanations was on the table.
 
-The chart below isn't a reproduction of their actual figures, but an illustration of the same pattern, built from numbers I've made up for the purpose. For the real data and figures, see \citet{grinberg2013}.
+The chart below isn't a reproduction of their actual figures, but an illustration of the same pattern, built from numbers I've made up for the purpose. For the real data and figures, see Grinberg et al. (\citeproc{ref-grinberg2013}{2013}).
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-44-1.pdf}}
 
@@ -855,7 +878,7 @@ Sometimes, though, selection bias is more deliberate than either of those cases,
 
 Here's one that should feel more surprising than the last, because there's no obvious third variable to blame. The surprise is that a relationship shows up \emph{at all}.
 
-Take height and basketball skill. Across the general population, these two things are essentially unrelated --- being tall doesn't make you more skilled with a basketball, and being skilled doesn't make you tall. But look only at NBA players, and you'll find something odd: among people who've actually made the league, height and skill are \emph{negatively} correlated. The shorter players are, on average, the more skilled ones. Michael Jordan wasn't especially tall for an NBA player. Elite players like Allen Iverson and John Stockton were shorter still. This isn't a fluke of famous names --- it holds up in the data, and it's been documented both informally \citep{johnson2017nba} and in peer-reviewed work on NBA draft sampling bias \citep{nba-sampling-bias-2021}.
+Take height and basketball skill. Across the general population, these two things are essentially unrelated --- being tall doesn't make you more skilled with a basketball, and being skilled doesn't make you tall. But look only at NBA players, and you'll find something odd: among people who've actually made the league, height and skill are \emph{negatively} correlated. The shorter players are, on average, the more skilled ones. Michael Jordan wasn't especially tall for an NBA player. Elite players like Allen Iverson and John Stockton were shorter still. This isn't a fluke of famous names --- it holds up in the data, and it's been documented both informally (\citeproc{ref-johnson2017nba}{Johnson, 2017}) and in peer-reviewed work on NBA draft sampling bias (\citeproc{ref-nba-sampling-bias-2021}{Economou et al., 2021}).
 
 \begin{verbatim}
 ## [1] 0.00365453
@@ -957,13 +980,13 @@ It helps to sort the techniques into four families, because each family has one 
 
 \emph{Instrumental variables (often ``two-stage least squares'' or 2SLS).} The idea is to find something that pushes X around but affects Y \emph{only} through X. Confusingly, IV here means ``instrumental variable,'' not the ``independent variable'' I've been abbreviating the same way.
 
-Two things matter. First, the ``only through X'' part (the \emph{exclusion restriction}) can't be tested with the data. It has to be argued. So read the argument, and try hard to think of another route from the instrument to Y. Second, the instrument has to actually move X. Papers report a ``first-stage F'' to show this, usually against a rule of thumb of 10. It's a threshold, and as Chapter \ref{H-testing} will argue, thresholds are heuristics, not laws. More recent work suggests that for the usual significance test to behave as advertised, the F may need to be closer to 100 \citep{lee2020valid}. You don't need to settle that argument. Just notice when a paper treats ``F \textgreater{} 10'' as the end of the conversation.
+Two things matter. First, the ``only through X'' part (the \emph{exclusion restriction}) can't be tested with the data. It has to be argued. So read the argument, and try hard to think of another route from the instrument to Y. Second, the instrument has to actually move X. Papers report a ``first-stage F'' to show this, usually against a rule of thumb of 10. It's a threshold, and as Chapter \ref{H-testing} will argue, thresholds are heuristics, not laws. More recent work suggests that for the usual significance test to behave as advertised, the F may need to be closer to 100 (\citeproc{ref-lee2020valid}{D. S. Lee et al., 2020}). You don't need to settle that argument. Just notice when a paper treats ``F \textgreater{} 10'' as the end of the conversation.
 
-\emph{Control functions.} These are increasingly common, especially in marketing, and they're easier to read than they sound \citep{petrin2010control}. The researcher uses an instrument to predict X. They then take the part of X the instrument \emph{couldn't} predict (the residual) and add it to the main model as an extra variable. That leftover part is where the contamination lives. So a control function is, quite literally, a way of turning an unmeasured confounder into a control variable, which puts you right back on familiar ground from family one.
+\emph{Control functions.} These are increasingly common, especially in marketing, and they're easier to read than they sound (\citeproc{ref-petrin2010control}{Petrin \& Train, 2010}). The researcher uses an instrument to predict X. They then take the part of X the instrument \emph{couldn't} predict (the residual) and add it to the main model as an extra variable. That leftover part is where the contamination lives. So a control function is, quite literally, a way of turning an unmeasured confounder into a control variable, which puts you right back on familiar ground from family one.
 
 In simple linear models it gives the same answer as 2SLS. Its appeal is that it still works in models where 2SLS gets awkward, such as models of which brand a customer chooses. The key point for you as a reader is that it is not an escape from the instrument. It rests on exactly the same exclusion restriction, so the same questions apply.
 
-\emph{Gaussian copulas.} These go one step further and need no instrument at all \citep{park2012handling}. In practice most applications use a control-function version, adding a ``copula term'' to the model as an extra variable. What replaces the instrument is an assumption about the \emph{shape} of X's distribution. The method only works if X is clearly non-normal, and simulation work suggests X needs to be quite strongly skewed for the method to perform well in the sample sizes typical of management research \citep{becker2022revisiting}.
+\emph{Gaussian copulas.} These go one step further and need no instrument at all (\citeproc{ref-park2012handling}{Park \& Gupta, 2012}). In practice most applications use a control-function version, adding a ``copula term'' to the model as an extra variable. What replaces the instrument is an assumption about the \emph{shape} of X's distribution. The method only works if X is clearly non-normal, and simulation work suggests X needs to be quite strongly skewed for the method to perform well in the sample sizes typical of management research (\citeproc{ref-becker2022revisiting}{Becker et al., 2022}).
 
 This is where Chapter \ref{norm-dist} pays off. Many survey constructs are an average of several Likert items, and such averages will often be much closer to symmetrical than that. So check the descriptives table. If the variable being ``corrected'' looks roughly normal, the correction is standing on thin ice.
 
@@ -975,13 +998,13 @@ One caution before going further, because this is exactly where research myths s
 
 You'll meet a handful of responses to it, and it helps to know one piece of vocabulary first. Papers distinguish \textbf{selection on observables}, where inclusion depends on things the researcher measured, from \textbf{selection on unobservables}, where it depends on things they didn't. The first is the easier problem, and the methods for it carry the same assumption as family one. The second needs something stronger.
 
-\emph{Non-response checks.} In survey research, especially in marketing, the most common move you'll see is to compare early and late respondents, on the theory that late ones resemble the people who never replied, and then to conclude from a non-significant difference that non-response bias isn't a problem. This is almost always cited to Armstrong and Overton \citep{armstrong1977estimating}. But it isn't really what they recommended. Their paper was about \emph{estimating and adjusting for} non-response bias, not testing for its absence. When Armstrong later checked how the paper had been used, he and his co-author found that 49 of the 50 studies they examined had reported its findings improperly \citep{wright2008ombudsman}. The most common error was running a significance test, finding nothing, and concluding that no bias was present, a move you'll learn to distrust in Chapter \ref{H-testing}. So treat the early-versus-late comparison as something that has commonly been done, to questionable effect, not as a solution. A more informative check compares respondents with known figures for the whole population they were drawn from, such as firm size or sector from a database, though it can only check the variables that happen to be available for everyone.
+\emph{Non-response checks.} In survey research, especially in marketing, the most common move you'll see is to compare early and late respondents, on the theory that late ones resemble the people who never replied, and then to conclude from a non-significant difference that non-response bias isn't a problem. This is almost always cited to Armstrong and Overton (\citeproc{ref-armstrong1977estimating}{Armstrong \& Overton, 1977}). But it isn't really what they recommended. Their paper was about \emph{estimating and adjusting for} non-response bias, not testing for its absence. When Armstrong later checked how the paper had been used, he and his co-author found that 49 of the 50 studies they examined had reported its findings improperly (\citeproc{ref-wright2008ombudsman}{Wright \& Armstrong, 2008}). The most common error was running a significance test, finding nothing, and concluding that no bias was present, a move you'll learn to distrust in Chapter \ref{H-testing}. So treat the early-versus-late comparison as something that has commonly been done, to questionable effect, not as a solution. A more informative check compares respondents with known figures for the whole population they were drawn from, such as firm size or sector from a database, though it can only check the variables that happen to be available for everyone.
 
 \emph{Weighting.} This reweights the sample so that it matches the population on known characteristics, counting under-represented cases more heavily. It's selection on observables, so it fixes only what it can see.
 
-\emph{Heckman models.} These are the ones you'll see most often in strategy and management journals \citep{heckman1979sample}. They work in two stages. The first stage predicts \emph{who gets into the sample}. From that it builds an extra variable, usually called the inverse Mills ratio or lambda, which is added to the main model as a correction. If that sounds familiar, it should: it's the control-function idea from family three, applied to selection instead of to X. It also comes with the same catch. For the method to be trustworthy, the first stage needs at least one variable that affects \emph{whether} a case is selected but not the outcome itself. That's an exclusion restriction again. Without one, the correction rests almost entirely on the assumed shape of a statistical distribution, and it can do more harm than good. One review of strategy and organisation theory journals found that only about a third of papers using the method even claimed to have such a variable \citep{wolfolds2019misaccounting}.
+\emph{Heckman models.} These are the ones you'll see most often in strategy and management journals (\citeproc{ref-heckman1979sample}{Heckman, 1979}). They work in two stages. The first stage predicts \emph{who gets into the sample}. From that it builds an extra variable, usually called the inverse Mills ratio or lambda, which is added to the main model as a correction. If that sounds familiar, it should: it's the control-function idea from family three, applied to selection instead of to X. It also comes with the same catch. For the method to be trustworthy, the first stage needs at least one variable that affects \emph{whether} a case is selected but not the outcome itself. That's an exclusion restriction again. Without one, the correction rests almost entirely on the assumed shape of a statistical distribution, and it can do more harm than good. One review of strategy and organisation theory journals found that only about a third of papers using the method even claimed to have such a variable (\citeproc{ref-wolfolds2019misaccounting}{Wolfolds \& Siegel, 2019}).
 
-Another review of Heckman models in strategy research found them used increasingly but inconsistently, and made three points worth carrying into any paper you read \citep{certo2016sample}. First, selection only biases the result you care about if X itself helps predict who got selected, so look at the first stage. Second, a significant lambda does not by itself show that selection bias exists. Third, Heckman addresses bias from the sample, not other sources of endogeneity, so it isn't a general-purpose fix.
+Another review of Heckman models in strategy research found them used increasingly but inconsistently, and made three points worth carrying into any paper you read (\citeproc{ref-certo2016sample}{Certo et al., 2016}). First, selection only biases the result you care about if X itself helps predict who got selected, so look at the first stage. Second, a significant lambda does not by itself show that selection bias exists. Third, Heckman addresses bias from the sample, not other sources of endogeneity, so it isn't a general-purpose fix.
 
 \emph{Treatment-effects and switching models.} You'll sometimes see Heckman invoked to deal with who \emph{chose} a strategy, such as which firms entered a market or adopted a practice. That's selection into treatment, which, as the chapter showed, is closer to confounding than to filtering. There are related models designed for exactly that case, usually labelled treatment-effects or endogenous switching models. When a paper says ``we used a Heckman correction,'' a useful first question is simply: selection into what?
 
@@ -1020,7 +1043,7 @@ My strong suspicion, and I say this as someone who has been on both ends of the 
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-2}
 
-Two books do this properly and are written for people who want to understand the ideas rather than become econometricians. Both are free to read online. Scott Cunningham's \emph{Causal Inference: The Mixtape} \citep{cunningham2021mixtape} covers every technique in this section with real examples and a good sense of humour. Nick Huntington-Klein's \emph{The Effect} \citep{huntingtonklein2025effect} is, if anything, gentler. Its first half builds the concepts almost without equations, and its treatment of colliders and selection is the clearest I know. If you'd rather start with something you can read on a train, Judea Pearl and Dana Mackenzie's \emph{The Book of Why} \citep{pearl2018book} is a popular account of the same ideas, written by one of the people who developed them. It's also where much of my own thinking about Cornfield and the smoking debate, earlier in this chapter, came from. Their chapter on it is superb.
+Two books do this properly and are written for people who want to understand the ideas rather than become econometricians. Both are free to read online. Scott Cunningham's \emph{Causal Inference: The Mixtape} (\citeproc{ref-cunningham2021mixtape}{Cunningham, 2021}) covers every technique in this section with real examples and a good sense of humour. Nick Huntington-Klein's \emph{The Effect} (\citeproc{ref-huntingtonklein2025effect}{Huntington-Klein, 2025}) is, if anything, gentler. Its first half builds the concepts almost without equations, and its treatment of colliders and selection is the clearest I know. If you'd rather start with something you can read on a train, Judea Pearl and Dana Mackenzie's \emph{The Book of Why} (\citeproc{ref-pearl2018book}{Pearl \& Mackenzie, 2018}) is a popular account of the same ideas, written by one of the people who developed them. It's also where much of my own thinking about Cornfield and the smoking debate, earlier in this chapter, came from. Their chapter on it is superb.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -1030,7 +1053,7 @@ This chapter supplements the content in Lecture 5.
 
 \section{Correlations and Associations}\label{correlations-and-associations}
 
-First, let's look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data \citeyearpar{owid}.
+First, let's look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data (\citeproc{ref-owid}{n.d.}).
 
 Their site is well worth exploring in its own right.
 
@@ -1190,7 +1213,7 @@ This is obviously viable to the extent we can justify the relationship, and also
 
 \section{Multiple Regression}\label{multiple-regression}
 
-Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from Scribbr's guide to linear regression in R \citep{scribbr-regression}.
+Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from Scribbr's guide to linear regression in R (\citeproc{ref-scribbr-regression}{Bevans, 2020}).
 
 Remember, this is \textbf{simulated data} not real data.
 
@@ -1330,11 +1353,11 @@ Almost every quantitative paper based on survey or archival data has the same fi
 
 \textbf{Table 1: the correlation matrix.} I'll leave the means and standard deviations aside and focus on the correlations. Three things are worth checking. First, find the correlation between the main predictor and the outcome. If the paper's central claim is that X drives Y, you'd usually expect X and Y to be correlated. If they aren't, but X becomes significant once other variables enter the regression, something unusual is going on. It can be real, but the paper should explain it. Second, look at how strongly the predictors correlate with each other, because very high correlations there foreshadow the multicollinearity problem below. Third, look at how the control variables relate to the main ones. A control that correlates with almost nothing is doing very little work, while one that correlates strongly with both X and Y is exactly the kind of third variable Chapter \ref{causation} worried about. It's also worth knowing that, for ordinary regression, the correlations, standard deviations and sample size are enough to reproduce the main estimates. So a paper that leaves them out is withholding the table that would let you check its work.
 
-\textbf{Alpha on the diagonal.} Many Table 1s put a number on the diagonal, where each variable would otherwise correlate with itself. It's usually \emph{Cronbach's alpha}, a measure of the reliability of a multi-item scale. Alpha is built from the correlations between the items in a scale: the more consistently they correlate with each other, and the more items there are, the higher it goes. You'll nearly always see it judged against a threshold of .70. That threshold is a convention, not a law, and alpha is regularly asked to carry more than it can. A high alpha doesn't show that the items measure a single thing, still less the thing the authors say they measure, and a long enough scale can reach a respectable alpha even when its items are only modestly related \citep{lee2005evolution}. I'll admit to a wry smile at this point. That paper has been cited, more than once, as the authority \emph{for} the .70 threshold. It's the Armstrong and Overton story from Chapter \ref{causation} again, only this time it's happening to me.
+\textbf{Alpha on the diagonal.} Many Table 1s put a number on the diagonal, where each variable would otherwise correlate with itself. It's usually \emph{Cronbach's alpha}, a measure of the reliability of a multi-item scale. Alpha is built from the correlations between the items in a scale: the more consistently they correlate with each other, and the more items there are, the higher it goes. You'll nearly always see it judged against a threshold of .70. That threshold is a convention, not a law, and alpha is regularly asked to carry more than it can. A high alpha doesn't show that the items measure a single thing, still less the thing the authors say they measure, and a long enough scale can reach a respectable alpha even when its items are only modestly related (\citeproc{ref-lee2005evolution}{N. Lee \& Hooley, 2005}). I'll admit to a wry smile at this point. That paper has been cited, more than once, as the authority \emph{for} the .70 threshold. It's the Armstrong and Overton story from Chapter \ref{causation} again, only this time it's happening to me.
 
-\textbf{Multicollinearity.} When predictors are strongly correlated with each other, a regression struggles to separate their effects, because the data contain little information about what happens when one moves and the other doesn't. Papers usually check this with \emph{variance inflation factors} (VIFs), declaring values below 10, or sometimes 5, to be fine. Two things are worth knowing. First, in the textbook case multicollinearity doesn't bias the estimates. It makes them less precise by inflating their standard errors, so its main cost is that real effects become harder to detect. Second, the thresholds are rules of thumb, and a well-known review argued that even much higher VIFs don't, on their own, invalidate a regression \citep{obrien2007caution}. There is a catch, though. More recent work shows that when a model leaves out something the correlated predictors share, the correlation between them can produce false positives, whatever the VIFs say \citep{kalnins2025additional}. So ``all VIFs were below 10'' is a reasonable thing to report and a weak thing to rely on.
+\textbf{Multicollinearity.} When predictors are strongly correlated with each other, a regression struggles to separate their effects, because the data contain little information about what happens when one moves and the other doesn't. Papers usually check this with \emph{variance inflation factors} (VIFs), declaring values below 10, or sometimes 5, to be fine. Two things are worth knowing. First, in the textbook case multicollinearity doesn't bias the estimates. It makes them less precise by inflating their standard errors, so its main cost is that real effects become harder to detect. Second, the thresholds are rules of thumb, and a well-known review argued that even much higher VIFs don't, on their own, invalidate a regression (\citeproc{ref-obrien2007caution}{O'Brien, 2007}). There is a catch, though. More recent work shows that when a model leaves out something the correlated predictors share, the correlation between them can produce false positives, whatever the VIFs say (\citeproc{ref-kalnins2025additional}{Kalnins \& Praitis Hill, 2025}). So ``all VIFs were below 10'' is a reasonable thing to report and a weak thing to rely on.
 
-\textbf{Common method variance.} If the predictor and the outcome come from the same questionnaire, completed by the same person at the same time, some of their correlation may come from the method itself: the respondent's mood, their wish to appear consistent, or a habit of agreeing with statements. This is \emph{common method variance}, and it's probably the most frequent criticism made of survey research in management. It's a real issue, but it has gathered its own myths. It doesn't automatically inflate every relationship: depending on how it affects each measure, it can shrink a relationship as well as inflate it. And it can't manufacture an interaction or a curved effect out of nothing; if anything, it makes those harder to find \citep{siemsen2010common}. Some researchers have argued that the whole concern has been overstated \citep{spector2006method}. The most common defence you'll see is \emph{Harman's single-factor test}, which checks whether one factor accounts for most of the variation across all the items. It's usually cited to a review that in fact judged it insensitive \citep{podsakoff2003common}, which is the same fate you saw Armstrong and Overton suffer in Chapter \ref{causation}. The stronger defences are about design: measuring the predictor and the outcome at different times, or getting them from different sources.
+\textbf{Common method variance.} If the predictor and the outcome come from the same questionnaire, completed by the same person at the same time, some of their correlation may come from the method itself: the respondent's mood, their wish to appear consistent, or a habit of agreeing with statements. This is \emph{common method variance}, and it's probably the most frequent criticism made of survey research in management. It's a real issue, but it has gathered its own myths. It doesn't automatically inflate every relationship: depending on how it affects each measure, it can shrink a relationship as well as inflate it. And it can't manufacture an interaction or a curved effect out of nothing; if anything, it makes those harder to find (\citeproc{ref-siemsen2010common}{Siemsen et al., 2010}). Some researchers have argued that the whole concern has been overstated (\citeproc{ref-spector2006method}{Spector, 2006}). The most common defence you'll see is \emph{Harman's single-factor test}, which checks whether one factor accounts for most of the variation across all the items. It's usually cited to a review that in fact judged it insensitive (\citeproc{ref-podsakoff2003common}{Podsakoff et al., 2003}), which is the same fate you saw Armstrong and Overton suffer in Chapter \ref{causation}. The stronger defences are about design: measuring the predictor and the outcome at different times, or getting them from different sources.
 
 \textbf{R².} You met R² in this chapter as the proportion of variation in the outcome that the model explains. In management papers you'll often see values that look disappointingly small, .10 or .15, sometimes less. That isn't automatically a problem. If the aim is to test whether a particular relationship exists, rather than to predict the outcome, a model can explain a small share of the total variation and still tell you something real. Most of what people and firms do has many causes. If the aim is prediction, a low R² matters a great deal more.
 
@@ -1367,7 +1390,7 @@ Look along the rows of Table 1 for two variables the paper treats as different t
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-3}
 
-Paul Spector's ``Method variance in organizational research: Truth or urban legend?'' \citep{spector2006method} is a short, sceptical and very readable look at how common method variance became a reflex rather than a question. And, at the risk of immodesty, Graham Hooley and I wrote about how coefficient alpha, and the .70 threshold that goes with it, became something close to mythology in marketing research \citep{lee2005evolution}.
+Paul Spector's ``Method variance in organizational research: Truth or urban legend?'' (\citeproc{ref-spector2006method}{Spector, 2006}) is a short, sceptical and very readable look at how common method variance became a reflex rather than a question. And, at the risk of immodesty, Graham Hooley and I wrote about how coefficient alpha, and the .70 threshold that goes with it, became something close to mythology in marketing research (\citeproc{ref-lee2005evolution}{N. Lee \& Hooley, 2005}).
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -1910,9 +1933,9 @@ You'll find bootstrapping in management papers in a few places, such as confiden
 
 \textbf{The indirect effect.} A simple mediation model has two links: X to M (usually called \emph{a}) and M to Y, holding X constant (\emph{b}). The indirect effect is the product of the two, a × b. The trouble is that the sampling distribution of a product of two estimates is usually skewed rather than normal, so the older, formula-based tests of it are unreliable. The bootstrap gets round that exactly as this chapter did: resample the data thousands of times, calculate a × b in each resample, and take the middle 95\% of those values as the confidence interval. So when a paper reports an indirect effect of 0.12 with a 95\% bootstrap confidence interval of 0.04 to 0.21, based on 5,000 resamples, you know precisely what was done. The interval excludes zero, so the indirect effect is significant. Its width tells you how precisely it has been estimated, just as with any other interval.
 
-\textbf{What the bootstrap fixes, and what it doesn't.} The bootstrap solves a statistical problem: getting an honest interval for a quantity with an awkward distribution. It does nothing about the much bigger problem, which is that a mediation claim is a causal claim about \emph{two} links. Even if X was randomly assigned in an experiment, M wasn't, so the link from M to Y is exposed to every confounding problem in Chapter \ref{causation} \citep{bullock2010mechanism}. And the bootstrap can't create information the sample doesn't contain. It resamples the data you have, so a small or unrepresentative sample stays small and unrepresentative however many times you resample it, as Researcher 1's sample of 10 showed.
+\textbf{What the bootstrap fixes, and what it doesn't.} The bootstrap solves a statistical problem: getting an honest interval for a quantity with an awkward distribution. It does nothing about the much bigger problem, which is that a mediation claim is a causal claim about \emph{two} links. Even if X was randomly assigned in an experiment, M wasn't, so the link from M to Y is exposed to every confounding problem in Chapter \ref{causation} (\citeproc{ref-bullock2010mechanism}{Bullock et al., 2010}). And the bootstrap can't create information the sample doesn't contain. It resamples the data you have, so a small or unrepresentative sample stays small and unrepresentative however many times you resample it, as Researcher 1's sample of 10 showed.
 
-\textbf{``Full'' and ``partial'' mediation.} Older papers, and some newer ones, follow a set of steps from Baron and Kenny \citep{baron1986moderator}, which among other things required a significant overall effect of X on Y before mediation could even be tested. That requirement is now widely rejected, and so is the habit of classifying results as ``full'' or ``partial'' mediation depending on whether the direct effect of X on Y remains significant \citep{zhao2010reconsidering}. Whether it does depends heavily on sample size, so ``full mediation'' is often just another way of saying ``not enough data to detect the direct effect.'' One further point from the same authors connects straight to the red flag in Section \ref{assoc-rel-reading}. A mediator that isn't clearly distinct from X or from Y will appear to ``fully mediate'' almost automatically, so check its correlations in Table 1.
+\textbf{``Full'' and ``partial'' mediation.} Older papers, and some newer ones, follow a set of steps from Baron and Kenny (\citeproc{ref-baron1986moderator}{Baron \& Kenny, 1986}), which among other things required a significant overall effect of X on Y before mediation could even be tested. That requirement is now widely rejected, and so is the habit of classifying results as ``full'' or ``partial'' mediation depending on whether the direct effect of X on Y remains significant (\citeproc{ref-zhao2010reconsidering}{Zhao et al., 2010}). Whether it does depends heavily on sample size, so ``full mediation'' is often just another way of saying ``not enough data to detect the direct effect.'' One further point from the same authors connects straight to the red flag in Section \ref{assoc-rel-reading}. A mediator that isn't clearly distinct from X or from Y will appear to ``fully mediate'' almost automatically, so check its correlations in Table 1.
 
 \subsection{The connection back}\label{the-connection-back-4}
 
@@ -1941,7 +1964,7 @@ Beware the single-survey mediation model. One questionnaire, completed by one pe
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-4}
 
-Xinshu Zhao, John Lynch and Qimei Chen's ``Reconsidering Baron and Kenny'' \citep{zhao2010reconsidering} was written for consumer researchers as a non-technical guide to what mediation analysis can and can't show. It remains the most useful short account I know, and it will save you from several common mistakes if you ever run one yourself.
+Xinshu Zhao, John Lynch and Qimei Chen's ``Reconsidering Baron and Kenny'' (\citeproc{ref-zhao2010reconsidering}{Zhao et al., 2010}) was written for consumer researchers as a non-technical guide to what mediation analysis can and can't show. It remains the most useful short account I know, and it will save you from several common mistakes if you ever run one yourself.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -2101,7 +2124,7 @@ There's one more way of putting that difference on a common footing, and it's th
 
 \emph{Cohen's d} answers the second question. It divides the mean difference by the standard deviation of the irritation scores themselves, pooled across the two groups, so it tells you how many standard deviations apart the groups ended up. Unlike t, it doesn't grow just because the sample does. For our study, d is 2.15: the Christmas-music group finished about 2.1 standard deviations more irritated than the silence group. It's a direct cousin of the standardised regression coefficients in Chapter \ref{assoc-rel}: the same idea in a different setting.
 
-You'll often see d described using Jacob Cohen's labels, where 0.2 is ``small,'' 0.5 ``medium'' and 0.8 ``large.'' By those labels ours is large. But Cohen offered them as a convention for use when nothing better suggests itself \citep{cohen1988statistical}, and they've since hardened into exactly the kind of rule this book keeps warning about. Two cautions apply to our own number, too. First, with only 15 people per group, it's a noisy estimate, and as you'll see in Chapter \ref{Issues}, big-looking effects from small samples deserve particular scepticism. Second, like any standardised effect, d tells you nothing about whether the difference matters in practice. For that you have to go back to the original units, which here means a difference of 1.6 points on a seven-point scale.
+You'll often see d described using Jacob Cohen's labels, where 0.2 is ``small,'' 0.5 ``medium'' and 0.8 ``large.'' By those labels ours is large. But Cohen offered them as a convention for use when nothing better suggests itself (\citeproc{ref-cohen1988statistical}{Cohen, 1988}), and they've since hardened into exactly the kind of rule this book keeps warning about. Two cautions apply to our own number, too. First, with only 15 people per group, it's a noisy estimate, and as you'll see in Chapter \ref{Issues}, big-looking effects from small samples deserve particular scepticism. Second, like any standardised effect, d tells you nothing about whether the difference matters in practice. For that you have to go back to the original units, which here means a difference of 1.6 points on a seven-point scale.
 
 \section{Paired-Sample T-test}\label{paired-sample-t-test}
 
@@ -2293,11 +2316,11 @@ Comparing two groups is the simplest design there is, and it turns up in managem
 
 \subsection{Where you'll meet this}\label{where-youll-meet-this-5}
 
-\textbf{Reported t-tests.} In experimental papers you'll see something like t(58) = 2.41, p = .019. The number in brackets is the degrees of freedom, which for two independent groups is the total sample size minus two. If it's a decimal, such as t(41.7), the authors have used \emph{Welch's t-test}, which doesn't assume the two groups are equally variable. That's a good sign rather than an oddity: there's a strong case for using Welch's version by default \citep{delacre2017why}.
+\textbf{Reported t-tests.} In experimental papers you'll see something like t(58) = 2.41, p = .019. The number in brackets is the degrees of freedom, which for two independent groups is the total sample size minus two. If it's a decimal, such as t(41.7), the authors have used \emph{Welch's t-test}, which doesn't assume the two groups are equally variable. That's a good sign rather than an oddity: there's a strong case for using Welch's version by default (\citeproc{ref-delacre2017why}{Delacre et al., 2017}).
 
 \textbf{Group differences as regression coefficients.} A classic t-test comparing two groups gives exactly the same answer as a regression with a single \emph{dummy variable}, coded 1 for one group and 0 for the other. The coefficient on the dummy is the difference between the two group means, and its t-value is the t-test. So when a paper reports a coefficient for ``female,'' ``family firm'' or ``treated,'' it's telling you the difference between two group means, adjusted for whatever else is in the model. Two things follow. First, you need to know which group was coded 0, because the coefficient is always relative to that \emph{reference category}: flip the coding and the sign flips. With more than two categories, such as industries or regions, every coefficient compares one category with the one left out, and the choice of which to leave out decides which comparisons you get to see. Second, ``adjusted for'' is doing a lot of work, for all the reasons in Chapter \ref{causation}.
 
-\textbf{Cohen's d and its relatives.} You'll also meet \emph{Hedges' g}, which applies a small correction that matters in small samples. It's fine to read the two as essentially the same thing. The trap is in before-and-after designs like the paired test in this chapter. There, d can be calculated by dividing by the standard deviation of the \emph{differences} rather than of the scores. When people's before and after scores are strongly related, as they usually are, that standard deviation is small, and the resulting d can be much larger than an independent-groups d for the same difference \citep{lakens2013calculating}. So a d from a within-person study isn't necessarily comparable with one from a between-groups study, and a paper comparing its effect with ``typical'' effects elsewhere should say which kind it calculated. And like every standardised effect, d needs translating back into natural units before you know whether it matters, as Section \ref{intro-reading} argued.
+\textbf{Cohen's d and its relatives.} You'll also meet \emph{Hedges' g}, which applies a small correction that matters in small samples. It's fine to read the two as essentially the same thing. The trap is in before-and-after designs like the paired test in this chapter. There, d can be calculated by dividing by the standard deviation of the \emph{differences} rather than of the scores. When people's before and after scores are strongly related, as they usually are, that standard deviation is small, and the resulting d can be much larger than an independent-groups d for the same difference (\citeproc{ref-lakens2013calculating}{Lakens, 2013}). So a d from a within-person study isn't necessarily comparable with one from a between-groups study, and a paper comparing its effect with ``typical'' effects elsewhere should say which kind it calculated. And like every standardised effect, d needs translating back into natural units before you know whether it matters, as Section \ref{intro-reading} argued.
 
 \subsection{The connection back}\label{the-connection-back-5}
 
@@ -2324,7 +2347,7 @@ Beware the before-and-after study with no comparison group. A training programme
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-5}
 
-Daniël Lakens's primer on calculating and reporting effect sizes \citep{lakens2013calculating} is free to read online, practical, and especially good on the different versions of d and when each one is appropriate. It's written for researchers rather than readers, but it's the clearest account I know of what the numbers in an effect-size table actually mean.
+Daniël Lakens's primer on calculating and reporting effect sizes (\citeproc{ref-lakens2013calculating}{Lakens, 2013}) is free to read online, practical, and especially good on the different versions of d and when each one is appropriate. It's written for researchers rather than readers, but it's the clearest account I know of what the numbers in an effect-size table actually mean.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -2364,7 +2387,7 @@ In other words, for a fair coin toss sequence, the trials (tosses) are \emph{ind
 
 Note, much of the inspiration and code for this section comes from: \url{https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html}
 
-The data are the EPL results for the 2021--22 season, from Football-Data.co.uk \citeyearpar{football-data-epl}.
+The data are the EPL results for the 2021--22 season, from Football-Data.co.uk (\citeproc{ref-football-data-epl}{n.d.}).
 
 \begin{verbatim}
 ## # A tibble: 6 x 107
@@ -2562,7 +2585,7 @@ This is interesting. At this point (30 September, 2025) I find it tempting to pu
 \item
   The sort of change would logically need to be a reduction of average goals scored per game, which would change the mean of the Poisson distribution, reducing the probabilities of a 9-goal game.
 \item
-  However, the average goals per game is actually \textbf{\emph{increasing}}, according to the Premier League's own figures \citeyearpar{pl-goals-news}.
+  However, the average goals per game is actually \textbf{\emph{increasing}}, according to the Premier League's own figures (\citeproc{ref-pl-goals-news}{2024}).
 \item
   So, one could also draw the conclusion that the Poisson distribution is no longer a good fit - but this could be checked, and I would guess this isn't the case (you can check yourself).
 \end{enumerate}
@@ -2940,7 +2963,7 @@ One thing to remember though is the `law of large numbers' here. You might notic
 
 \section{Rate of Change in Football Goals per Season}\label{rate-of-change-in-football-goals-per-season}
 
-In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \ref{probability}. Here, I'm using data from footballhistory.org \citeyearpar{footballhistory-epl}.
+In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \ref{probability}. Here, I'm using data from footballhistory.org (\citeproc{ref-footballhistory-epl}{n.d.}).
 
 I hand-entered this into a spreadsheet, and calculated the additional stuff.
 
@@ -2966,11 +2989,11 @@ From this chart, and looking at the data itself, we can see that the 95\% Interv
 
 The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.
 
-In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \ref{probability} \citeyearpar{pl-goals-news}.
+In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \ref{probability} (\citeproc{ref-pl-goals-news}{2024}).
 
-This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test \citep{ons-homicide-2016}, which \emph{directly tests the hypothesis} that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
+This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test (\citeproc{ref-ons-homicide-2016}{Office for National Statistics, 2017}), which \emph{directly tests the hypothesis} that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
 
-The z-test is simply explained in a short BMJ article \citep{pocock2006simplest}.
+The z-test is simply explained in a short BMJ article (\citeproc{ref-pocock2006simplest}{Pocock, 2006}).
 
 It links us nicely to the next lesson, because it is aiming to test a \emph{specific hypothesis} that the difference is zero\ldots{}
 
@@ -3008,9 +3031,9 @@ Every estimate in a paper comes with a measure of how uncertain it is, even if i
 
 \textbf{Confidence intervals on estimates.} More and more papers report intervals directly. Read them the way the simulation in Section \ref{conf} taught you: as the output of a procedure that captures the true value in about 95 of every 100 samples, not as a range that the true value is 95\% certain to be in. In practice the useful questions are simple. How wide is it? Does it include values that would be too small to matter? Does it include values that would be implausibly large? A wide interval that only just excludes zero is a much weaker finding than its p-value suggests.
 
-\textbf{Error bars in figures.} Bar charts and line plots often carry error bars, and they're one of the most misread things in any paper. First, find out what the bars are. They could be standard deviations, standard errors or confidence intervals, and a surprising number of figures don't say. Standard-error bars are only about half the length of 95\% confidence intervals, so the same data can look far more or far less convincing depending on which was chosen. Second, be careful with overlap. Two 95\% intervals that overlap can still come from a difference that's statistically significant. In fact, for two independent groups the intervals can overlap by up to about half of one arm and the difference will still have p of around .05 \citep{cumming2005inference}. You saw this in this chapter's football example: the intervals for consecutive seasons overlapped, yet the z-tests found two significant changes.
+\textbf{Error bars in figures.} Bar charts and line plots often carry error bars, and they're one of the most misread things in any paper. First, find out what the bars are. They could be standard deviations, standard errors or confidence intervals, and a surprising number of figures don't say. Standard-error bars are only about half the length of 95\% confidence intervals, so the same data can look far more or far less convincing depending on which was chosen. Second, be careful with overlap. Two 95\% intervals that overlap can still come from a difference that's statistically significant. In fact, for two independent groups the intervals can overlap by up to about half of one arm and the difference will still have p of around .05 (\citeproc{ref-cumming2005inference}{Cumming \& Finch, 2005}). You saw this in this chapter's football example: the intervals for consecutive seasons overlapped, yet the z-tests found two significant changes.
 
-\textbf{Clustered and robust standard errors.} Every standard error you've met in this book assumes that each observation is an independent draw, like the ping-pong balls in the lecture. Much management data isn't like that. Employees are nested in teams and firms, firms appear year after year in a panel, and observations within the same cluster tend to resemble each other. When that happens, the data contain less independent information than the sample size suggests, and ordinary standard errors come out too small. \emph{Clustered standard errors} correct for this. They change the uncertainty, not the estimates themselves. As a reader, ask what the observations were clustered by, and whether that matches how the data were actually collected. Also ask how many clusters there were. With only a handful, such as a few industries or a dozen countries, even clustered standard errors can be too small \citep{cameron2015practitioner}. You'll also see \emph{robust} (or ``heteroskedasticity-robust'') standard errors, which deal with a different problem: spread in the data that isn't constant. They're not a substitute for clustering.
+\textbf{Clustered and robust standard errors.} Every standard error you've met in this book assumes that each observation is an independent draw, like the ping-pong balls in the lecture. Much management data isn't like that. Employees are nested in teams and firms, firms appear year after year in a panel, and observations within the same cluster tend to resemble each other. When that happens, the data contain less independent information than the sample size suggests, and ordinary standard errors come out too small. \emph{Clustered standard errors} correct for this. They change the uncertainty, not the estimates themselves. As a reader, ask what the observations were clustered by, and whether that matches how the data were actually collected. Also ask how many clusters there were. With only a handful, such as a few industries or a dozen countries, even clustered standard errors can be too small (\citeproc{ref-cameron2015practitioner}{Cameron \& Miller, 2015}). You'll also see \emph{robust} (or ``heteroskedasticity-robust'') standard errors, which deal with a different problem: spread in the data that isn't constant. They're not a substitute for clustering.
 
 \textbf{What a standard error doesn't cover.} A standard error measures one thing: how much an estimate would bounce around across random samples from the same population. It says nothing about whether the sample was random in the first place, whether the people who answered differ from those who didn't, or whether the measures capture what they claim to. Those are the ``inference gaps'' from Chapter \ref{uncertainty}, and many of them are the selection problems from Chapter \ref{causation}. That doesn't make intervals from non-random samples meaningless. It means they describe the precision of the estimate under an assumption, and the gap between that assumption and reality isn't in the interval.
 
@@ -3041,7 +3064,7 @@ Every standard error in every paper is a compressed version of the simulations i
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-6}
 
-Geoff Cumming and Sue Finch's ``Inference by eye'' \citep{cumming2005inference} is a short paper about reading confidence intervals and error bars in figures. It's full of pictures, and it will change the way you look at every bar chart you see from now on.
+Geoff Cumming and Sue Finch's ``Inference by eye'' (\citeproc{ref-cumming2005inference}{Cumming \& Finch, 2005}) is a short paper about reading confidence intervals and error bars in figures. It's full of pictures, and it will change the way you look at every bar chart you see from now on.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -3118,7 +3141,7 @@ Chi-square is a fantastically versatile statistic, which is often used to compar
 
 Again, much of the idea and code for this section comes from: \url{https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html}
 
-The data are the EPL results for the 2021--22 season, from Football-Data.co.uk \citeyearpar{football-data-epl}, with a new column of Total Goals (TOTG) created by me in Excel.
+The data are the EPL results for the 2021--22 season, from Football-Data.co.uk (\citeproc{ref-football-data-epl}{n.d.}), with a new column of Total Goals (TOTG) created by me in Excel.
 
 \begin{verbatim}
 ## # A tibble: 6 x 107
@@ -3377,13 +3400,13 @@ Hypothesis tests are the basic currency of quantitative management research. Alm
 
 \textbf{The coefficient table.} Each row usually gives an estimate and a standard error, often in parentheses underneath, along with some combination of a t-value, a p-value and stars. The t-value is exactly the salary calculation: the estimate, minus what the null says it should be, divided by its standard error. In a regression table the null is almost always that the coefficient is zero, and it's almost never written down. That's worth noticing, because zero isn't always the comparison that matters. If a theory predicts that one effect is bigger than another, testing each of them against zero doesn't test the theory.
 
-\textbf{Stars and daggers.} Everything I said earlier in this chapter about stars applies to papers, with one addition: the thresholds aren't standard, so always read the note under the table. Some journals use a dagger (†) or a plus sign for p \textless{} .10, which quietly adds a fourth grade of significance. Some have gone the other way. In 2016 the editors of the \emph{Strategic Management Journal} announced that they would no longer accept papers reporting cut-off levels of significance. They asked instead for standard errors or exact p-values without asterisks, and for an explicit discussion of effect sizes \citep{bettis2016creating}. So a table with exact p-values and no stars isn't a less rigorous paper. It may well be a more rigorous one.
+\textbf{Stars and daggers.} Everything I said earlier in this chapter about stars applies to papers, with one addition: the thresholds aren't standard, so always read the note under the table. Some journals use a dagger (†) or a plus sign for p \textless{} .10, which quietly adds a fourth grade of significance. Some have gone the other way. In 2016 the editors of the \emph{Strategic Management Journal} announced that they would no longer accept papers reporting cut-off levels of significance. They asked instead for standard errors or exact p-values without asterisks, and for an explicit discussion of effect sizes (\citeproc{ref-bettis2016creating}{Bettis et al., 2016}). So a table with exact p-values and no stars isn't a less rigorous paper. It may well be a more rigorous one.
 
 \textbf{``Marginally significant'' and its relatives.} ``Approached significance,'' ``trended towards significance,'' ``directional support.'' You know my view of these. The threshold was supposed to be chosen before the data arrived, and this language exists to rescue a result that failed it.
 
-\textbf{A difference that was never tested.} This is one of the most common errors in published research, and one of the hardest to spot. A paper finds that an effect is significant in one group, say manufacturing firms, but not in another, say service firms, and concludes that the effect differs between them. That doesn't follow. A coefficient with p = .03 and one with p = .20 can be almost exactly the same size; one of them just has a bigger standard error. To claim that two effects differ, you need a test of the difference itself, usually an interaction term. The title of Gelman and Stern's paper on this says it all: the difference between ``significant'' and ``not significant'' is not itself statistically significant \citep{gelman2006difference}.
+\textbf{A difference that was never tested.} This is one of the most common errors in published research, and one of the hardest to spot. A paper finds that an effect is significant in one group, say manufacturing firms, but not in another, say service firms, and concludes that the effect differs between them. That doesn't follow. A coefficient with p = .03 and one with p = .20 can be almost exactly the same size; one of them just has a bigger standard error. To claim that two effects differ, you need a test of the difference itself, usually an interaction term. The title of Gelman and Stern's paper on this says it all: the difference between ``significant'' and ``not significant'' is not itself statistically significant (\citeproc{ref-gelman2006difference}{Gelman \& Stern, 2006}).
 
-\textbf{``No effect.''} This is the other half of the same problem. As the Premier League example earlier in this chapter showed, a non-significant result means the data weren't surprising under the null. It doesn't mean the null is true. Yet papers routinely treat non-significance as proof of absence: the groups didn't differ, the control variable didn't matter, non-response bias wasn't a concern. Where a paper genuinely needs to show that something is absent or negligible, there are tests designed for exactly that. The most common are \emph{equivalence tests}, which ask whether an effect is smaller than a pre-specified amount that would matter in practice \citep{lakens2017equivalence}. You'll rarely see them in management journals, which is precisely why a ``no difference'' claim is worth questioning.
+\textbf{``No effect.''} This is the other half of the same problem. As the Premier League example earlier in this chapter showed, a non-significant result means the data weren't surprising under the null. It doesn't mean the null is true. Yet papers routinely treat non-significance as proof of absence: the groups didn't differ, the control variable didn't matter, non-response bias wasn't a concern. Where a paper genuinely needs to show that something is absent or negligible, there are tests designed for exactly that. The most common are \emph{equivalence tests}, which ask whether an effect is smaller than a pre-specified amount that would matter in practice (\citeproc{ref-lakens2017equivalence}{Lakens, 2017}). You'll rarely see them in management journals, which is precisely why a ``no difference'' claim is worth questioning.
 
 \textbf{Very large samples.} Many management papers use firm-level or employee-level databases with tens of thousands of observations. Standard errors shrink as samples grow, so in data that size even tiny effects come out as significant. The p-value then tells you very little, and the size of the estimate tells you nearly everything. The question from Section \ref{intro-reading} applies with full force: what does this mean in natural units?
 
@@ -3420,7 +3443,7 @@ Watch for a double standard. The same paper that calls p = .08 ``marginal suppor
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-7}
 
-Two short papers this time. The American Statistical Association's statement on p-values \citep{wasserstein2016asa} is the closest thing statistics has to an official position on what a p-value can and can't tell you. It's free to read online and only a few pages long. For something closer to home, the \emph{Strategic Management Journal} editorial that dropped the stars \citep{bettis2016creating} makes the same case for management research. It includes a thought experiment about three junior scholars studying the same hypothesis that I suspect will feel uncomfortably familiar.
+Two short papers this time. The American Statistical Association's statement on p-values (\citeproc{ref-wasserstein2016asa}{Wasserstein \& Lazar, 2016}) is the closest thing statistics has to an official position on what a p-value can and can't tell you. It's free to read online and only a few pages long. For something closer to home, the \emph{Strategic Management Journal} editorial that dropped the stars (\citeproc{ref-bettis2016creating}{Bettis et al., 2016}) makes the same case for management research. It includes a thought experiment about three junior scholars studying the same hypothesis that I suspect will feel uncomfortably familiar.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -3527,11 +3550,11 @@ Experiments are common in some areas of management research, particularly in mar
 
 \textbf{The F-test.} Results are usually reported as something like F(2, 42) = 15.31, p \textless{} .001. The first number in brackets is the degrees of freedom for the groups (the number of groups minus one) and the second is for the error, which is roughly the total sample size minus the number of groups. So you can work backwards from the brackets to the sample size, which is worth doing when a paper is vague about how many people were in each condition. As in this chapter, a significant F only tells you that the groups aren't all the same. It doesn't tell you which ones differ, which is what the follow-up comparisons are for.
 
-\textbf{Eta-squared and its relatives.} The effect size in this chapter was generalised eta-squared, the proportion of the variation in the outcome explained by group membership. With one factor, that's the same idea as R² in a regression. Papers also report plain eta-squared (η²) and, very often, \emph{partial} eta-squared (η²p). In a one-factor design they're all the same number. In a factorial design they're not. Partial eta-squared leaves the other factors' effects out of the denominator, so it's usually larger, and partial eta-squareds from different designs can't be compared directly with each other \citep{lakens2013calculating}. You'll also see .01, .06 and .14 described as small, medium and large, and those labels deserve the same scepticism as Cohen's labels for d in Chapter \ref{t-test}.
+\textbf{Eta-squared and its relatives.} The effect size in this chapter was generalised eta-squared, the proportion of the variation in the outcome explained by group membership. With one factor, that's the same idea as R² in a regression. Papers also report plain eta-squared (η²) and, very often, \emph{partial} eta-squared (η²p). In a one-factor design they're all the same number. In a factorial design they're not. Partial eta-squared leaves the other factors' effects out of the denominator, so it's usually larger, and partial eta-squareds from different designs can't be compared directly with each other (\citeproc{ref-lakens2013calculating}{Lakens, 2013}). You'll also see .01, .06 and .14 described as small, medium and large, and those labels deserve the same scepticism as Cohen's labels for d in Chapter \ref{t-test}.
 
 \textbf{Factorial designs and interactions.} In a 2 × 2 design, say a price promotion (yes or no) crossed with brand familiarity (known or unknown brand), the analysis gives two \emph{main effects} and one \emph{interaction}. The main effect of the promotion is its average effect across both kinds of brand. The interaction asks whether the promotion's effect is different for known and unknown brands. When there's a real interaction, the main effects can be badly misleading: a promotion that helps unknown brands and does nothing for known ones has a positive ``main effect'' that describes neither. So when a paper reports an interaction, the main effects deserve much less attention than they usually get, and the \emph{simple effects} (the effect of one factor at each level of the other) deserve much more. It also matters what shape the interaction takes. An effect that reverses direction is a very different finding from one that merely shrinks, and shrinking interactions in particular need far larger samples to detect reliably than most experiments have.
 
-\textbf{Interactions in regression.} The same idea appears in survey papers as \emph{moderation}: a regression with X, Z and their product X × Z. Two things commonly go wrong in reading these. First, once the product term is in the model, the coefficients on X and Z aren't main effects any more. The coefficient on X is the effect of X when Z equals zero, which may be a meaningless value, such as a firm with zero employees. That's one reason papers \emph{centre} their variables (subtract the mean), which makes zero mean ``average.'' Second, papers often claim that centring was done to reduce multicollinearity. It doesn't: centring changes how the lower-order coefficients are interpreted, but it leaves the precision of the estimates and the test of the interaction exactly as they were \citep{echambadi2007mean}. Look for a plot or table of \emph{simple slopes}, which shows the effect of X at a few chosen values of Z. Without one, it's very hard to tell what an interaction actually means.
+\textbf{Interactions in regression.} The same idea appears in survey papers as \emph{moderation}: a regression with X, Z and their product X × Z. Two things commonly go wrong in reading these. First, once the product term is in the model, the coefficients on X and Z aren't main effects any more. The coefficient on X is the effect of X when Z equals zero, which may be a meaningless value, such as a firm with zero employees. That's one reason papers \emph{centre} their variables (subtract the mean), which makes zero mean ``average.'' Second, papers often claim that centring was done to reduce multicollinearity. It doesn't: centring changes how the lower-order coefficients are interpreted, but it leaves the precision of the estimates and the test of the interaction exactly as they were (\citeproc{ref-echambadi2007mean}{Echambadi \& Hess, 2007}). Look for a plot or table of \emph{simple slopes}, which shows the effect of X at a few chosen values of Z. Without one, it's very hard to tell what an interaction actually means.
 
 \subsection{The connection back}\label{the-connection-back-8}
 
@@ -3560,7 +3583,7 @@ A subtle interaction from a small experiment. A typical example is a 2 × 2 desi
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-8}
 
-Julie Irwin and Gary McClelland's ``Misleading heuristics and moderated multiple regression models'' \citep{irwin2001misleading} is written for marketing researchers and goes through the most common mistakes in reading and reporting interactions, including the ones above. It's a little more technical than most of the readings I've suggested, but it's short, and it's the paper I'd give anyone about to test a moderation hypothesis.
+Julie Irwin and Gary McClelland's ``Misleading heuristics and moderated multiple regression models'' (\citeproc{ref-irwin2001misleading}{Irwin \& McClelland, 2001}) is written for marketing researchers and goes through the most common mistakes in reading and reporting interactions, including the ones above. It's a little more technical than most of the readings I've suggested, but it's short, and it's the paper I'd give anyone about to test a moderation hypothesis.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -3634,7 +3657,7 @@ For example, in the Christmas-music post-hoc tests in Chapter \ref{ANOVA}, we us
 
 \section{The Bonferroni Correction: Rate of Change in Football Goals per Season}\label{the-bonferroni-correction-rate-of-change-in-football-goals-per-season}
 
-Here, I will expand on the football goals rate-of-change example from Chapter \ref{statistics}, to incorporate corrections for the multiple comparisons problem. Again, I'm using data from footballhistory.org \citeyearpar{footballhistory-epl}.
+Here, I will expand on the football goals rate-of-change example from Chapter \ref{statistics}, to incorporate corrections for the multiple comparisons problem. Again, I'm using data from footballhistory.org (\citeproc{ref-footballhistory-epl}{n.d.}).
 
 I'm building on the z-test table from the end of Chapter \ref{statistics}. But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
 
@@ -3712,7 +3735,7 @@ But, as I suggested above, that might not always be the best idea. Indeed, if yo
 
 What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be \emph{no false positives}. Therefore, in such a situation you would be \emph{increasing the chances of a false negative} by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?
 
-For example, Thomas Perneger's \citeyearpar{perneger1998} paper in the BMJ is scathing about the Bonferroni adjustment.
+For example, Thomas Perneger's (\citeproc{ref-perneger1998}{1998}) paper in the BMJ is scathing about the Bonferroni adjustment.
 
 Mind you, I am not saying that's the final word, just that there are multiple perspectives on the issues!
 
@@ -3806,9 +3829,9 @@ I want to draw three lessons from this.
 
 \textbf{Third, and most important, you can't see any of this from outside.} The published paper from our last researcher would report one clean t-test with p = .03, and it would look exactly like a paper from one of our honest single-test researchers. The p-value itself isn't wrong. The arithmetic is correct. But it answers the question ``how surprising would this result be if it were the only test I ran?'', and it wasn't the only test.
 
-This idea goes further than you might think. The statistician Andrew Gelman calls it the ``garden of forking paths,'' and it's probably my favourite idea in this whole area \citep{gelman2014statistical}. His point is that a researcher doesn't need to \emph{try} lots of analyses for the problem to arise. It's enough that they \emph{would} have made different choices if the data had come out differently. Looking back from the end, every choice seems like the only logical one: this measure, this method, these outliers removed. But someone else starting from the same place might have walked a different path and found something else.
+This idea goes further than you might think. The statistician Andrew Gelman calls it the ``garden of forking paths,'' and it's probably my favourite idea in this whole area (\citeproc{ref-gelman2014statistical}{Gelman \& Loken, 2014}). His point is that a researcher doesn't need to \emph{try} lots of analyses for the problem to arise. It's enough that they \emph{would} have made different choices if the data had come out differently. Looking back from the end, every choice seems like the only logical one: this measure, this method, these outliers removed. But someone else starting from the same place might have walked a different path and found something else.
 
-Our simulation is also on the gentle side. The paper that made this problem famous used a slightly different set of four choices and found that combining them pushed the false-positive rate to around 61 percent \citep{simmons2011false}. Real studies usually offer far more than four forks.
+Our simulation is also on the gentle side. The paper that made this problem famous used a slightly different set of four choices and found that combining them pushed the false-positive rate to around 61 percent (\citeproc{ref-simmons2011false}{Simmons et al., 2011}). Real studies usually offer far more than four forks.
 
 The most effective remedy is to decide the path in advance and write it down. That's what pre-registration does, and I'll say more about how to read pre-registered work below.
 
@@ -3818,7 +3841,7 @@ The simulation shows how a result can assemble itself out of noise. What it can'
 
 \subsection{The finding}\label{the-finding}
 
-In 2010, Dana Carney, Amy Cuddy and Andy Yap published a study in \emph{Psychological Science}, one of psychology's top journals \citep{carney2010power}. Forty-two people were randomly assigned to hold either two expansive, ``high-power'' poses, such as leaning back with your hands behind your head, or two contractive, ``low-power'' poses, for one minute each. Compared with the low-power group, the high-power posers showed higher testosterone and lower cortisol, took more risks in a gambling task, and said they felt more powerful. Two minutes of posture, in other words, apparently changed your hormones and your behaviour.
+In 2010, Dana Carney, Amy Cuddy and Andy Yap published a study in \emph{Psychological Science}, one of psychology's top journals (\citeproc{ref-carney2010power}{Carney et al., 2010}). Forty-two people were randomly assigned to hold either two expansive, ``high-power'' poses, such as leaning back with your hands behind your head, or two contractive, ``low-power'' poses, for one minute each. Compared with the low-power group, the high-power posers showed higher testosterone and lower cortisol, took more risks in a gambling task, and said they felt more powerful. Two minutes of posture, in other words, apparently changed your hormones and your behaviour.
 
 You can see why that caught on, especially in business schools. If standing like a superhero before a job interview or a big presentation made you more confident and more willing to take risks, every manager, and every MBA student, would want to know about it. Cuddy's 2012 TED talk on the research became one of the most-watched TED talks ever. I actually noticed the craze before I knew where it came from. At the 2015 Conservative Party conference, a line of senior politicians were photographed in the same odd, wide-legged stance, and I remember thinking that nobody stands like that unless someone has told them to.
 
@@ -3830,9 +3853,9 @@ If you set out to design the study most likely to be a false positive, and then 
 
 \subsection{What happened next}\label{what-happened-next}
 
-In 2015, a team led by Eva Ranehill ran the study again with 200 participants, nearly five times the original sample. Their experimenter didn't know which condition each participant was in \citep{ranehill2015assessing}. People who held the high-power poses still said they felt more powerful. But there was no effect on testosterone, on cortisol, or on any of three behavioural tasks. The original authors replied that the new study differed in important ways, such as holding the poses for longer. That's a fair point to make about any replication that isn't exact.
+In 2015, a team led by Eva Ranehill ran the study again with 200 participants, nearly five times the original sample. Their experimenter didn't know which condition each participant was in (\citeproc{ref-ranehill2015assessing}{Ranehill et al., 2015}). People who held the high-power poses still said they felt more powerful. But there was no effect on testosterone, on cortisol, or on any of three behavioural tasks. The original authors replied that the new study differed in important ways, such as holding the poses for longer. That's a fair point to make about any replication that isn't exact.
 
-Then, in 2016, something almost unheard of happened. Dana Carney, the paper's lead author, posted a statement on her website saying she no longer believed power pose effects were real \citep{carney2016position}. She was clear that the data were real, and nobody has suggested otherwise. But she set out, point by point, how the analysis had been done. If you've just read the simulation, the list will look very familiar:
+Then, in 2016, something almost unheard of happened. Dana Carney, the paper's lead author, posted a statement on her website saying she no longer believed power pose effects were real (\citeproc{ref-carney2016position}{Carney, 2016}). She was clear that the data were real, and nobody has suggested otherwise. But she set out, point by point, how the analysis had been done. If you've just read the simulation, the list will look very familiar:
 
 \begin{itemize}
 \tightlist
@@ -3848,7 +3871,7 @@ Then, in 2016, something almost unheard of happened. Dana Carney, the paper's le
 
 Those are our simulation's ``a few more people'', ``outliers'' and ``two outcomes'' forks, plus one we didn't simulate: choosing between two tests of the same thing after seeing both results. None of them would have looked like cheating at the time. She also noted that the experimenters knew the hypothesis. And she pointed out that people who won the gambling task received extra money, while winning itself is known to raise testosterone, so the hormone result may have had nothing to do with posture.
 
-The argument didn't end there. A p-curve analysis of 33 power posing studies, a method I'll describe in the reading section below, found no evidence of real effects on outcomes beyond feelings of power \citep{simmons2017power}. Cuddy and colleagues replied with a larger set of studies that included those feelings, and reached the opposite conclusion \citep{cuddy2018pcurving}. In 2017 a journal devoted a special issue to pre-registered replications. Taken together, they found essentially no effect on behaviour or hormones, but a consistent effect on how powerful people \emph{say} they feel \citep{jonas2017power}. That's roughly where things stand: posture may well change how powerful you feel, but the original claims about hormones and behaviour haven't survived.
+The argument didn't end there. A p-curve analysis of 33 power posing studies, a method I'll describe in the reading section below, found no evidence of real effects on outcomes beyond feelings of power (\citeproc{ref-simmons2017power}{Simmons \& Simonsohn, 2017}). Cuddy and colleagues replied with a larger set of studies that included those feelings, and reached the opposite conclusion (\citeproc{ref-cuddy2018pcurving}{Cuddy et al., 2018}). In 2017 a journal devoted a special issue to pre-registered replications. Taken together, they found essentially no effect on behaviour or hormones, but a consistent effect on how powerful people \emph{say} they feel (\citeproc{ref-jonas2017power}{{Jonas et al.}, 2017}). That's roughly where things stand: posture may well change how powerful you feel, but the original claims about hormones and behaviour haven't survived.
 
 \subsection{Why I tell this story differently now}\label{why-i-tell-this-story-differently-now}
 
@@ -3856,7 +3879,7 @@ When I first taught this case, I thought it was funny. Over the years I've come 
 
 What should have happened is simple. A surprising result from 42 people should have been a reason to run the study again, bigger, before telling the world. But almost nobody did that in 2010. Journals didn't ask for it, reviewers didn't ask for it, and every incentive pointed the other way. Would a top journal publish that study today without asking for a replication first? Probably not, and that's a fair measure of how much has changed.
 
-Power posing wasn't an isolated case. In 2015 a large collaboration tried to repeat 100 published psychology studies, and only about a third produced a significant result the second time \citep{osc2015estimating}. Power posing is simply the clearest example of the pattern, and the one with the most dramatic arc.
+Power posing wasn't an isolated case. In 2015 a large collaboration tried to repeat 100 published psychology studies, and only about a third produced a significant result the second time (\citeproc{ref-osc2015estimating}{Open Science Collaboration, 2015}). Power posing is simply the clearest example of the pattern, and the one with the most dramatic arc.
 
 \subsection{What this means when you read}\label{what-this-means-when-you-read}
 
@@ -3868,7 +3891,7 @@ There's also a simple way to see how fragile such a result is. Remember the conf
 
 There's one more part of this I want to raise, because I think it's the next frontier and almost nobody talks about it. Pre-registration protects you from the forking paths you might walk yourself. It does very little about the ones reviewers send you down.
 
-It's common to receive a revise-and-resubmit asking you to rethink your theory, reanalyse your data, or test something new. You then face a real dilemma. You can report the new analysis honestly, as something added at a reviewer's request. Or you can rewrite the paper as if you'd planned it all along. You know you shouldn't, but it often produces a cleaner paper that's more likely to be accepted. Reviewers also frequently tell you what they expect you to find, and people who know what they're supposed to find are more likely to find it, even without meaning to. The result is that many clean-looking published papers may be some way away from the papers that were originally submitted, and a reader has no way of knowing. One study tracked 142 management PhD theses into print, and found the ratio of supported to unsupported hypotheses more than doubled along the way \citep{oboyle2017chrysalis}. How much of that was reviewers rather than authors, nobody can say, which is rather the point.
+It's common to receive a revise-and-resubmit asking you to rethink your theory, reanalyse your data, or test something new. You then face a real dilemma. You can report the new analysis honestly, as something added at a reviewer's request. Or you can rewrite the paper as if you'd planned it all along. You know you shouldn't, but it often produces a cleaner paper that's more likely to be accepted. Reviewers also frequently tell you what they expect you to find, and people who know what they're supposed to find are more likely to find it, even without meaning to. The result is that many clean-looking published papers may be some way away from the papers that were originally submitted, and a reader has no way of knowing. One study tracked 142 management PhD theses into print, and found the ratio of supported to unsupported hypotheses more than doubled along the way (\citeproc{ref-oboyle2017chrysalis}{O'Boyle et al., 2017}). How much of that was reviewers rather than authors, nobody can say, which is rather the point.
 
 Some journals are trying to fix this. When we had a paper under review at \emph{The Leadership Quarterly}, we were offered the chance to submit a plan for the revision, with publication guaranteed whatever the results. We took it. We still got rejected. But I'd love to see that become normal.
 
@@ -3886,9 +3909,9 @@ The simulation earlier in this chapter showed that you can't see the forking pat
 
 \textbf{Control variables that move around.} If the set of controls changes from one model or table to the next without explanation, each change is a fork. In Chapter \ref{causation} you saw that controls should be chosen for causal reasons. Controls that look chosen for their effect on the p-value are a different thing.
 
-\textbf{``Robustness checks.''} These are often valuable, and some of the best work goes much further: a \emph{specification curve} or \emph{multiverse analysis} runs the analysis every reasonable way at once and shows how often the result holds \citep{simonsohn2020specification, steegen2016increasing}. But ordinary robustness checks are also chosen by the authors, and you only see the ones that were reported. A robustness section in which every single check comes out the same way deserves a little gentle scepticism.
+\textbf{``Robustness checks.''} These are often valuable, and some of the best work goes much further: a \emph{specification curve} or \emph{multiverse analysis} runs the analysis every reasonable way at once and shows how often the result holds (\citeproc{ref-simonsohn2020specification}{Simonsohn et al., 2020}; \citeproc{ref-steegen2016increasing}{Steegen et al., 2016}). But ordinary robustness checks are also chosen by the authors, and you only see the ones that were reported. A robustness section in which every single check comes out the same way deserves a little gentle scepticism.
 
-\textbf{Hypotheses that fit a bit too perfectly.} Sometimes the hypotheses in the introduction match the results a little too neatly, including an unexpected interaction or a subgroup effect presented as if it had been predicted all along. This has a name, \emph{HARKing}: hypothesising after the results are known \citep{kerr1998harking}. You usually can't prove it. But a highly specific prediction that nobody would have thought to make in advance is a clue.
+\textbf{Hypotheses that fit a bit too perfectly.} Sometimes the hypotheses in the introduction match the results a little too neatly, including an unexpected interaction or a subgroup effect presented as if it had been predicted all along. This has a name, \emph{HARKing}: hypothesising after the results are known (\citeproc{ref-kerr1998harking}{Kerr, 1998}). You usually can't prove it. But a highly specific prediction that nobody would have thought to make in advance is a clue.
 
 \textbf{Pre-registration and registered reports.} A pre-registration is a time-stamped plan, usually on a site such as the Open Science Framework, setting out the hypotheses, sample size and analysis before any data are collected. A \emph{registered report} goes one step further: the journal reviews the plan and agrees to publish whatever the results turn out to be. Both are among the most important developments in research practice in the last 15 years. As a reader, don't just note that a study was pre-registered; go and look at the plan. Does the paper match it? Are any deviations disclosed and explained? A pre-registration that nobody checks is just a link. Also bear in mind that pre-registration fits experiments far more easily than it fits analyses of secondary data, so its absence isn't a red flag on its own in many management fields.
 
@@ -3910,7 +3933,7 @@ Every fork gives chance another opportunity, and every p-value quietly assumes t
 \item
   \textbf{If it was pre-registered, does the paper match the plan?}
 \item
-  \textbf{Where do the key p-values sit?} A single p = .04 is unremarkable. A paper whose every central result falls between .01 and .05 is a pattern worth noticing. Across many studies, genuine effects tend to produce a pile of very small p-values rather than a cluster just under the line \citep{simonsohn2014pcurve}.
+  \textbf{Where do the key p-values sit?} A single p = .04 is unremarkable. A paper whose every central result falls between .01 and .05 is a pattern worth noticing. Across many studies, genuine effects tend to produce a pile of very small p-values rather than a cluster just under the line (\citeproc{ref-simonsohn2014pcurve}{Simonsohn et al., 2014}).
 \item
   \textbf{Would the story survive if the weakest result were removed?}
 \end{enumerate}
@@ -3921,7 +3944,7 @@ The too-perfect paper: every hypothesis supported, every key result just under .
 
 \subsection{If you want to read more}\label{if-you-want-to-read-more-9}
 
-Gelman and Loken's short article ``The statistical crisis in science'' \citep{gelman2014statistical} is the clearest statement of the forking-paths idea and is free to read online. For a book-length account of how these problems play out across science, and what's being done about them, Stuart Ritchie's \emph{Science Fictions} \citep{ritchie2020science} is accessible, fair and genuinely hard to put down.
+Gelman and Loken's short article ``The statistical crisis in science'' (\citeproc{ref-gelman2014statistical}{Gelman \& Loken, 2014}) is the clearest statement of the forking-paths idea and is free to read online. For a book-length account of how these problems play out across science, and what's being done about them, Stuart Ritchie's \emph{Science Fictions} (\citeproc{ref-ritchie2020science}{Ritchie, 2020}) is accessible, fair and genuinely hard to put down.
 
 A condensed version of these questions, combined with those from the other chapters and arranged in the order you'd meet them when reading a paper, is in Appendix \ref{reader-guide}.
 
@@ -4041,7 +4064,257 @@ Two warnings before you use it. First, not every question applies to every paper
   \textbf{Whose effect is this?} An average can hide groups where the effect is much larger, and groups where it's absent. A small effect on each person can still add up across a population, or the other way round. (Section \ref{intro-reading})
 \end{enumerate}
 
-\renewcommand\bibname{References}
-\bibliography{book.bib}
+\chapter*{References}\label{bibliography}
+\addcontentsline{toc}{chapter}{References}
+
+\protect\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-amos2008genetics}
+Amos, C. I., Wu, X., Broderick, P., Gorlov, I. P., Gu, J., Eisen, T., Dong, Q., Zhang, Q., Gu, X., Vijayakrishnan, J., Sullivan, K., Matakidou, A., Wang, Y., Mills, G., Doheny, K., Tsai, Y.-Y., Chen, W. V., Shete, S., Spitz, M. R., \& Houlston, R. S. (2008). Genome-wide association scan of tag {SNPs} identifies a susceptibility locus for lung cancer at 15q25.1. \emph{Nature Genetics}, \emph{40}(5), 616--622. \url{https://doi.org/10.1038/ng.109}
+
+\bibitem[\citeproctext]{ref-armstrong1977estimating}
+Armstrong, J. S., \& Overton, T. S. (1977). Estimating nonresponse bias in mail surveys. \emph{Journal of Marketing Research}, \emph{14}(3), 396--402.
+
+\bibitem[\citeproctext]{ref-alcohol-lung-cancer-null-2011}
+Bagnardi, V., Rota, M., Botteri, E., Scotti, L., Jenab, M., Bellocco, R., Tramacere, I., Pelucchi, C., Negri, E., La Vecchia, C., Corrao, G., \& Boffetta, P. (2011). Alcohol consumption and lung cancer risk in never smokers: A meta-analysis. \emph{Annals of Oncology}, \emph{22}(12), 2631--2639. \url{https://doi.org/10.1093/annonc/mdr027}
+
+\bibitem[\citeproctext]{ref-baron1986moderator}
+Baron, R. M., \& Kenny, D. A. (1986). The moderator--mediator variable distinction in social psychological research: Conceptual, strategic, and statistical considerations. \emph{Journal of Personality and Social Psychology}, \emph{51}(6), 1173--1182. \url{https://doi.org/10.1037/0022-3514.51.6.1173}
+
+\bibitem[\citeproctext]{ref-becker2022revisiting}
+Becker, J.-M., Proksch, D., \& Ringle, C. M. (2022). Revisiting {Gaussian} copulas to handle endogenous regressors. \emph{Journal of the Academy of Marketing Science}, \emph{50}, 46--66.
+
+\bibitem[\citeproctext]{ref-bettis2016creating}
+Bettis, R. A., Ethiraj, S., Gambardella, A., Helfat, C., \& Mitchell, W. (2016). Creating repeatable cumulative knowledge in strategic management. \emph{Strategic Management Journal}, \emph{37}(2), 257--261. \url{https://doi.org/10.1002/smj.2477}
+
+\bibitem[\citeproctext]{ref-scribbr-regression}
+Bevans, R. (2020, February 25). \emph{Linear regression in {R}: A step-by-step guide and examples}. \url{https://www.scribbr.com/statistics/linear-regression-in-r/}
+
+\bibitem[\citeproctext]{ref-bouvard2015carcinogenicity}
+{Bouvard, V., Loomis, D., Guyton, K. Z., et al.} (2015). Carcinogenicity of consumption of red and processed meat. \emph{The Lancet Oncology}, \emph{16}(16), 1599--1600.
+
+\bibitem[\citeproctext]{ref-bradbury2020diet}
+Bradbury, K. E., Murphy, N., \& Key, T. J. (2020). Diet and colorectal cancer in {UK Biobank}: A prospective study. \emph{International Journal of Epidemiology}, \emph{49}(1), 246--258. \url{https://doi.org/10.1093/ije/dyz064}
+
+\bibitem[\citeproctext]{ref-bullock2010mechanism}
+Bullock, J. G., Green, D. P., \& Ha, S. E. (2010). Yes, but what's the mechanism? (Don't expect an easy answer). \emph{Journal of Personality and Social Psychology}, \emph{98}(4), 550--558. \url{https://doi.org/10.1037/a0018933}
+
+\bibitem[\citeproctext]{ref-cameron2015practitioner}
+Cameron, A. C., \& Miller, D. L. (2015). A practitioner's guide to cluster-robust inference. \emph{Journal of Human Resources}, \emph{50}(2), 317--372. \url{https://doi.org/10.3368/jhr.50.2.317}
+
+\bibitem[\citeproctext]{ref-cruk2026bowel}
+Cancer Research UK. (2026). \emph{Bowel cancer risk}. \url{https://www.cancerresearchuk.org/health-professional/cancer-statistics/statistics-by-cancer-type/bowel-cancer/risk-factors}
+
+\bibitem[\citeproctext]{ref-carney2016position}
+Carney, D. R. (2016). \emph{My position on {``power poses''}}. \url{https://faculty.haas.berkeley.edu/dana_carney/pdf_my\%20position\%20on\%20power\%20poses.pdf}
+
+\bibitem[\citeproctext]{ref-carney2010power}
+Carney, D. R., Cuddy, A. J. C., \& Yap, A. J. (2010). Power posing: Brief nonverbal displays affect neuroendocrine levels and risk tolerance. \emph{Psychological Science}, \emph{21}(10), 1363--1368. \url{https://doi.org/10.1177/0956797610383437}
+
+\bibitem[\citeproctext]{ref-certo2016sample}
+Certo, S. T., Busenbark, J. R., Woo, H., \& Semadeni, M. (2016). Sample selection bias and {Heckman} models in strategic management research. \emph{Strategic Management Journal}, \emph{37}(13), 2639--2657. \url{https://doi.org/10.1002/smj.2475}
+
+\bibitem[\citeproctext]{ref-cohen1988statistical}
+Cohen, J. (1988). \emph{Statistical power analysis for the behavioral sciences} (2nd ed.). Lawrence Erlbaum Associates.
+
+\bibitem[\citeproctext]{ref-cornfield1959}
+Cornfield, J., Haenszel, W., Hammond, E. C., Lilienfeld, A. M., Shimkin, M. B., \& Wynder, E. L. (1959). Smoking and lung cancer: Recent evidence and a discussion of some questions. \emph{Journal of the National Cancer Institute}, \emph{22}(1), 173--203. \url{https://doi.org/10.1093/jnci/22.1.173}
+
+\bibitem[\citeproctext]{ref-cuddy2018pcurving}
+Cuddy, A. J. C., Schultz, S. J., \& Fosse, N. E. (2018). {P}-curving a more comprehensive body of research on postural feedback reveals clear evidential value for power-posing effects: Reply to {Simmons} and {Simonsohn} (2017). \emph{Psychological Science}, \emph{29}(4), 656--666. \url{https://doi.org/10.1177/0956797617746749}
+
+\bibitem[\citeproctext]{ref-cumming2005inference}
+Cumming, G., \& Finch, S. (2005). Inference by eye: Confidence intervals and how to read pictures of data. \emph{American Psychologist}, \emph{60}(2), 170--180. \url{https://doi.org/10.1037/0003-066X.60.2.170}
+
+\bibitem[\citeproctext]{ref-cunningham2021mixtape}
+Cunningham, S. (2021). \emph{Causal inference: The mixtape}. Yale University Press.
+
+\bibitem[\citeproctext]{ref-delacre2017why}
+Delacre, M., Lakens, D., \& Leys, C. (2017). Why psychologists should by default use {Welch's} t-test instead of {Student's} t-test. \emph{International Review of Social Psychology}, \emph{30}(1), 92--101. \url{https://doi.org/10.5334/irsp.82}
+
+\bibitem[\citeproctext]{ref-echambadi2007mean}
+Echambadi, R., \& Hess, J. D. (2007). Mean-centering does not alleviate collinearity problems in moderated multiple regression models. \emph{Marketing Science}, \emph{26}(3), 438--445. \url{https://doi.org/10.1287/mksc.1060.0263}
+
+\bibitem[\citeproctext]{ref-nba-sampling-bias-2021}
+Economou, P., Batsidis, A., Tzavelas, G., \& Malefaki, S. (2021). Understanding the sampling bias: A case study on {NBA} drafts. \emph{Journal of Statistical Theory and Practice}, \emph{15}(2), 45. \url{https://doi.org/10.1007/s42519-021-00167-2}
+
+\bibitem[\citeproctext]{ref-football-data-epl}
+Football-Data.co.uk. (n.d.). \emph{{England} football results betting odds: Premiership results and betting odds}. Retrieved October 1, 2026, from \url{https://www.football-data.co.uk/englandm.php}
+
+\bibitem[\citeproctext]{ref-footballhistory-epl}
+{footballhistory.org}. (n.d.). \emph{{Premier} {League} -- goals and statistics}. Retrieved October 1, 2026, from \url{https://www.footballhistory.org/league/premier-league-statistics.html}
+
+\bibitem[\citeproctext]{ref-garnett-cox-2022-alcohol-smoking}
+Garnett, C., Oldham, M., Shahab, L., Tattan-Birch, H., \& Cox, S. (2022). Characterising smoking and smoking cessation attempts by risk of alcohol dependence: A representative, cross-sectional study of adults in {England} between 2014--2021. \emph{The Lancet Regional Health -- Europe}, \emph{18}, 100418. \url{https://doi.org/10.1016/j.lanepe.2022.100418}
+
+\bibitem[\citeproctext]{ref-gelman2014statistical}
+Gelman, A., \& Loken, E. (2014). The statistical crisis in science. \emph{American Scientist}, \emph{102}(6), 460--465.
+
+\bibitem[\citeproctext]{ref-gelman2006difference}
+Gelman, A., \& Stern, H. (2006). The difference between {``significant''} and {``not significant''} is not itself statistically significant. \emph{The American Statistician}, \emph{60}(4), 328--331. \url{https://doi.org/10.1198/000313006X152649}
+
+\bibitem[\citeproctext]{ref-gigerenzer2002reckoning}
+Gigerenzer, G. (2002). \emph{Reckoning with risk: Learning to live with uncertainty}. Allen Lane.
+
+\bibitem[\citeproctext]{ref-asbestos-meta-analysis}
+Goodman, M., Morgan, R. W., Ray, R., Malloy, C. D., \& Zhao, K. (1999). Cancer in asbestos-exposed occupational cohorts: A meta-analysis. \emph{Cancer Causes \& Control}, \emph{10}(5), 453--465. \url{https://doi.org/10.1023/a:1008980927434}
+
+\bibitem[\citeproctext]{ref-grinberg2013}
+Grinberg, N., Naaman, M., Shaw, B., \& Lotan, G. (2013). Extracting diurnal patterns of real world activity from social media. \emph{Proceedings of the Seventh International AAAI Conference on Weblogs and Social Media (ICWSM 2013)}, 205--214. \url{https://doi.org/10.1609/icwsm.v7i1.14409}
+
+\bibitem[\citeproctext]{ref-heckman1979sample}
+Heckman, J. J. (1979). Sample selection bias as a specification error. \emph{Econometrica}, \emph{47}(1), 153--161.
+
+\bibitem[\citeproctext]{ref-radon-pooled-analysis}
+Heinzl, F., Schnelzer, M., \& Scholz-Kreisel, P. (2024). Lung cancer mortality attributable to residential radon in {Germany}. \emph{Radiation and Environmental Biophysics}, \emph{63}(4), 505--517. \url{https://doi.org/10.1007/s00411-024-01095-y}
+
+\bibitem[\citeproctext]{ref-huntingtonklein2025effect}
+Huntington-Klein, N. (2025). \emph{The effect: An introduction to research design and causality} (2nd ed.). {Chapman and Hall/CRC}.
+
+\bibitem[\citeproctext]{ref-iarc2015qa}
+International Agency for Research on Cancer. (2015). \emph{Cancer: Carcinogenicity of the consumption of red meat and processed meat}. \url{https://www.who.int/news-room/questions-and-answers/item/cancer-carcinogenicity-of-the-consumption-of-red-meat-and-processed-meat}
+
+\bibitem[\citeproctext]{ref-irwin2001misleading}
+Irwin, J. R., \& McClelland, G. H. (2001). Misleading heuristics and moderated multiple regression models. \emph{Journal of Marketing Research}, \emph{38}(1), 100--109. \url{https://doi.org/10.1509/jmkr.38.1.100.18835}
+
+\bibitem[\citeproctext]{ref-jhu-crc}
+Johns Hopkins Coronavirus Resource Center. (n.d.). \emph{{Johns Hopkins Coronavirus Resource Center}}. Retrieved October 1, 2026, from \url{https://coronavirus.jhu.edu/}
+
+\bibitem[\citeproctext]{ref-jhu-csse-covid19}
+Johns Hopkins University Center for Systems Science and Engineering. (2023). \emph{{COVID-19} data repository by the {Center for Systems Science and Engineering} ({CSSE}) at {Johns Hopkins University}}. \url{https://github.com/CSSEGISandData/COVID-19}
+
+\bibitem[\citeproctext]{ref-johnson2017nba}
+Johnson, A. (2017, December). \emph{Nylon calculus: More on the {NBA} draft and why the tallest men can't dribble}. FanSided. \url{https://fansided.com/2017/12/22/nylon-calculus-nba-draft-selection-bias/}
+
+\bibitem[\citeproctext]{ref-jonas2017power}
+{Jonas, K. J., Cesario, J., Alger, M., et al.} (2017). Power poses -- where do we stand? \emph{Comprehensive Results in Social Psychology}, \emph{2}(1), 139--141. \url{https://doi.org/10.1080/23743603.2017.1342447}
+
+\bibitem[\citeproctext]{ref-kalnins2025additional}
+Kalnins, A., \& Praitis Hill, K. (2025). Additional caution regarding rules of thumb for variance inflation factors: Extending {O'Brien} to the context of specification error. \emph{Quality \& Quantity}, \emph{59}(Suppl 1), 291--314. \url{https://doi.org/10.1007/s11135-024-01980-0}
+
+\bibitem[\citeproctext]{ref-kerr1998harking}
+Kerr, N. L. (1998). {HARKing}: Hypothesizing after the results are known. \emph{Personality and Social Psychology Review}, \emph{2}(3), 196--217.
+
+\bibitem[\citeproctext]{ref-lakens2013calculating}
+Lakens, D. (2013). Calculating and reporting effect sizes to facilitate cumulative science: A practical primer for t-tests and {ANOVAs}. \emph{Frontiers in Psychology}, \emph{4}, 863. \url{https://doi.org/10.3389/fpsyg.2013.00863}
+
+\bibitem[\citeproctext]{ref-lakens2017equivalence}
+Lakens, D. (2017). Equivalence tests: A practical primer for t tests, correlations, and meta-analyses. \emph{Social Psychological and Personality Science}, \emph{8}(4), 355--362. \url{https://doi.org/10.1177/1948550617697177}
+
+\bibitem[\citeproctext]{ref-lee2020valid}
+Lee, D. S., McCrary, J., Moreira, M. J., \& Porter, J. (2020). \emph{Valid t-ratio inference for {IV}} (Working Paper 2010.05058). arXiv. \url{https://arxiv.org/abs/2010.05058}
+
+\bibitem[\citeproctext]{ref-lee2005evolution}
+Lee, N., \& Hooley, G. (2005). The evolution of {``classical mythology''} within marketing measure development. \emph{European Journal of Marketing}, \emph{39}(3/4), 365--385. \url{https://doi.org/10.1108/03090560510581827}
+
+\bibitem[\citeproctext]{ref-lee2008doing}
+Lee, N., \& Lings, I. (2008). \emph{Doing business research: A guide to theory and practice}. Sage.
+
+\bibitem[\citeproctext]{ref-mathur2020conversion}
+Mathur, M. B., \& VanderWeele, T. J. (2020). A simple, interpretable conversion from {P}earson's correlation to {C}ohen's d for continuous exposures. \emph{Epidemiology}, \emph{31}(2), e16--e18. \url{https://doi.org/10.1097/ede.0000000000001105}
+
+\bibitem[\citeproctext]{ref-norman2010likert}
+Norman, G. (2010). Likert scales, levels of measurement and the {``laws''} of statistics. \emph{Advances in Health Sciences Education}, \emph{15}(5), 625--632. \url{https://doi.org/10.1007/s10459-010-9222-y}
+
+\bibitem[\citeproctext]{ref-oboyle2017chrysalis}
+O'Boyle, Jr., Ernest Hugh, Banks, G. C., \& Gonzalez-Mulé, E. (2017). The chrysalis effect: How ugly initial results metamorphosize into beautiful articles. \emph{Journal of Management}, \emph{43}(2), 376--399. \url{https://doi.org/10.1177/0149206314527133}
+
+\bibitem[\citeproctext]{ref-obrien2007caution}
+O'Brien, R. M. (2007). A caution regarding rules of thumb for variance inflation factors. \emph{Quality \& Quantity}, \emph{41}(5), 673--690. \url{https://doi.org/10.1007/s11135-006-9018-6}
+
+\bibitem[\citeproctext]{ref-ons-homicide-2016}
+Office for National Statistics. (2017, February 9). \emph{Focus on violent crime and sexual offences, {England} and {Wales}: Year ending {March} 2016 -- homicide}. \url{https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide}
+
+\bibitem[\citeproctext]{ref-ons-births-2020}
+Office for National Statistics. (2021, October 14). \emph{Births in {England} and {Wales}: 2020}. \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020}
+
+\bibitem[\citeproctext]{ref-osc2015estimating}
+Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. \emph{Science}, \emph{349}(6251), aac4716. \url{https://doi.org/10.1126/science.aac4716}
+
+\bibitem[\citeproctext]{ref-owid}
+Our World in Data. (n.d.). \emph{{Our World in Data}}. Retrieved October 1, 2026, from \url{https://ourworldindata.org/}
+
+\bibitem[\citeproctext]{ref-park2012handling}
+Park, S., \& Gupta, S. (2012). Handling endogenous regressors by joint estimation using copulas. \emph{Marketing Science}, \emph{31}(4), 567--586.
+
+\bibitem[\citeproctext]{ref-pearl2018book}
+Pearl, J., \& Mackenzie, D. (2018). \emph{The book of why: The new science of cause and effect}. Basic Books.
+
+\bibitem[\citeproctext]{ref-perneger1998}
+Perneger, T. V. (1998). What's wrong with {B}onferroni adjustments. \emph{BMJ}, \emph{316}, 1236--1238. \url{https://doi.org/10.1136/bmj.316.7139.1236}
+
+\bibitem[\citeproctext]{ref-petrin2010control}
+Petrin, A., \& Train, K. (2010). A control function approach to endogeneity in consumer choice models. \emph{Journal of Marketing Research}, \emph{47}(1), 3--13.
+
+\bibitem[\citeproctext]{ref-pocock2006simplest}
+Pocock, S. J. (2006). The simplest statistical test: How to check for a difference between treatments. \emph{BMJ}, \emph{332}(7552), 1256. \url{https://doi.org/10.1136/bmj.332.7552.1256}
+
+\bibitem[\citeproctext]{ref-podsakoff2003common}
+Podsakoff, P. M., MacKenzie, S. B., Lee, J.-Y., \& Podsakoff, N. P. (2003). Common method biases in behavioral research: A critical review of the literature and recommended remedies. \emph{Journal of Applied Psychology}, \emph{88}(5), 879--903. \url{https://doi.org/10.1037/0021-9010.88.5.879}
+
+\bibitem[\citeproctext]{ref-pl-goals-news}
+Premier League. (2024, May 19). \emph{The numbers that show this has been a season like no other}. \url{https://www.premierleague.com/news/4016793}
+
+\bibitem[\citeproctext]{ref-ranehill2015assessing}
+Ranehill, E., Dreber, A., Johannesson, M., Leiberg, S., Sul, S., \& Weber, R. A. (2015). Assessing the robustness of power posing: No effect on hormones and risk tolerance in a large sample of men and women. \emph{Psychological Science}, \emph{26}(5), 653--656. \url{https://doi.org/10.1177/0956797614553946}
+
+\bibitem[\citeproctext]{ref-ritchie2020science}
+Ritchie, S. (2020). \emph{Science fictions: Exposing fraud, bias, negligence and hype in science}. Bodley Head.
+
+\bibitem[\citeproctext]{ref-saccone2007nicotine}
+Saccone, S. F., Hinrichs, A. L., Saccone, N. L., Chase, G. A., Konvicka, K., Madden, P. A. F., Breslau, N., Johnson, E. O., Hatsukami, D., Pomerleau, O., Swan, G. E., Goate, A. M., Rutter, J., Bertelsen, S., Fox, L., Fugman, D., Martin, N. G., Montgomery, G. W., Wang, J. C., \ldots{} Bierut, L. J. (2007). Cholinergic nicotinic receptor genes implicated in a nicotine dependence association study targeting 348 candidate genes with 3713 {SNPs}. \emph{Human Molecular Genetics}, \emph{16}(1), 36--49. \url{https://doi.org/10.1093/hmg/ddl438}
+
+\bibitem[\citeproctext]{ref-smc2015expert}
+Science Media Centre. (2015). \emph{Expert reaction to {IARC} classification of processed meat as {``carcinogenic to humans''} and red meat as {``probably carcinogenic to humans''}}. \url{https://www.sciencemediacentre.org/xpert-reaction-to-iarc-classification-of-processed-meat-as-carcinogenic-to-humans-group-1-and-red-meat-as-probably-carcinogenic-to-humans-group-2a/}
+
+\bibitem[\citeproctext]{ref-siemsen2010common}
+Siemsen, E., Roth, A., \& Oliveira, P. (2010). Common method bias in regression models with linear, quadratic, and interaction effects. \emph{Organizational Research Methods}, \emph{13}(3), 456--476. \url{https://doi.org/10.1177/1094428109351241}
+
+\bibitem[\citeproctext]{ref-simmons2011false}
+Simmons, J. P., Nelson, L. D., \& Simonsohn, U. (2011). False-positive psychology: Undisclosed flexibility in data collection and analysis allows presenting anything as significant. \emph{Psychological Science}, \emph{22}(11), 1359--1366. \url{https://doi.org/10.1177/0956797611417632}
+
+\bibitem[\citeproctext]{ref-simmons2017power}
+Simmons, J. P., \& Simonsohn, U. (2017). Power posing: {P}-curving the evidence. \emph{Psychological Science}, \emph{28}(5), 687--693. \url{https://doi.org/10.1177/0956797616658563}
+
+\bibitem[\citeproctext]{ref-simonsohn2014pcurve}
+Simonsohn, U., Nelson, L. D., \& Simmons, J. P. (2014). P-curve: A key to the file-drawer. \emph{Journal of Experimental Psychology: General}, \emph{143}(2), 534--547.
+
+\bibitem[\citeproctext]{ref-simonsohn2020specification}
+Simonsohn, U., Simmons, J. P., \& Nelson, L. D. (2020). Specification curve analysis. \emph{Nature Human Behaviour}, \emph{4}, 1208--1214.
+
+\bibitem[\citeproctext]{ref-spector2006method}
+Spector, P. E. (2006). Method variance in organizational research: Truth or urban legend? \emph{Organizational Research Methods}, \emph{9}(2), 221--232. \url{https://doi.org/10.1177/1094428105284955}
+
+\bibitem[\citeproctext]{ref-spiegelhalter2019art}
+Spiegelhalter, D. (2019). \emph{The art of statistics: Learning from data}. Pelican.
+
+\bibitem[\citeproctext]{ref-steegen2016increasing}
+Steegen, S., Tuerlinckx, F., Gelman, A., \& Vanpaemel, W. (2016). Increasing transparency through a multiverse analysis. \emph{Perspectives on Psychological Science}, \emph{11}(5), 702--712.
+
+\bibitem[\citeproctext]{ref-vanderweele2017sqrt}
+VanderWeele, T. J. (2017). On a square-root transformation of the odds ratio for a common outcome. \emph{Epidemiology}, \emph{28}(6), e58--e60. \url{https://doi.org/10.1097/ede.0000000000000733}
+
+\bibitem[\citeproctext]{ref-vanderweele2017evalue}
+VanderWeele, T. J., \& Ding, P. (2017). Sensitivity analysis in observational research: Introducing the {E}-value. \emph{Annals of Internal Medicine}, \emph{167}(4), 268--274. \url{https://doi.org/10.7326/M16-2607}
+
+\bibitem[\citeproctext]{ref-vigen-icecream}
+Vigen, T. (2021). \emph{Ice cream consumption correlates with violent crime rate}. Spurious Correlations. \url{https://tylervigen.com/spurious/correlation/9632_ice-cream-consumption_correlates-with_violent-crime-rates}
+
+\bibitem[\citeproctext]{ref-wasserstein2016asa}
+Wasserstein, R. L., \& Lazar, N. A. (2016). The {ASA}'s statement on p-values: Context, process, and purpose. \emph{The American Statistician}, \emph{70}(2), 129--133. \url{https://doi.org/10.1080/00031305.2016.1154108}
+
+\bibitem[\citeproctext]{ref-wolfolds2019misaccounting}
+Wolfolds, S. E., \& Siegel, J. (2019). Misaccounting for endogeneity: The peril of relying on the {Heckman} two-step method without a valid instrument. \emph{Strategic Management Journal}, \emph{40}(3), 432--462. \url{https://doi.org/10.1002/smj.2995}
+
+\bibitem[\citeproctext]{ref-wright2008ombudsman}
+Wright, M., \& Armstrong, J. S. (2008). The ombudsman: Verification of citations: Fawlty towers of knowledge? \emph{Interfaces}, \emph{38}(2), 125--132. \url{https://doi.org/10.1287/inte.1070.0317}
+
+\bibitem[\citeproctext]{ref-zhang1998relative}
+Zhang, J., \& Yu, K. F. (1998). What's the relative risk? {A} method of correcting the odds ratio in cohort studies of common outcomes. \emph{JAMA}, \emph{280}(19), 1690--1691.
+
+\bibitem[\citeproctext]{ref-zhao2010reconsidering}
+Zhao, X., Lynch, J. G., Jr., \& Chen, Q. (2010). Reconsidering {Baron} and {Kenny}: Myths and truths about mediation analysis. \emph{Journal of Consumer Research}, \emph{37}(2), 197--206. \url{https://doi.org/10.1086/651257}
+
+\end{CSLReferences}
 
 \end{document}
