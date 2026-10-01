@@ -134,7 +134,7 @@ VarianceGoals
 
 This is not exactly the same, but good enough to be going on with.
 
-So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurance of a given number of total goals scored in a premier league game, for this season at least.
+So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurrence of a given number of total goals scored in a premier league game, for this season at least.
 
 The first thing I am going to do with that information is build a figure which compares the *actual* numbers of goals scored in games with the *predicted* numbers which would be scored if the goals scored were a perfect Poisson distribution.
 
@@ -167,7 +167,7 @@ Remember, as you can see above, the row for '8' is missing, and it goes straight
 
 Anyway, it's pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).
 
-Let's plot this for the big payoff:
+Let's plot this for the big pay-off:
 
 ```{r}
 NewGoalsTable %>% 

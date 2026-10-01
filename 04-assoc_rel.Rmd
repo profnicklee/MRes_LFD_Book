@@ -60,7 +60,7 @@ Here, we can see that the correlation is 0.75
 
 But what does that mean? We can **return to the slides for some explanation**.
 
-## Introducing Nonlinear Associations
+## Introducing Non-linear Associations {#introducing-nonlinear-associations}
 
 Let's return to the scatterplot of GDPpc and Happiness
 
@@ -68,11 +68,11 @@ Let's return to the scatterplot of GDPpc and Happiness
 plot(Happy$GDPpc, Happy$Happiness)
 ```
 
-As the *Economist* analysis discussed in the lectures suggests, this association also looks kind of *nonlinear*.
+As the *Economist* analysis discussed in the lectures suggests, this association also looks kind of *non-linear*.
 
 However, unlike the *Economist*, we can also say that there are multiple ways to look at this:
 
-First, you could take the *Economist's* view that this is probably a **nonlinear relationship.** Indeed, we can check this out by *transforming* GDPpc and comparing the results between transformed and non-transformed data.
+First, you could take the *Economist's* view that this is probably a **non-linear relationship.** Indeed, we can check this out by *transforming* GDPpc and comparing the results between transformed and non-transformed data.
 
 Let's have a try at that. What we will do is transform the GDPpc variable using a log transform (i.e. taking the natural logarithm of GDPpc).
 
@@ -110,11 +110,11 @@ We can see that the association is stronger (the correlation is higher) for the 
 
 However, **transformations** of data are kind of a complicated topic though. In essence, what we are doing is changing the distribution of one (or more) of the variables, in a systematic way, in order to convert a non-linear relationship (which may be unable to be tested with methods like correlation and regression) into a linear one.
 
-There are many different types of transformations available to you, and the one you choose depends on the form of the nonlinearity. A **log** transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it's not always obvious what exactly to do, and people often default to transforming **any** nonlinear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It's not really that simple though, and I think we need to be a bit more logical and theory-driven on **why** we transform variables.
+There are many different types of transformations available to you, and the one you choose depends on the form of the non-linearity. A **log** transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it's not always obvious what exactly to do, and people often default to transforming **any** non-linear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It's not really that simple though, and I think we need to be a bit more logical and theory-driven on **why** we transform variables.
 
-In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a **lot more** to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could concievably lead to policy changes compared to the prior non-transformed analysis.
+In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a **lot more** to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could conceivably lead to policy changes compared to the prior non-transformed analysis.
 
-**Even so**, I have always had a slightly different possibility on my mind. In fact, it may be that there are **two distinct groups** of country, low and high income, and different **linear** associations within those groups. That's a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data...
+**Even so**, I have always had a slightly different possibility on my mind. In fact, it may be that there are **two distinct groups** of country, low and high income, and different **linear** associations within those groups. That's a similar-ish idea to the non-linear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data...
 
 Maybe I'll leave that for another day though.
 
@@ -235,16 +235,16 @@ Of course, what these 'units' mean depends on how the variables were measured. T
 
 However, because the *scales of the variables* are different, its not really possible to compare the sizes of the effects. So to some extent we don't know which of the two variables has the 'bigger' effect here, relatively at least.
 
-To do that, we need to standardize the coeffiecients, which basically means putting all the variables on the **same scale**. Beforehand, they all were on different scales, which you can see by going back up and looking at the range, mean, and standard deviation of the original variables. You can see for yourself they are all different.
+To do that, we need to standardise the coefficients, which basically means putting all the variables on the **same scale**. Beforehand, they all were on different scales, which you can see by going back up and looking at the range, mean, and standard deviation of the original variables. You can see for yourself they are all different.
 
-We can solve this issue by creating a new set of standardized data, and running the model on that, as follows:
+We can solve this issue by creating a new set of standardised data, and running the model on that, as follows:
 
 ```{r}
 std_Heart = data.frame(scale(Heart))
 describe(std_Heart)
 ```
 
-You know these variables are standardized as they now all have a mean of 0 and a standard deviation of 1. Now, let's run our model on this standardized data set.
+You know these variables are standardised as they now all have a mean of 0 and a standard deviation of 1. Now, let's run our model on this standardised data set.
 
 ```{r}
 std.heart.disease.lm<-lm(heart.disease ~ biking + smoking, data = std_Heart)
@@ -252,23 +252,23 @@ std.heart.disease.lm<-lm(heart.disease ~ biking + smoking, data = std_Heart)
 summary(std.heart.disease.lm)
 ```
 
-You can see the things that have changed are the 'Estimates', which are now standardized.
+You can see the things that have changed are the 'Estimates', which are now standardised.
 
 In decimal, they are -0.94 for biking and 0.32 for Smoking.
 
-The correct interpretation of these standardized effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.
+The correct interpretation of these standardised effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.
 
 So, in this sample, biking has a much **larger** standardised association with heart disease than smoking does (although in the opposite direction). One caution, though. Standardised coefficients are measured in standard deviations, and those standard deviations come from this particular sample. If another sample had much more variation in smoking, say, the standardised coefficient for smoking would change even if the underlying relationship didn't. So comparisons like this are specific to the sample, and are safest between samples that look alike.
 
-## Visualizing Multiple Regression
+## Visualising Multiple Regression {#visualizing-multiple-regression}
 
-There are loads of different ways to visualize multiple regression. It's not trivial, because we have more than two variables, so we can't use the techniques we used already.
+There are loads of different ways to visualise multiple regression. It's not trivial, because we have more than two variables, so we can't use the techniques we used already.
 
-Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much payoff (if any).
+Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much pay-off (if any).
 
-In this case, we can use a pretty simple visualization, where we could plot the relationship of biking to heart disease at different levels of smoking.
+In this case, we can use a pretty simple visualisation, where we could plot the relationship of biking to heart disease at different levels of smoking.
 
-This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn't really work that way, but it's a cool visualization regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <https://www.scribbr.com/statistics/linear-regression-in-r/>
+This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn't really work that way, but it's a cool visualisation regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <https://www.scribbr.com/statistics/linear-regression-in-r/>
 
 ```{r}
 viz.data<-expand.grid(

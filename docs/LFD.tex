@@ -216,7 +216,7 @@ It is important to note that this module is not designed to teach you how to use
 
 This book is written in \textbf{Markdown}, using R and the \textbf{bookdown} package, and published online in HTML format. A full archive of all the R Code and data for the individual chapters from the book is available from Professor Lee on request, once the book is completed for the year.
 
-This book is essentially a `live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runnings.
+This book is essentially a `live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runs.
 
 The current year is 2026, and the book is currently \emph{in progress for 2026.}
 
@@ -342,11 +342,11 @@ Another way to say the same thing is to ask how many people would need to eat th
 
 It's also worth knowing that an average can hide a lot. In the Biobank study, the association with processed meat showed up in men but not in women. A single headline number describes a population, not a person, and certainly not you.
 
-\section{Summarizing Data with Numbers}\label{summarizing-data-with-numbers}
+\section{Summarising Data with Numbers}\label{summarizing-data-with-numbers}
 
 Above, we simply plotted a single variable of interest, and showed that some very basic changes to how it was displayed had the potential to `lead' the reader to different conclusions. Even that simple tweaking is a powerful way to change opinion, and used in the wrong way can be very misleading.
 
-Now, let's think about the idea of an \emph{even simpler} way to describe data - by summarizing it with just some numbers.
+Now, let's think about the idea of an \emph{even simpler} way to describe data - by summarising it with just some numbers.
 
 For this example, I am going to use data on GDP per head in 2020 for each nation, from the World Bank.
 
@@ -366,7 +366,7 @@ This sort of chart gives us something very different to a bar chart. Instead, it
 
 So, here we have some idea of the \textbf{distribution} of the variable. It's clearly skewed quite heavily, with some outliers at the high end.
 
-Let's move on to summarize this variable with some numbers:
+Let's move on to summarise this variable with some numbers:
 
 \begin{verbatim}
 ## 
@@ -411,7 +411,7 @@ A few other summary statistics are calculated for 2020 GDPph below
 
 What we have here now includes the range (173454.4) and the interquartile range (15944.94), which are both useful measures of how `spread out' the data is.
 
-Each of the summary numbers above has strengths and weaknesses when describing different types of data. Here, we will mainly talk about the sensistivity to outliers.
+Each of the summary numbers above has strengths and weaknesses when describing different types of data. Here, we will mainly talk about the sensitivity to outliers.
 
 Specifically, the \textbf{median} and \textbf{interquartile range} are less sensitive to outliers as measures of central tendency and range respectively than their counterparts the \textbf{mean} and the \textbf{range}. So, that's why you commonly see the median used so frequently in these sorts of situations.
 
@@ -459,11 +459,11 @@ Let's look at what is called a \textbf{violin plot} to emphasize this:
 
 Neat! You can see how the violin plot really emphasizes the differences in the distributions, which are totally obscured by the box plots, and only partially shown by adding the jitter.
 
-Another way to visualize this is with \textbf{ridges}, which basically compare the distributions of variables together:
+Another way to visualise this is with \textbf{ridges}, which basically compare the distributions of variables together:
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-19-1.pdf}}
 
-These are really cool in my view. And, if you are asking me, my preference in this type of situation would be to combine jittered box plots, which show the basics, and emphasize the outliers and summary numbers, with ridge plots, which show a really nice visualization of the distributions of each variable. Taken together, these plots allow us to understand a surprisingly large amount of important information about variables.
+These are really cool in my view. And, if you are asking me, my preference in this type of situation would be to combine jittered box plots, which show the basics, and emphasize the outliers and summary numbers, with ridge plots, which show a really nice visualisation of the distributions of each variable. Taken together, these plots allow us to understand a surprisingly large amount of important information about variables.
 
 OK, let's move back to the slides to discuss another crucially important concept related to data distributions: \textbf{transformations}.
 
@@ -572,9 +572,9 @@ Looking online, one can pull down the distribution of birthweights in England an
 
 We can use these numbers to create a chart
 
-(please note, the code I use for the demonstrations in this lesson is mostly modified from David Spiegelhalter's originals, available on his Github page, with some of my own bits and bobs and new data\ldots)
+(please note, the code I use for the demonstrations in this lesson is mostly modified from David Spiegelhalter's originals, available on his GitHub page, with some of my own bits and bobs and new data\ldots)
 
-Spiegelhalter's Github can be found here: \url{https://github.com/dspiegel29/ArtofStatistics}
+Spiegelhalter's GitHub can be found here: \url{https://github.com/dspiegel29/ArtofStatistics}
 
 The first thing I want to do is create a data set that accurately reflects the ONS distribution of birthweights in England and Wales in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.
 
@@ -605,7 +605,7 @@ The first thing I want to do is create a data set that accurately reflects the O
 
 Remember though, the above just sets up the numbers required to recreate the empirical distribution, it isn't analysis itself.
 
-Next, I want to summarize the distribution I just created and a few important numbers regarding Low Birthweight that we will need to use for our later discussion.
+Next, I want to summarise the distribution I just created and a few important numbers regarding Low Birthweight that we will need to use for our later discussion.
 
 Displayed below are the total N for the distribution, the number of low birthweight (LBW) babies born, the percentage of LBW babies, the mean, the standard deviation, the skewness, and kurtosis.
 
@@ -685,7 +685,7 @@ Below, I will chart the normal distribution with Standard Deviations.
 
 Mathematically, around 95\% of the area under the chart is between -2 and +2 SDs, and 99.7\% between -3 and +3 SDs
 
-Now, another way to think about this is that the area under the normal curve represents 100\% of the probability of a given value (here, weight) occuring. So, you could say that it is around 95\% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
+Now, another way to think about this is that the area under the normal curve represents 100\% of the probability of a given value (here, weight) occurring. So, you could say that it is around 95\% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
 
 We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594
 
@@ -701,7 +701,7 @@ To do so, let's return to the slide deck and see the calculation.
 
 Next, we can overlay percentiles in 5\% increments on the chart, which are also useful ways to describe a distribution like the Normal.
 
-50th is of course the median, and the 25th and 75th percentilies are the quartiles.
+50th is of course the median, and the 25th and 75th percentiles are the quartiles.
 
 Here, the same things we have previously discussed in relation to samples are applied to populations
 
@@ -800,7 +800,7 @@ Nobody has ever found that factor. Fisher never named one. The argument didn't k
 
 This kind of reasoning got a name and a formula decades after Cornfield: the E-value (\citeproc{ref-vanderweele2017evalue}{VanderWeele \& Ding, 2017}), the minimum strength a confounder would need with both the exposure and the outcome to fully explain an observed relationship away, on its own --- one number instead of two bars to check. It's simple enough to work out yourself: \(E = RR + \sqrt{RR(RR-1)}\). Run the smoking figure through it: \(E = 9 + \sqrt{9 \times 8} \approx 17.5\). Notice that's higher than 9 --- the precise version of Cornfield's argument sets the bar even further out of reach than his own simplified statement did.
 
-Management research rarely reports risk ratios --- you'll see correlations and standardized regression coefficients instead. The same test still works: a correlation (or a standardized coefficient) plugs directly into \(RR \approx e^{0.91r}\) (\citeproc{ref-mathur2020conversion}{Mathur \& VanderWeele, 2020}; \citeproc{ref-vanderweele2017sqrt}{VanderWeele, 2017}), and from there, the same formula as above. Take r = 0.3 --- a correlation many reviewers would treat as a genuinely strong finding. RR ≈ 1.31, E-value ≈ 1.96. A confounder barely stronger than the effect itself would fully explain it away. Compare that to smoking's 17.5, and you get a real sense of how differently ``solid'' two published findings can actually be, even when both get called significant.
+Management research rarely reports risk ratios --- you'll see correlations and standardised regression coefficients instead. The same test still works: a correlation (or a standardised coefficient) plugs directly into \(RR \approx e^{0.91r}\) (\citeproc{ref-mathur2020conversion}{Mathur \& VanderWeele, 2020}; \citeproc{ref-vanderweele2017sqrt}{VanderWeele, 2017}), and from there, the same formula as above. Take r = 0.3 --- a correlation many reviewers would treat as a genuinely strong finding. RR ≈ 1.31, E-value ≈ 1.96. A confounder barely stronger than the effect itself would fully explain it away. Compare that to smoking's 17.5, and you get a real sense of how differently ``solid'' two published findings can actually be, even when both get called significant.
 
 It's worth keeping this formula, because you'll meet plenty of causal claims that don't hold up nearly this well once you check. Next time a headline reports a relative risk --- or a paper reports a correlation --- this is the one-line test for how seriously to take it.
 
@@ -992,7 +992,7 @@ This is where Chapter \ref{norm-dist} pays off. Many survey constructs are an av
 
 \textbf{Family four: model who got into the sample.}
 
-This family deals with the second kind of selection from Section \ref{selection-feels-different}, the filter problem. It's worth knowing where that problem hides in management research, because papers rarely announce it. It shows up in who answers surveys, in which firms survived long enough to appear in a database, in which startups got through an investor's gate, in which employees stayed at a firm rather than leaving, and in which studies got published. That last one is big enough to get its own treatment in Chapter \ref{Issues}.
+This family deals with the second kind of selection from Section \ref{selection-feels-different}, the filter problem. It's worth knowing where that problem hides in management research, because papers rarely announce it. It shows up in who answers surveys, in which firms survived long enough to appear in a database, in which start-ups got through an investor's gate, in which employees stayed at a firm rather than leaving, and in which studies got published. That last one is big enough to get its own treatment in Chapter \ref{Issues}.
 
 One caution before going further, because this is exactly where research myths start. A low response rate is not automatically a problem. What matters is whether the people who didn't respond differ \emph{systematically} from those who did, in ways connected to what's being studied. A survey with a modest response rate, where non-response is essentially unrelated to the variables of interest, can tell you more than one with a high response rate, where the people who didn't reply are precisely the ones the study is about. It's the same logic as the rest of this chapter: a filter only distorts a relationship if it's connected to the variables in that relationship.
 
@@ -1106,17 +1106,17 @@ Here, we can see that the correlation is 0.75
 
 But what does that mean? We can \textbf{return to the slides for some explanation}.
 
-\section{Introducing Nonlinear Associations}\label{introducing-nonlinear-associations}
+\section{Introducing Non-linear Associations}\label{introducing-nonlinear-associations}
 
 Let's return to the scatterplot of GDPpc and Happiness
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-56-1.pdf}}
 
-As the \emph{Economist} analysis discussed in the lectures suggests, this association also looks kind of \emph{nonlinear}.
+As the \emph{Economist} analysis discussed in the lectures suggests, this association also looks kind of \emph{non-linear}.
 
 However, unlike the \emph{Economist}, we can also say that there are multiple ways to look at this:
 
-First, you could take the \emph{Economist's} view that this is probably a \textbf{nonlinear relationship.} Indeed, we can check this out by \emph{transforming} GDPpc and comparing the results between transformed and non-transformed data.
+First, you could take the \emph{Economist's} view that this is probably a \textbf{non-linear relationship.} Indeed, we can check this out by \emph{transforming} GDPpc and comparing the results between transformed and non-transformed data.
 
 Let's have a try at that. What we will do is transform the GDPpc variable using a log transform (i.e.~taking the natural logarithm of GDPpc).
 
@@ -1177,11 +1177,11 @@ We can see that the association is stronger (the correlation is higher) for the 
 
 However, \textbf{transformations} of data are kind of a complicated topic though. In essence, what we are doing is changing the distribution of one (or more) of the variables, in a systematic way, in order to convert a non-linear relationship (which may be unable to be tested with methods like correlation and regression) into a linear one.
 
-There are many different types of transformations available to you, and the one you choose depends on the form of the nonlinearity. A \textbf{log} transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it's not always obvious what exactly to do, and people often default to transforming \textbf{any} nonlinear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It's not really that simple though, and I think we need to be a bit more logical and theory-driven on \textbf{why} we transform variables.
+There are many different types of transformations available to you, and the one you choose depends on the form of the non-linearity. A \textbf{log} transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it's not always obvious what exactly to do, and people often default to transforming \textbf{any} non-linear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It's not really that simple though, and I think we need to be a bit more logical and theory-driven on \textbf{why} we transform variables.
 
-In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a \textbf{lot more} to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could concievably lead to policy changes compared to the prior non-transformed analysis.
+In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a \textbf{lot more} to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could conceivably lead to policy changes compared to the prior non-transformed analysis.
 
-\textbf{Even so}, I have always had a slightly different possibility on my mind. In fact, it may be that there are \textbf{two distinct groups} of country, low and high income, and different \textbf{linear} associations within those groups. That's a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data\ldots{}
+\textbf{Even so}, I have always had a slightly different possibility on my mind. In fact, it may be that there are \textbf{two distinct groups} of country, low and high income, and different \textbf{linear} associations within those groups. That's a similar-ish idea to the non-linear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data\ldots{}
 
 Maybe I'll leave that for another day though.
 
@@ -1276,9 +1276,9 @@ Of course, what these `units' mean depends on how the variables were measured. T
 
 However, because the \emph{scales of the variables} are different, its not really possible to compare the sizes of the effects. So to some extent we don't know which of the two variables has the `bigger' effect here, relatively at least.
 
-To do that, we need to standardize the coeffiecients, which basically means putting all the variables on the \textbf{same scale}. Beforehand, they all were on different scales, which you can see by going back up and looking at the range, mean, and standard deviation of the original variables. You can see for yourself they are all different.
+To do that, we need to standardise the coefficients, which basically means putting all the variables on the \textbf{same scale}. Beforehand, they all were on different scales, which you can see by going back up and looking at the range, mean, and standard deviation of the original variables. You can see for yourself they are all different.
 
-We can solve this issue by creating a new set of standardized data, and running the model on that, as follows:
+We can solve this issue by creating a new set of standardised data, and running the model on that, as follows:
 
 \begin{verbatim}
 ##               vars   n mean sd median trimmed  mad   min  max range  skew
@@ -1293,7 +1293,7 @@ We can solve this issue by creating a new set of standardized data, and running 
 ## heart.disease    -0.93 0.04
 \end{verbatim}
 
-You know these variables are standardized as they now all have a mean of 0 and a standard deviation of 1. Now, let's run our model on this standardized data set.
+You know these variables are standardised as they now all have a mean of 0 and a standard deviation of 1. Now, let's run our model on this standardised data set.
 
 \begin{verbatim}
 ## 
@@ -1317,23 +1317,23 @@ You know these variables are standardized as they now all have a mean of 0 and a
 ## F-statistic: 1.19e+04 on 2 and 495 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
-You can see the things that have changed are the `Estimates', which are now standardized.
+You can see the things that have changed are the `Estimates', which are now standardised.
 
 In decimal, they are -0.94 for biking and 0.32 for Smoking.
 
-The correct interpretation of these standardized effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.
+The correct interpretation of these standardised effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.
 
 So, in this sample, biking has a much \textbf{larger} standardised association with heart disease than smoking does (although in the opposite direction). One caution, though. Standardised coefficients are measured in standard deviations, and those standard deviations come from this particular sample. If another sample had much more variation in smoking, say, the standardised coefficient for smoking would change even if the underlying relationship didn't. So comparisons like this are specific to the sample, and are safest between samples that look alike.
 
-\section{Visualizing Multiple Regression}\label{visualizing-multiple-regression}
+\section{Visualising Multiple Regression}\label{visualizing-multiple-regression}
 
-There are loads of different ways to visualize multiple regression. It's not trivial, because we have more than two variables, so we can't use the techniques we used already.
+There are loads of different ways to visualise multiple regression. It's not trivial, because we have more than two variables, so we can't use the techniques we used already.
 
-Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much payoff (if any).
+Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much pay-off (if any).
 
-In this case, we can use a pretty simple visualization, where we could plot the relationship of biking to heart disease at different levels of smoking.
+In this case, we can use a pretty simple visualisation, where we could plot the relationship of biking to heart disease at different levels of smoking.
 
-This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn't really work that way, but it's a cool visualization regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: \url{https://www.scribbr.com/statistics/linear-regression-in-r/}
+This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn't really work that way, but it's a cool visualisation regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: \url{https://www.scribbr.com/statistics/linear-regression-in-r/}
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-70-1.pdf}}
 
@@ -1425,7 +1425,7 @@ Let's calculate some simple summary statistics from this data set to build on. F
 ##  0.5259  8.2798 15.8146 15.4350 22.5689 29.9467
 \end{verbatim}
 
-Now, we know this is \textbf{really} simulated data, but let's \textbf{imagine} for now that it was actually obtained by an organization like the Office for National Statistics in the UK, using a survey. We can presume the study was done well, and thus it is based on a true random sampling method, and we assume that the study population matches whatever target population we have in mind (remember the `inference gaps' discussed in class).
+Now, we know this is \textbf{really} simulated data, but let's \textbf{imagine} for now that it was actually obtained by an organisation like the Office for National Statistics in the UK, using a survey. We can presume the study was done well, and thus it is based on a true random sampling method, and we assume that the study population matches whatever target population we have in mind (remember the `inference gaps' discussed in class).
 
 What we really want to know is, how close are these statistics (i.e.~the mean and median) to the \emph{true population values} that we would have found if we could survey the entire target population?
 
@@ -1613,7 +1613,7 @@ Let's draw this new sample, take the median and mean of the sample, and plot it:
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-85-1.pdf}}
 
-Marvelous! Now, for the purpose of example, let's draw two more of these resamples from the original 50, take their median and mean, and plot the distributions\ldots{}
+Marvellous! Now, for the purpose of example, let's draw two more of these resamples from the original 50, take their median and mean, and plot the distributions\ldots{}
 
 \begin{verbatim}
 ## # A tibble: 50 x 4
@@ -2300,7 +2300,7 @@ We can do this in another way, but instead running a 1-sample t-test on the diff
 ## [1] 5.066667
 \end{verbatim}
 
-Marvelous. We can see that the results from both variants of this test suggest that after the proofreading task with Christmas music playing, our sample on average reported more irritation than they did beforehand.
+Marvellous. We can see that the results from both variants of this test suggest that after the proofreading task with Christmas music playing, our sample on average reported more irritation than they did beforehand.
 
 1: Because the 95\% confidence interval does not include 0, I am confident in saying that there is some effect going on here.
 
@@ -2466,7 +2466,7 @@ Importantly, because the Poisson distribution is described only by its mean, the
 
 This is not exactly the same, but good enough to be going on with.
 
-So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurance of a given number of total goals scored in a premier league game, for this season at least.
+So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurrence of a given number of total goals scored in a premier league game, for this season at least.
 
 The first thing I am going to do with that information is build a figure which compares the \emph{actual} numbers of goals scored in games with the \emph{predicted} numbers which would be scored if the goals scored were a perfect Poisson distribution.
 
@@ -2514,7 +2514,7 @@ Remember, as you can see above, the row for `8' is missing, and it goes straight
 
 Anyway, it's pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).
 
-Let's plot this for the big payoff:
+Let's plot this for the big pay-off:
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-122-1.pdf}}
 
@@ -2957,9 +2957,9 @@ Looking specifically at our example N of 42, we can estimate which one of the 10
 
 Specifically, \textbf{your actual sample} is one of a very large amount of possible samples from the population (here we took 100 but we could have taken many more). The CI calculation essentially creates a CI with the width so that, out of 100 random samples, approximately 95 will actually contain the \emph{true population mean}.
 
-As such, we can see how it is clearly a measure of the \textbf{precision} of the estimate. For a compelling visualization of this, look how wide the CIs for N=5 are.
+As such, we can see how it is clearly a measure of the \textbf{precision} of the estimate. For a compelling visualisation of this, look how wide the CIs for N=5 are.
 
-One thing to remember though is the `law of large numbers' here. You might notice that not all of the CI plots contain exactly 5 intervals that do not contain the mean. This is analagous to the idea of coin flipping - it's just probability over very large numbers of trials, not saying that `out of every 100, exactly 5 will not include the population mean'. But, over a very large number of trials, we can expect the amount of intervals that do not include the mean to tend towards 5\%, in the same way that over a large number of coin flips, the proportion of heads tends towards 50\%.
+One thing to remember though is the `law of large numbers' here. You might notice that not all of the CI plots contain exactly 5 intervals that do not contain the mean. This is analogous to the idea of coin flipping - it's just probability over very large numbers of trials, not saying that `out of every 100, exactly 5 will not include the population mean'. But, over a very large number of trials, we can expect the amount of intervals that do not include the mean to tend towards 5\%, in the same way that over a large number of coin flips, the proportion of heads tends towards 50\%.
 
 \section{Rate of Change in Football Goals per Season}\label{rate-of-change-in-football-goals-per-season}
 
@@ -3013,7 +3013,7 @@ If you open the data file below, you can see I have calculated the z-test result
 
 The `Z' column is what we are interested in, and we are looking for a z-value greater than + or - 1.96 for a 95\% test (analogous to the 95\% intervals we've been dealing with so far).
 
-A simple way to visualize this is to plot the z-values for each season, and include `control lines' which represent the + or -1.96 z value, beyond which we consider there to be a significant difference
+A simple way to visualise this is to plot the z-values for each season, and include `control lines' which represent the + or -1.96 z value, beyond which we consider there to be a significant difference
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-140-1.pdf}}
 
@@ -3074,7 +3074,7 @@ This Chapter relates to the first part of Lecture 8, and contains some (re)worke
 
 \section{Testing a Real Hypothesis: Are WBS PhD Salaries Different?}\label{salary-ztest}
 
-Back in Section \ref{conf} we used the WBS PhD graduate salary data --- 42 graduates, mean starting salary \$170,000, standard deviation \$46,617.4 --- to build a confidence interval. That was useful, but it didn't actually answer the question I cared about when I started looking at this data: can I claim, in the PhD program prospectus, that WBS graduates earn more than graduates elsewhere?
+Back in Section \ref{conf} we used the WBS PhD graduate salary data --- 42 graduates, mean starting salary \$170,000, standard deviation \$46,617.4 --- to build a confidence interval. That was useful, but it didn't actually answer the question I cared about when I started looking at this data: can I claim, in the PhD programme prospectus, that WBS graduates earn more than graduates elsewhere?
 
 A confidence interval alone doesn't let me say that. It tells me something about precision, not about a comparison. To make a comparison I need a number to compare against, and I need to state, in advance, how different my sample would have to be before I'm willing to call it a real difference rather than the ordinary noise you'd expect from any sample of 42 people.
 
@@ -3098,7 +3098,7 @@ With that settled, the arithmetic is almost an anticlimax. What I want to know i
 ## [1] 3.475495
 \end{verbatim}
 
-Same standardisation logic as everywhere else in this book: take what I observed, subtract what I'd expect under the null, divide by how much variation sampling alone would produce. The effect is to redraw the whole problem on a scale where the null sits at zero, and my sample mean lands wherever it lands. A z of around 3.5 means my sample mean is roughly three and a half standard errors out from where the null says it should be --- well beyond the 1.96 we've used as our 95\% cutoff elsewhere.
+Same standardisation logic as everywhere else in this book: take what I observed, subtract what I'd expect under the null, divide by how much variation sampling alone would produce. The effect is to redraw the whole problem on a scale where the null sits at zero, and my sample mean lands wherever it lands. A z of around 3.5 means my sample mean is roughly three and a half standard errors out from where the null says it should be --- well beyond the 1.96 we've used as our 95\% cut-off elsewhere.
 
 \begin{verbatim}
 ## [1] 0.0005099124
@@ -3106,7 +3106,7 @@ Same standardisation logic as everywhere else in this book: take what I observed
 
 That p-value --- somewhere around 0.0005, about 1 in 2,000 --- means: \emph{if} the null is true, the probability of drawing a sample of 42 with a mean this far out, in either direction, is about 1 in 2,000. It does not mean there's a 1-in-2,000 chance the null is true. A p-value says nothing about the probability of any hypothesis. It's a statement about how surprising the data would be under an assumption, not a verdict on the assumption.
 
-So, do I reject the null? This is a judgement, not a law of nature. Nothing about this p-value compels a conclusion --- I could, in principle, decide this is just an unusually extreme sample from a population that really does average \$145,000, and nothing in the maths would stop me. What I actually do, like almost everyone else, is apply a cutoff --- conventionally p \textless{} 0.05 --- and treat anything below it as evidence against the null. That cutoff exists because people like rules, not because 0.05 has any special status in nature. Here the data are miles past any conventional threshold, so the call is easy. It won't always be, and when it isn't, the arithmetic still won't make the decision for you.
+So, do I reject the null? This is a judgement, not a law of nature. Nothing about this p-value compels a conclusion --- I could, in principle, decide this is just an unusually extreme sample from a population that really does average \$145,000, and nothing in the maths would stop me. What I actually do, like almost everyone else, is apply a cut-off --- conventionally p \textless{} 0.05 --- and treat anything below it as evidence against the null. That cut-off exists because people like rules, not because 0.05 has any special status in nature. Here the data are miles past any conventional threshold, so the call is easy. It won't always be, and when it isn't, the arithmetic still won't make the decision for you.
 
 \textbf{Directional vs non-directional, side by side:}
 
@@ -3486,7 +3486,7 @@ With three groups instead of two, running three separate t-tests would walk stra
 ## 6     6 Silence               3             2           3            3  2.75
 \end{verbatim}
 
-Let's create a quick table of the group means, and visualize it with a simple boxplot of the groups.
+Let's create a quick table of the group means, and visualise it with a simple boxplot of the groups.
 
 \begin{verbatim}
 ## # A tibble: 3 x 5
@@ -3510,7 +3510,7 @@ Let's run an ANOVA now, which places a statistical model on it, and tests whethe
 ## 1  GROUP   2  42 14.822 1.35e-05     * 0.414
 \end{verbatim}
 
-Results here suggest there is a significant effect (p-value is very small). We also have an \emph{effect size} measure (`ges', or generalized eta-squared) which is very useful to us, and suggests the effect is quite large. This can be interpreted in a similar way to R² in a regression: it's the proportion of the variance in the dependent variable (irritation) that is explained by group membership.
+Results here suggest there is a significant effect (p-value is very small). We also have an \emph{effect size} measure (`ges', or generalised eta-squared) which is very useful to us, and suggests the effect is quite large. This can be interpreted in a similar way to R² in a regression: it's the proportion of the variance in the dependent variable (irritation) that is explained by group membership.
 
 However, ANOVA only tests the \emph{general effect} of the treatment / group. We don't know whether this is because of the difference between \textbf{all of the groups}, or only \textbf{some}. If it's background music \emph{in general} that's irritating, we'd expect Silence to differ from both Other and Christmas, but Other and Christmas to look much the same as each other. If it's \emph{Christmas music specifically}, we'd expect the opposite pattern: Christmas differs from both Silence and Other, but Silence and Other look much the same as each other. Only a post-hoc comparison of every pair can tell us which of these it actually is.
 
@@ -3597,11 +3597,11 @@ But first, let's unpack more about the Christmas music study, and the multiple c
 
 \section{More on the Multiple Comparisons Problem}\label{more-on-the-multiple-comparisons-problem}
 
-In this section, I'll provide some visualizations which can help us to understand the problem with multiple comparisons.
+In this section, I'll provide some visualisations which can help us to understand the problem with multiple comparisons.
 
 However, it's worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.
 
-First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: \url{https://stats.stackexchange.com/q/143424}.
+First, let's visualise the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: \url{https://stats.stackexchange.com/q/143424}.
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-171-1.pdf}}
 
@@ -3609,7 +3609,7 @@ Now, remember, \textbf{even if all null hypotheses are true}, our significance l
 
 You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required \emph{p} to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept \emph{all} null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really \emph{was} true in the population in every single case, you would be inevitably missing out on making some discoveries.
 
-Moving on, let's visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.
+Moving on, let's visualise the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-172-1.pdf}}
 
@@ -3653,7 +3653,7 @@ I first saw this demonstrated properly using a lovely interactive calculator bui
 
 Watching that curve climb feels kind of scary, right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.
 
-For example, in the Christmas-music post-hoc tests in Chapter \ref{ANOVA}, we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the \emph{Bonferoni Correction}, which is generally the most well-known of them.
+For example, in the Christmas-music post-hoc tests in Chapter \ref{ANOVA}, we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the \emph{Bonferroni Correction}, which is generally the most well-known of them.
 
 \section{The Bonferroni Correction: Rate of Change in Football Goals per Season}\label{the-bonferroni-correction-rate-of-change-in-football-goals-per-season}
 
@@ -3711,7 +3711,7 @@ The question is \textbf{are we suffering from the multiple comparisons problem}?
 
 It's hard to say actually. Of course, we are indeed running multiple tests, 26 in fact. So, the chance of a false positive is high. The Bonferroni correction would immediately reduce the false positive chances, but at what cost?
 
-Let's see how this would work. In order to calculate a Bonferroni correction, you can either adjust the p-value directly that you calculate for each test, or instead simply adjust the `cutoff' value for p, known as the \emph{critical p}, to lower it from 0.05 and make the significance test `harder' to pass. The formula to adjust the cutoff value is simply:
+Let's see how this would work. In order to calculate a Bonferroni correction, you can either adjust the p-value directly that you calculate for each test, or instead simply adjust the `cut-off' value for p, known as the \emph{critical p}, to lower it from 0.05 and make the significance test `harder' to pass. The formula to adjust the cut-off value is simply:
 
 \(\alpha_b = (\frac{\alpha}{n})\)
 
@@ -3768,7 +3768,7 @@ Let's set a significance of 0.05, a required power of 0.8, and assume the effect
 
 So, we really wanted to have around 50 in each group to have an 80\% chance of detecting a moderate effect presuming the null was true.
 
-You can see that my study (with only 15 in each group) was rather underpowered --- assuming a moderate effect. But now here's a slightly awkward wrinkle. If instead I take the effect size \emph{this actual experiment} produced --- a generalized eta-squared of 0.41 back in Chapter \ref{ANOVA}, which converts to a Cohen's \emph{f} of about 0.84 --- and plug that into the same calculation:
+You can see that my study (with only 15 in each group) was rather underpowered --- assuming a moderate effect. But now here's a slightly awkward wrinkle. If instead I take the effect size \emph{this actual experiment} produced --- a generalised eta-squared of 0.41 back in Chapter \ref{ANOVA}, which converts to a Cohen's \emph{f} of about 0.84 --- and plug that into the same calculation:
 
 \begin{verbatim}
 ## 

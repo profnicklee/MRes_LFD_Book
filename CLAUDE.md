@@ -38,6 +38,8 @@ These override generic textbook convention wherever the two conflict.
 
 12. **Real papers are cited; critique by name is reserved for verifiable case studies.** Where a passage illustrates bad practice in general, the example (a reporting snippet, a set of figures) is invented and presented as illustrative. Real people and papers may be named only in agreed case studies where the account is verifiable, fair and factual, with every claim traceable to a cited primary source (for example, the power pose section `{#power-pose}` in `12-Issues_w_sig.Rmd`). Such cases describe what happened and what the people involved have said; they do not speculate about motives.
 
+13. **Spelling is British, with -ise endings** (standardise, visualise, behaviour, programme, cut-off, non-linear). The exceptions are proper names, direct quotations, titles of cited works, and code, function and package names, which keep their original spelling. Text inside figures (plot titles and axis labels) hasn't yet been standardised. When respelling a heading that has no explicit label, add one with the old auto-generated ID, so external links keep working.
+
 ## Reading-the-literature sections
 
 Chapters may end with a reader section (`{#<label>-reading}`) that helps students *read* papers, not run analyses. Not every chapter needs one; where a chapter has little to say to a reader, it can be folded into a neighbour's section instead of padded out. A reader section may cover methods well beyond the book (IV, control functions, fixed effects, DiD, Heckman and so on), but only at reading level: what the number claims, which core concept from the chapter it rests on, what assumption it needs, and what to question. No code, and no how-to.

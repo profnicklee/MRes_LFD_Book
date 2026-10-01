@@ -19,7 +19,7 @@ This Chapter relates to the first part of Lecture 8, and contains some (re)worke
 
 ## Testing a Real Hypothesis: Are WBS PhD Salaries Different? {#salary-ztest}
 
-Back in Section \@ref(conf) we used the WBS PhD graduate salary data — 42 graduates, mean starting salary $170,000, standard deviation $46,617.4 — to build a confidence interval. That was useful, but it didn't actually answer the question I cared about when I started looking at this data: can I claim, in the PhD program prospectus, that WBS graduates earn more than graduates elsewhere?
+Back in Section \@ref(conf) we used the WBS PhD graduate salary data — 42 graduates, mean starting salary $170,000, standard deviation $46,617.4 — to build a confidence interval. That was useful, but it didn't actually answer the question I cared about when I started looking at this data: can I claim, in the PhD programme prospectus, that WBS graduates earn more than graduates elsewhere?
 
 A confidence interval alone doesn't let me say that. It tells me something about precision, not about a comparison. To make a comparison I need a number to compare against, and I need to state, in advance, how different my sample would have to be before I'm willing to call it a real difference rather than the ordinary noise you'd expect from any sample of 42 people.
 
@@ -45,7 +45,7 @@ z <- (sample.mean - null.mean) / se
 z
 ```
 
-Same standardisation logic as everywhere else in this book: take what I observed, subtract what I'd expect under the null, divide by how much variation sampling alone would produce. The effect is to redraw the whole problem on a scale where the null sits at zero, and my sample mean lands wherever it lands. A z of around 3.5 means my sample mean is roughly three and a half standard errors out from where the null says it should be — well beyond the 1.96 we've used as our 95% cutoff elsewhere.
+Same standardisation logic as everywhere else in this book: take what I observed, subtract what I'd expect under the null, divide by how much variation sampling alone would produce. The effect is to redraw the whole problem on a scale where the null sits at zero, and my sample mean lands wherever it lands. A z of around 3.5 means my sample mean is roughly three and a half standard errors out from where the null says it should be — well beyond the 1.96 we've used as our 95% cut-off elsewhere.
 
 ```{r}
 p.two.tailed <- 2 * (1 - pnorm(abs(z)))
@@ -54,7 +54,7 @@ p.two.tailed
 
 That p-value — somewhere around 0.0005, about 1 in 2,000 — means: *if* the null is true, the probability of drawing a sample of 42 with a mean this far out, in either direction, is about 1 in 2,000. It does not mean there's a 1-in-2,000 chance the null is true. A p-value says nothing about the probability of any hypothesis. It's a statement about how surprising the data would be under an assumption, not a verdict on the assumption.
 
-So, do I reject the null? This is a judgement, not a law of nature. Nothing about this p-value compels a conclusion — I could, in principle, decide this is just an unusually extreme sample from a population that really does average $145,000, and nothing in the maths would stop me. What I actually do, like almost everyone else, is apply a cutoff — conventionally p < 0.05 — and treat anything below it as evidence against the null. That cutoff exists because people like rules, not because 0.05 has any special status in nature. Here the data are miles past any conventional threshold, so the call is easy. It won't always be, and when it isn't, the arithmetic still won't make the decision for you.
+So, do I reject the null? This is a judgement, not a law of nature. Nothing about this p-value compels a conclusion — I could, in principle, decide this is just an unusually extreme sample from a population that really does average $145,000, and nothing in the maths would stop me. What I actually do, like almost everyone else, is apply a cut-off — conventionally p < 0.05 — and treat anything below it as evidence against the null. That cut-off exists because people like rules, not because 0.05 has any special status in nature. Here the data are miles past any conventional threshold, so the call is easy. It won't always be, and when it isn't, the arithmetic still won't make the decision for you.
 
 **Directional vs non-directional, side by side:**
 

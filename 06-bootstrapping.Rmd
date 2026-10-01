@@ -72,7 +72,7 @@ ggplot(Boot.1, aes(x=smoking))+geom_histogram(aes (y=..density..), colour="black
 
 ```
 
-Marvelous! Now, for the purpose of example, let's draw two more of these resamples from the original 50, take their median and mean, and plot the distributions...
+Marvellous! Now, for the purpose of example, let's draw two more of these resamples from the original 50, take their median and mean, and plot the distributions...
 
 ```{r}
 Boot.2 <- sub.50[sample(nrow(sub.50), size = 50, replace = TRUE), ]

@@ -30,7 +30,7 @@ summary(ED)
 head(ED)
 ```
 
-Let's create a quick table of the group means, and visualize it with a simple boxplot of the groups.
+Let's create a quick table of the group means, and visualise it with a simple boxplot of the groups.
 
 ```{r}
 ED %>%
@@ -48,7 +48,7 @@ res.aov <- ED %>% anova_test(IRRIT ~ GROUP)
 res.aov
 ```
 
-Results here suggest there is a significant effect (p-value is very small). We also have an *effect size* measure ('ges', or generalized eta-squared) which is very useful to us, and suggests the effect is quite large. This can be interpreted in a similar way to R² in a regression: it's the proportion of the variance in the dependent variable (irritation) that is explained by group membership.
+Results here suggest there is a significant effect (p-value is very small). We also have an *effect size* measure ('ges', or generalised eta-squared) which is very useful to us, and suggests the effect is quite large. This can be interpreted in a similar way to R² in a regression: it's the proportion of the variance in the dependent variable (irritation) that is explained by group membership.
 
 However, ANOVA only tests the *general effect* of the treatment / group. We don't know whether this is because of the difference between **all of the groups**, or only **some**. If it's background music *in general* that's irritating, we'd expect Silence to differ from both Other and Christmas, but Other and Christmas to look much the same as each other. If it's *Christmas music specifically*, we'd expect the opposite pattern: Christmas differs from both Silence and Other, but Silence and Other look much the same as each other. Only a post-hoc comparison of every pair can tell us which of these it actually is.
 

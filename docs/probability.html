@@ -179,7 +179,7 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#risk"><i class="fa fa-check"></i><b>2.1</b> When the numbers mislead: relative and absolute risk</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.2</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.2</b> Summarising Data with Numbers</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.3</b> Box Plots</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.4</b> Violin Plots and Ridge Plots</a></li>
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.5</b> Transformations</a></li>
@@ -232,10 +232,10 @@ div.csl-indent {
 <li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>5.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Non-linear Associations</a></li>
 <li class="chapter" data-level="5.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>5.3</b> Regression</a></li>
 <li class="chapter" data-level="5.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>5.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualising Multiple Regression</a></li>
 <li class="chapter" data-level="5.6" data-path="assoc-rel.html"><a href="assoc-rel.html#assoc-rel-reading"><i class="fa fa-check"></i><b>5.6</b> Reading the literature</a>
 <ul>
 <li class="chapter" data-level="5.6.1" data-path="assoc-rel.html"><a href="assoc-rel.html#where-youll-meet-this-3"><i class="fa fa-check"></i><b>5.6.1</b> Where you’ll meet this</a></li>
@@ -458,7 +458,7 @@ div.csl-indent {
 <p>Importantly, because the Poisson distribution is described only by its mean, the first and most basic check we can do is whether the mean and the variance of the variable are the same (or at least very close). We already have the mean above (2.82), but what is the variance?</p>
 <pre><code>## [1] 2.645042</code></pre>
 <p>This is not exactly the same, but good enough to be going on with.</p>
-<p>So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurance of a given number of total goals scored in a premier league game, for this season at least.</p>
+<p>So, it seems to me at least that we can use the Poisson distribution to at least somewhat accurately describe the probability of occurrence of a given number of total goals scored in a premier league game, for this season at least.</p>
 <p>The first thing I am going to do with that information is build a figure which compares the <em>actual</em> numbers of goals scored in games with the <em>predicted</em> numbers which would be scored if the goals scored were a perfect Poisson distribution.</p>
 <p>Ideally, we would build the Poisson probabilities for 0-9 goals (which is the maximum number scored in 21-22). However, if you do this, you will find that the two tables (actual and predicted goals) will have different numbers of rows. This is because there were no games with 8 goals scored in 21-22, but one with 9.</p>
 <p>This is a bit annoying, but not a big issue. What we do is build a Poisson probability distribution for 0-8 goals, and treat the final probability as that for ‘8 or more’ goals, for the purposes of drawing our figure. This isn’t strictly correct, because we have not collected up our actual goal data into that category, but we could do that if we wanted to.</p>
@@ -490,7 +490,7 @@ div.csl-indent {
 ## 9     9             1               2</code></pre>
 <p>Remember, as you can see above, the row for ‘8’ is missing, and it goes straight to 9. So, to repeat, just take (for simplicity’s sake here) the final row of Expected Matches as meaning ‘2 games with 8 or more goals’</p>
 <p>Anyway, it’s pretty scarily close! E.g. in 21-22 there were 60 matches with 4 goals, and that is identical to the predicted amount (the difference with the predicted 60.8 from the probability distribution is likely a rounding error).</p>
-<p>Let’s plot this for the big payoff:</p>
+<p>Let’s plot this for the big pay-off:</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-122-1.png" alt="" width="672" /></p>
 <p>Wow, that is pretty accurate! Remember, the ‘expected’ figures are purely drawn from the <em>entirely theoretical</em> Poisson distribution with a mean of 2.82. They very closely match the actual data.</p>
 <p>To be honest though, that graph is really just a bit of show, but what we want is the ‘dough’ (I had an old friend who was a golfer who always said ’drive for show, putt for dough…). In other words, what could we do with this information?</p>

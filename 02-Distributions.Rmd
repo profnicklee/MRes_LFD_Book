@@ -17,9 +17,9 @@ Looking online, one can pull down the distribution of birthweights in England an
 
 We can use these numbers to create a chart
 
-(please note, the code I use for the demonstrations in this lesson is mostly modified from David Spiegelhalter's originals, available on his Github page, with some of my own bits and bobs and new data...)
+(please note, the code I use for the demonstrations in this lesson is mostly modified from David Spiegelhalter's originals, available on his GitHub page, with some of my own bits and bobs and new data...)
 
-Spiegelhalter's Github can be found here: https://github.com/dspiegel29/ArtofStatistics
+Spiegelhalter's GitHub can be found here: https://github.com/dspiegel29/ArtofStatistics
 
 The first thing I want to do is create a data set that accurately reflects the ONS distribution of birthweights in England and Wales in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.
 
@@ -50,7 +50,7 @@ lbw.percent=100*lbw/N  # % low birth weight
 
 Remember though, the above just sets up the numbers required to recreate the empirical distribution, it isn't analysis itself.
 
-Next, I want to summarize the distribution I just created and a few important numbers regarding Low Birthweight that we will need to use for our later discussion.
+Next, I want to summarise the distribution I just created and a few important numbers regarding Low Birthweight that we will need to use for our later discussion.
 
 Displayed below are the total N for the distribution, the number of low birthweight (LBW) babies born, the percentage of LBW babies, the mean, the standard deviation, the skewness, and kurtosis.
 
@@ -150,7 +150,7 @@ Below, I will chart the normal distribution with Standard Deviations.
 
 Mathematically, around 95% of the area under the chart is between -2 and +2 SDs, and 99.7% between -3 and +3 SDs
 
-Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occuring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
+Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occurring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
 
 We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594
 
@@ -184,7 +184,7 @@ To do so, let's return to the slide deck and see the calculation.
 
 Next, we can overlay percentiles in 5% increments on the chart, which are also useful ways to describe a distribution like the Normal.
 
-50th is of course the median, and the 25th and 75th percentilies are the quartiles.
+50th is of course the median, and the 25th and 75th percentiles are the quartiles.
 
 Here, the same things we have previously discussed in relation to samples are applied to populations
 

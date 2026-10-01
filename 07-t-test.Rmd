@@ -203,7 +203,7 @@ mean(ED_PAIR$IRRIT_T2)
 
 ```
 
-Marvelous. We can see that the results from both variants of this test suggest that after the proofreading task with Christmas music playing, our sample on average reported more irritation than they did beforehand.
+Marvellous. We can see that the results from both variants of this test suggest that after the proofreading task with Christmas music playing, our sample on average reported more irritation than they did beforehand.
 
 1: Because the 95% confidence interval does not include 0, I am confident in saying that there is some effect going on here.
 

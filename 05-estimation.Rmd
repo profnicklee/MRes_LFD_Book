@@ -35,7 +35,7 @@ Let's calculate some simple summary statistics from this data set to build on. F
 summary(Heart$smoking)
 ```
 
-Now, we know this is **really** simulated data, but let's **imagine** for now that it was actually obtained by an organization like the Office for National Statistics in the UK, using a survey. We can presume the study was done well, and thus it is based on a true random sampling method, and we assume that the study population matches whatever target population we have in mind (remember the 'inference gaps' discussed in class).
+Now, we know this is **really** simulated data, but let's **imagine** for now that it was actually obtained by an organisation like the Office for National Statistics in the UK, using a survey. We can presume the study was done well, and thus it is based on a true random sampling method, and we assume that the study population matches whatever target population we have in mind (remember the 'inference gaps' discussed in class).
 
 What we really want to know is, how close are these statistics (i.e. the mean and median) to the *true population values* that we would have found if we could survey the entire target population?
 

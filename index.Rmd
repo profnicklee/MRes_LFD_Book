@@ -22,7 +22,7 @@ It is important to note that this module is not designed to teach you how to use
 
 This book is written in **Markdown**, using R and the **bookdown** package, and published online in HTML format. A full archive of all the R Code and data for the individual chapters from the book is available from Professor Lee on request, once the book is completed for the year.
 
-This book is essentially a 'live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runnings.
+This book is essentially a 'live' document, meaning that it is finalised for each year just before the module runs, but then modified for future runs.
 
 The current year is `r format(Sys.Date(), "%Y")`, and the book is currently *in progress for `r format(Sys.Date(), "%Y")`.*
 
