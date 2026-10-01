@@ -17,13 +17,9 @@ This Chapter is designed to work with Lecture 2.
 
 Here, I will demonstrate a number of important concepts about data displays and descriptions.
 
-First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
+First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center [-@jhu-crc] as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
 
-<https://coronavirus.jhu.edu/>
-
-However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their github:
-
-<https://github.com/CSSEGISandData/COVID-19>
+However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their GitHub [@jhu-csse-covid19].
 
 However, I do think it would be quite hard to recreate the exact snapshot in time of the data set we are using here.
 

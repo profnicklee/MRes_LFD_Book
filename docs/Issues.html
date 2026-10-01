@@ -395,7 +395,7 @@ div.csl-indent {
 <h2><span class="header-section-number">13.1</span> More on the Multiple Comparisons Problem<a href="Issues.html#more-on-the-multiple-comparisons-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, I’ll provide some visualizations which can help us to understand the problem with multiple comparisons.</p>
 <p>However, it’s worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.</p>
-<p>First, let’s visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.</p>
+<p>First, let’s visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: <a href="https://stats.stackexchange.com/q/143424" class="uri">https://stats.stackexchange.com/q/143424</a>.</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-171-1.png" alt="" width="672" /></p>
 <p>Now, remember, <strong>even if all null hypotheses are true</strong>, our significance level, or <em>p</em> = 0.05, so we have to expect that <em>on average</em> we would expect <strong>5</strong> of these hypotheses tests to return <em>p</em>-values &lt; 0.05, and thus we would reject the null. This is known as a <strong>false positive</strong>.</p>
 <p>You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required <em>p</em> to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept <em>all</em> null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really <em>was</em> true in the population in every single case, you would be inevitably missing out on making some discoveries.</p>
@@ -425,7 +425,7 @@ div.csl-indent {
 </div>
 <div id="the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> The Bonferroni Correction: Rate of Change in Football Goals per Season<a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here, I will expand on the football goals rate-of-change example from Chapter <a href="statistics.html#statistics">10</a>, to incorporate corrections for the multiple comparisons problem. Again, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
+<p>Here, I will expand on the football goals rate-of-change example from Chapter <a href="statistics.html#statistics">10</a>, to incorporate corrections for the multiple comparisons problem. Again, I’m using data from footballhistory.org <span class="citation">(<a href="#ref-footballhistory-epl">n.d.</a>)</span>.</p>
 <p>I’m building on the z-test table from the end of Chapter <a href="statistics.html#statistics">10</a>. But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.</p>
 <pre><code>##     Season              Games         Goals             GPG       
 ##  Length:27          Min.   :380   Min.   : 931.0   Min.   :2.450  
@@ -478,7 +478,7 @@ div.csl-indent {
 <p>We can see that none of our tests now rejects the null. The Bonferroni correction is known as a highly conservative test. That is, it is based on the idea that the <em>null hypothesis is true</em> in each case in the population. We can thus consider it as the most stringent and conservative way to correct for the chance of false positives when doing multiple comparisons.</p>
 <p>But, as I suggested above, that might not always be the best idea. Indeed, if you want to totally avoid any chance of a false positive, why not simply make the required alpha 0? Then, you would never get a false positive. Of course, you would never detect a <strong>true positive</strong> either.</p>
 <p>What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be <em>no false positives</em>. Therefore, in such a situation you would be <em>increasing the chances of a false negative</em> by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?</p>
-<p>For example, Thomas Perneger’s 1998 paper in the BMJ is scathing about the Bonferroni adjustment. Take a look at <a href="https://www.bmj.com/content/316/7139/1236.full" class="uri">https://www.bmj.com/content/316/7139/1236.full</a></p>
+<p>For example, Thomas Perneger’s <span class="citation">(<a href="#ref-perneger1998">1998</a>)</span> paper in the BMJ is scathing about the Bonferroni adjustment.</p>
 <p>Mind you, I am not saying that’s the final word, just that there are multiple perspectives on the issues!</p>
 <p>It’s never as simple as it seems when making statistical decisions, is it?</p>
 </div>
@@ -641,6 +641,9 @@ Carney, Dana R., Amy J. C. Cuddy, and Andy J. Yap. 2010. <span>“Power Posing: 
 <div id="ref-cuddy2018pcurving" class="csl-entry">
 Cuddy, Amy J. C., S. Jack Schultz, and Nathan E. Fosse. 2018. <span>“<span>P</span>-Curving a More Comprehensive Body of Research on Postural Feedback Reveals Clear Evidential Value for Power-Posing Effects: Reply to <span>Simmons</span> and <span>Simonsohn</span> (2017).”</span> <em>Psychological Science</em> 29 (4): 656–66. <a href="https://doi.org/10.1177/0956797617746749">https://doi.org/10.1177/0956797617746749</a>.
 </div>
+<div id="ref-footballhistory-epl" class="csl-entry">
+<span class="nocase">footballhistory.org</span>. n.d. <em>Premier League – Goals and Statistics</em>. <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">Https://www.footballhistory.org/league/premier-league-statistics.html</a>.
+</div>
 <div id="ref-gelman2014statistical" class="csl-entry">
 Gelman, Andrew, and Eric Loken. 2014. <span>“The Statistical Crisis in Science.”</span> <em>American Scientist</em> 102 (6): 460–65.
 </div>
@@ -655,6 +658,9 @@ O’Boyle, Jr., Ernest Hugh, George Christopher Banks, and Erik Gonzalez-Mulé. 
 </div>
 <div id="ref-osc2015estimating" class="csl-entry">
 Open Science Collaboration. 2015. <span>“Estimating the Reproducibility of Psychological Science.”</span> <em>Science</em> 349 (6251): aac4716. <a href="https://doi.org/10.1126/science.aac4716">https://doi.org/10.1126/science.aac4716</a>.
+</div>
+<div id="ref-perneger1998" class="csl-entry">
+Perneger, Thomas V. 1998. <span>“What’s Wrong with <span>B</span>onferroni Adjustments.”</span> <em>BMJ</em> 316: 1236–38. <a href="https://doi.org/10.1136/bmj.316.7139.1236">https://doi.org/10.1136/bmj.316.7139.1236</a>.
 </div>
 <div id="ref-ranehill2015assessing" class="csl-entry">
 Ranehill, Eva, Anna Dreber, Magnus Johannesson, Susanne Leiberg, Sunhae Sul, and Roberto A. Weber. 2015. <span>“Assessing the Robustness of Power Posing: No Effect on Hormones and Risk Tolerance in a Large Sample of Men and Women.”</span> <em>Psychological Science</em> 26 (5): 653–56. <a href="https://doi.org/10.1177/0956797614553946">https://doi.org/10.1177/0956797614553946</a>.

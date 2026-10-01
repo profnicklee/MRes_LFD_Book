@@ -449,7 +449,7 @@ div.csl-indent {
 <p>In this section, we are not really worried about the <em>actual</em> goals or anything like that. What we are concerned about is formally testing the hypothesis that Premier League goals per game actually do follow a Poisson distribution. To do this, we will use what is called a <strong>chi-square</strong> test, which uses the chi-square statistic.</p>
 <p>Chi-square is a fantastically versatile statistic, which is often used to compare tables of observations. Commonly, we compare a table of observed events with a table of events that we would expect if the null hypothesis were true in the population. The chi-square value is the measure of the difference between observed and expected counts in the table. We can use it here to compare the amount of goals we actually did observe in the 21-22 season, with those that we would <em>expect</em> to observe if the goals per game really do follow a Poisson distribution.</p>
 <p>Again, much of the idea and code for this section comes from: <a href="https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html" class="uri">https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html</a></p>
-<p>The data comes from: <a href="https://www.football-data.co.uk/englandm.php" class="uri">https://www.football-data.co.uk/englandm.php</a> and is the EPL results for 21-22 Season, with a new column of Total Goals (TOTG) created by me in Excel.</p>
+<p>The data are the EPL results for the 2021–22 season, from Football-Data.co.uk <span class="citation">(<a href="#ref-football-data-epl">n.d.</a>)</span>, with a new column of Total Goals (TOTG) created by me in Excel.</p>
 <pre><code>## # A tibble: 6 × 107
 ##   Div   Date                Time                HomeTeam   AwayTeam   FTHG  FTAG
 ##   &lt;chr&gt; &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;
@@ -663,6 +663,9 @@ div.csl-indent {
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bettis2016creating" class="csl-entry">
 Bettis, Richard A., Sendil Ethiraj, Alfonso Gambardella, Constance Helfat, and Will Mitchell. 2016. <span>“Creating Repeatable Cumulative Knowledge in Strategic Management.”</span> <em>Strategic Management Journal</em> 37 (2): 257–61. <a href="https://doi.org/10.1002/smj.2477">https://doi.org/10.1002/smj.2477</a>.
+</div>
+<div id="ref-football-data-epl" class="csl-entry">
+Football-Data.co.uk. n.d. <em>England Football Results Betting Odds: Premiership Results and Betting Odds</em>. <a href="https://www.football-data.co.uk/englandm.php" class="uri">Https://www.football-data.co.uk/englandm.php</a>.
 </div>
 <div id="ref-gelman2006difference" class="csl-entry">
 Gelman, Andrew, and Hal Stern. 2006. <span>“The Difference Between <span>‘Significant’</span> and <span>‘Not Significant’</span> Is Not Itself Statistically Significant.”</span> <em>The American Statistician</em> 60 (4): 328–31. <a href="https://doi.org/10.1198/000313006X152649">https://doi.org/10.1198/000313006X152649</a>.

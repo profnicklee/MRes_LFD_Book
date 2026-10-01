@@ -247,13 +247,9 @@ This Chapter is designed to work with Lecture 2.
 
 Here, I will demonstrate a number of important concepts about data displays and descriptions.
 
-First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
+First, let's find some data to play with. In the following examples I will use some data from the Johns Hopkins Coronavirus Resource Center \citeyearpar{jhu-crc} as at April 26 2022, which contains data by country about cases, deaths, and mortality for COVID.
 
-\url{https://coronavirus.jhu.edu/}
-
-However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their github:
-
-\url{https://github.com/CSSEGISandData/COVID-19}
+However, as of 2023, the JHCRC ceased collecting data, and their archival data is available on their GitHub \citep{jhu-csse-covid19}.
 
 However, I do think it would be quite hard to recreate the exact snapshot in time of the data set we are using here.
 
@@ -547,11 +543,9 @@ This chapter supplements the content in Lecture 3.
 
 First, let's consider the `empirical distribution', which is the pattern your data set makes.
 
-Let's consider UK births in 2020 for our example, since they're a subject close to my heart (my first child was born in 2020).
+Let's consider births in England and Wales in 2020 for our example, since they're a subject close to my heart (my first child was born in 2020).
 
-Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g `bins'.
-
-Source: \url{https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020\#births-data}
+Looking online, one can pull down the distribution of birthweights in England and Wales in 2020, available from the ONS website, and which are reported in 500g `bins' \citep{ons-births-2020}.
 
 We can use these numbers to create a chart
 
@@ -559,7 +553,7 @@ We can use these numbers to create a chart
 
 Spiegelhalter's Github can be found here: \url{https://github.com/dspiegel29/ArtofStatistics}
 
-The first thing I want to do is create a data set that accurately reflects the ONS distribution of UK birthweights in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.
+The first thing I want to do is create a data set that accurately reflects the ONS distribution of birthweights in England and Wales in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -672,7 +666,7 @@ Now, another way to think about this is that the area under the normal curve rep
 
 We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594
 
-So, it is 95\% probable that a random baby born in the UK in 2020 will weigh between 2189.745 and 4500.781g
+So, it is 95\% probable that a random baby born in England and Wales in 2020 will weigh between 2189.745 and 4500.781g
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-34-1.pdf}}
 
@@ -1036,9 +1030,9 @@ This chapter supplements the content in Lecture 5.
 
 \section{Correlations and Associations}\label{correlations-and-associations}
 
-First, let's look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data.
+First, let's look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data \citeyearpar{owid}.
 
-You can explore their work here: \url{https://ourworldindata.org/}
+Their site is well worth exploring in its own right.
 
 I can just double check the data by describing it. \texttt{describe()} is what I'll reach for throughout the book whenever I'm looking at a data set for the first time --- it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.
 
@@ -1196,7 +1190,7 @@ This is obviously viable to the extent we can justify the relationship, and also
 
 \section{Multiple Regression}\label{multiple-regression}
 
-Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: \url{https://www.scribbr.com/statistics/linear-regression-in-r/}
+Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from Scribbr's guide to linear regression in R \citep{scribbr-regression}.
 
 Remember, this is \textbf{simulated data} not real data.
 
@@ -2338,13 +2332,15 @@ A condensed version of these questions, combined with those from the other chapt
 
 This Chapter provides examples and additional content for the first part of Lesson 7.
 
-In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainy of our estimates, and from there we can begin to draw inferences from the sample to the population.
+In this lesson, we will learn about the classical theory of probability, and how it can be used to construct measures of uncertainty of our estimates, and from there we can begin to draw inferences from the sample to the population.
 
 \section{Simulating Coin Flips}\label{simulating-coin-flips}
 
 The first thing we'll do is simulate 5000 fair coin flips.
 
 Remember, this is another random process, so results will differ each time slightly
+
+The simulation is taken almost verbatim from a post by Philip Grosse on RPubs: \url{https://rpubs.com/pgrosse/545948}.
 
 \begin{verbatim}
 ##   Heads Trial Cum_Heads Pct_Heads
@@ -2368,7 +2364,7 @@ In other words, for a fair coin toss sequence, the trials (tosses) are \emph{ind
 
 Note, much of the inspiration and code for this section comes from: \url{https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html}
 
-The data comes from: \url{https://www.football-data.co.uk/englandm.php} and is the EPL results for 21-22 Season
+The data are the EPL results for the 2021--22 season, from Football-Data.co.uk \citeyearpar{football-data-epl}.
 
 \begin{verbatim}
 ## # A tibble: 6 x 107
@@ -2566,7 +2562,7 @@ This is interesting. At this point (30 September, 2025) I find it tempting to pu
 \item
   The sort of change would logically need to be a reduction of average goals scored per game, which would change the mean of the Poisson distribution, reducing the probabilities of a 9-goal game.
 \item
-  However, the average goals per game is actually \textbf{\emph{increasing}}, according to the statistics - and you can check out the following to confirm this: \url{https://www.premierleague.com/news/4016793}
+  However, the average goals per game is actually \textbf{\emph{increasing}}, according to the Premier League's own figures \citeyearpar{pl-goals-news}.
 \item
   So, one could also draw the conclusion that the Poisson distribution is no longer a good fit - but this could be checked, and I would guess this isn't the case (you can check yourself).
 \end{enumerate}
@@ -2646,7 +2642,7 @@ Note: This is not the same as bootstrapping - we are \emph{not} sampling with re
 
 Remember the ping-pong balls I used in class to demonstrate!
 
-Let's do it - the code below is adapted from a GeeksforGeeks tutorial: \url{https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/}
+Let's do it - the calculation below is adapted from a GeeksforGeeks tutorial: \url{https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/}
 
 \begin{verbatim}
 ## [1] "Every Possible Combination of the 20 Income Values"
@@ -2944,7 +2940,7 @@ One thing to remember though is the `law of large numbers' here. You might notic
 
 \section{Rate of Change in Football Goals per Season}\label{rate-of-change-in-football-goals-per-season}
 
-In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \ref{probability}. Here, I'm using data from \url{https://www.footballhistory.org/league/premier-league-statistics.html}
+In this example, I'll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I'll continue on with my football goals example from Chapter \ref{probability}. Here, I'm using data from footballhistory.org \citeyearpar{footballhistory-epl}.
 
 I hand-entered this into a spreadsheet, and calculated the additional stuff.
 
@@ -2970,13 +2966,11 @@ From this chart, and looking at the data itself, we can see that the 95\% Interv
 
 The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.
 
-In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \ref{probability}: \url{https://www.premierleague.com/news/4016793}
+In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter \ref{probability} \citeyearpar{pl-goals-news}.
 
-This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which \emph{directly tests the hypothesis} that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
+This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test \citep{ons-homicide-2016}, which \emph{directly tests the hypothesis} that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.
 
-See: \url{https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide\#statistical-interpretation-of-trends-in-homicides}
-
-The z-test is simply explained in the linked article from the BMJ: \url{https://www.bmj.com/content/332/7552/1256}
+The z-test is simply explained in a short BMJ article \citep{pocock2006simplest}.
 
 It links us nicely to the next lesson, because it is aiming to test a \emph{specific hypothesis} that the difference is zero\ldots{}
 
@@ -3124,7 +3118,7 @@ Chi-square is a fantastically versatile statistic, which is often used to compar
 
 Again, much of the idea and code for this section comes from: \url{https://bookdown.org/theqdata/honors_thesis/goal-scoring-and-the-poisson-process.html}
 
-The data comes from: \url{https://www.football-data.co.uk/englandm.php} and is the EPL results for 21-22 Season, with a new column of Total Goals (TOTG) created by me in Excel.
+The data are the EPL results for the 2021--22 season, from Football-Data.co.uk \citeyearpar{football-data-epl}, with a new column of Total Goals (TOTG) created by me in Excel.
 
 \begin{verbatim}
 ## # A tibble: 6 x 107
@@ -3584,7 +3578,7 @@ In this section, I'll provide some visualizations which can help us to understan
 
 However, it's worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.
 
-First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test.
+First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: \url{https://stats.stackexchange.com/q/143424}.
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-171-1.pdf}}
 
@@ -3640,7 +3634,7 @@ For example, in the Christmas-music post-hoc tests in Chapter \ref{ANOVA}, we us
 
 \section{The Bonferroni Correction: Rate of Change in Football Goals per Season}\label{the-bonferroni-correction-rate-of-change-in-football-goals-per-season}
 
-Here, I will expand on the football goals rate-of-change example from Chapter \ref{statistics}, to incorporate corrections for the multiple comparisons problem. Again, I'm using data from \url{https://www.footballhistory.org/league/premier-league-statistics.html}
+Here, I will expand on the football goals rate-of-change example from Chapter \ref{statistics}, to incorporate corrections for the multiple comparisons problem. Again, I'm using data from footballhistory.org \citeyearpar{footballhistory-epl}.
 
 I'm building on the z-test table from the end of Chapter \ref{statistics}. But here, using the z-scores in the data file, I have calculated the p-value (2 tailed as we do not hypothesize a direction for the difference) for the z-scores for the difference between each season, year-on-year.
 
@@ -3718,7 +3712,7 @@ But, as I suggested above, that might not always be the best idea. Indeed, if yo
 
 What if it is the alternative hypothesis (that is, the H of an effect existing) that is true in all cases? In such cases, there can of course be \emph{no false positives}. Therefore, in such a situation you would be \emph{increasing the chances of a false negative} by reducing the chances of a false positive. So, what are the potential costs of each of these mistakes?
 
-For example, Thomas Perneger's 1998 paper in the BMJ is scathing about the Bonferroni adjustment. Take a look at \url{https://www.bmj.com/content/316/7139/1236.full}
+For example, Thomas Perneger's \citeyearpar{perneger1998} paper in the BMJ is scathing about the Bonferroni adjustment.
 
 Mind you, I am not saying that's the final word, just that there are multiple perspectives on the issues!
 

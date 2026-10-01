@@ -71,8 +71,9 @@ Ch 6 and Ch 9 have no reader sections: Ch 6 folds into Ch 10, Ch 9 into Ch 11.
 
 - **Verify technical claims as well as citations.** Compressed one-line descriptions of methods are where errors creep in.
 - **Check every new reference against a primary source** before it is committed. Flag anything unverified to Nick at the stop point.
-- **Web sources** carry an access date.
+- **Web sources** carry an access date. Web sources carry both `note = {Accessed D Month YYYY}` and `urldate = {YYYY-MM-DD}`. The PDF (natbib apalike) prints the `note`. The HTML's default Chicago author-date CSL prints neither, so access dates currently appear only in the PDF; changing the HTML citation style is an open item.
 - **Cite with `[@key]`, never hard-coded.** A source counts as cited only when the text cites it by key: that is what puts it in the chapter's own reference list and in the consolidated list on the References page. Hard-coded author–year citations and uncited named sources are not allowed. A `book.bib` entry that nothing cites by key produces nothing in the book, so at every stop point list any keys not cited by key anywhere and report them. "Verified by grep" means grepping for the `[@key]` form.
+- **When the prose names a source's author immediately before citing it, use `[-@key]`** so the name isn't printed twice.
 
 ## Build
 

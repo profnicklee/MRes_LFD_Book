@@ -392,13 +392,12 @@ div.csl-indent {
 <div id="a-simple-demonstration-of-the-normal-distribution" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> A Simple Demonstration of the Normal Distribution<a href="norm-dist.html#a-simple-demonstration-of-the-normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>First, let’s consider the ‘empirical distribution’, which is the pattern your data set makes.</p>
-<p>Let’s consider UK births in 2020 for our example, since they’re a subject close to my heart (my first child was born in 2020).</p>
-<p>Looking online, one can pull down the distribution of UK birthweights in 2020, available from the UK ONS website, and which are reported in 500g ‘bins’.</p>
-<p>Source: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020#births-data</a></p>
+<p>Let’s consider births in England and Wales in 2020 for our example, since they’re a subject close to my heart (my first child was born in 2020).</p>
+<p>Looking online, one can pull down the distribution of birthweights in England and Wales in 2020, available from the ONS website, and which are reported in 500g ‘bins’ <span class="citation">(<a href="#ref-ons-births-2020">Office for National Statistics 2021</a>)</span>.</p>
 <p>We can use these numbers to create a chart</p>
 <p>(please note, the code I use for the demonstrations in this lesson is mostly modified from David Spiegelhalter’s originals, available on his Github page, with some of my own bits and bobs and new data…)</p>
 <p>Spiegelhalter’s Github can be found here: <a href="https://github.com/dspiegel29/ArtofStatistics" class="uri">https://github.com/dspiegel29/ArtofStatistics</a></p>
-<p>The first thing I want to do is create a data set that accurately reflects the ONS distribution of UK birthweights in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.</p>
+<p>The first thing I want to do is create a data set that accurately reflects the ONS distribution of birthweights in England and Wales in 2020. To do that, I use the following code, which in this instance I will display below, with annotations.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="norm-dist.html#cb6-1" tabindex="-1"></a>weights<span class="ot">=</span><span class="fu">c</span>(<span class="dv">1500</span>, <span class="dv">2000</span>, <span class="dv">2500</span>, <span class="dv">3000</span>, <span class="dv">3500</span>, <span class="dv">4000</span>, <span class="dv">4500</span>,<span class="dv">5000</span>,<span class="dv">5500</span>) <span class="co">#modified</span></span>
 <span id="cb6-2"><a href="norm-dist.html#cb6-2" tabindex="-1"></a><span class="co">#categories from 2020 UK Data</span></span>
 <span id="cb6-3"><a href="norm-dist.html#cb6-3" tabindex="-1"></a>mids<span class="ot">=</span>weights<span class="dv">-250</span> <span class="co"># Note the DS original is +250, but this does not work for UK</span></span>
@@ -451,7 +450,7 @@ div.csl-indent {
 <p>Mathematically, around 95% of the area under the chart is between -2 and +2 SDs, and 99.7% between -3 and +3 SDs</p>
 <p>Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occuring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.</p>
 <p>We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594</p>
-<p>So, it is 95% probable that a random baby born in the UK in 2020 will weigh between 2189.745 and 4500.781g</p>
+<p>So, it is 95% probable that a random baby born in England and Wales in 2020 will weigh between 2189.745 and 4500.781g</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-34-1.png" alt="" width="672" /></p>
 <p>We can calculate how many SDs Monty’s weight was above the mean by calculating the z-score for his weight of 3912g.</p>
 <p>To do so, let’s return to the slide deck and see the calculation.</p>
@@ -506,6 +505,9 @@ div.csl-indent {
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-norman2010likert" class="csl-entry">
 Norman, Geoff. 2010. <span>“Likert Scales, Levels of Measurement and the <span>‘Laws’</span> of Statistics.”</span> <em>Advances in Health Sciences Education</em> 15 (5): 625–32. <a href="https://doi.org/10.1007/s10459-010-9222-y">https://doi.org/10.1007/s10459-010-9222-y</a>.
+</div>
+<div id="ref-ons-births-2020" class="csl-entry">
+Office for National Statistics. 2021. <em>Births in England and Wales: 2020</em>. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020" class="uri">Https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/bulletins/birthsummarytablesenglandandwales/2020</a>.
 </div>
 </div>
             </section>

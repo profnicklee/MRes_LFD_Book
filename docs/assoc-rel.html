@@ -391,8 +391,8 @@ div.csl-indent {
 <p>This chapter supplements the content in Lecture 5.</p>
 <div id="correlations-and-associations" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Correlations and Associations<a href="assoc-rel.html#correlations-and-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>First, let’s look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data.</p>
-<p>You can explore their work here: <a href="https://ourworldindata.org/" class="uri">https://ourworldindata.org/</a></p>
+<p>First, let’s look at the basic concepts of correlation, using some data from the World Happiness Report, and GDP from the World Bank, all put together by the team at Our World in Data <span class="citation">(<a href="#ref-owid">n.d.</a>)</span>.</p>
+<p>Their site is well worth exploring in its own right.</p>
 <p>I can just double check the data by describing it. <code>describe()</code> is what I’ll reach for throughout the book whenever I’m looking at a data set for the first time — it gives a fuller statistical snapshot than just eyeballing the first few rows, including how much data is missing, which turns out to matter here.</p>
 <pre><code>##           vars   n        mean           sd     median     trimmed        mad
 ## Country*     1 249      125.00        72.02     125.00      125.00      91.92
@@ -497,7 +497,7 @@ div.csl-indent {
 </div>
 <div id="multiple-regression" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Multiple Regression<a href="assoc-rel.html#multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
+<p>Here, we will use a simple three-variable set of simulated data, which represents rates of smoking, rates of cycling, and heart disease incidence. This data is available from Scribbr’s guide to linear regression in R <span class="citation">(<a href="#ref-scribbr-regression">Bevans 2020</a>)</span>.</p>
 <p>Remember, this is <strong>simulated data</strong> not real data.</p>
 <pre><code>##               vars   n   mean     sd median trimmed    mad  min    max  range
 ## ...1             1 498 249.50 143.90 249.50  249.50 184.58 1.00 498.00 497.00
@@ -629,6 +629,9 @@ div.csl-indent {
 </div>
 <h3>References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-scribbr-regression" class="csl-entry">
+Bevans, Rebecca. 2020. <em>Linear Regression in <span>R</span>: A Step-by-Step Guide and Examples</em>. <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">Https://www.scribbr.com/statistics/linear-regression-in-r/</a>.
+</div>
 <div id="ref-kalnins2025additional" class="csl-entry">
 Kalnins, Arturs, and Kendall Praitis Hill. 2025. <span>“Additional Caution Regarding Rules of Thumb for Variance Inflation Factors: Extending <span>O’Brien</span> to the Context of Specification Error.”</span> <em>Quality &amp; Quantity</em> 59 (Suppl 1): 291–314. <a href="https://doi.org/10.1007/s11135-024-01980-0">https://doi.org/10.1007/s11135-024-01980-0</a>.
 </div>
@@ -637,6 +640,9 @@ Lee, Nick, and Graham Hooley. 2005. <span>“The Evolution of <span>‘Classical
 </div>
 <div id="ref-obrien2007caution" class="csl-entry">
 O’Brien, Robert M. 2007. <span>“A Caution Regarding Rules of Thumb for Variance Inflation Factors.”</span> <em>Quality &amp; Quantity</em> 41 (5): 673–90. <a href="https://doi.org/10.1007/s11135-006-9018-6">https://doi.org/10.1007/s11135-006-9018-6</a>.
+</div>
+<div id="ref-owid" class="csl-entry">
+Our World in Data. n.d. <em>Our World in Data</em>. <a href="https://ourworldindata.org/" class="uri">Https://ourworldindata.org/</a>.
 </div>
 <div id="ref-podsakoff2003common" class="csl-entry">
 Podsakoff, Philip M., Scott B. MacKenzie, Jeong-Yeon Lee, and Nathan P. Podsakoff. 2003. <span>“Common Method Biases in Behavioral Research: A Critical Review of the Literature and Recommended Remedies.”</span> <em>Journal of Applied Psychology</em> 88 (5): 879–903. <a href="https://doi.org/10.1037/0021-9010.88.5.879">https://doi.org/10.1037/0021-9010.88.5.879</a>.

@@ -423,7 +423,7 @@ div.csl-indent {
 <p>Given there are n=20 values in the population, there are k=190 possible combinations of two values.</p>
 <p>Note: This is not the same as bootstrapping - we are <em>not</em> sampling with replacement here. We are instead taking combinations. The thing to think about is that this is the equivalent of taking every single possible sample of 2 that you could take from this population.</p>
 <p>Remember the ping-pong balls I used in class to demonstrate!</p>
-<p>Let’s do it - the code below is adapted from a GeeksforGeeks tutorial: <a href="https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/" class="uri">https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/</a></p>
+<p>Let’s do it - the calculation below is adapted from a GeeksforGeeks tutorial: <a href="https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/" class="uri">https://www.geeksforgeeks.org/calculate-combinations-and-permutations-in-r/</a></p>
 <pre><code>## [1] &quot;Every Possible Combination of the 20 Income Values&quot;</code></pre>
 <pre><code>##         [,1]  [,2]
 ##   [1,]  5600  6000
@@ -668,7 +668,7 @@ div.csl-indent {
 </div>
 <div id="rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="10.3">
 <h2><span class="header-section-number">10.3</span> Rate of Change in Football Goals per Season<a href="statistics.html#rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this example, I’ll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I’ll continue on with my football goals example from Chapter <a href="probability.html#probability">9</a>. Here, I’m using data from <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">https://www.footballhistory.org/league/premier-league-statistics.html</a></p>
+<p>In this example, I’ll build on the idea of confidence intervals, to show how we can test hypotheses about the world. I’ll continue on with my football goals example from Chapter <a href="probability.html#probability">9</a>. Here, I’m using data from footballhistory.org <span class="citation">(<a href="#ref-footballhistory-epl">n.d.</a>)</span>.</p>
 <p>I hand-entered this into a spreadsheet, and calculated the additional stuff.</p>
 <pre><code>## # A tibble: 6 × 7
 ##   Season  Games Goals   GPG    SE Lower95CI Upper95CI
@@ -684,10 +684,9 @@ div.csl-indent {
 <p><img src="LFD_files/figure-html/unnamed-chunk-138-1.png" alt="" width="672" /></p>
 <p>From this chart, and looking at the data itself, we can see that the 95% Intervals overlap, so it is hard to conclude that the underlying rate of goals has changed significantly year on year. Yes, even in the pandemic.</p>
 <p>The closest we get in fact is between the 2008-2009 and 2009-10 season. Interestingly, this corresponds to when Man City were bought, and it is evident that the top teams scored a lot more that year.</p>
-<p>In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter <a href="probability.html#probability">9</a>: <a href="https://www.premierleague.com/news/4016793" class="uri">https://www.premierleague.com/news/4016793</a></p>
-<p>This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test, which <em>directly tests the hypothesis</em> that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.</p>
-<p>See: <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides" class="uri">https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide#statistical-interpretation-of-trends-in-homicides</a></p>
-<p>The z-test is simply explained in the linked article from the BMJ: <a href="https://www.bmj.com/content/332/7552/1256" class="uri">https://www.bmj.com/content/332/7552/1256</a></p>
+<p>In fact, you could add data for the next few seasons, to directly test the conclusion that the Premier League drew in the article I referenced in Chapter <a href="probability.html#probability">9</a> <span class="citation">(<a href="#ref-pl-goals-news">2024</a>)</span>.</p>
+<p>This is a stringent test however, and the ONS suggest that you can also test the change by using a Z-test <span class="citation">(<a href="#ref-ons-homicide-2016">Office for National Statistics 2017</a>)</span>, which <em>directly tests the hypothesis</em> that the change is zero, using the assumption that the events are Poisson distributed (we agree) and also that when the number of events are large (generally over 20), we can use an approximation to the normal distribution.</p>
+<p>The z-test is simply explained in a short BMJ article <span class="citation">(<a href="#ref-pocock2006simplest">Pocock 2006</a>)</span>.</p>
 <p>It links us nicely to the next lesson, because it is aiming to test a <em>specific hypothesis</em> that the difference is zero…</p>
 <p>If you open the data file below, you can see I have calculated the z-test results for the difference between each season, year-on-year.</p>
 <pre><code>## # A tibble: 6 × 9
@@ -749,6 +748,18 @@ Cameron, A. Colin, and Douglas L. Miller. 2015. <span>“A Practitioner’s Guid
 </div>
 <div id="ref-cumming2005inference" class="csl-entry">
 Cumming, Geoff, and Sue Finch. 2005. <span>“Inference by Eye: Confidence Intervals and How to Read Pictures of Data.”</span> <em>American Psychologist</em> 60 (2): 170–80. <a href="https://doi.org/10.1037/0003-066X.60.2.170">https://doi.org/10.1037/0003-066X.60.2.170</a>.
+</div>
+<div id="ref-footballhistory-epl" class="csl-entry">
+<span class="nocase">footballhistory.org</span>. n.d. <em>Premier League – Goals and Statistics</em>. <a href="https://www.footballhistory.org/league/premier-league-statistics.html" class="uri">Https://www.footballhistory.org/league/premier-league-statistics.html</a>.
+</div>
+<div id="ref-ons-homicide-2016" class="csl-entry">
+Office for National Statistics. 2017. <em>Focus on Violent Crime and Sexual Offences, England and Wales: Year Ending March 2016 – Homicide</em>. <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide" class="uri">Https://www.ons.gov.uk/peoplepopulationandcommunity/crimeandjustice/compendium/focusonviolentcrimeandsexualoffences/yearendingmarch2016/homicide</a>.
+</div>
+<div id="ref-pocock2006simplest" class="csl-entry">
+Pocock, Stuart J. 2006. <span>“The Simplest Statistical Test: How to Check for a Difference Between Treatments.”</span> <em>BMJ</em> 332 (7552): 1256. <a href="https://doi.org/10.1136/bmj.332.7552.1256">https://doi.org/10.1136/bmj.332.7552.1256</a>.
+</div>
+<div id="ref-pl-goals-news" class="csl-entry">
+Premier League. 2024. <em>The Numbers That Show This Has Been a Season Like No Other</em>. <a href="https://www.premierleague.com/news/4016793" class="uri">Https://www.premierleague.com/news/4016793</a>.
 </div>
 </div>
             </section>
