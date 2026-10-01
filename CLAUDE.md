@@ -16,6 +16,8 @@ These override generic textbook convention wherever the two conflict.
 
 2. **Numerical differences between book and slides are intentional.** Simulation chapters reseed on every render, so the numbers legitimately differ from the lecture slides. Never "fix" this. `05-estimation.Rmd` (Ch 6) and the "How this book works" section in `index.Rmd` already flag it to students. Refer to files by name, not chapter number, so the reference can't drift after renumbering.
 
+   Because simulations aren't seeded, some figures change on every render: Ch 2's simulated box, violin and ridge plots, and every `geom_jitter` plot, for example. In a scoped commit, restore changed figure PNGs from `HEAD` unless the commit changed the chunk that draws them. The clean full render before a merge commits them all. Never add a seed to stop this churn.
+
 3. **Acknowledge scepticism rather than deflecting it.** When students challenge something — bootstrapping, arbitrary thresholds, the nil hypothesis — the honest, self-aware answer builds more credibility than a defensive one. If a step genuinely is a bit redundant, say so.
 
 4. **Decision rules are heuristics, not laws.** The book is consistently critical of `p < 0.05` fetishism, significance stars, and "marginally significant". Do not soften this into conventional hedging. Do not add "however, the 0.05 threshold is widely accepted" style qualifications.
