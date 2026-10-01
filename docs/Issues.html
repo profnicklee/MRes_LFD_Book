@@ -179,7 +179,7 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#risk"><i class="fa fa-check"></i><b>2.1</b> When the numbers mislead: relative and absolute risk</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.2</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.2</b> Summarising Data with Numbers</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.3</b> Box Plots</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.4</b> Violin Plots and Ridge Plots</a></li>
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.5</b> Transformations</a></li>
@@ -232,10 +232,10 @@ div.csl-indent {
 <li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>5.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Non-linear Associations</a></li>
 <li class="chapter" data-level="5.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>5.3</b> Regression</a></li>
 <li class="chapter" data-level="5.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>5.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualising Multiple Regression</a></li>
 <li class="chapter" data-level="5.6" data-path="assoc-rel.html"><a href="assoc-rel.html#assoc-rel-reading"><i class="fa fa-check"></i><b>5.6</b> Reading the literature</a>
 <ul>
 <li class="chapter" data-level="5.6.1" data-path="assoc-rel.html"><a href="assoc-rel.html#where-youll-meet-this-3"><i class="fa fa-check"></i><b>5.6.1</b> Where you’ll meet this</a></li>
@@ -394,13 +394,13 @@ div.csl-indent {
 <p>But first, let’s unpack more about the Christmas music study, and the multiple comparisons problem.</p>
 <div id="more-on-the-multiple-comparisons-problem" class="section level2 hasAnchor" number="13.1">
 <h2><span class="header-section-number">13.1</span> More on the Multiple Comparisons Problem<a href="Issues.html#more-on-the-multiple-comparisons-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this section, I’ll provide some visualizations which can help us to understand the problem with multiple comparisons.</p>
+<p>In this section, I’ll provide some visualisations which can help us to understand the problem with multiple comparisons.</p>
 <p>However, it’s worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.</p>
-<p>First, let’s visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: <a href="https://stats.stackexchange.com/q/143424" class="uri">https://stats.stackexchange.com/q/143424</a>.</p>
+<p>First, let’s visualise the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: <a href="https://stats.stackexchange.com/q/143424" class="uri">https://stats.stackexchange.com/q/143424</a>.</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-171-1.png" alt="" width="672" /></p>
 <p>Now, remember, <strong>even if all null hypotheses are true</strong>, our significance level, or <em>p</em> = 0.05, so we have to expect that <em>on average</em> we would expect <strong>5</strong> of these hypotheses tests to return <em>p</em>-values &lt; 0.05, and thus we would reject the null. This is known as a <strong>false positive</strong>.</p>
 <p>You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required <em>p</em> to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept <em>all</em> null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really <em>was</em> true in the population in every single case, you would be inevitably missing out on making some discoveries.</p>
-<p>Moving on, let’s visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.</p>
+<p>Moving on, let’s visualise the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-172-1.png" alt="" width="672" /></p>
 <p>Now, that is just the <em>expected</em> level for every 100 tests. If you remember from the discussion in Section <a href="statistics.html#conf">10.2</a>, it may not be you get <em>exactly</em> 5 false positives in 100 tests, just that you would expect the long run average number of false positives to be 5%, in an all-null world.</p>
 <p>So, we can look at it through a different lens. What is the probability that you would get <strong>at least one false positive</strong> in any given batch of multiple tests.</p>
@@ -422,7 +422,7 @@ div.csl-indent {
 <p>I first saw this demonstrated properly using a lovely interactive calculator built by Dr Daniel Roelfs, during his time at the Norwegian Centre for Mental Disorders Research (NORMENT) in Oslo, and he kindly gave permission for me to reproduce the idea here. Check out his website: <a href="https://danielroelfs.com/about/" class="uri">https://danielroelfs.com/about/</a>. A book page can’t rely on an external app staying up forever for every reader, so the version below reproduces the same idea as a static figure instead.</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-173-1.png" alt="" width="672" /></p>
 <p>Watching that curve climb feels kind of scary, right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.</p>
-<p>For example, in the Christmas-music post-hoc tests in Chapter <a href="ANOVA.html#ANOVA">12</a>, we used Tukey’s test, which uses a correction for multiple comparisons. Another method dealt with below is the <em>Bonferoni Correction</em>, which is generally the most well-known of them.</p>
+<p>For example, in the Christmas-music post-hoc tests in Chapter <a href="ANOVA.html#ANOVA">12</a>, we used Tukey’s test, which uses a correction for multiple comparisons. Another method dealt with below is the <em>Bonferroni Correction</em>, which is generally the most well-known of them.</p>
 </div>
 <div id="the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="section level2 hasAnchor" number="13.2">
 <h2><span class="header-section-number">13.2</span> The Bonferroni Correction: Rate of Change in Football Goals per Season<a href="Issues.html#the-bonferroni-correction-rate-of-change-in-football-goals-per-season" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -467,7 +467,7 @@ div.csl-indent {
 <p>We can see that the 1999-2000 season, and the 2009-10 seasons have p values less than 0.05</p>
 <p>The question is <strong>are we suffering from the multiple comparisons problem</strong>? Should we correct for it?</p>
 <p>It’s hard to say actually. Of course, we are indeed running multiple tests, 26 in fact. So, the chance of a false positive is high. The Bonferroni correction would immediately reduce the false positive chances, but at what cost?</p>
-<p>Let’s see how this would work. In order to calculate a Bonferroni correction, you can either adjust the p-value directly that you calculate for each test, or instead simply adjust the ‘cutoff’ value for p, known as the <em>critical p</em>, to lower it from 0.05 and make the significance test ‘harder’ to pass. The formula to adjust the cutoff value is simply:</p>
+<p>Let’s see how this would work. In order to calculate a Bonferroni correction, you can either adjust the p-value directly that you calculate for each test, or instead simply adjust the ‘cut-off’ value for p, known as the <em>critical p</em>, to lower it from 0.05 and make the significance test ‘harder’ to pass. The formula to adjust the cut-off value is simply:</p>
 <p><span class="math inline">\(\alpha_b = (\frac{\alpha}{n})\)</span></p>
 <p>Where</p>
 <p><span class="math inline">\(\alpha_b\)</span> = Bonferroni-adjusted critical p value</p>
@@ -501,7 +501,7 @@ div.csl-indent {
 ## 
 ## NOTE: n is number in each group</code></pre>
 <p>So, we really wanted to have around 50 in each group to have an 80% chance of detecting a moderate effect presuming the null was true.</p>
-<p>You can see that my study (with only 15 in each group) was rather underpowered — assuming a moderate effect. But now here’s a slightly awkward wrinkle. If instead I take the effect size <em>this actual experiment</em> produced — a generalized eta-squared of 0.41 back in Chapter <a href="ANOVA.html#ANOVA">12</a>, which converts to a Cohen’s <em>f</em> of about 0.84 — and plug that into the same calculation:</p>
+<p>You can see that my study (with only 15 in each group) was rather underpowered — assuming a moderate effect. But now here’s a slightly awkward wrinkle. If instead I take the effect size <em>this actual experiment</em> produced — a generalised eta-squared of 0.41 back in Chapter <a href="ANOVA.html#ANOVA">12</a>, which converts to a Cohen’s <em>f</em> of about 0.84 — and plug that into the same calculation:</p>
 <pre><code>## 
 ##      Balanced one-way analysis of variance power calculation 
 ## 

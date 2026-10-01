@@ -179,7 +179,7 @@ div.csl-indent {
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Describing the World With Data</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#risk"><i class="fa fa-check"></i><b>2.1</b> When the numbers mislead: relative and absolute risk</a></li>
-<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.2</b> Summarizing Data with Numbers</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#summarizing-data-with-numbers"><i class="fa fa-check"></i><b>2.2</b> Summarising Data with Numbers</a></li>
 <li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#box-plots"><i class="fa fa-check"></i><b>2.3</b> Box Plots</a></li>
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#violin-plots-and-ridge-plots"><i class="fa fa-check"></i><b>2.4</b> Violin Plots and Ridge Plots</a></li>
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#transformations"><i class="fa fa-check"></i><b>2.5</b> Transformations</a></li>
@@ -232,10 +232,10 @@ div.csl-indent {
 <li class="chapter" data-level="5" data-path="assoc-rel.html"><a href="assoc-rel.html"><i class="fa fa-check"></i><b>5</b> Associations and Relationships</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="assoc-rel.html"><a href="assoc-rel.html#correlations-and-associations"><i class="fa fa-check"></i><b>5.1</b> Correlations and Associations</a></li>
-<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Nonlinear Associations</a></li>
+<li class="chapter" data-level="5.2" data-path="assoc-rel.html"><a href="assoc-rel.html#introducing-nonlinear-associations"><i class="fa fa-check"></i><b>5.2</b> Introducing Non-linear Associations</a></li>
 <li class="chapter" data-level="5.3" data-path="assoc-rel.html"><a href="assoc-rel.html#regression"><i class="fa fa-check"></i><b>5.3</b> Regression</a></li>
 <li class="chapter" data-level="5.4" data-path="assoc-rel.html"><a href="assoc-rel.html#multiple-regression"><i class="fa fa-check"></i><b>5.4</b> Multiple Regression</a></li>
-<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualizing Multiple Regression</a></li>
+<li class="chapter" data-level="5.5" data-path="assoc-rel.html"><a href="assoc-rel.html#visualizing-multiple-regression"><i class="fa fa-check"></i><b>5.5</b> Visualising Multiple Regression</a></li>
 <li class="chapter" data-level="5.6" data-path="assoc-rel.html"><a href="assoc-rel.html#assoc-rel-reading"><i class="fa fa-check"></i><b>5.6</b> Reading the literature</a>
 <ul>
 <li class="chapter" data-level="5.6.1" data-path="assoc-rel.html"><a href="assoc-rel.html#where-youll-meet-this-3"><i class="fa fa-check"></i><b>5.6.1</b> Where you’ll meet this</a></li>
@@ -428,12 +428,12 @@ div.csl-indent {
 <p>But what does that mean? We can <strong>return to the slides for some explanation</strong>.</p>
 </div>
 <div id="introducing-nonlinear-associations" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> Introducing Nonlinear Associations<a href="assoc-rel.html#introducing-nonlinear-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<h2><span class="header-section-number">5.2</span> Introducing Non-linear Associations<a href="assoc-rel.html#introducing-nonlinear-associations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s return to the scatterplot of GDPpc and Happiness</p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-56-1.png" alt="" width="672" /></p>
-<p>As the <em>Economist</em> analysis discussed in the lectures suggests, this association also looks kind of <em>nonlinear</em>.</p>
+<p>As the <em>Economist</em> analysis discussed in the lectures suggests, this association also looks kind of <em>non-linear</em>.</p>
 <p>However, unlike the <em>Economist</em>, we can also say that there are multiple ways to look at this:</p>
-<p>First, you could take the <em>Economist’s</em> view that this is probably a <strong>nonlinear relationship.</strong> Indeed, we can check this out by <em>transforming</em> GDPpc and comparing the results between transformed and non-transformed data.</p>
+<p>First, you could take the <em>Economist’s</em> view that this is probably a <strong>non-linear relationship.</strong> Indeed, we can check this out by <em>transforming</em> GDPpc and comparing the results between transformed and non-transformed data.</p>
 <p>Let’s have a try at that. What we will do is transform the GDPpc variable using a log transform (i.e. taking the natural logarithm of GDPpc).</p>
 <pre><code>##           vars   n        mean           sd     median     trimmed        mad
 ## Country*     1 249      125.00        72.02     125.00      125.00      91.92
@@ -476,9 +476,9 @@ div.csl-indent {
 ## 0.7964703</code></pre>
 <p>We can see that the association is stronger (the correlation is higher) for the log GDPpc variable, although to be honest, it is not a very big difference here, compared to other data sets that I have seen discussed in the media. That’s interesting in itself (note we are using 2020 data, so maybe the pandemic has something to do with it?)</p>
 <p>However, <strong>transformations</strong> of data are kind of a complicated topic though. In essence, what we are doing is changing the distribution of one (or more) of the variables, in a systematic way, in order to convert a non-linear relationship (which may be unable to be tested with methods like correlation and regression) into a linear one.</p>
-<p>There are many different types of transformations available to you, and the one you choose depends on the form of the nonlinearity. A <strong>log</strong> transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it’s not always obvious what exactly to do, and people often default to transforming <strong>any</strong> nonlinear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It’s not really that simple though, and I think we need to be a bit more logical and theory-driven on <strong>why</strong> we transform variables.</p>
-<p>In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a <strong>lot more</strong> to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could concievably lead to policy changes compared to the prior non-transformed analysis.</p>
-<p><strong>Even so</strong>, I have always had a slightly different possibility on my mind. In fact, it may be that there are <strong>two distinct groups</strong> of country, low and high income, and different <strong>linear</strong> associations within those groups. That’s a similar-ish idea to the nonlinear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data…</p>
+<p>There are many different types of transformations available to you, and the one you choose depends on the form of the non-linearity. A <strong>log</strong> transform converts an exponential (or similar) relation into a linear one. But, there are specific transforms for many different forms. Oftentimes, it’s not always obvious what exactly to do, and people often default to transforming <strong>any</strong> non-linear-looking relationship, or highly skewed variable, using log or maybe the quadratic (squaring). It’s not really that simple though, and I think we need to be a bit more logical and theory-driven on <strong>why</strong> we transform variables.</p>
+<p>In this case, I admit that the logic makes sense, that there is still a relationship between GDPpc and happiness at the top end, but you just have to increase GDPpc by a <strong>lot more</strong> to get the same change in happiness, compared to the change needed at the lower end of GDPpc. And, making that transform to come to that conclusion actually makes a difference to how we think of the influence of GDPpc on happiness, and could conceivably lead to policy changes compared to the prior non-transformed analysis.</p>
+<p><strong>Even so</strong>, I have always had a slightly different possibility on my mind. In fact, it may be that there are <strong>two distinct groups</strong> of country, low and high income, and different <strong>linear</strong> associations within those groups. That’s a similar-ish idea to the non-linear one, but it is a bit different, and I actually prefer that idea. A nice challenge would be to work out a way to test which of the two alternative explanations is actually better supported by the data…</p>
 <p>Maybe I’ll leave that for another day though.</p>
 <p>We can <strong>return to the slides</strong> for a bit more discussion.</p>
 </div>
@@ -541,8 +541,8 @@ div.csl-indent {
 <p>Notice the wording there. It’s tempting to say that biking <em>leads to</em> less heart disease, and in everyday conversation most of us would. But a regression coefficient on its own describes how the variables move together in these data, after adjusting for the other predictors in the model. “Holding smoking constant” is the stratification from Section <a href="causation.html#confounding-demo">4.1.2</a>, done inside an equation instead of by splitting into bands, and it has the same limit: it only deals with the variables that are actually in the model. Whether biking <em>causes</em> less heart disease is a question about the design and the argument, not about the regression output. With simulated data the question is academic. With real data, it’s the whole question.</p>
 <p>Of course, what these ‘units’ mean depends on how the variables were measured. That’s exactly why it’s hard to say from these numbers alone whether either effect is large or small: we’d need to know what a unit of biking, smoking or heart disease actually represents.</p>
 <p>However, because the <em>scales of the variables</em> are different, its not really possible to compare the sizes of the effects. So to some extent we don’t know which of the two variables has the ‘bigger’ effect here, relatively at least.</p>
-<p>To do that, we need to standardize the coeffiecients, which basically means putting all the variables on the <strong>same scale</strong>. Beforehand, they all were on different scales, which you can see by going back up and looking at the range, mean, and standard deviation of the original variables. You can see for yourself they are all different.</p>
-<p>We can solve this issue by creating a new set of standardized data, and running the model on that, as follows:</p>
+<p>To do that, we need to standardise the coefficients, which basically means putting all the variables on the <strong>same scale</strong>. Beforehand, they all were on different scales, which you can see by going back up and looking at the range, mean, and standard deviation of the original variables. You can see for yourself they are all different.</p>
+<p>We can solve this issue by creating a new set of standardised data, and running the model on that, as follows:</p>
 <pre><code>##               vars   n mean sd median trimmed  mad   min  max range  skew
 ## ...1             1 498    0  1   0.00       0 1.28 -1.73 1.73  3.45  0.00
 ## biking           2 498    0  1  -0.09       0 1.28 -1.71 1.73  3.43  0.07
@@ -553,7 +553,7 @@ div.csl-indent {
 ## biking           -1.22 0.04
 ## smoking          -1.12 0.04
 ## heart.disease    -0.93 0.04</code></pre>
-<p>You know these variables are standardized as they now all have a mean of 0 and a standard deviation of 1. Now, let’s run our model on this standardized data set.</p>
+<p>You know these variables are standardised as they now all have a mean of 0 and a standard deviation of 1. Now, let’s run our model on this standardised data set.</p>
 <pre><code>## 
 ## Call:
 ## lm(formula = heart.disease ~ biking + smoking, data = std_Heart)
@@ -573,17 +573,17 @@ div.csl-indent {
 ## Residual standard error: 0.1431 on 495 degrees of freedom
 ## Multiple R-squared:  0.9796, Adjusted R-squared:  0.9795 
 ## F-statistic: 1.19e+04 on 2 and 495 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p>You can see the things that have changed are the ‘Estimates’, which are now standardized.</p>
+<p>You can see the things that have changed are the ‘Estimates’, which are now standardised.</p>
 <p>In decimal, they are -0.94 for biking and 0.32 for Smoking.</p>
-<p>The correct interpretation of these standardized effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.</p>
+<p>The correct interpretation of these standardised effects is that for every 1SD increase in biking, you expect a 0.94SD decrease in heart disease, and for every 1SD increase in smoking, you would expect a 0.32 increase in heart disease.</p>
 <p>So, in this sample, biking has a much <strong>larger</strong> standardised association with heart disease than smoking does (although in the opposite direction). One caution, though. Standardised coefficients are measured in standard deviations, and those standard deviations come from this particular sample. If another sample had much more variation in smoking, say, the standardised coefficient for smoking would change even if the underlying relationship didn’t. So comparisons like this are specific to the sample, and are safest between samples that look alike.</p>
 </div>
 <div id="visualizing-multiple-regression" class="section level2 hasAnchor" number="5.5">
-<h2><span class="header-section-number">5.5</span> Visualizing Multiple Regression<a href="assoc-rel.html#visualizing-multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are loads of different ways to visualize multiple regression. It’s not trivial, because we have more than two variables, so we can’t use the techniques we used already.</p>
-<p>Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much payoff (if any).</p>
-<p>In this case, we can use a pretty simple visualization, where we could plot the relationship of biking to heart disease at different levels of smoking.</p>
-<p>This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn’t really work that way, but it’s a cool visualization regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
+<h2><span class="header-section-number">5.5</span> Visualising Multiple Regression<a href="assoc-rel.html#visualizing-multiple-regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>There are loads of different ways to visualise multiple regression. It’s not trivial, because we have more than two variables, so we can’t use the techniques we used already.</p>
+<p>Some people like to use 3D-style plots, which look cool, but are not always easy to interpret, and take quite a lot of extra work, for what I would say is not that much pay-off (if any).</p>
+<p>In this case, we can use a pretty simple visualisation, where we could plot the relationship of biking to heart disease at different levels of smoking.</p>
+<p>This would be a fairly typical way to do things if we thought the relationship between biking and heart disease changed according to the level of smoking, in which case it would be a moderator. Here, it doesn’t really work that way, but it’s a cool visualisation regardless. It does require some data prep, but not that much, and I took the basic idea from the website where I sourced the data: <a href="https://www.scribbr.com/statistics/linear-regression-in-r/" class="uri">https://www.scribbr.com/statistics/linear-regression-in-r/</a></p>
 <p><img src="LFD_files/figure-html/unnamed-chunk-70-1.png" alt="" width="672" /></p>
 <p>Here, we can see that the effect of smoking is really just to raise the likelihood of heart disease, however much biking you do.</p>
 <p>So, for a given person who bikes a given amount, if they smoke more they will have a higher risk than a person who bikes the same amount but smokes less.</p>

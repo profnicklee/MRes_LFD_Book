@@ -264,9 +264,9 @@ Looking specifically at our example N of 42, we can estimate which one of the 10
 
 Specifically, **your actual sample** is one of a very large amount of possible samples from the population (here we took 100 but we could have taken many more). The CI calculation essentially creates a CI with the width so that, out of 100 random samples, approximately 95 will actually contain the *true population mean*.
 
-As such, we can see how it is clearly a measure of the **precision** of the estimate. For a compelling visualization of this, look how wide the CIs for N=5 are.
+As such, we can see how it is clearly a measure of the **precision** of the estimate. For a compelling visualisation of this, look how wide the CIs for N=5 are.
 
-One thing to remember though is the 'law of large numbers' here. You might notice that not all of the CI plots contain exactly 5 intervals that do not contain the mean. This is analagous to the idea of coin flipping - it's just probability over very large numbers of trials, not saying that 'out of every 100, exactly 5 will not include the population mean'. But, over a very large number of trials, we can expect the amount of intervals that do not include the mean to tend towards 5%, in the same way that over a large number of coin flips, the proportion of heads tends towards 50%.
+One thing to remember though is the 'law of large numbers' here. You might notice that not all of the CI plots contain exactly 5 intervals that do not contain the mean. This is analogous to the idea of coin flipping - it's just probability over very large numbers of trials, not saying that 'out of every 100, exactly 5 will not include the population mean'. But, over a very large number of trials, we can expect the amount of intervals that do not include the mean to tend towards 5%, in the same way that over a large number of coin flips, the proportion of heads tends towards 50%.
 
 ## Rate of Change in Football Goals per Season
 
@@ -321,7 +321,7 @@ head(EPLZ)
 
 The 'Z' column is what we are interested in, and we are looking for a z-value greater than + or - 1.96 for a 95% test (analogous to the 95% intervals we've been dealing with so far).
 
-A simple way to visualize this is to plot the z-values for each season, and include 'control lines' which represent the + or -1.96 z value, beyond which we consider there to be a significant difference
+A simple way to visualise this is to plot the z-values for each season, and include 'control lines' which represent the + or -1.96 z value, beyond which we consider there to be a significant difference
 
 ```{r}
 #visualize the z values simply with control lines

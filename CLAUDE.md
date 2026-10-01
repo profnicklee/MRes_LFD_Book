@@ -38,6 +38,8 @@ These override generic textbook convention wherever the two conflict.
 
 12. **Real papers are cited; critique by name is reserved for verifiable case studies.** Where a passage illustrates bad practice in general, the example (a reporting snippet, a set of figures) is invented and presented as illustrative. Real people and papers may be named only in agreed case studies where the account is verifiable, fair and factual, with every claim traceable to a cited primary source (for example, the power pose section `{#power-pose}` in `12-Issues_w_sig.Rmd`). Such cases describe what happened and what the people involved have said; they do not speculate about motives.
 
+13. **Spelling is British, with -ise endings** (standardise, visualise, behaviour, programme, cut-off, non-linear). The exceptions are proper names, direct quotations, titles of cited works, and code, function and package names, which keep their original spelling. Text inside figures (plot titles and axis labels) hasn't yet been standardised. When respelling a heading that has no explicit label, add one with the old auto-generated ID, so external links keep working.
+
 ## Reading-the-literature sections
 
 Chapters may end with a reader section (`{#<label>-reading}`) that helps students *read* papers, not run analyses. Not every chapter needs one; where a chapter has little to say to a reader, it can be folded into a neighbour's section instead of padded out. A reader section may cover methods well beyond the book (IV, control functions, fixed effects, DiD, Heckman and so on), but only at reading level: what the number claims, which core concept from the chapter it rests on, what assumption it needs, and what to question. No code, and no how-to.
@@ -104,7 +106,7 @@ Nick is not experienced with branching workflows. Be explicit about what you are
 - One commit per handover, with a descriptive message, so Nick can review and revert selectively.
 - **Merging a part branch.**
   1. Delete `docs/LFD_files/figure-html/`, then do a clean full render and commit the fresh `docs/` before the merge. Bookdown never clears old figure files, and any change in chunk order renumbers unnamed chunks, so stale PNGs accumulate between merges. Also check for any other file in `docs/` that the render did not regenerate, and report it rather than deleting it. This "clean full render" covers both targets: `bookdown::gitbook` and `bookdown::pdf_book` — rebuild the PDF too, not just the HTML.
-  2. Nick merges on GitHub using "Create a merge commit", not squash, so the per-handover commits stay revertible.
+  2. **Nick opens the pull request and merges it on GitHub himself**, using "Create a merge commit", not squash, so the per-handover commits stay revertible. When a branch is ready, stop and report. Don't create pull requests or compare links unless Nick asks.
   3. After the merge, pull `main`, tag the result `v2026-partN`, and push the tag.
   4. Delete the branch with `git branch -d` and `git push origin --delete`. Use `-d`, never `-D`, so git refuses if anything is unmerged.
 - `docs/` contains committed build output. If a merge conflicts in generated HTML, take either side and re-run `render_book`, then commit the fresh output. Never hand-resolve generated files.

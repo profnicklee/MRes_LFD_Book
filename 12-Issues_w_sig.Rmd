@@ -25,11 +25,11 @@ But first, let's unpack more about the Christmas music study, and the multiple c
 
 ## More on the Multiple Comparisons Problem
 
-In this section, I'll provide some visualizations which can help us to understand the problem with multiple comparisons.
+In this section, I'll provide some visualisations which can help us to understand the problem with multiple comparisons.
 
 However, it's worth noting that the results depend on a number of assumptions about the research and what the real world actually looks like. The latter for sure we can never know. So, do bear that in mind.
 
-First, let's visualize the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: <https://stats.stackexchange.com/q/143424>.
+First, let's visualise the situation I just discussed in the slides. We test 100 hypotheses, and in every case, the null is true in the population (remember, we cannot know the true state of the population in reality). Below, each grey box represents a hypothesis we test. These grid figures are adapted from an answer on Cross Validated: <https://stats.stackexchange.com/q/143424>.
 
 ```{r}
 #UGLY BASE R CODE BELOW. Note that this is not fully thought through and may contain unnecessary code. Code taken from https://stats.stackexchange.com/q/143424 and modified by me
@@ -65,7 +65,7 @@ Now, remember, **even if all null hypotheses are true**, our significance level,
 
 You might wonder how we could reduce the chances of false positive to zero. You could do this by setting your required *p* to be exactly zero. Do you see the problem here? You would certainly solve the false positive problem. But, you would also accept *all* null hypotheses. You would never actually find a statistically significant result in your research. Unless the null hypothesis really *was* true in the population in every single case, you would be inevitably missing out on making some discoveries.
 
-Moving on, let's visualize the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.
+Moving on, let's visualise the situation in hand here. Below, the same 100 hypothesis tests (remember, the null is true in all cases), but this time I have marked in red the expected level of false positives.
 
 ```{r}
 #UGLY BASE R CODE BELOW. Note that this is not fully thought through and may contain unnecessary code. Code taken from https://stats.stackexchange.com/q/143424 and modified by me
@@ -170,7 +170,7 @@ ggplot(fwer_df, aes(x = n, y = FWER, colour = alpha)) +
 
 Watching that curve climb feels kind of scary, right? There are many ways to deal with the problem, but they pretty much all amount to making some correction to the required significance level, making it more stringent, in order to reduce the false positives.
 
-For example, in the Christmas-music post-hoc tests in Chapter \@ref(ANOVA), we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the *Bonferoni Correction*, which is generally the most well-known of them.
+For example, in the Christmas-music post-hoc tests in Chapter \@ref(ANOVA), we used Tukey's test, which uses a correction for multiple comparisons. Another method dealt with below is the *Bonferroni Correction*, which is generally the most well-known of them.
 
 ## The Bonferroni Correction: Rate of Change in Football Goals per Season
 
@@ -201,7 +201,7 @@ The question is **are we suffering from the multiple comparisons problem**? Shou
 
 It's hard to say actually. Of course, we are indeed running multiple tests, 26 in fact. So, the chance of a false positive is high. The Bonferroni correction would immediately reduce the false positive chances, but at what cost?
 
-Let's see how this would work. In order to calculate a Bonferroni correction, you can either adjust the p-value directly that you calculate for each test, or instead simply adjust the 'cutoff' value for p, known as the *critical p*, to lower it from 0.05 and make the significance test 'harder' to pass. The formula to adjust the cutoff value is simply:
+Let's see how this would work. In order to calculate a Bonferroni correction, you can either adjust the p-value directly that you calculate for each test, or instead simply adjust the 'cut-off' value for p, known as the *critical p*, to lower it from 0.05 and make the significance test 'harder' to pass. The formula to adjust the cut-off value is simply:
 
 $\alpha_b = (\frac{\alpha}{n})$
 
@@ -256,7 +256,7 @@ pwr.anova.test(k=3,f=.25,sig.level=.05,power=.8)
 
 So, we really wanted to have around 50 in each group to have an 80% chance of detecting a moderate effect presuming the null was true.
 
-You can see that my study (with only 15 in each group) was rather underpowered — assuming a moderate effect. But now here's a slightly awkward wrinkle. If instead I take the effect size *this actual experiment* produced — a generalized eta-squared of 0.41 back in Chapter \@ref(ANOVA), which converts to a Cohen's *f* of about 0.84 — and plug that into the same calculation:
+You can see that my study (with only 15 in each group) was rather underpowered — assuming a moderate effect. But now here's a slightly awkward wrinkle. If instead I take the effect size *this actual experiment* produced — a generalised eta-squared of 0.41 back in Chapter \@ref(ANOVA), which converts to a Cohen's *f* of about 0.84 — and plug that into the same calculation:
 
 ```{r}
 pwr.anova.test(k=3,f=.84,sig.level=.05,power=.8)
