@@ -197,7 +197,7 @@
 
 \title{WBS MRes: Learning From Data}
 \author{Professor Nick Lee}
-\date{2026-10-01}
+\date{2026-10-16}
 
 \begin{document}
 \maketitle
@@ -665,7 +665,7 @@ For our reference, we will calculate the 25th, 50th, 75th percentiles
 ## [1] 3734.956
 \end{verbatim}
 
-Next I want to calculate the birthweight percentile of Monty, my son.
+Next I want to calculate the birthweight percentile of my son.
 
 \begin{verbatim}
 ## [1] 0.8366843
@@ -675,37 +675,49 @@ Now, at last, we can do some plots!
 
 First let's set up the histogram and overlay a normal distribution on to it.
 
-The weight of Monty is overlaid as a red line. We can estimate if this is `unusual' or not by how far away it is from the mean of the distribution.
+My son's weight is shown as a red line.
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-33-1.pdf}}
 
-\section{What Actually is a Normal Distribution?}\label{what-actually-is-a-normal-distribution}
+\section{Measuring distance in standard deviations}\label{what-actually-is-a-normal-distribution}
 
-Below, I will chart the normal distribution with Standard Deviations.
+So, was my son's weight unusual? He weighed 3,912g, which is 567g above the mean. On its own, that number doesn't tell us much. Whether 567g is a lot depends entirely on how spread out birthweights are in general. If almost every baby were born within a couple of hundred grams of the mean, he'd stand out. If babies routinely varied by a kilo or more, he'd be pretty ordinary.
 
-Mathematically, around 95\% of the area under the chart is between -2 and +2 SDs, and 99.7\% between -3 and +3 SDs
+That's exactly what the standard deviation measures. You saw it in the list of summary numbers at the start of this chapter, and roughly speaking, it's how far a typical value sits from the mean. In Chapter \ref{intro} we met the range and the interquartile range as ways of describing spread. The standard deviation is another, and it's the one the normal distribution is built on. And here's the key thing about the normal distribution: it's completely described by just two numbers. The mean tells you where the centre of the curve is, and the standard deviation tells you how wide it is. Give me those two numbers and I can draw the whole curve.
 
-Now, another way to think about this is that the area under the normal curve represents 100\% of the probability of a given value (here, weight) occurring. So, you could say that it is around 95\% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
+So from here on I'm going to set the bars (the actual counts) aside and work with the smooth curve, treating it as a model of the population of birthweights. And instead of measuring distance from the mean in grams, I'll measure it in standard deviations.
 
-We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594
+The figure below shows why that matters: the same 567g gap, under two different spreads.
 
-So, it is 95\% probable that a random baby born in England and Wales in 2020 will weigh between 2189.745 and 4500.781g
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={\label{fig:bw-two-spreads}The same 567g gap above the mean, under two spreads. Top: the real birthweight distribution. Bottom: a hypothetical, narrower distribution with the same mean and an SD of 300g, drawn to the same scale. The narrower the spread, the more standard deviations the same gap covers.}]{LFD_files/figure-latex/bw-two-spreads-1.pdf}}
+\caption{\label{fig:bw-two-spreads}The same 567g gap above the mean, under two spreads. Top: the real birthweight distribution. Bottom: a hypothetical, narrower distribution with the same mean and an SD of 300g, drawn to the same scale. The narrower the spread, the more standard deviations the same gap covers.}
+\end{figure}
+
+Mathematically, about 68\% of the area under the curve lies between −1 and +1 SDs, about 95\% between −2 and +2 SDs, and 99.7\% between −3 and +3 SDs.
+
+Now, another way to think about this is that the area under the normal curve represents 100\% of the probability of a given value (here, weight) occurring. So, you could say that it is around 95\% probable that any given birthweight (randomly sampled) will occur between −2 and +2 SDs of the mean.
+
+We can calculate this easily, given that the mean is 3,345g, and the SD is 578g
+
+So, it is 95\% probable that a random baby born in England and Wales in 2020 will weigh between 2,190 and 4,501g
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-34-1.pdf}}
 
-We can calculate how many SDs Monty's weight was above the mean by calculating the z-score for his weight of 3912g.
+Now we can answer the question properly. To find out how many standard deviations my son's weight was above the mean, we calculate what's called a \emph{z-score}: take his weight, subtract the mean, and divide by the standard deviation.
 
-To do so, let's return to the slide deck and see the calculation.
+\[z = \frac{X - \mu}{SD} = \frac{3912 - 3345}{578} = 0.98\]
 
-\textbf{\emph{Move back to the slides\ldots{}}}
+So he was almost exactly one standard deviation above the mean. That puts him just inside the band containing the middle 68\% of babies: on the heavy side, but not unusual. We'll go through this calculation on the slides as well.
 
-Next, we can overlay percentiles in 5\% increments on the chart, which are also useful ways to describe a distribution like the Normal.
+A z-score tells you where someone sits in standard deviations; a percentile tells you the same thing as a share of the population. We can overlay the 1st, 5th, 25th, 50th, 75th, 95th and 99th percentiles on the chart, which are also useful ways to describe a distribution like the Normal.
 
 50th is of course the median, and the 25th and 75th percentiles are the quartiles.
 
 Here, the same things we have previously discussed in relation to samples are applied to populations
 
-We can also see that Monty lies on the 83rd percentile, that is 83\% of babies born in 2020 weighed less. This tallies with what we were told at the time, and then things are monitored quite closely from that time on in terms of percentiles.
+We can also see that my son's weight lies on the 83rd percentile, that is 83\% of babies born in 2020 weighed less. This tallies with what we were told at the time, and then things are monitored quite closely from that time on in terms of percentiles.
 
 \pandocbounded{\includegraphics[keepaspectratio]{LFD_files/figure-latex/unnamed-chunk-35-1.pdf}}
 
@@ -713,7 +725,7 @@ Moving to a discussion of low birthweight. It is medically defined as low if bel
 
 This tallies fairly well with the predicted proportion from the normal distribution of 7.2\%
 
-What we gain from the grey shaded area is the proportion of the population which is expected to be born at low birthweight, but also an indication of the probability that a randomly-chosen baby born in 2020 would be of low weight.
+What we gain from the light blue shaded area is the proportion of the population which is expected to be born at low birthweight, but also an indication of the probability that a randomly-chosen baby born in 2020 would be of low weight.
 
 This concept can easily be transferred to other weights in this population (and by extension to other variables and populations distributed like this)
 
