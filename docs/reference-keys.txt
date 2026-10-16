@@ -1,4 +1,5 @@
 fig:risk-icon-array
+fig:bw-two-spreads
 fig:selection-vs-confounding
 tab:unnamed-chunk-100
 fig:p-hacking-sim

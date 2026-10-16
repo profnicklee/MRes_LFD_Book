@@ -2,6 +2,8 @@
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(ggplot2)
+library(scales)
 ```
 
 
@@ -79,7 +81,7 @@ print(birth.kurt)
 
 Two of those numbers need a word of explanation, because you'll meet them in the descriptives of almost every quantitative paper. *Skewness* measures how lopsided a distribution is. A perfectly symmetrical distribution, like the normal, has a skewness of zero. Birthweights come out at `r round(birth.skew, 2)`. That's negative, meaning the distribution has a longer tail on the left, the lighter side, than on the right. That makes sense: babies born early can be very much lighter than average, while babies much heavier than average are rare. *Kurtosis* is about the tails, meaning how much of the distribution sits a long way from the mean compared with a normal distribution. The normal distribution has a kurtosis of 3, and ours is `r round(birth.kurt, 2)`, so birthweights have somewhat heavier tails than a normal distribution would. (Some software reports *excess* kurtosis instead, which subtracts the 3 so that a normal distribution scores zero, so always check which you're looking at.) Neither number is dramatic, and as you'll see in a moment, the normal distribution still does a respectable job of describing these data. But it isn't a perfect description, and the skewness tells you which way it departs.
 
-Next, I will calculate the estimated proportion of low birthweight babies using a normal distribution approximation, and see if it tallies OK with the figure that is taken from the distribution of 6.6%
+Next, I will calculate the estimated proportion of low birthweight babies using a normal distribution approximation, and see if it tallies OK with the figure that is taken from the distribution of `r round(lbw.percent, 1)`%
 
 
 
@@ -110,10 +112,10 @@ qnorm(0.50, birth.mean,birth.sd)
 qnorm(0.75, birth.mean, birth.sd)
 ```
 
-Next I want to calculate the birthweight percentile of Monty, my son.
+Next I want to calculate the birthweight percentile of my son.
 
 ```{r}
-# percentile of baby weighing MONTY
+# percentile of my son's weight
 xw = 3912
 pnorm(xw, birth.mean,birth.sd)
 #83rd percentile. Fairly large. Tallies with the numbers on record.
@@ -123,119 +125,196 @@ Now, at last, we can do some plots!
 
 First let's set up the histogram and overlay a normal distribution on to it.
 
-The weight of Monty is overlaid as a red line. We can estimate if this is 'unusual' or not by how far away it is from the mean of the distribution.
+My son's weight is shown as a red line.
 
 ```{r}
-par(mfrow=c(2,2))
-# setup plot ranges noting max of normal density is at mean
-xrange <- c(1500,6000)
-yrange <- range( c(n, area*dnorm(birth.mean, birth.mean, birth.sd), 0))
-scale=0.6
-par(mar=c(5,0,1,0)+0.1)
+# shared settings so all four birthweight figures line up as the reader scrolls
+bw_xrange <- c(1500, 6000)
+bw_peak <- area * dnorm(birth.mean, birth.mean, birth.sd)
+bw_ymax <- max(n, bw_peak)
+bw_ylim <- c(0, 1.12 * bw_ymax)
+bw_curve <- function(x) area * dnorm(x, birth.mean, birth.sd)
+bw_son_label <- paste0("My son (", comma(xw), "g)")
 
-# (a) empirical distribution and fitted normal
-plot(xrange, yrange, type = "n", xlab = "", ylab = "",
-     bty="n",axes=F,main="(a) Distribution of birthweights", cex=scale)
-axis(1,cex=scale) 
-# draw bars using rect and density using curve
-rect(weights, 0, weights - 500, n, col = "lightblue")
-curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE, 
-      lwd=3, col="blue")
-lines(c(xw,xw),yrange,col="red",lwd=2)
+# layers common to every figure: fitted normal, my son's weight, axes
+bw_common <- list(
+  stat_function(fun = bw_curve, xlim = bw_xrange, n = 500,
+                colour = "blue", linewidth = 1.2),
+  geom_vline(xintercept = xw, colour = "red", linewidth = 0.8),
+  annotate("text", x = xw + 60, y = 1.08 * bw_ymax, label = bw_son_label,
+           colour = "red", hjust = 0, size = 3.5),
+  scale_x_continuous(name = "Birthweight (g)", labels = comma,
+                     breaks = seq(1500, 6000, 500)),
+  scale_y_continuous(name = "Number of babies", labels = comma),
+  coord_cartesian(xlim = bw_xrange, ylim = bw_ylim)
+)
+
+# curve-only figures hide the y-axis, but keep its space so every figure's
+# plotting area lines up with the histogram's
+bw_no_y <- theme(axis.title.y = element_text(colour = "transparent"),
+                 axis.text.y = element_text(colour = "transparent"),
+                 axis.ticks.y = element_line(colour = "transparent"))
+
+# empirical distribution and fitted normal
+bw_bins <- data.frame(lower = weights - 500, upper = weights, count = n)
+
+ggplot() +
+  geom_rect(data = bw_bins,
+            aes(xmin = lower, xmax = upper, ymin = 0, ymax = count),
+            fill = "lightblue", colour = "black") +
+  bw_common +
+  ggtitle("Distribution of birthweights")
 ```
 
-## What Actually is a Normal Distribution?
+## Measuring distance in standard deviations {#what-actually-is-a-normal-distribution}
 
-Below, I will chart the normal distribution with Standard Deviations.
+So, was my son's weight unusual? He weighed `r format(xw, big.mark=",")`g, which is `r round(xw - birth.mean)`g above the mean. On its own, that number doesn't tell us much. Whether `r round(xw - birth.mean)`g is a lot depends entirely on how spread out birthweights are in general. If almost every baby were born within a couple of hundred grams of the mean, he'd stand out. If babies routinely varied by a kilo or more, he'd be pretty ordinary.
 
-Mathematically, around 95% of the area under the chart is between -2 and +2 SDs, and 99.7% between -3 and +3 SDs
+That's exactly what the standard deviation measures. You saw it in the list of summary numbers at the start of this chapter, and roughly speaking, it's how far a typical value sits from the mean. In Chapter \@ref(intro) we met the range and the interquartile range as ways of describing spread. The standard deviation is another, and it's the one the normal distribution is built on. And here's the key thing about the normal distribution: it's completely described by just two numbers. The mean tells you where the centre of the curve is, and the standard deviation tells you how wide it is. Give me those two numbers and I can draw the whole curve.
 
-Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occurring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between -2 and +2 SDs of the mean.
+So from here on I'm going to set the bars (the actual counts) aside and work with the smooth curve, treating it as a model of the population of birthweights. And instead of measuring distance from the mean in grams, I'll measure it in standard deviations.
 
-We can calculate this easily, given that the mean is 3345.263, and the SD is 577.7594
+The figure below shows why that matters: the same `r round(xw - birth.mean)`g gap, under two different spreads.
 
-So, it is 95% probable that a random baby born in England and Wales in 2020 will weigh between 2189.745 and 4500.781g
+```{r bw-two-spreads, fig.height=7, fig.cap=paste0("The same ", round(xw - birth.mean), "g gap above the mean, under two spreads. Top: the real birthweight distribution. Bottom: a hypothetical, narrower distribution with the same mean and an SD of ", bw_narrow_sd, "g, drawn to the same scale. The narrower the spread, the more standard deviations the same gap covers.")}
+# same gap, two spreads: the real SD and a hypothetical narrower one
+bw_narrow_sd <- 300
+bw_gap <- xw - birth.mean
+bw_spread_labels <- c(
+  paste0("Real spread (SD = ", round(birth.sd), "g)"),
+  paste0("Hypothetical narrower spread (SD = ", bw_narrow_sd, "g)"))
+bw_spread_sds <- c(birth.sd, bw_narrow_sd)
+
+bw_spread_x <- seq(min(bw_xrange), max(bw_xrange), length.out = 500)
+bw_spread_df <- data.frame(
+  x = rep(bw_spread_x, 2),
+  y = c(area * dnorm(bw_spread_x, birth.mean, birth.sd),
+        area * dnorm(bw_spread_x, birth.mean, bw_narrow_sd)),
+  spread = factor(rep(bw_spread_labels, each = length(bw_spread_x)),
+                  levels = bw_spread_labels))
+
+bw_spread_ymax <- max(bw_spread_df$y)
+bw_gap_df <- data.frame(
+  spread = factor(bw_spread_labels, levels = bw_spread_labels),
+  y = 0.62 * bw_spread_ymax,
+  label = paste0(round(bw_gap), "g = ",
+                 sprintf("%.2f", bw_gap / bw_spread_sds), " SDs"))
+
+ggplot(bw_spread_df, aes(x = x, y = y)) +
+  geom_line(colour = "blue", linewidth = 1.2) +
+  geom_vline(xintercept = birth.mean, linetype = "dashed") +
+  geom_vline(xintercept = xw, colour = "red", linewidth = 0.8) +
+  annotate("text", x = xw + 60, y = 1.1 * bw_spread_ymax, label = bw_son_label,
+           colour = "red", hjust = 0, size = 3.5) +
+  annotate("text", x = birth.mean - 60, y = 1.1 * bw_spread_ymax, label = "Mean",
+           hjust = 1, size = 3.5) +
+  geom_segment(data = bw_gap_df,
+               aes(x = birth.mean, xend = xw, y = y, yend = y),
+               arrow = arrow(length = unit(0.08, "inches"), ends = "both")) +
+  geom_label(data = bw_gap_df,
+             aes(x = xw + 60, y = y, label = label),
+             hjust = 0, size = 3.5, linewidth = 0, fill = "white") +
+  facet_wrap(~ spread, ncol = 1) +
+  scale_x_continuous(name = "Birthweight (g)", labels = comma,
+                     breaks = seq(1500, 6000, 500)) +
+  scale_y_continuous(name = "Number of babies", labels = comma) +
+  coord_cartesian(xlim = bw_xrange, ylim = c(0, 1.16 * bw_spread_ymax)) +
+  bw_no_y +
+  theme(strip.text = element_text(size = 10)) +
+  ggtitle("The same gap, two spreads")
+```
+
+Mathematically, about 68% of the area under the curve lies between −1 and +1 SDs, about 95% between −2 and +2 SDs, and 99.7% between −3 and +3 SDs.
+
+Now, another way to think about this is that the area under the normal curve represents 100% of the probability of a given value (here, weight) occurring. So, you could say that it is around 95% probable that any given birthweight (randomly sampled) will occur between −2 and +2 SDs of the mean.
+
+We can calculate this easily, given that the mean is `r format(round(birth.mean), big.mark=",")`g, and the SD is `r round(birth.sd)`g
+
+So, it is 95% probable that a random baby born in England and Wales in 2020 will weigh between `r format(round(birth.mean - 2 * birth.sd), big.mark=",")` and `r format(round(birth.mean + 2 * birth.sd), big.mark=",")`g
 
 ```{r}
-# (b)   plot with sds  
-plot(xrange, yrange, type = "n", xlab = "", ylab = "",
-     bty="n",axes=F,,main="(b) Mean +/- 1, 2, 3 SDs" )
-axis(1)
-curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE, lwd=3, col="blue")
-I=-3:3
-x1=birth.mean+I*birth.sd
-y1=area*dnorm(x1,birth.mean, birth.sd)
-label=c("-3 SDs", "-2 SDs", "-1 SD", "mean", "+1 SD","+2 SDs", "+3 SDs")
-bit=10000
-xx=250
-shift=c(-xx,-xx,-xx,0,xx,xx,xx)
-for(i in 1:7){
-  lines(c(x1[i],x1[i]), c(0,y1[i]),lwd=2)
-  text(x1[i]+shift[i],y1[i]+bit,label[i],cex=0.75)
-}
-lines(c(xw,xw),yrange,col="red",lwd=2)
+# mean plus and minus 1, 2 and 3 SDs
+bw_sd_df <- data.frame(sds = -3:3)
+bw_sd_df$x <- birth.mean + bw_sd_df$sds * birth.sd
+bw_sd_df$y <- bw_curve(bw_sd_df$x)
+bw_sd_df$label <- c("−3 SDs", "−2 SDs", "−1 SD", "Mean", "+1 SD", "+2 SDs", "+3 SDs")
+bw_sd_df$hjust <- c(0.5, 1, 1, 0.5, 0, 0, 0.5)
+bw_sd_df$nudge <- c(0, -40, -40, 0, 40, 40, 0)
+
+ggplot() +
+  geom_segment(data = bw_sd_df, aes(x = x, xend = x, y = 0, yend = y),
+               linewidth = 0.7) +
+  geom_text(data = bw_sd_df,
+            aes(x = x + nudge, y = y + 0.04 * bw_ymax, label = label, hjust = hjust),
+            size = 3.5) +
+  bw_common +
+  bw_no_y +
+  ggtitle("Mean ± 1, 2 and 3 SDs")
 ```
 
-We can calculate how many SDs Monty's weight was above the mean by calculating the z-score for his weight of 3912g.
+Now we can answer the question properly. To find out how many standard deviations my son's weight was above the mean, we calculate what's called a *z-score*: take his weight, subtract the mean, and divide by the standard deviation.
 
-To do so, let's return to the slide deck and see the calculation.
+$$z = \frac{X - \mu}{SD} = \frac{`r xw` - `r round(birth.mean)`}{`r round(birth.sd)`} = `r round((xw - birth.mean)/birth.sd, 2)`$$
 
-***Move back to the slides...***
+So he was almost exactly one standard deviation above the mean. That puts him just inside the band containing the middle 68% of babies: on the heavy side, but not unusual. We'll go through this calculation on the slides as well.
 
-Next, we can overlay percentiles in 5% increments on the chart, which are also useful ways to describe a distribution like the Normal.
+A z-score tells you where someone sits in standard deviations; a percentile tells you the same thing as a share of the population. We can overlay the 1st, 5th, 25th, 50th, 75th, 95th and 99th percentiles on the chart, which are also useful ways to describe a distribution like the Normal.
 
 50th is of course the median, and the 25th and 75th percentiles are the quartiles.
 
 Here, the same things we have previously discussed in relation to samples are applied to populations
 
-We can also see that Monty lies on the 83rd percentile, that is 83% of babies born in 2020 weighed less. This tallies with what we were told at the time, and then things are monitored quite closely from that time on in terms of percentiles.
+We can also see that my son's weight lies on the `r floor(100 * pnorm(xw, birth.mean, birth.sd))`rd percentile, that is `r floor(100 * pnorm(xw, birth.mean, birth.sd))`% of babies born in 2020 weighed less. This tallies with what we were told at the time, and then things are monitored quite closely from that time on in terms of percentiles.
 
 ```{r}
-plot(xrange, yrange, type = "n", xlab = "Birthweight (gms)", ylab = "",
-     bty="n",axes=F,,main="(c) Percentiles" )
-axis(1)
-curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE,
-      lwd=3, col="blue")
-I=c(1,5,25,50,75,95,99)
-x1=qnorm(I/100, birth.mean,birth.sd)
-y1=area*dnorm(x1,birth.mean, birth.sd)
-label=c("1%", "5%", "25%", "50%","75%","95%","99%")
-bit=5000
-for(i in 1:7){
-  lines(c(x1[i],x1[i]), c(0,y1[i]),lwd=2,lty=2)
-  text(x1[i],-bit,label[i],cex=0.6)
-}
-lines(c(xw,xw),yrange,col="red",lwd=2)
+# 1st, 5th, 25th, 50th, 75th, 95th and 99th percentiles of the fitted normal
+bw_pct_df <- data.frame(pct = c(1, 5, 25, 50, 75, 95, 99))
+bw_pct_df$x <- qnorm(bw_pct_df$pct / 100, birth.mean, birth.sd)
+bw_pct_df$y <- bw_curve(bw_pct_df$x)
+bw_pct_df$label <- paste0(bw_pct_df$pct, "%")
 
+ggplot() +
+  geom_segment(data = bw_pct_df, aes(x = x, xend = x, y = 0, yend = y),
+               linewidth = 0.7, linetype = "dashed") +
+  bw_common +
+  geom_label(data = bw_pct_df,
+             aes(x = x, y = y + 0.05 * bw_ymax, label = label),
+             size = 3.5, linewidth = 0, fill = "white") +
+  bw_no_y +
+  ggtitle("Percentiles")
 ```
 
 Moving to a discussion of low birthweight. It is medically defined as low if below 2500g. Nuffield reports that 6.6% of babies in 2020 were born at low birthweight, which is fairly good.
 
-This tallies fairly well with the predicted proportion from the normal distribution of 7.2%
+This tallies fairly well with the predicted proportion from the normal distribution of `r round(lbw.est, 1)`%
 
-What we gain from the grey shaded area is the proportion of the population which is expected to be born at low birthweight, but also an indication of the probability that a randomly-chosen baby born in 2020 would be of low weight.
+What we gain from the light blue shaded area is the proportion of the population which is expected to be born at low birthweight, but also an indication of the probability that a randomly-chosen baby born in 2020 would be of low weight.
 
 This concept can easily be transferred to other weights in this population (and by extension to other variables and populations distributed like this)
 
 ```{r}
-# (d)  Low birth weight  
-plot(xrange, yrange, type = "n", xlab = "Birthweight (gms)", ylab = "",
-     bty="n",axes=F,,main="(d) Low birth weight" )
-axis(1)
-curve(area*dnorm(x, birth.mean, birth.sd), min(xrange), max(xrange), add = TRUE,
-      lwd=3, col="blue")
-x1=seq(1500,2500,10)
-y1=area*dnorm(x1,birth.mean, birth.sd)
-polygon(c(x1,x1[101:1]),c(rep(0,101), y1[101:1]),col="lightblue")
+# proportions below 2,500g and below my son's weight, from the fitted normal
+bw_lbw_pct <- 100 * pnorm(2500, birth.mean, birth.sd)
+bw_son_pct <- 100 * pnorm(xw, birth.mean, birth.sd)
 
-lines(c(xw,xw),yrange,col="red",lwd=2)
-x1=seq(1500,xw,10)
-nx=length(x1)
-y1=area*dnorm(x1,birth.mean, birth.sd)
-polygon(c(x1,x1[nx:1]),c(rep(0,nx), y1[nx:1]),col="red",density=10)
+bw_son_area <- data.frame(x = seq(min(bw_xrange), xw, length.out = 300))
+bw_son_area$y <- bw_curve(bw_son_area$x)
+bw_lbw_area <- data.frame(x = seq(min(bw_xrange), 2500, length.out = 200))
+bw_lbw_area$y <- bw_curve(bw_lbw_area$x)
 
-text(2000,70000,"Proportion\n below\n 2500 gms\n = 7.2%",cex=0.75)
-text(3400,70000,"Proportion\n below\n 3912 gms\n = 83.6%",cex=0.75)
+ggplot() +
+  geom_area(data = bw_son_area, aes(x = x, y = y), fill = "red", alpha = 0.2) +
+  geom_area(data = bw_lbw_area, aes(x = x, y = y), fill = "lightblue",
+            colour = "black", linewidth = 0.3) +
+  annotate("label", x = 2050, y = 0.35 * bw_ymax,
+           label = paste0("Below 2,500g\n", sprintf("%.1f", bw_lbw_pct), "%"),
+           size = 3.5) +
+  annotate("label", x = birth.mean, y = 0.5 * bw_ymax,
+           label = paste0("Below ", comma(xw), "g\n", sprintf("%.1f", bw_son_pct), "%"),
+           size = 3.5) +
+  bw_common +
+  bw_no_y +
+  ggtitle("Low birthweight")
 ```
 
 ## Reading the literature {#norm-dist-reading}
