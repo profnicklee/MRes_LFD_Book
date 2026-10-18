@@ -235,4 +235,7 @@ This is interesting. At this point (30 September, 2025) I find it tempting to pu
 
 4. So, one could also draw the conclusion that the Poisson distribution is no longer a good fit - but this could be checked, and I would guess this isn't the case (you can check yourself).
 
-Interesting. 
+Interesting.
+
+
+*(Note: If you want to test how the independent Poisson model compares against the **Dixon & Coles (1997)** bivariate adjustment—which adds a correlation parameter $\rho$ specifically for low-scoring $0\text{–}0$, $1\text{–}0$, $0\text{–}1$, and $1\text{–}1$ football scorelines—you can compare both probability matrices interactively using the open [Dixon–Coles vs. Independent Poisson Calculator](https://www.football-charts.com/tools/dixon-coles-calculator) or download current English tiers 1–5 match and goal-timing datasets at [Football Charts Open Data](https://www.football-charts.com/data).)*
